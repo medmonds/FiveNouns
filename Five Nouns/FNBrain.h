@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class FNScoreCard;
+@class FNPlayer;
 
 @interface FNBrain : NSObject
 
