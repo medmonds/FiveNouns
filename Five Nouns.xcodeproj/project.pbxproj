@@ -38,6 +38,8 @@
 		C99E2E82171A896C001AE786 /* FNCreateTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */; };
 		C9B40EE7171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
 		C9B40EE8171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
+		C9E353B3171B5750003061D3 /* FNOrderTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E353B2171B5750003061D3 /* FNOrderTeamsVC.m */; };
+		C9E353B4171B5750003061D3 /* FNOrderTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E353B2171B5750003061D3 /* FNOrderTeamsVC.m */; };
 		C9F04F0B171A257600AAAF75 /* FNCreatePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F0A171A257600AAAF75 /* FNCreatePlayerVC.m */; };
 		C9F04F0C171A257600AAAF75 /* FNCreatePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F0A171A257600AAAF75 /* FNCreatePlayerVC.m */; };
 		C9F04F13171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
@@ -97,6 +99,8 @@
 		C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNCreateTeamVC.m; sourceTree = "<group>"; };
 		C9B40EE5171A1CC100619D57 /* FNNewGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNNewGameVC.h; sourceTree = "<group>"; };
 		C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNNewGameVC.m; sourceTree = "<group>"; };
+		C9E353B1171B5750003061D3 /* FNOrderTeamsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNOrderTeamsVC.h; sourceTree = "<group>"; };
+		C9E353B2171B5750003061D3 /* FNOrderTeamsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNOrderTeamsVC.m; sourceTree = "<group>"; };
 		C9F04F09171A257600AAAF75 /* FNCreatePlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNCreatePlayerVC.h; sourceTree = "<group>"; };
 		C9F04F0A171A257600AAAF75 /* FNCreatePlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNCreatePlayerVC.m; sourceTree = "<group>"; };
 		C9F04F11171A282F00AAAF75 /* FNEditableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNEditableCell.h; sourceTree = "<group>"; };
@@ -149,6 +153,8 @@
 				C9F04F26171A72B600AAAF75 /* FNSelectTeamVC.m */,
 				C99E2E7F171A896C001AE786 /* FNCreateTeamVC.h */,
 				C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */,
+				C9E353B1171B5750003061D3 /* FNOrderTeamsVC.h */,
+				C9E353B2171B5750003061D3 /* FNOrderTeamsVC.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -377,6 +383,7 @@
 				C9F04F23171A69EA00AAAF75 /* FNTeam.m in Sources */,
 				C9F04F27171A72B600AAAF75 /* FNSelectTeamVC.m in Sources */,
 				C99E2E81171A896C001AE786 /* FNCreateTeamVC.m in Sources */,
+				C9E353B3171B5750003061D3 /* FNOrderTeamsVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +405,7 @@
 				C9F04F24171A69EA00AAAF75 /* FNTeam.m in Sources */,
 				C9F04F28171A72B600AAAF75 /* FNSelectTeamVC.m in Sources */,
 				C99E2E82171A896C001AE786 /* FNCreateTeamVC.m in Sources */,
+				C9E353B4171B5750003061D3 /* FNOrderTeamsVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

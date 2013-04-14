@@ -37,6 +37,8 @@
         return [first localizedCaseInsensitiveCompare:second];
     }];
     self.dataSource = sorted;
+    // this sets the teams array in the sorted order handy for the FNOrderTeamsVC
+    self.brain.allTeams = [sorted mutableCopy];
 }
 
 #pragma mark - Table view delegate

@@ -9,10 +9,10 @@
 #import "FNAssignTeamsVC.h"
 #import "FNSelectTeamVC.h"
 #import "FNPlayer.h"
+#import "FNOrderTeamsVC.h"
 
 @interface FNAssignTeamsVC ()
 @property (nonatomic, strong) NSArray *dataSource;
-@property (nonatomic, weak) FNPlayer *selectedPlayer;
 @end
 
 @implementation FNAssignTeamsVC
@@ -33,10 +33,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        self.selectedPlayer = [self.dataSource objectAtIndex:indexPath.row];
-        [self performSegueWithIdentifier:@"selectTeam" sender:self];
+        [self performSegueWithIdentifier:@"selectTeam" sender:[self.dataSource objectAtIndex:indexPath.row]];
     } else {
-        // next view
+        [self performSegueWithIdentifier:@"orderTeams" sender:nil];
     }
 }
 
@@ -44,7 +43,9 @@
 {
     if ([segue.identifier isEqualToString:@"selectTeam"]) {
         ((FNSelectTeamVC *)segue.destinationViewController).brain = self.brain;
-        ((FNSelectTeamVC *)segue.destinationViewController).playerForTeam = self.selectedPlayer;
+        ((FNSelectTeamVC *)segue.destinationViewController).playerForTeam = sender;
+    } else if ([segue.identifier isEqualToString:@"orderTeams"]) {
+        ((FNSelectTeamVC *)segue.destinationViewController).brain = self.brain;
     }
 }
 
@@ -71,7 +72,7 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         FNPlayer *player = [self.dataSource objectAtIndex:indexPath.row];
         cell.textLabel.text = player.name;
-        cell.detailTextLabel.text = player.team.name;
+        cell.detailTextLabel.text = player.team.name ? player.team.name : @"Choose Team";
         return cell;
     } else {
         NSString *CellIdentifier = @"navigationCell";
