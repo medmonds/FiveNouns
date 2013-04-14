@@ -10,18 +10,29 @@
 #import "FNBrain.h"
 #import "FNPlayer.h"
 #import "FNScoreCard.h"
+#import "FNCountDownTimer.h"
 
-@interface FNGameManager ()
+@interface FNGameManager () <FNCountDownTimerDelegate>
 @property (nonatomic, strong) FNBrain *brain;
 @property (nonatomic, weak) FNPlayer *currentPlayer;
 @property (nonatomic, weak) NSString *currentNoun;
 @property (nonatomic, weak) FNScoreCard *currentScoreCard;
+@property (nonatomic, strong) FNCountDownTimer *countDownTimer;
 @property NSInteger currentRound;
 @property NSInteger currentTurn;
 @end
 
 @implementation FNGameManager
 
+- (void)countDownTimerReachedTime:(NSNumber *)time
+{
+    NSInteger currentTime = [time integerValue];
+    if (currentTime > 0) {
+        // refresh the count down
+    } else {
+        [self timeEnded];
+    }
+}
 
 - (void)newGame
 {
@@ -32,7 +43,7 @@
 
 - (void)startTurnPressed
 {
-    // start timer
+    [self.countDownTimer startCountDown];
     // reveal first noun
 }
 
@@ -43,7 +54,8 @@
     if (nextNoun) {
         // show the new noun on the screen
     } else {
-        // pause the timer
+        // out of nouns so round ends & time stops
+        [self.countDownTimer stopCountDown];
         [self roundEnded];
     }
 }
@@ -71,6 +83,9 @@
 - (void)beginNewRound;
 {
     self.currentRound++;
+    if (!self.countDownTimer) {
+        self.countDownTimer = [FNCountDownTimer newCountDownTimerWithDelegate:self];
+    }
     // show new round screen with directions & START_ROUND_BUTTON
 }
 
@@ -82,7 +97,7 @@
 
 - (void)timeEnded
 {
-    // set the current timer to nil
+    self.countDownTimer = nil;
     [self.brain addScoreCard:self.currentScoreCard];
     self.currentScoreCard = nil; // not necessary but I like it
     [self.brain returnUnplayedNoun:self.currentNoun];
@@ -101,7 +116,7 @@
 
 - (void)gameOver
 {
-    
+    // show the game over screen
 }
 
 - (void)setCurrentPlayer:(FNPlayer *)currentPlayer

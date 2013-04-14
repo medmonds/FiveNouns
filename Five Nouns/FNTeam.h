@@ -1,5 +1,5 @@
 //
-//  FNPlayer.h
+//  FNTeam.h
 //  Five Nouns
 //
 //  Created by Matthew Edmonds on 4/13/13.
@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FNTeam.h"
-@interface FNPlayer : NSObject
+
+@interface FNTeam : NSObject
 
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSArray *nouns;
-@property (nonatomic, weak) FNTeam *team;
+@property (nonatomic, strong) NSMutableArray *players;
 
 @end

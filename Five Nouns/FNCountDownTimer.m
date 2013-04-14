@@ -16,11 +16,12 @@
 
 @implementation FNCountDownTimer
 
-+ (void)newCountDownTimerWithDelegate:(id <FNCountDownTimerDelegate>)delegate;
++ (FNCountDownTimer *)newCountDownTimerWithDelegate:(id <FNCountDownTimerDelegate>)delegate;
 {
     FNCountDownTimer *countDownTimer = [[FNCountDownTimer alloc] init];
     countDownTimer.delegate = delegate;
     countDownTimer.timeLeft = 60;
+    return countDownTimer;
 }
 
 - (NSNumber *)timeRemaining

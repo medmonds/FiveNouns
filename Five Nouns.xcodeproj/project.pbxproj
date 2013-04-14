@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C91B8DA0171A1F2600AE468C /* FNAddPlayersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */; };
+		C91B8DA1171A1F2600AE468C /* FNAddPlayersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */; };
 		C9649E411718B7390039B88E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E401718B7390039B88E /* UIKit.framework */; };
 		C9649E431718B7390039B88E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E421718B7390039B88E /* Foundation.framework */; };
 		C9649E451718B7390039B88E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E441718B7390039B88E /* CoreGraphics.framework */; };
@@ -17,7 +19,6 @@
 		C9649E551718B7390039B88E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9649E541718B7390039B88E /* Default@2x.png */; };
 		C9649E571718B7390039B88E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9649E561718B7390039B88E /* Default-568h@2x.png */; };
 		C9649E5A1718B7390039B88E /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9649E581718B7390039B88E /* MainStoryboard.storyboard */; };
-		C9649E5D1718B7390039B88E /* FNViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9649E5C1718B7390039B88E /* FNViewController.m */; };
 		C9649E651718B7390039B88E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E641718B7390039B88E /* SenTestingKit.framework */; };
 		C9649E661718B7390039B88E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E401718B7390039B88E /* UIKit.framework */; };
 		C9649E671718B7390039B88E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E421718B7390039B88E /* Foundation.framework */; };
@@ -33,6 +34,20 @@
 		C99279E817193AAD0035658F /* FNPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279E617193AAD0035658F /* FNPlayer.m */; };
 		C99279EB17193C780035658F /* FNScoreCard.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279EA17193C780035658F /* FNScoreCard.m */; };
 		C99279EC17193C780035658F /* FNScoreCard.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279EA17193C780035658F /* FNScoreCard.m */; };
+		C99E2E81171A896C001AE786 /* FNCreateTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */; };
+		C99E2E82171A896C001AE786 /* FNCreateTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */; };
+		C9B40EE7171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
+		C9B40EE8171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
+		C9F04F0B171A257600AAAF75 /* FNCreatePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F0A171A257600AAAF75 /* FNCreatePlayerVC.m */; };
+		C9F04F0C171A257600AAAF75 /* FNCreatePlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F0A171A257600AAAF75 /* FNCreatePlayerVC.m */; };
+		C9F04F13171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
+		C9F04F14171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
+		C9F04F1F171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */; };
+		C9F04F20171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */; };
+		C9F04F23171A69EA00AAAF75 /* FNTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F22171A69EA00AAAF75 /* FNTeam.m */; };
+		C9F04F24171A69EA00AAAF75 /* FNTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F22171A69EA00AAAF75 /* FNTeam.m */; };
+		C9F04F27171A72B600AAAF75 /* FNSelectTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F26171A72B600AAAF75 /* FNSelectTeamVC.m */; };
+		C9F04F28171A72B600AAAF75 /* FNSelectTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F26171A72B600AAAF75 /* FNSelectTeamVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C91B8D9E171A1F2600AE468C /* FNAddPlayersVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNAddPlayersVC.h; sourceTree = "<group>"; };
+		C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNAddPlayersVC.m; sourceTree = "<group>"; };
 		C9649E3C1718B7390039B88E /* Five Nouns.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Five Nouns.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9649E401718B7390039B88E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C9649E421718B7390039B88E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -60,8 +77,6 @@
 		C9649E541718B7390039B88E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C9649E561718B7390039B88E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C9649E591718B7390039B88E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		C9649E5B1718B7390039B88E /* FNViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FNViewController.h; sourceTree = "<group>"; };
-		C9649E5C1718B7390039B88E /* FNViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FNViewController.m; sourceTree = "<group>"; };
 		C9649E631718B7390039B88E /* Five NounsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Five NounsTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9649E641718B7390039B88E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		C9649E6C1718B7390039B88E /* Five NounsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Five NounsTests-Info.plist"; sourceTree = "<group>"; };
@@ -78,6 +93,21 @@
 		C99279E617193AAD0035658F /* FNPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNPlayer.m; sourceTree = "<group>"; };
 		C99279E917193C780035658F /* FNScoreCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNScoreCard.h; sourceTree = "<group>"; };
 		C99279EA17193C780035658F /* FNScoreCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNScoreCard.m; sourceTree = "<group>"; };
+		C99E2E7F171A896C001AE786 /* FNCreateTeamVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNCreateTeamVC.h; sourceTree = "<group>"; };
+		C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNCreateTeamVC.m; sourceTree = "<group>"; };
+		C9B40EE5171A1CC100619D57 /* FNNewGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNNewGameVC.h; sourceTree = "<group>"; };
+		C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNNewGameVC.m; sourceTree = "<group>"; };
+		C9F04F09171A257600AAAF75 /* FNCreatePlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNCreatePlayerVC.h; sourceTree = "<group>"; };
+		C9F04F0A171A257600AAAF75 /* FNCreatePlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNCreatePlayerVC.m; sourceTree = "<group>"; };
+		C9F04F11171A282F00AAAF75 /* FNEditableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNEditableCell.h; sourceTree = "<group>"; };
+		C9F04F12171A282F00AAAF75 /* FNEditableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNEditableCell.m; sourceTree = "<group>"; };
+		C9F04F1B171A441100AAAF75 /* FNInfoFromModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNInfoFromModal.h; sourceTree = "<group>"; };
+		C9F04F1D171A5FD000AAAF75 /* FNAssignTeamsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNAssignTeamsVC.h; sourceTree = "<group>"; };
+		C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNAssignTeamsVC.m; sourceTree = "<group>"; };
+		C9F04F21171A69EA00AAAF75 /* FNTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNTeam.h; sourceTree = "<group>"; };
+		C9F04F22171A69EA00AAAF75 /* FNTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTeam.m; sourceTree = "<group>"; };
+		C9F04F25171A72B600AAAF75 /* FNSelectTeamVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNSelectTeamVC.h; sourceTree = "<group>"; };
+		C9F04F26171A72B600AAAF75 /* FNSelectTeamVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNSelectTeamVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +134,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C91B8D9D171A1E8B00AE468C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C9B40EE5171A1CC100619D57 /* FNNewGameVC.h */,
+				C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */,
+				C91B8D9E171A1F2600AE468C /* FNAddPlayersVC.h */,
+				C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */,
+				C9F04F09171A257600AAAF75 /* FNCreatePlayerVC.h */,
+				C9F04F0A171A257600AAAF75 /* FNCreatePlayerVC.m */,
+				C9F04F1D171A5FD000AAAF75 /* FNAssignTeamsVC.h */,
+				C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */,
+				C9F04F25171A72B600AAAF75 /* FNSelectTeamVC.h */,
+				C9F04F26171A72B600AAAF75 /* FNSelectTeamVC.m */,
+				C99E2E7F171A896C001AE786 /* FNCreateTeamVC.h */,
+				C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		C9649E311718B7390039B88E = {
 			isa = PBXGroup;
 			children = (
@@ -140,16 +189,19 @@
 				C9649E4F1718B7390039B88E /* FNAppDelegate.h */,
 				C9649E501718B7390039B88E /* FNAppDelegate.m */,
 				C9649E581718B7390039B88E /* MainStoryboard.storyboard */,
-				C99279DC17192F180035658F /* FNGameManager.h */,
-				C99279DD17192F180035658F /* FNGameManager.m */,
 				C99279E1171932510035658F /* FNBrain.h */,
 				C99279E2171932510035658F /* FNBrain.m */,
+				C9F04F1B171A441100AAAF75 /* FNInfoFromModal.h */,
+				C9F04F16171A283500AAAF75 /* Table View Cells */,
+				C91B8D9D171A1E8B00AE468C /* View Controllers */,
+				C99279DC17192F180035658F /* FNGameManager.h */,
+				C99279DD17192F180035658F /* FNGameManager.m */,
 				C99279E517193AAD0035658F /* FNPlayer.h */,
 				C99279E617193AAD0035658F /* FNPlayer.m */,
+				C9F04F21171A69EA00AAAF75 /* FNTeam.h */,
+				C9F04F22171A69EA00AAAF75 /* FNTeam.m */,
 				C99279E917193C780035658F /* FNScoreCard.h */,
 				C99279EA17193C780035658F /* FNScoreCard.m */,
-				C9649E5B1718B7390039B88E /* FNViewController.h */,
-				C9649E5C1718B7390039B88E /* FNViewController.m */,
 				C9772D031719FE01005E0130 /* FNCountDownTimer.h */,
 				C9772D041719FE01005E0130 /* FNCountDownTimer.m */,
 				C9649E471718B7390039B88E /* Supporting Files */,
@@ -188,6 +240,15 @@
 				C9649E6D1718B7390039B88E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C9F04F16171A283500AAAF75 /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C9F04F11171A282F00AAAF75 /* FNEditableCell.h */,
+				C9F04F12171A282F00AAAF75 /* FNEditableCell.m */,
+			);
+			name = "Table View Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,12 +364,19 @@
 			files = (
 				C9649E4D1718B7390039B88E /* main.m in Sources */,
 				C9649E511718B7390039B88E /* FNAppDelegate.m in Sources */,
-				C9649E5D1718B7390039B88E /* FNViewController.m in Sources */,
 				C99279DE17192F180035658F /* FNGameManager.m in Sources */,
 				C99279E3171932510035658F /* FNBrain.m in Sources */,
 				C99279E717193AAD0035658F /* FNPlayer.m in Sources */,
 				C99279EB17193C780035658F /* FNScoreCard.m in Sources */,
 				C9772D051719FE01005E0130 /* FNCountDownTimer.m in Sources */,
+				C9B40EE7171A1CC100619D57 /* FNNewGameVC.m in Sources */,
+				C91B8DA0171A1F2600AE468C /* FNAddPlayersVC.m in Sources */,
+				C9F04F0B171A257600AAAF75 /* FNCreatePlayerVC.m in Sources */,
+				C9F04F13171A282F00AAAF75 /* FNEditableCell.m in Sources */,
+				C9F04F1F171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */,
+				C9F04F23171A69EA00AAAF75 /* FNTeam.m in Sources */,
+				C9F04F27171A72B600AAAF75 /* FNSelectTeamVC.m in Sources */,
+				C99E2E81171A896C001AE786 /* FNCreateTeamVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +390,14 @@
 				C99279E817193AAD0035658F /* FNPlayer.m in Sources */,
 				C99279EC17193C780035658F /* FNScoreCard.m in Sources */,
 				C9772D061719FE01005E0130 /* FNCountDownTimer.m in Sources */,
+				C9B40EE8171A1CC100619D57 /* FNNewGameVC.m in Sources */,
+				C91B8DA1171A1F2600AE468C /* FNAddPlayersVC.m in Sources */,
+				C9F04F0C171A257600AAAF75 /* FNCreatePlayerVC.m in Sources */,
+				C9F04F14171A282F00AAAF75 /* FNEditableCell.m in Sources */,
+				C9F04F20171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */,
+				C9F04F24171A69EA00AAAF75 /* FNTeam.m in Sources */,
+				C9F04F28171A72B600AAAF75 /* FNSelectTeamVC.m in Sources */,
+				C99E2E82171A896C001AE786 /* FNCreateTeamVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

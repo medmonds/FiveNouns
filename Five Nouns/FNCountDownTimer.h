@@ -18,7 +18,7 @@
 
 @interface FNCountDownTimer : NSObject
 
-+ (void)newCountDownTimerWithDelegate:(id <FNCountDownTimerDelegate>)delegate;
++ (FNCountDownTimer *)newCountDownTimerWithDelegate:(id <FNCountDownTimerDelegate>)delegate;
 - (NSNumber *)timeRemaining;
 - (void)startCountDown;
 - (void)stopCountDown;
