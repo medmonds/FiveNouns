@@ -7,12 +7,14 @@
 //
 
 #import "FNAppDelegate.h"
+#import "FNAppearance.h"
 
 @implementation FNAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [FNAppearance configureAppearanceProxies];
     return YES;
 }
 							

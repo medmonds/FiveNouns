@@ -7,6 +7,7 @@
 //
 
 #import "FNAddPlayersVC.h"
+#import "FNAppearance.h"
 #import "FNCreatePlayerVC.h"
 #import "FNAssignTeamsVC.h"
 #import "FNBrain.h"
@@ -108,9 +109,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players"];
 }
 
 /*
