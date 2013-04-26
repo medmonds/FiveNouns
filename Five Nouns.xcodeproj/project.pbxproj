@@ -48,6 +48,10 @@
 		C993E30E1728E48B00C37DB8 /* navBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = C993E30B1728E48B00C37DB8 /* navBarBackground.png */; };
 		C993E30F1728E48B00C37DB8 /* navBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C993E30C1728E48B00C37DB8 /* navBarBackground@2x.png */; };
 		C993E3101728E48B00C37DB8 /* navBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C993E30C1728E48B00C37DB8 /* navBarBackground@2x.png */; };
+		C99616CC172A30E500469B17 /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C99616C8172A30E500469B17 /* rightArrow.png */; };
+		C99616CD172A30E500469B17 /* rightArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C99616C9172A30E500469B17 /* rightArrow@2x.png */; };
+		C99616CE172A30E500469B17 /* leftArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C99616CA172A30E500469B17 /* leftArrow.png */; };
+		C99616CF172A30E500469B17 /* leftArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C99616CB172A30E500469B17 /* leftArrow@2x.png */; };
 		C99E2E81171A896C001AE786 /* FNCreateTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */; };
 		C99E2E82171A896C001AE786 /* FNCreateTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */; };
 		C9B40EE7171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
@@ -119,6 +123,10 @@
 		C993E3081728DD8000C37DB8 /* FNTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTableViewController.m; sourceTree = "<group>"; };
 		C993E30B1728E48B00C37DB8 /* navBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarBackground.png; sourceTree = "<group>"; };
 		C993E30C1728E48B00C37DB8 /* navBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarBackground@2x.png"; sourceTree = "<group>"; };
+		C99616C8172A30E500469B17 /* rightArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightArrow.png; sourceTree = "<group>"; };
+		C99616C9172A30E500469B17 /* rightArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightArrow@2x.png"; sourceTree = "<group>"; };
+		C99616CA172A30E500469B17 /* leftArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftArrow.png; sourceTree = "<group>"; };
+		C99616CB172A30E500469B17 /* leftArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftArrow@2x.png"; sourceTree = "<group>"; };
 		C99E2E7F171A896C001AE786 /* FNCreateTeamVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNCreateTeamVC.h; sourceTree = "<group>"; };
 		C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNCreateTeamVC.m; sourceTree = "<group>"; };
 		C9B40EE5171A1CC100619D57 /* FNNewGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNNewGameVC.h; sourceTree = "<group>"; };
@@ -290,6 +298,10 @@
 		C993E2F81728C6B100C37DB8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C99616C8172A30E500469B17 /* rightArrow.png */,
+				C99616C9172A30E500469B17 /* rightArrow@2x.png */,
+				C99616CA172A30E500469B17 /* leftArrow.png */,
+				C99616CB172A30E500469B17 /* leftArrow@2x.png */,
 				C993E30B1728E48B00C37DB8 /* navBarBackground.png */,
 				C993E30C1728E48B00C37DB8 /* navBarBackground@2x.png */,
 				C993E2F21728C6A800C37DB8 /* buttonRect.png */,
@@ -388,6 +400,10 @@
 				C993E2F61728C6A800C37DB8 /* buttonRect@2x.png in Resources */,
 				C993E30D1728E48B00C37DB8 /* navBarBackground.png in Resources */,
 				C993E30F1728E48B00C37DB8 /* navBarBackground@2x.png in Resources */,
+				C99616CC172A30E500469B17 /* rightArrow.png in Resources */,
+				C99616CD172A30E500469B17 /* rightArrow@2x.png in Resources */,
+				C99616CE172A30E500469B17 /* leftArrow.png in Resources */,
+				C99616CF172A30E500469B17 /* leftArrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

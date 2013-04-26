@@ -110,6 +110,10 @@
 {
     [super viewDidLoad];
     self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players"];
+    UIBarButtonItem *back = [FNAppearance backBarButtonItem];
+    [back setTarget:self.navigationController];
+    [back setAction:@selector(popViewControllerAnimated:)];
+    [self.navigationItem setLeftBarButtonItem:back];
 }
 
 /*

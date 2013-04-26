@@ -8,6 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, FNTableViewCellStyle) {
+    FNTableViewCellStyleButton,
+    FNTableViewCellStyleTextFieldLabel,
+    FNTableViewCellStyleTextField,
+    FNTableViewCellStyleTextFieldButton,
+    FNTableViewCellStyleButtonSmall,
+    FNTableViewCellStylePlain
+};
+
+typedef NS_ENUM(NSInteger, FNTableViewCellPosition) {
+    FNTableViewCellPositionTop,
+    FNTableViewCellPositionMiddle,
+    FNTableViewCellPositionBottom,
+    FNTableViewCellPositionNone
+};
+
 @interface FNAppearance : NSObject
 
 + (UIColor *)tableViewBackgroundColor;
@@ -18,6 +34,8 @@
 
 + (UIBarButtonItem *)backBarButtonItem;
 
-+(UIBarButtonItem *)forwardBarButtonItem;
++ (UIBarButtonItem *)forwardBarButtonItem;
+
++ (UIImage *)backgroundForCellWithStyle:(FNTableViewCellStyle)style forPosition:(FNTableViewCellPosition)position;
 
 @end

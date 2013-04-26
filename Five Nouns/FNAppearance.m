@@ -43,12 +43,67 @@
 
 + (UIBarButtonItem *)backBarButtonItem
 {
-    UIBarButtonItem *back = [UIBarButtonItem alloc] initWithImage:<#(UIImage *)#> landscapeImagePhone:<#(UIImage *)#> style:<#(UIBarButtonItemStyle)#> target:<#(id)#> action:];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"leftArrow.png"] landscapeImagePhone:[UIImage imageNamed:@"leftArrow.png"] style:UIBarButtonItemStylePlain target:nil action:nil];
+    [button setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [button setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    [button setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+    [button setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateSelected barMetrics:UIBarMetricsLandscapePhone];
+    return button;
 }
 
 + (UIBarButtonItem *)forwardBarButtonItem
 {
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"rightArrow.png"] landscapeImagePhone:[UIImage imageNamed:@"rightArrow.png"] style:UIBarButtonItemStylePlain target:nil action:nil];
+    [button setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [button setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    [button setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+    [button setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateSelected barMetrics:UIBarMetricsLandscapePhone];
+    return button;
+}
+
++ (UIImage *)backgroundForCellWithStyle:(FNTableViewCellStyle)style forPosition:(FNTableViewCellPosition)position
+{
+    UIImage *image;
     
+    if (style == FNTableViewCellStyleTextField) {
+        
+    } else if (style == FNTableViewCellStyleTextFieldLabel) {
+        
+    } else if (style == FNTableViewCellStyleTextFieldButton) {
+        
+    } else if (style == FNTableViewCellStyleButton) {
+        if (position == FNTableViewCellPositionNone) {
+            
+        } else if (position == FNTableViewCellPositionTop) {
+            
+        }
+    } else if (style == FNTableViewCellStyleButtonSmall) {
+        if (position == FNTableViewCellPositionBottom) {
+            
+        }
+    } else if (style == FNTableViewCellStylePlain) {
+        if (position == FNTableViewCellPositionNone) {
+            
+        } else if (position == FNTableViewCellPositionTop) {
+            
+        } else if (position == FNTableViewCellPositionMiddle) {
+            
+        } else if (position == FNTableViewCellPositionBottom) {
+            
+        }
+    } 
+    return image;
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
