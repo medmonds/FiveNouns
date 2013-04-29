@@ -63,36 +63,40 @@
 
 + (UIImage *)backgroundForCellWithStyle:(FNTableViewCellStyle)style forPosition:(FNTableViewCellPosition)position
 {
-    UIImage *image;
-    
-    if (style == FNTableViewCellStyleTextField) {
-        
-    } else if (style == FNTableViewCellStyleTextFieldLabel) {
-        
-    } else if (style == FNTableViewCellStyleTextFieldButton) {
-        
+    UIImage *background;
+    if (style == FNTableViewCellStyleTextField || style == FNTableViewCellStyleTextFieldLabel || style == FNTableViewCellStyleTextFieldButton || style == FNTableViewCellStyleButtonSmall) {
+        if (position == FNTableViewCellPositionMiddle) {
+            background = [UIImage imageNamed:@"cellBackDark.png"];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 13)];
+        } else if (position == FNTableViewCellPositionBottom) {
+            background = [UIImage imageNamed:@"cellBackDark.png"];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 3, 13)];
+        }
     } else if (style == FNTableViewCellStyleButton) {
         if (position == FNTableViewCellPositionNone) {
-            
+            background = [UIImage imageNamed:@"cellBackButton.png"];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
         } else if (position == FNTableViewCellPositionTop) {
-            
-        }
-    } else if (style == FNTableViewCellStyleButtonSmall) {
-        if (position == FNTableViewCellPositionBottom) {
-            
+            background = [UIImage imageNamed:@"cellBackButtonTop.png"];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
         }
     } else if (style == FNTableViewCellStylePlain) {
+        // I dont think this will work to trim the backgrounds for different cell positions
         if (position == FNTableViewCellPositionNone) {
-            
+            background = [UIImage imageNamed:@"cellBackPlain"];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
         } else if (position == FNTableViewCellPositionTop) {
-            
+            background = [UIImage imageNamed:@"cellBackPlain"];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 0, 13)];
         } else if (position == FNTableViewCellPositionMiddle) {
-            
+            background = [UIImage imageNamed:@"cellBackPlain"];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 13)];
         } else if (position == FNTableViewCellPositionBottom) {
-            
+            background = [UIImage imageNamed:@"cellBackPlain"];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 3, 13)];
         }
     } 
-    return image;
+    return background;
 }
 
 @end

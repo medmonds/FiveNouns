@@ -7,12 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FNEditableCell.h"
+#import "FNButtonCell.h"
+
+#define CELL_IDENTIFIER_BUTTON @"button"
+#define CELL_IDENTIFIER_PLAIN @"plain"
+#define CELL_IDENTIFIER_SMALL_BUTTON @"smallButton"
+#define CELL_IDENTIFIER_TEXT_FIELD @"textField"
 
 typedef NS_ENUM(NSInteger, FNTableViewCellStyle) {
-    FNTableViewCellStyleButton,
-    FNTableViewCellStyleTextFieldLabel,
+    FNTableViewCellStyleButton,         // plain button
+    FNTableViewCellStyleTextFieldLabel, // 
     FNTableViewCellStyleTextField,
-    FNTableViewCellStyleTextFieldButton,
+    FNTableViewCellStyleTextFieldButton,// not using
     FNTableViewCellStyleButtonSmall,
     FNTableViewCellStylePlain
 };

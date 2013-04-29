@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FNAppearance.h"
 
 @interface FNTableViewController : UITableViewController
+
+- (void)setBackgroundForCell:(UITableViewCell *)cell Style:(FNTableViewCellStyle)style atIndexPath:(NSIndexPath *)indexPath;
 
 @end

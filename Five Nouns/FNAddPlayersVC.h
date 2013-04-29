@@ -18,4 +18,6 @@
 
 - (void)infoFromPresentedModal:(NSArray *)info;
 
+- (void)cellButtonPressed;
+
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "FNAddPlayersVC.h"
-#import "FNAppearance.h"
 #import "FNCreatePlayerVC.h"
 #import "FNAssignTeamsVC.h"
 #import "FNBrain.h"
@@ -39,6 +38,11 @@
     } else {
         self.addPlayerIsVisible = NO;
     }
+}
+
+- (void)cellButtonPressed
+{
+    // save button pressed
 }
 
 #pragma mark - Table view delegate
@@ -99,26 +103,51 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // need to make and use the right kind of cells
     if (indexPath.section == 0) {
-        NSString *CellIdentifier = @"navigationCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
         if (indexPath.row == 0) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_BUTTON forIndexPath:indexPath];
             cell.textLabel.text = @"Add Player";
+            [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
+            return cell;
         } else if (indexPath.row == 1) {
-            cell.textLabel.text = @"Name";
-            // set the name in the textfield
+            FNEditableCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD forIndexPath:indexPath];
+            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextFieldLabel atIndexPath:indexPath];
+            cell.mainTextLabel.text = @"Name";
+            if (self.currentPlayer.name) {
+                cell.detailTextField.text = self.currentPlayer.name;
+            } else {
+                cell.detailTextField.text = nil;
+            }
+            return cell;
+        } else if (indexPath.row == 2 ) {
+            FNEditableCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD forIndexPath:indexPath];
+            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextFieldLabel atIndexPath:indexPath];
+            cell.mainTextLabel.text = @"Noun";
+            if ([self.currentPlayer.nouns objectAtIndex:indexPath.row - 2]) {
+                cell.detailTextField.text = [self.currentPlayer.nouns objectAtIndex:indexPath.row - 2];
+            } else {
+                cell.detailTextField.text = nil;
+            }
+            return cell;
         } else if (indexPath.row != [self.tableView numberOfRowsInSection:indexPath.section] - 1) {
-            // it is a noun cell assuming a fixed number of nouns
-            cell.textLabel.text = @"Noun";
-            // set the nouns in the textfields
+            FNEditableCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD forIndexPath:indexPath];
+            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextFieldLabel atIndexPath:indexPath];
+            cell.mainTextLabel.text = nil;
+            if ([self.currentPlayer.nouns objectAtIndex:indexPath.row - 2]) {
+                cell.detailTextField.text = [self.currentPlayer.nouns objectAtIndex:indexPath.row - 2];
+            } else {
+                cell.detailTextField.text = nil;
+            }
+            return cell;
         } else {
-            // do nothing the button will already say "Save"
+            FNButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_SMALL_BUTTON forIndexPath:indexPath];
+            [self setBackgroundForCell:cell Style:FNTableViewCellStyleButtonSmall atIndexPath:indexPath];
+            cell.delegate = self;
+            return cell;
         }
-        return cell;
     } else {
-        NSString *CellIdentifier = @"informationCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_PLAIN forIndexPath:indexPath];
+        [self setBackgroundForCell:cell Style:FNTableViewCellStylePlain atIndexPath:indexPath];
         FNPlayer *player = [self.brain.allPlayers objectAtIndex:indexPath.row];
         cell.textLabel.text = player.name;
         return cell;

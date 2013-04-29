@@ -15,6 +15,30 @@
 
 @implementation FNTableViewController
 
+- (void)setBackgroundForCell:(UITableViewCell *)cell Style:(FNTableViewCellStyle)style atIndexPath:(NSIndexPath *)indexPath
+{
+    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:cell.frame];
+    NSInteger sectionRows = [self.tableView numberOfRowsInSection:indexPath.section];
+    NSInteger row = indexPath.row;
+    if (row == 0 && row == sectionRows - 1)
+    {
+        backgroundView.image = [FNAppearance backgroundForCellWithStyle:style forPosition:FNTableViewCellPositionNone];
+    }
+    else if (row == 0)
+    {
+        backgroundView.image = [FNAppearance backgroundForCellWithStyle:style forPosition:FNTableViewCellPositionTop];
+    }
+    else if (row == sectionRows - 1)
+    {
+        backgroundView.image = [FNAppearance backgroundForCellWithStyle:style forPosition:FNTableViewCellPositionBottom];
+    }
+    else
+    {
+        backgroundView.image = [FNAppearance backgroundForCellWithStyle:style forPosition:FNTableViewCellPositionMiddle];
+    }
+    cell.backgroundView = backgroundView;
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
