@@ -39,6 +39,12 @@
     cell.backgroundView = backgroundView;
 }
 
+- (void)setBackgroundForTextField:(UITextField *)textField
+{
+    UIImage *background = [FNAppearance backgroundForTextField];
+    textField.background = background;
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];

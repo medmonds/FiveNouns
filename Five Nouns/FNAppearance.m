@@ -66,11 +66,11 @@
     UIImage *background;
     if (style == FNTableViewCellStyleTextField || style == FNTableViewCellStyleTextFieldLabel || style == FNTableViewCellStyleTextFieldButton || style == FNTableViewCellStyleButtonSmall) {
         if (position == FNTableViewCellPositionMiddle) {
-            background = [UIImage imageNamed:@"cellBackDark.png"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 13)];
+            background = [UIImage imageNamed:@"cellBackDarkMiddle.png"];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
         } else if (position == FNTableViewCellPositionBottom) {
-            background = [UIImage imageNamed:@"cellBackDark.png"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 3, 13)];
+            background = [UIImage imageNamed:@"cellBackDarkBottom.png"];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
         }
     } else if (style == FNTableViewCellStyleButton) {
         if (position == FNTableViewCellPositionNone) {
@@ -87,15 +87,22 @@
             background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
         } else if (position == FNTableViewCellPositionTop) {
             background = [UIImage imageNamed:@"cellBackPlain"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 0, 13)];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
         } else if (position == FNTableViewCellPositionMiddle) {
             background = [UIImage imageNamed:@"cellBackPlain"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 13)];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
         } else if (position == FNTableViewCellPositionBottom) {
             background = [UIImage imageNamed:@"cellBackPlain"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 3, 13)];
+            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
         }
     } 
+    return background;
+}
+
++ (UIImage *)backgroundForTextField
+{
+    UIImage *background = [UIImage imageNamed:@"textFieldBack.png"];
+    background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
     return background;
 }
 

@@ -13,4 +13,6 @@
 
 - (void)setBackgroundForCell:(UITableViewCell *)cell Style:(FNTableViewCellStyle)style atIndexPath:(NSIndexPath *)indexPath;
 
+- (void)setBackgroundForTextField:(UITextField *)textField;
+
 @end

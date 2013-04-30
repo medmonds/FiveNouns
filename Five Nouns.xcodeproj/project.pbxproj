@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		C91B8DA0171A1F2600AE468C /* FNAddPlayersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */; };
 		C91B8DA1171A1F2600AE468C /* FNAddPlayersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */; };
+		C93DD955172F521C0058CC14 /* cellBackDarkMiddle.png in Resources */ = {isa = PBXBuildFile; fileRef = C93DD951172F521C0058CC14 /* cellBackDarkMiddle.png */; };
+		C93DD956172F521C0058CC14 /* cellBackDarkMiddle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C93DD952172F521C0058CC14 /* cellBackDarkMiddle@2x.png */; };
+		C93DD957172F521C0058CC14 /* cellBackDarkBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = C93DD953172F521C0058CC14 /* cellBackDarkBottom.png */; };
+		C93DD958172F521C0058CC14 /* cellBackDarkBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C93DD954172F521C0058CC14 /* cellBackDarkBottom@2x.png */; };
+		C93DD95B172F52B10058CC14 /* cellBackButtonTop.png in Resources */ = {isa = PBXBuildFile; fileRef = C93DD959172F52B10058CC14 /* cellBackButtonTop.png */; };
+		C93DD95C172F52B10058CC14 /* cellBackButtonTop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C93DD95A172F52B10058CC14 /* cellBackButtonTop@2x.png */; };
 		C9649E411718B7390039B88E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E401718B7390039B88E /* UIKit.framework */; };
 		C9649E431718B7390039B88E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E421718B7390039B88E /* Foundation.framework */; };
 		C9649E451718B7390039B88E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E441718B7390039B88E /* CoreGraphics.framework */; };
@@ -34,6 +40,8 @@
 		C99279E817193AAD0035658F /* FNPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279E617193AAD0035658F /* FNPlayer.m */; };
 		C99279EB17193C780035658F /* FNScoreCard.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279EA17193C780035658F /* FNScoreCard.m */; };
 		C99279EC17193C780035658F /* FNScoreCard.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279EA17193C780035658F /* FNScoreCard.m */; };
+		C993A0D9172F8EA200B1983A /* textFieldBack.png in Resources */ = {isa = PBXBuildFile; fileRef = C993A0D7172F8EA200B1983A /* textFieldBack.png */; };
+		C993A0DA172F8EA200B1983A /* textFieldBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C993A0D8172F8EA200B1983A /* textFieldBack@2x.png */; };
 		C993E2EE1728C4F000C37DB8 /* FNButtonRect.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E2ED1728C4F000C37DB8 /* FNButtonRect.m */; };
 		C993E2EF1728C4F000C37DB8 /* FNButtonRect.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E2ED1728C4F000C37DB8 /* FNButtonRect.m */; };
 		C993E2F41728C6A800C37DB8 /* buttonRect.png in Resources */ = {isa = PBXBuildFile; fileRef = C993E2F21728C6A800C37DB8 /* buttonRect.png */; };
@@ -52,8 +60,6 @@
 		C99579C3172E042F004E46A9 /* FNPlainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99579C2172E042F004E46A9 /* FNPlainCell.m */; };
 		C99579CC172E080A004E46A9 /* cellBackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C99579C4172E080A004E46A9 /* cellBackButton.png */; };
 		C99579CD172E080A004E46A9 /* cellBackButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C99579C5172E080A004E46A9 /* cellBackButton@2x.png */; };
-		C99579CE172E080A004E46A9 /* cellBackButtonTop.png in Resources */ = {isa = PBXBuildFile; fileRef = C99579C6172E080A004E46A9 /* cellBackButtonTop.png */; };
-		C99579CF172E080A004E46A9 /* cellBackButtonTop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C99579C7172E080A004E46A9 /* cellBackButtonTop@2x.png */; };
 		C99579D0172E080A004E46A9 /* cellBackDark.png in Resources */ = {isa = PBXBuildFile; fileRef = C99579C8172E080A004E46A9 /* cellBackDark.png */; };
 		C99579D1172E080A004E46A9 /* cellBackDark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C99579C9172E080A004E46A9 /* cellBackDark@2x.png */; };
 		C99579D2172E080A004E46A9 /* cellBackPlain.png in Resources */ = {isa = PBXBuildFile; fileRef = C99579CA172E080A004E46A9 /* cellBackPlain.png */; };
@@ -93,6 +99,12 @@
 /* Begin PBXFileReference section */
 		C91B8D9E171A1F2600AE468C /* FNAddPlayersVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNAddPlayersVC.h; sourceTree = "<group>"; };
 		C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNAddPlayersVC.m; sourceTree = "<group>"; };
+		C93DD951172F521C0058CC14 /* cellBackDarkMiddle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellBackDarkMiddle.png; sourceTree = "<group>"; };
+		C93DD952172F521C0058CC14 /* cellBackDarkMiddle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellBackDarkMiddle@2x.png"; sourceTree = "<group>"; };
+		C93DD953172F521C0058CC14 /* cellBackDarkBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellBackDarkBottom.png; sourceTree = "<group>"; };
+		C93DD954172F521C0058CC14 /* cellBackDarkBottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellBackDarkBottom@2x.png"; sourceTree = "<group>"; };
+		C93DD959172F52B10058CC14 /* cellBackButtonTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellBackButtonTop.png; sourceTree = "<group>"; };
+		C93DD95A172F52B10058CC14 /* cellBackButtonTop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellBackButtonTop@2x.png"; sourceTree = "<group>"; };
 		C9649E3C1718B7390039B88E /* Five Nouns.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Five Nouns.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9649E401718B7390039B88E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C9649E421718B7390039B88E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -123,6 +135,8 @@
 		C99279E617193AAD0035658F /* FNPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNPlayer.m; sourceTree = "<group>"; };
 		C99279E917193C780035658F /* FNScoreCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNScoreCard.h; sourceTree = "<group>"; };
 		C99279EA17193C780035658F /* FNScoreCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNScoreCard.m; sourceTree = "<group>"; };
+		C993A0D7172F8EA200B1983A /* textFieldBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textFieldBack.png; sourceTree = "<group>"; };
+		C993A0D8172F8EA200B1983A /* textFieldBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textFieldBack@2x.png"; sourceTree = "<group>"; };
 		C993E2EC1728C4F000C37DB8 /* FNButtonRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNButtonRect.h; sourceTree = "<group>"; };
 		C993E2ED1728C4F000C37DB8 /* FNButtonRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNButtonRect.m; sourceTree = "<group>"; };
 		C993E2F21728C6A800C37DB8 /* buttonRect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonRect.png; sourceTree = "<group>"; };
@@ -139,8 +153,6 @@
 		C99579C2172E042F004E46A9 /* FNPlainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNPlainCell.m; sourceTree = "<group>"; };
 		C99579C4172E080A004E46A9 /* cellBackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellBackButton.png; sourceTree = "<group>"; };
 		C99579C5172E080A004E46A9 /* cellBackButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellBackButton@2x.png"; sourceTree = "<group>"; };
-		C99579C6172E080A004E46A9 /* cellBackButtonTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellBackButtonTop.png; sourceTree = "<group>"; };
-		C99579C7172E080A004E46A9 /* cellBackButtonTop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellBackButtonTop@2x.png"; sourceTree = "<group>"; };
 		C99579C8172E080A004E46A9 /* cellBackDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellBackDark.png; sourceTree = "<group>"; };
 		C99579C9172E080A004E46A9 /* cellBackDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellBackDark@2x.png"; sourceTree = "<group>"; };
 		C99579CA172E080A004E46A9 /* cellBackPlain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellBackPlain.png; sourceTree = "<group>"; };
@@ -320,10 +332,16 @@
 		C993E2F81728C6B100C37DB8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C993A0D7172F8EA200B1983A /* textFieldBack.png */,
+				C993A0D8172F8EA200B1983A /* textFieldBack@2x.png */,
+				C93DD951172F521C0058CC14 /* cellBackDarkMiddle.png */,
+				C93DD952172F521C0058CC14 /* cellBackDarkMiddle@2x.png */,
+				C93DD953172F521C0058CC14 /* cellBackDarkBottom.png */,
+				C93DD954172F521C0058CC14 /* cellBackDarkBottom@2x.png */,
 				C99579C4172E080A004E46A9 /* cellBackButton.png */,
 				C99579C5172E080A004E46A9 /* cellBackButton@2x.png */,
-				C99579C6172E080A004E46A9 /* cellBackButtonTop.png */,
-				C99579C7172E080A004E46A9 /* cellBackButtonTop@2x.png */,
+				C93DD959172F52B10058CC14 /* cellBackButtonTop.png */,
+				C93DD95A172F52B10058CC14 /* cellBackButtonTop@2x.png */,
 				C99579C8172E080A004E46A9 /* cellBackDark.png */,
 				C99579C9172E080A004E46A9 /* cellBackDark@2x.png */,
 				C99579CA172E080A004E46A9 /* cellBackPlain.png */,
@@ -440,12 +458,18 @@
 				C99616CF172A30E500469B17 /* leftArrow@2x.png in Resources */,
 				C99579CC172E080A004E46A9 /* cellBackButton.png in Resources */,
 				C99579CD172E080A004E46A9 /* cellBackButton@2x.png in Resources */,
-				C99579CE172E080A004E46A9 /* cellBackButtonTop.png in Resources */,
-				C99579CF172E080A004E46A9 /* cellBackButtonTop@2x.png in Resources */,
 				C99579D0172E080A004E46A9 /* cellBackDark.png in Resources */,
 				C99579D1172E080A004E46A9 /* cellBackDark@2x.png in Resources */,
 				C99579D2172E080A004E46A9 /* cellBackPlain.png in Resources */,
 				C99579D3172E080A004E46A9 /* cellBackPlain@2x.png in Resources */,
+				C93DD955172F521C0058CC14 /* cellBackDarkMiddle.png in Resources */,
+				C93DD956172F521C0058CC14 /* cellBackDarkMiddle@2x.png in Resources */,
+				C93DD957172F521C0058CC14 /* cellBackDarkBottom.png in Resources */,
+				C93DD958172F521C0058CC14 /* cellBackDarkBottom@2x.png in Resources */,
+				C93DD95B172F52B10058CC14 /* cellBackButtonTop.png in Resources */,
+				C93DD95C172F52B10058CC14 /* cellBackButtonTop@2x.png in Resources */,
+				C993A0D9172F8EA200B1983A /* textFieldBack.png in Resources */,
+				C993A0DA172F8EA200B1983A /* textFieldBack@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

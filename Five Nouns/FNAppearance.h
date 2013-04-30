@@ -45,4 +45,6 @@ typedef NS_ENUM(NSInteger, FNTableViewCellPosition) {
 
 + (UIImage *)backgroundForCellWithStyle:(FNTableViewCellStyle)style forPosition:(FNTableViewCellPosition)position;
 
++ (UIImage *)backgroundForTextField;
+
 @end

@@ -11,7 +11,7 @@
 @interface FNPlayer : NSObject
 
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSArray *nouns;
+@property (nonatomic, strong) NSMutableArray *nouns;
 @property (nonatomic, weak) FNTeam *team;
 
 @end
