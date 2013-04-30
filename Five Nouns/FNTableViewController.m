@@ -42,6 +42,8 @@
 - (void)setBackgroundForTextField:(UITextField *)textField
 {
     UIImage *background = [FNAppearance backgroundForTextField];
+    textField.backgroundColor = [UIColor clearColor];
+    textField.borderStyle = UITextBorderStyleNone;
     textField.background = background;
 }
 
