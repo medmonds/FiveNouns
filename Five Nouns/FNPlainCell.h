@@ -10,4 +10,5 @@
 
 @interface FNPlainCell : UITableViewCell
 
+
 @end

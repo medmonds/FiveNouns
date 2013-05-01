@@ -106,6 +106,13 @@
     return background;
 }
 
++ (UIImage *)backgroundForButton
+{
+    UIImage *background = [UIImage imageNamed:@"buttonRect.png"];
+    background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
+    return background;
+}
+
 @end
 
 

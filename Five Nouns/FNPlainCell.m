@@ -7,6 +7,7 @@
 //
 
 #import "FNPlainCell.h"
+#import "FNAppearance.h"
 
 @implementation FNPlainCell
 

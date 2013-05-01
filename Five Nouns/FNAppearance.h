@@ -47,4 +47,6 @@ typedef NS_ENUM(NSInteger, FNTableViewCellPosition) {
 
 + (UIImage *)backgroundForTextField;
 
++ (UIImage *)backgroundForButton;
+
 @end

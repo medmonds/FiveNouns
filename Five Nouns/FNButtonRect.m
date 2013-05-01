@@ -7,6 +7,7 @@
 //
 
 #import "FNButtonRect.h"
+#import "FNAppearance.h"
 
 @implementation FNButtonRect
 
@@ -31,8 +32,7 @@
 
 - (void)initializeButton
 {
-    UIImage *background = [UIImage imageNamed:@"buttonRect.png"];
-    background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
+    UIImage *background = [FNAppearance backgroundForButton];
     [self setBackgroundImage:background forState:UIControlStateNormal];
 }
 
