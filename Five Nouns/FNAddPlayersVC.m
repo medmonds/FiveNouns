@@ -23,7 +23,7 @@
 {
     if (textField.tag == -1) {
         self.currentPlayer.name = textField.text;
-    } else if (0 <= textField.tag <= 4) {
+    } else if (textField.tag >= 0 && textField.tag <= 4) {
         [self.currentPlayer.nouns replaceObjectAtIndex:textField.tag withObject:textField.text];
     }
     return YES;
@@ -184,46 +184,30 @@
             cell.textLabel.text = @"Add Player";
             [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
             return cell;
-        } else if (indexPath.row == 1) {
-            // name cell
+        } else if (indexPath.row > 0 && indexPath.row < ([self.tableView numberOfRowsInSection:indexPath.section] - 1)) {
             FNEditableCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
             [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextFieldLabel atIndexPath:indexPath];
-            cell.detailTextField.delegate = self;
-            cell.detailTextField.tag = -1;
             [self setBackgroundForTextField:cell.detailTextField];
-            cell.mainTextLabel.text = @"name:";
-            if (self.currentPlayer.name) {
-                cell.detailTextField.text = self.currentPlayer.name;
-            } else {
-                cell.detailTextField.text = @"";
-            }
-            return cell;
-        } else if (indexPath.row == 2 ) {
-            // the 1st noun
-            FNEditableCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
-            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextFieldLabel atIndexPath:indexPath];
-            cell.detailTextField.delegate = self;
-            cell.detailTextField.tag = 0;
-            [self setBackgroundForTextField:cell.detailTextField];
-            cell.mainTextLabel.text = @"nouns:";
-            if ([self.currentPlayer.nouns count] > 0) {
-                cell.detailTextField.text = [self.currentPlayer.nouns objectAtIndex:0];
-            } else {
-                cell.detailTextField.text = @"";
-            }
-            return cell;
-        } else if (indexPath.row != [self.tableView numberOfRowsInSection:indexPath.section] - 1) {
-            // not the last row so still a noun
-            FNEditableCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
-            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextFieldLabel atIndexPath:indexPath];
             cell.detailTextField.delegate = self;
             cell.detailTextField.tag = indexPath.row - 2;
-            [self setBackgroundForTextField:cell.detailTextField];
             cell.mainTextLabel.text = nil;
-            if ([self.currentPlayer.nouns count] >= indexPath.row - 1) {
-                cell.detailTextField.text = [self.currentPlayer.nouns objectAtIndex:indexPath.row - 2];
-            } else {
-                cell.detailTextField.text = @"";
+            cell.detailTextField.text = nil;
+            if (indexPath.row == 1) {
+                // name cell
+                cell.mainTextLabel.text = @"name:";
+                cell.detailTextField.text = self.currentPlayer.name;
+            } else if (indexPath.row == 2 ) {
+                // the 1st noun
+                cell.mainTextLabel.text = @"nouns:";
+                if ([self.currentPlayer.nouns count] > 0) {
+                    cell.detailTextField.text = [self.currentPlayer.nouns objectAtIndex:0];
+                }
+            } else if (indexPath.row != [self.tableView numberOfRowsInSection:indexPath.section] - 1) {
+                // not the last row so still a noun
+                cell.mainTextLabel.text = nil;
+                if ([self.currentPlayer.nouns count] >= indexPath.row - 1) {
+                    cell.detailTextField.text = [self.currentPlayer.nouns objectAtIndex:indexPath.row - 2];
+                }
             }
             return cell;
         } else {
