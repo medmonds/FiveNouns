@@ -44,7 +44,7 @@
     return _currentPlayer;
 }
 
-- (void)toggleAddPlayer
+- (void)toggleAddPlayerSavingCurrentPlayer:(BOOL)save
 {
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:7];
     for (int i = 2; i < 8; i++) {
@@ -52,43 +52,46 @@
         [array addObject:path];
     }
     
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        // change the add player button on completion otherwise the removed cell fade out
+        // above the add player button and look bad
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }];
+    [self.tableView beginUpdates];
+    
     if (!self.addPlayerIsVisible) {
         self.addPlayerIsVisible = YES;
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationAutomatic];
     } else {
         self.addPlayerIsVisible = NO;
-        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        if (save) {
+            // save the currentPlayer and add it to the table view
+            [self.brain addPlayer:self.currentPlayer];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.brain.allPlayers indexOfObject:self.currentPlayer] inSection:1];
+            // if inserting 1st player must insert from bottom otherwise looks bad
+            if ([self.brain.allPlayers count] == 1) {
+                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+            } else {
+                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        }
+        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
         [self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationAutomatic];
-        // need to change the add player button back to rounded bottom !!??
     }
+    
+    [self.tableView endUpdates];
+    [CATransaction commit];
 }
 
 - (void)cellButtonPressed
 {
-    // save button pressed
-    // validate the input and proceed or reject with error message
+    // save button pressed validate the input and proceed or reject with error message
     [self.tableView endEditing:YES]; // otherwise this method is triggered before the textfield resigns
     if ([self currentPlayerIsValid]) {
-        [CATransaction begin];
-        [CATransaction setCompletionBlock:^{
-            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-        }];
-        [self.tableView beginUpdates];        
-        [self toggleAddPlayer];
-        
-        [self.brain addPlayer:self.currentPlayer];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.brain.allPlayers indexOfObject:self.currentPlayer] inSection:1];
-        // if inserting 1st player must insert from bottom otherwise looks bad
-        if ([self.brain.allPlayers count] == 1) {
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
-        } else {
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-
-        }
-        [self.tableView endUpdates];
-        [CATransaction commit];
+        [self toggleAddPlayerSavingCurrentPlayer:YES];
         self.currentPlayer = nil;
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Save Player" message:@"New Player's must have a name and at least three nouns." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -119,16 +122,14 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            [CATransaction begin];
-            [CATransaction setCompletionBlock:^{
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            }];
-            [self.tableView beginUpdates];
-            [self toggleAddPlayer];
-            [self.tableView endUpdates];
-            [CATransaction commit];
+            [self toggleAddPlayerSavingCurrentPlayer:NO];
         } else {
             // make the textfield (if cell has a textfield) the first responder
+            id cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            if ([cell isKindOfClass:[FNEditableCell class]]) {
+                FNEditableCell *textFieldCell = cell;
+                [textFieldCell.detailTextField becomeFirstResponder];
+            }
         }
     }
     return NO;
@@ -259,7 +260,7 @@
     [self.navigationItem setLeftBarButtonItem:back];
 }
 
-// Override to support conditional editing of the table view.
+// to allow deteing players
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -268,7 +269,7 @@
     return YES;
 }
 
-// Override to support editing the table view.
+// deletes the player
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
