@@ -9,7 +9,32 @@
 #import "FNPlainCell.h"
 #import "FNAppearance.h"
 
+@interface FNPlainCell ()
+@property BOOL showingDeleteButton;
+@end
+
 @implementation FNPlainCell
+
+
+- (void)willTransitionToState:(UITableViewCellStateMask)state
+{
+    [super willTransitionToState:state];
+    if ((state & UITableViewCellStateShowingDeleteConfirmationMask) == UITableViewCellStateShowingDeleteConfirmationMask) {
+        for (UIView *subview in self.subviews) {
+            if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellDeleteConfirmationControl"]) {
+                UIImageView *deleteBtn = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 64, 33)];
+                [deleteBtn setImage:[FNAppearance backgroundForButton]];
+                [[subview.subviews objectAtIndex:0] addSubview:deleteBtn];
+            }
+        }
+    }
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

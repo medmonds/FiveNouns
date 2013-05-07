@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FNAppearance.h"
 
-@interface FNTableViewController : UITableViewController
+@interface FNTableViewController : UITableViewController <UITextFieldDelegate>
 
 - (void)setBackgroundForCell:(UITableViewCell *)cell Style:(FNTableViewCellStyle)style atIndexPath:(NSIndexPath *)indexPath;
 

@@ -10,9 +10,12 @@
 #import "FNSelectTeamVC.h"
 #import "FNPlayer.h"
 #import "FNOrderTeamsVC.h"
+#import "FNStepperCell.h"
+#import "FNReorderableCell.h"
 
 @interface FNAssignTeamsVC ()
 @property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *teams;
 @end
 
 @implementation FNAssignTeamsVC
@@ -26,6 +29,37 @@
         return [first localizedCaseInsensitiveCompare:second];
     }];
     self.dataSource = sorted;
+}
+
+- (NSMutableArray *)teams
+{
+    if (!_teams) {
+        _teams = [[NSMutableArray alloc] init];
+    }
+    return _teams;
+}
+
+- (void)stepperDidStep:(UIStepper *)stepper
+{
+    [self.tableView beginUpdates];
+    int numberOfTeams = stepper.value;
+    if (numberOfTeams > [self.teams count]) {
+        for (int i = numberOfTeams - [self.teams count]; i > 0; i--) {
+            FNTeam *newTeam = [[FNTeam alloc] init];
+            newTeam.name = [NSString stringWithFormat:@"Team %d", [self.teams count] + 1];
+            [self.teams insertObject:newTeam atIndex:[self.teams count]];
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:[self.teams count]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    } else if ([self.teams count] > numberOfTeams) {
+        for (int i = [self.teams count] - numberOfTeams; i > 0; i--) {
+            [self.teams removeLastObject];
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[self.teams count] + 1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
+    FNStepperCell *cell = (FNStepperCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    UIButton *buttonLabel = cell.detailButtonLabel;
+    buttonLabel.titleLabel.text = [NSString stringWithFormat:@"%d", numberOfTeams];
+    [self.tableView endUpdates];
 }
 
 #pragma mark - Table view delegate
@@ -53,32 +87,43 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1 + [self.teams count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return [self.dataSource count];
-    } else {
         return 1;
+    } else {
+        FNTeam *team = [self.teams objectAtIndex:section - 1];
+        NSInteger playerCount = [team.players count];
+        NSLog(@"playercount = %d", playerCount);
+        return 1 + playerCount;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        NSString *CellIdentifier = @"informationCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        FNPlayer *player = [self.dataSource objectAtIndex:indexPath.row];
-        cell.textLabel.text = player.name;
-        cell.detailTextLabel.text = player.team.name ? player.team.name : @"Choose Team";
+        FNStepperCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"stepper"];
+        [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
+        cell.stepper.autorepeat = NO;
+        cell.stepper.wraps = YES;
+        cell.stepper.maximumValue = 6;
+        [cell.stepper addTarget:self action:@selector(stepperDidStep:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.detailButtonLabel setBackgroundImage:[FNAppearance backgroundForTextField] forState:UIControlStateNormal];
+        cell.detailButtonLabel.titleLabel.text = @"0";
         return cell;
     } else {
-        NSString *CellIdentifier = @"navigationCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        cell.textLabel.text = @"Next";
-        return cell;
+        if (indexPath.row == 0) {
+            FNReorderableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"reorderable"];
+            [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
+            FNTeam *team = [self.teams objectAtIndex:indexPath.section - 1];
+            cell.mainTextLabel.text = team.name;
+            return cell;
+        } else {
+            
+        }
     }
 }
 
@@ -101,6 +146,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Teams"];
 }
 
 @end

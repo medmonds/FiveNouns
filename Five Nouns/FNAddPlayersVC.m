@@ -11,13 +11,51 @@
 #import "FNAssignTeamsVC.h"
 #import "FNBrain.h"
 #import "FNPlayer.h"
+#import "FNPlainCell.h"
 
-@interface FNAddPlayersVC () <UITextFieldDelegate>
+@interface FNAddPlayersVC ()
 @property BOOL addPlayerIsVisible;
 @property (nonatomic, strong) FNPlayer *currentPlayer;
+@property (nonatomic, weak) UITableViewCell *cellShowingDelete;
 @end
 
 @implementation FNAddPlayersVC
+
+- (FNPlayer *)currentPlayer
+{
+    if (!_currentPlayer) {
+        _currentPlayer = [[FNPlayer alloc] init];
+        _currentPlayer.nouns = [[NSMutableArray alloc] initWithObjects:@"", @"", @"", @"", @"", nil];
+    }
+    return _currentPlayer;
+}
+
+#pragma mark - Actions
+
+- (void)cellButtonPressed
+{
+    // save button pressed validate the input and proceed or reject with error message
+    [self.tableView endEditing:YES]; // otherwise this method is triggered before the textfield resigns
+    if ([self currentPlayerIsValid]) {
+        [self toggleAddPlayerSavingCurrentPlayer:YES];
+        self.currentPlayer = nil;
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Save Player" message:@"New Player's must have a name and at least three nouns." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (void)forwardBarButtonItemPressed
+{
+    [self performSegueWithIdentifier:@"teamsOverview" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    ((FNAssignTeamsVC *)segue.destinationViewController).brain = self.brain;
+}
+
+#pragma mark - Text Field Delegate
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
@@ -29,20 +67,7 @@
     return YES;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return NO; // otherwise enters a return
-}
-
-- (FNPlayer *)currentPlayer
-{
-    if (!_currentPlayer) {
-        _currentPlayer = [[FNPlayer alloc] init];
-        _currentPlayer.nouns = [[NSMutableArray alloc] initWithObjects:@"", @"", @"", @"", @"", nil];
-    }
-    return _currentPlayer;
-}
+#pragma mark - Logic Methods
 
 - (void)toggleAddPlayerSavingCurrentPlayer:(BOOL)save
 {
@@ -86,19 +111,6 @@
     [CATransaction commit];
 }
 
-- (void)cellButtonPressed
-{
-    // save button pressed validate the input and proceed or reject with error message
-    [self.tableView endEditing:YES]; // otherwise this method is triggered before the textfield resigns
-    if ([self currentPlayerIsValid]) {
-        [self toggleAddPlayerSavingCurrentPlayer:YES];
-        self.currentPlayer = nil;
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Save Player" message:@"New Player's must have a name and at least three nouns." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    }
-}
-
 - (BOOL)currentPlayerIsValid
 {
     // validates that a new player was created properly
@@ -140,12 +152,23 @@
     // do nothing here cells should never be selected
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+// to allow deteing players
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([segue.identifier isEqualToString:@"createPlayer"]) {
-//        ((FNCreatePlayerVC *)segue.destinationViewController).delegate = self;
-    } else if ([segue.identifier isEqualToString:@"teamsOverview"]) {
-        ((FNAssignTeamsVC *)segue.destinationViewController).brain = self.brain;
+    if (indexPath.section == 0) {
+        return NO;
+    }
+    return YES;
+}
+
+// deletes the player
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.tableView beginUpdates];
+        [self.brain.allPlayers removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
     }
 }
 
@@ -217,7 +240,7 @@
             return cell;
         }
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_PLAIN];
+        FNPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_PLAIN];
         [self setBackgroundForCell:cell Style:FNTableViewCellStylePlain atIndexPath:indexPath];
         FNPlayer *player = [self.brain.allPlayers objectAtIndex:indexPath.row];
         cell.textLabel.text = player.name;
@@ -225,43 +248,11 @@
     }
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#pragma mark - View Controller Life Cycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players"];
-    UIBarButtonItem *back = [FNAppearance backBarButtonItem];
-    [back setTarget:self.navigationController];
-    [back setAction:@selector(popViewControllerAnimated:)];
-    [self.navigationItem setLeftBarButtonItem:back];
 }
-
-// to allow deteing players
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0) {
-        return NO;
-    }
-    return YES;
-}
-
-// deletes the player
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.tableView beginUpdates];
-        [self.brain.allPlayers removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
-    }   
-}
-
 @end

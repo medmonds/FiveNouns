@@ -22,11 +22,23 @@
 
 + (void)configureAppearanceProxies
 {
+    // UINavigationBar
     UIImage *background = [UIImage imageNamed:@"navBarBackground.png"];
     background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [[UINavigationBar appearance] setBackgroundImage:background forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundImage:background forBarMetrics:UIBarMetricsLandscapePhone];
-    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+    UINavigationBar *navProxy = [UINavigationBar appearance];
+    [navProxy setBackgroundImage:background forBarMetrics:UIBarMetricsDefault];
+    [navProxy setBackgroundImage:background forBarMetrics:UIBarMetricsLandscapePhone];
+    [navProxy setShadowImage:[[UIImage alloc] init]];
+    
+    // UIStepper
+    UIImage *stepperBackground = [[UIImage imageNamed:@"buttonRect.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
+    UIImage *divider = [[UIImage imageNamed:@"stepperDivider.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    UIStepper *stepperProxy = [UIStepper appearance];
+    [stepperProxy setBackgroundImage:stepperBackground forState:UIControlStateNormal];
+    [stepperProxy setIncrementImage:[UIImage imageNamed:@"incrementImage.png"] forState:UIControlStateNormal];
+    [stepperProxy setDecrementImage:[UIImage imageNamed:@"decrementImage.png"] forState:UIControlStateNormal];
+    [stepperProxy setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal];
+    
 }
 
 + (UILabel *)navBarTitleWithText:(NSString *)text

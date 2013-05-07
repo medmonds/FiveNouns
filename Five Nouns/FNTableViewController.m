@@ -15,6 +15,16 @@
 
 @implementation FNTableViewController
 
+#pragma mark - Text Field Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return NO; // otherwise enters a return
+}
+
+#pragma mark - Appearance Customization
+
 - (void)setBackgroundForCell:(UITableViewCell *)cell Style:(FNTableViewCellStyle)style atIndexPath:(NSIndexPath *)indexPath
 {
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:cell.frame];
@@ -50,6 +60,8 @@
     textField.background = background;
 }
 
+#pragma mark - View Controller Life Cycle
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -64,6 +76,14 @@
     [super viewDidLoad];
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [FNAppearance tableViewBackgroundColor];
+    UIBarButtonItem *back = [FNAppearance backBarButtonItem];
+    [back setTarget:self.navigationController];
+    [back setAction:@selector(popViewControllerAnimated:)];
+    [self.navigationItem setLeftBarButtonItem:back];
+    UIBarButtonItem *forward = [FNAppearance forwardBarButtonItem];
+    [forward setTarget:self];
+    [forward setAction:@selector(forwardBarButtonItemPressed)];
+    [self.navigationItem setRightBarButtonItem:forward];
 }
 
 - (void)didReceiveMemoryWarning
