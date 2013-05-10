@@ -1,18 +1,18 @@
 //
-//  FNTableViewController.m
+//  FNViewController.m
 //  Five Nouns
 //
-//  Created by Matthew Edmonds on 4/24/13.
+//  Created by Matthew Edmonds on 5/7/13.
 //  Copyright (c) 2013 Matthew Edmonds. All rights reserved.
 //
 
-#import "FNTableViewController.h"
+#import "FNViewController.h"
 
-@interface FNTableViewController ()
+@interface FNViewController ()
 
 @end
 
-@implementation FNTableViewController
+@implementation FNViewController
 
 #pragma mark - Text Field Delegate
 
@@ -60,15 +60,6 @@
 }
 
 #pragma mark - View Controller Life Cycle
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {

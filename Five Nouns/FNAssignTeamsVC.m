@@ -122,7 +122,7 @@
             cell.mainTextLabel.text = team.name;
             return cell;
         } else {
-            
+            // fnselectablecell
         }
     }
 }
