@@ -8,9 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class FNPlayer;
+
 @interface FNTeam : NSObject
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSMutableArray *players;
+
+- (void)addPlayer:(FNPlayer *)player;
+- (void)removePlayer:(FNPlayer *)player;
 
 @end

@@ -72,7 +72,7 @@
 - (void)toggleAddPlayerSavingCurrentPlayer:(BOOL)save
 {
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:7];
-    for (int i = 2; i < 8; i++) {
+    for (int i = 1; i < 8; i++) {
         NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
         [array addObject:path];
     }
@@ -88,25 +88,17 @@
     if (!self.addPlayerIsVisible) {
         self.addPlayerIsVisible = YES;
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
     } else {
         self.addPlayerIsVisible = NO;
         if (save) {
             // save the currentPlayer and add it to the table view
             [self.brain addPlayer:self.currentPlayer];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.brain.allPlayers indexOfObject:self.currentPlayer] inSection:1];
-            // if inserting 1st player must insert from bottom otherwise looks bad
-            if ([self.brain.allPlayers count] == 1) {
-                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
-            } else {
-                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
+            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
         }
-        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
-        [self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
     }
-    
     [self.tableView endUpdates];
     [CATransaction commit];
 }
@@ -209,7 +201,7 @@
             return cell;
         } else if (indexPath.row > 0 && indexPath.row < ([self.tableView numberOfRowsInSection:indexPath.section] - 1)) {
             FNEditableCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
-            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextFieldLabel atIndexPath:indexPath];
+            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextField atIndexPath:indexPath];
             [self setBackgroundForTextField:cell.detailTextField];
             cell.detailTextField.delegate = self;
             cell.detailTextField.tag = indexPath.row - 2;
@@ -247,6 +239,22 @@
         return cell;
     }
 }
+
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (indexPath.section == 0) {
+//        if (indexPath.row == 0) {
+//            [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
+//        } else if (indexPath.row > 0 && indexPath.row < ([self.tableView numberOfRowsInSection:indexPath.section] - 1)) {
+//            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextField atIndexPath:indexPath];
+//        } else {
+//            [self setBackgroundForCell:cell Style:FNTableViewCellStyleButtonSmall atIndexPath:indexPath];
+//        }
+//    } else {
+//        [self setBackgroundForCell:cell Style:FNTableViewCellStylePlain atIndexPath:indexPath];
+//        UIImage *cellImage = ((UIImageView *)cell.backgroundView).image;
+//    }
+//}
 
 #pragma mark - View Controller Life Cycle
 

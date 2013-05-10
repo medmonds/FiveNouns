@@ -93,7 +93,6 @@
             background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
         }
     } else if (style == FNTableViewCellStylePlain) {
-        // I dont think this will work to trim the backgrounds for different cell positions
         if (position == FNTableViewCellPositionNone) {
             background = [UIImage imageNamed:@"cellBackPlain"];
             background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];

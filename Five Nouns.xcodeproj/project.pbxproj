@@ -238,10 +238,6 @@
 		C91B8D9D171A1E8B00AE468C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C9A3260E1739FE46009A2BB1 /* FNAddPlayerVC.h */,
-				C9A3260F1739FE46009A2BB1 /* FNAddPlayerVC.m */,
-				C9A32613173A065F009A2BB1 /* FNViewController.h */,
-				C9A32614173A065F009A2BB1 /* FNViewController.m */,
 				C993E3071728DD8000C37DB8 /* FNTableViewController.h */,
 				C993E3081728DD8000C37DB8 /* FNTableViewController.m */,
 				C9B40EE5171A1CC100619D57 /* FNNewGameVC.h */,
@@ -256,6 +252,7 @@
 				C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */,
 				C9E353B1171B5750003061D3 /* FNOrderTeamsVC.h */,
 				C9E353B2171B5750003061D3 /* FNOrderTeamsVC.m */,
+				C9A46FD8173C948E00394C3C /* Scrapped */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -396,6 +393,17 @@
 				C993E2F31728C6A800C37DB8 /* buttonRect@2x.png */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		C9A46FD8173C948E00394C3C /* Scrapped */ = {
+			isa = PBXGroup;
+			children = (
+				C9A3260E1739FE46009A2BB1 /* FNAddPlayerVC.h */,
+				C9A3260F1739FE46009A2BB1 /* FNAddPlayerVC.m */,
+				C9A32613173A065F009A2BB1 /* FNViewController.h */,
+				C9A32614173A065F009A2BB1 /* FNViewController.m */,
+			);
+			name = Scrapped;
 			sourceTree = "<group>";
 		};
 		C9F04F16171A283500AAAF75 /* Table View Cells */ = {

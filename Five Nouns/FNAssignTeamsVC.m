@@ -12,6 +12,7 @@
 #import "FNOrderTeamsVC.h"
 #import "FNStepperCell.h"
 #import "FNReorderableCell.h"
+#import "FNSelectableCell.h"
 
 @interface FNAssignTeamsVC ()
 @property (nonatomic, strong) NSArray *dataSource;
@@ -60,27 +61,42 @@
     UIButton *buttonLabel = cell.detailButtonLabel;
     buttonLabel.titleLabel.text = [NSString stringWithFormat:@"%d", numberOfTeams];
     [self.tableView endUpdates];
+    [self assignPlayersToTeams];
+}
+
+- (void)assignPlayersToTeams
+{
+    NSMutableArray *players = [[NSMutableArray alloc] init];
+    for (FNPlayer *player in [self.brain allPlayers]) {
+        if (!player.team) {
+            [players addObject:player];
+        }
+    }
+    if ([self.teams count] > 0) {
+        NSInteger playersPerTeam = [self.brain.allPlayers count] / [self.teams count];
+        for (FNTeam *team in self.teams) {
+            for (int i = [team.players count]; i < playersPerTeam; i++) {
+                if ([players count] > 0) {
+                    NSInteger randomPlayer = arc4random() % [players count];
+                    [team addPlayer:[players objectAtIndex:randomPlayer]];
+                }
+            }
+        }
+    }
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        [self performSegueWithIdentifier:@"selectTeam" sender:[self.dataSource objectAtIndex:indexPath.row]];
-    } else {
-        [self performSegueWithIdentifier:@"orderTeams" sender:nil];
+    if (indexPath.section == 1) {
+        //[self performSegueWithIdentifier:@"orderTeams" sender:nil];
     }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"selectTeam"]) {
-        ((FNSelectTeamVC *)segue.destinationViewController).brain = self.brain;
-        ((FNSelectTeamVC *)segue.destinationViewController).playerForTeam = sender;
-    } else if ([segue.identifier isEqualToString:@"orderTeams"]) {
-        ((FNSelectTeamVC *)segue.destinationViewController).brain = self.brain;
-    }
+    ((FNSelectTeamVC *)segue.destinationViewController).brain = self.brain;
 }
 
 #pragma mark - Table view data source
@@ -97,8 +113,7 @@
     } else {
         FNTeam *team = [self.teams objectAtIndex:section - 1];
         NSInteger playerCount = [team.players count];
-        NSLog(@"playercount = %d", playerCount);
-        return 1 + playerCount;
+        return 2 + playerCount + [[self availablePlayersForTeam:team] count];
     }
 }
 
@@ -115,16 +130,52 @@
         cell.detailButtonLabel.titleLabel.text = @"0";
         return cell;
     } else {
+        FNTeam *team = [self.teams objectAtIndex:indexPath.section - 1];
         if (indexPath.row == 0) {
             FNReorderableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"reorderable"];
             [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
-            FNTeam *team = [self.teams objectAtIndex:indexPath.section - 1];
             cell.mainTextLabel.text = team.name;
             return cell;
+        } else if (indexPath.row == 1) {
+            FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
+            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextField atIndexPath:indexPath];
+            [self setBackgroundForTextField:cell.detailTextField];
+            cell.detailTextField.delegate = self;
+            cell.detailTextField.tag = indexPath.row - 2;
+            cell.mainTextLabel.text = nil;
+            cell.detailTextField.text = nil;
+            cell.mainTextLabel.text = @"name:";
+            cell.detailTextField.text = team.name;
+            return cell;
+        } else if ((indexPath.row - 2) < [((FNTeam *)[self.teams objectAtIndex:indexPath.section - 1]).players count]) {
+            FNSelectableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"selectable"];
+            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextField atIndexPath:indexPath];
+            FNPlayer *player = [team.players objectAtIndex:indexPath.row - 2];
+            cell.mainTextLabel.text = player.name;
+            // if player.team is this team then set the check mark to indicate user selected team member
+            // else set the check mark differently
+            return cell;
         } else {
-            // fnselectablecell
+            FNSelectableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"selectable"];
+            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextField atIndexPath:indexPath];
+            FNPlayer *player = [[self availablePlayersForTeam:team] lastObject];
+            cell.mainTextLabel.text = player.name;
+            // set the check mark to no check mark
+            return cell;
         }
     }
+}
+
+- (NSArray *)availablePlayersForTeam:(FNTeam *)team
+{
+    NSMutableArray *allPlayers = self.brain.allPlayers;
+    NSMutableArray *availablePlayers = [[NSMutableArray alloc] init];
+    for (FNPlayer *player in allPlayers) {
+        if (!player.team && ![team.players containsObject:player]) {
+            [availablePlayers addObject:player];
+        }
+    }
+    return availablePlayers;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style

@@ -74,7 +74,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Sqv-jB-dXX"/>
                     <connections>
-                        <segue destination="KeE-Kp-T43" kind="push" identifier="addPlayers" id="WHl-5a-S91"/>
+                        <segue destination="LMf-bJ-PF7" kind="push" identifier="addPlayers" id="bau-ld-J9S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -85,8 +85,8 @@
         <scene sceneID="9bc-A5-Uwq">
             <objects>
                 <tableViewController storyboardIdentifier="addPlayersVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LMf-bJ-PF7" customClass="FNAddPlayersVC" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2Tg-8v-QqS">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2Tg-8v-QqS">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="0.40784313729999999" green="0.80000000000000004" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
@@ -117,13 +117,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="right" minimumFontSize="17" id="UdV-8x-gl2">
-                                            <rect key="frame" x="95" y="7" width="188" height="30"/>
+                                            <rect key="frame" x="112" y="7" width="188" height="30"/>
                                             <color key="backgroundColor" red="0.98431372549999996" green="0.65098039220000004" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                         </textField>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="K1q-Z8-vDU">
-                                            <rect key="frame" x="15" y="15" width="71" height="19"/>
+                                            <rect key="frame" x="20" y="12" width="71" height="19"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="22"/>
@@ -146,7 +146,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pXB-al-EFX" customClass="FNButtonRect">
-                                            <rect key="frame" x="211" y="4" width="72" height="35"/>
+                                            <rect key="frame" x="228" y="4" width="72" height="35"/>
                                             <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="26"/>
                                             <state key="normal" title="Save">
                                                 <color key="titleColor" red="0.91764705879999997" green="0.81568627449999997" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -163,7 +163,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="plain" textLabel="BSr-KA-3CM" style="IBUITableViewCellStyleDefault" id="fPD-C3-WFM" customClass="FNPlainCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="plain" textLabel="BSr-KA-3CM" style="IBUITableViewCellStyleDefault" id="fPD-C3-WFM" customClass="FNPlainCell">
                                 <rect key="frame" x="0.0" y="154" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -180,6 +180,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -189,21 +190,24 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Players" id="kSP-l0-oD0"/>
+                    <connections>
+                        <segue destination="5hy-Fj-K01" kind="push" identifier="teamsOverview" id="KaL-Ih-mso"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x6h-Ws-0hU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3944" y="-2870"/>
+            <point key="canvasLocation" x="-4013" y="-2229"/>
         </scene>
         <!--Add PlayerVC-->
         <scene sceneID="7Qc-jn-6To">
             <objects>
                 <viewController id="KeE-Kp-T43" customClass="FNAddPlayerVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qHa-kF-Ffa">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="haO-UG-9IU">
-                                <rect key="frame" x="13" y="20" width="294" height="330"/>
+                                <rect key="frame" x="13" y="20" width="294" height="374"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="NI0-qZ-saE">
@@ -311,7 +315,7 @@
                                 </connections>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="9Wj-95-NnA">
-                                <rect key="frame" x="-29" y="358" width="349" height="252"/>
+                                <rect key="frame" x="-29" y="358" width="349" height="296"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
@@ -333,18 +337,17 @@
                         <outlet property="nounsLabel" destination="eyA-0r-ctu" id="tPV-fb-TwA"/>
                         <outlet property="saveButton" destination="jp6-90-PnA" id="MNR-4A-a8Z"/>
                         <outlet property="tableView" destination="9Wj-95-NnA" id="Rah-K1-HhF"/>
-                        <segue destination="5hy-Fj-K01" kind="push" identifier="teamsOverview" id="UFz-Aj-bRy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OEf-IC-0gf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3944" y="-2235"/>
+            <point key="canvasLocation" x="-3516" y="-2111"/>
         </scene>
         <!--Assign TeamsVC - Assign Teams-->
         <scene sceneID="anP-2t-dxJ">
             <objects>
                 <tableViewController storyboardIdentifier="assignTeamsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5hy-Fj-K01" customClass="FNAssignTeamsVC" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="DKI-yd-9Ur">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="DKI-yd-9Ur">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -453,7 +456,7 @@
                                     <outlet property="mainTextLabel" destination="sf4-6A-ngg" id="c8U-Wg-0Os"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="J8A-YW-u5Y" customClass="FNSelectableCell">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="selectable" id="J8A-YW-u5Y" customClass="FNSelectableCell">
                                 <rect key="frame" x="0.0" y="154" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -926,87 +929,6 @@
             <point key="canvasLocation" x="-3432" y="-104"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="FNAddPlayerVC" superclassName="FNViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAddPlayerVC.h"/>
-            <relationships>
-                <relationship kind="action" name="addPlayerPressed:" candidateClass="UIButton"/>
-                <relationship kind="action" name="savePressed:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="addPlayerButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="addPlayerView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="divider" candidateClass="UIView"/>
-                <relationship kind="outlet" name="name" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="noun0" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="noun1" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="noun2" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="noun3" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="noun4" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nounsLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="saveButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="FNAddPlayersVC" superclassName="FNTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAddPlayersVC.h"/>
-        </class>
-        <class className="FNAssignTeamsVC" superclassName="FNTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAssignTeamsVC.h"/>
-        </class>
-        <class className="FNButtonCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNButtonCell.h"/>
-        </class>
-        <class className="FNButtonRect" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNButtonRect.h"/>
-        </class>
-        <class className="FNEditableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNEditableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="detailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="FNNewGameVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNNewGameVC.h"/>
-        </class>
-        <class className="FNOrderTeamsVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNOrderTeamsVC.h"/>
-        </class>
-        <class className="FNPlainCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNPlainCell.h"/>
-        </class>
-        <class className="FNReorderableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNReorderableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="button" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="FNSelectableCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNSelectableCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="button" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="FNStepperCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNStepperCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="detailButtonLabel" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="stepper" candidateClass="UIStepper"/>
-            </relationships>
-        </class>
-        <class className="FNTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNTableViewController.h"/>
-        </class>
-        <class className="FNViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
