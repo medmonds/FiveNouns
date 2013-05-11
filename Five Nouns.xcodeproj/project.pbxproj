@@ -254,7 +254,6 @@
 				C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */,
 				C9F04F1D171A5FD000AAAF75 /* FNAssignTeamsVC.h */,
 				C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */,
-				C9F04F25171A72B600AAAF75 /* FNSelectTeamVC.h */,
 				C9A46FD8173C948E00394C3C /* Scrapped */,
 			);
 			name = "View Controllers";
@@ -405,6 +404,7 @@
 		C9A46FD8173C948E00394C3C /* Scrapped */ = {
 			isa = PBXGroup;
 			children = (
+				C9F04F25171A72B600AAAF75 /* FNSelectTeamVC.h */,
 				C9F04F26171A72B600AAAF75 /* FNSelectTeamVC.m */,
 				C99E2E7F171A896C001AE786 /* FNCreateTeamVC.h */,
 				C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */,

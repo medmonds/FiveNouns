@@ -46,8 +46,11 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    FNTeam *team = [self.teams objectAtIndex:textField.tag];
-    team.name = textField.text;
+    // if the textfield is active & the team is deleted by the stepper could go out of array bounds
+    if ([self.teams count] > textField.tag) {
+        FNTeam *team = [self.teams objectAtIndex:textField.tag];
+        team.name = textField.text;
+    }
     return YES;
 }
 
@@ -86,12 +89,12 @@
             FNTeam *newTeam = [[FNTeam alloc] init];
             newTeam.name = [NSString stringWithFormat:@"Team %d", [self.teams count] + 1];
             [self.teams insertObject:newTeam atIndex:[self.teams count]];
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:[self.teams count]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:[self.teams count]] withRowAnimation:UITableViewRowAnimationTop];
         }
     } else if ([self.teams count] > numberOfTeams) {
         for (int i = [self.teams count] - numberOfTeams; i > 0; i--) {
             [self.teams removeLastObject];
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[self.teams count] + 1] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[self.teams count] + 1] withRowAnimation:UITableViewRowAnimationTop];
             if (self.visibleTeam == [self.teams count] + 1) {
                 self.visibleTeam = 0;
             }
@@ -227,6 +230,7 @@
         cell.stepper.autorepeat = NO;
         cell.stepper.wraps = YES;
         cell.stepper.maximumValue = 6;
+        cell.stepper.value = [self.teams count];
         [cell.stepper addTarget:self action:@selector(stepperDidStep:) forControlEvents:UIControlEventTouchUpInside];
         [cell.detailButtonLabel setBackgroundImage:[FNAppearance backgroundForTextField] forState:UIControlStateNormal];
         cell.detailButtonLabel.titleLabel.text = [NSString stringWithFormat:@"%d", [self.teams count]];
