@@ -33,6 +33,10 @@
 		C9649E721718B7390039B88E /* Five_NounsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9649E711718B7390039B88E /* Five_NounsTests.m */; };
 		C9772D051719FE01005E0130 /* FNCountDownTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9772D041719FE01005E0130 /* FNCountDownTimer.m */; };
 		C9772D061719FE01005E0130 /* FNCountDownTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = C9772D041719FE01005E0130 /* FNCountDownTimer.m */; };
+		C97FC963173E13CA0086387F /* checkmarkUserSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C97FC95F173E13CA0086387F /* checkmarkUserSelected.png */; };
+		C97FC964173E13CA0086387F /* checkmarkUserSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C97FC960173E13CA0086387F /* checkmarkUserSelected@2x.png */; };
+		C97FC965173E13CA0086387F /* checkmarkGameSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C97FC961173E13CA0086387F /* checkmarkGameSelected.png */; };
+		C97FC966173E13CA0086387F /* checkmarkGameSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C97FC962173E13CA0086387F /* checkmarkGameSelected@2x.png */; };
 		C99279DE17192F180035658F /* FNGameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279DD17192F180035658F /* FNGameManager.m */; };
 		C99279DF17192F180035658F /* FNGameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279DD17192F180035658F /* FNGameManager.m */; };
 		C99279E3171932510035658F /* FNBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279E2171932510035658F /* FNBrain.m */; };
@@ -143,6 +147,10 @@
 		C9649E711718B7390039B88E /* Five_NounsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Five_NounsTests.m; sourceTree = "<group>"; };
 		C9772D031719FE01005E0130 /* FNCountDownTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNCountDownTimer.h; sourceTree = "<group>"; };
 		C9772D041719FE01005E0130 /* FNCountDownTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNCountDownTimer.m; sourceTree = "<group>"; };
+		C97FC95F173E13CA0086387F /* checkmarkUserSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmarkUserSelected.png; sourceTree = "<group>"; };
+		C97FC960173E13CA0086387F /* checkmarkUserSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmarkUserSelected@2x.png"; sourceTree = "<group>"; };
+		C97FC961173E13CA0086387F /* checkmarkGameSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmarkGameSelected.png; sourceTree = "<group>"; };
+		C97FC962173E13CA0086387F /* checkmarkGameSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmarkGameSelected@2x.png"; sourceTree = "<group>"; };
 		C99279DC17192F180035658F /* FNGameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNGameManager.h; sourceTree = "<group>"; };
 		C99279DD17192F180035658F /* FNGameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNGameManager.m; sourceTree = "<group>"; };
 		C99279E1171932510035658F /* FNBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNBrain.h; sourceTree = "<group>"; };
@@ -247,11 +255,6 @@
 				C9F04F1D171A5FD000AAAF75 /* FNAssignTeamsVC.h */,
 				C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */,
 				C9F04F25171A72B600AAAF75 /* FNSelectTeamVC.h */,
-				C9F04F26171A72B600AAAF75 /* FNSelectTeamVC.m */,
-				C99E2E7F171A896C001AE786 /* FNCreateTeamVC.h */,
-				C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */,
-				C9E353B1171B5750003061D3 /* FNOrderTeamsVC.h */,
-				C9E353B2171B5750003061D3 /* FNOrderTeamsVC.m */,
 				C9A46FD8173C948E00394C3C /* Scrapped */,
 			);
 			name = "View Controllers";
@@ -363,6 +366,10 @@
 		C993E2F81728C6B100C37DB8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				C97FC95F173E13CA0086387F /* checkmarkUserSelected.png */,
+				C97FC960173E13CA0086387F /* checkmarkUserSelected@2x.png */,
+				C97FC961173E13CA0086387F /* checkmarkGameSelected.png */,
+				C97FC962173E13CA0086387F /* checkmarkGameSelected@2x.png */,
 				C9A04EAB173893D00016F65F /* stepperDivider.png */,
 				C9A04EAC173893D00016F65F /* stepperDivider@2x.png */,
 				C9A04E9F173888700016F65F /* decrementImage.png */,
@@ -398,6 +405,11 @@
 		C9A46FD8173C948E00394C3C /* Scrapped */ = {
 			isa = PBXGroup;
 			children = (
+				C9F04F26171A72B600AAAF75 /* FNSelectTeamVC.m */,
+				C99E2E7F171A896C001AE786 /* FNCreateTeamVC.h */,
+				C99E2E80171A896C001AE786 /* FNCreateTeamVC.m */,
+				C9E353B1171B5750003061D3 /* FNOrderTeamsVC.h */,
+				C9E353B2171B5750003061D3 /* FNOrderTeamsVC.m */,
 				C9A3260E1739FE46009A2BB1 /* FNAddPlayerVC.h */,
 				C9A3260F1739FE46009A2BB1 /* FNAddPlayerVC.m */,
 				C9A32613173A065F009A2BB1 /* FNViewController.h */,
@@ -530,6 +542,10 @@
 				C9A04EA6173888700016F65F /* incrementImage.png in Resources */,
 				C9A04EAD173893D00016F65F /* stepperDivider.png in Resources */,
 				C9A04EAE173893D00016F65F /* stepperDivider@2x.png in Resources */,
+				C97FC963173E13CA0086387F /* checkmarkUserSelected.png in Resources */,
+				C97FC964173E13CA0086387F /* checkmarkUserSelected@2x.png in Resources */,
+				C97FC965173E13CA0086387F /* checkmarkGameSelected.png in Resources */,
+				C97FC966173E13CA0086387F /* checkmarkGameSelected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

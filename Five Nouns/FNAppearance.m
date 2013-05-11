@@ -124,6 +124,17 @@
     return background;
 }
 
++ (UIImage *)checkmarkWithStyle:(FNCheckmarkStyle)style
+{
+    UIImage *checkmark;
+    if (style == FNCheckmarkStyleGame) {
+        checkmark = [UIImage imageNamed:@"checkmarkGameSelected.png"];
+    } else {
+        checkmark = [UIImage imageNamed:@"checkmarkUserSelected.png"];
+    }
+    return checkmark;
+}
+
 @end
 
 

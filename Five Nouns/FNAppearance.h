@@ -31,6 +31,11 @@ typedef NS_ENUM(NSInteger, FNTableViewCellPosition) {
     FNTableViewCellPositionNone
 };
 
+typedef NS_ENUM(NSInteger, FNCheckmarkStyle) {
+    FNCheckmarkStyleUser,
+    FNCheckmarkStyleGame,
+};
+
 @interface FNAppearance : NSObject
 
 + (UIColor *)tableViewBackgroundColor;
@@ -48,5 +53,7 @@ typedef NS_ENUM(NSInteger, FNTableViewCellPosition) {
 + (UIImage *)backgroundForTextField;
 
 + (UIImage *)backgroundForButton;
+
++ (UIImage *)checkmarkWithStyle:(FNCheckmarkStyle)style;
 
 @end

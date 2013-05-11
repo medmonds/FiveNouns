@@ -363,7 +363,8 @@
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="right" minimumFontSize="17" id="un9-rN-7Is">
                                             <rect key="frame" x="95" y="7" width="188" height="30"/>
                                             <color key="backgroundColor" red="0.98431372549999996" green="0.65098039220000004" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                                            <color key="textColor" red="0.40784313729999999" green="0.80000000000000004" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="22"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                         </textField>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Oeh-Jj-lP8">
@@ -436,7 +437,7 @@
                                             <color key="textColor" red="0.91764705879999997" green="0.81568627449999997" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Yj7-20-DoV">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Yj7-20-DoV" customClass="FNButtonRect">
                                             <rect key="frame" x="254" y="6" width="32" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -470,7 +471,7 @@
                                             <color key="textColor" red="0.91764705879999997" green="0.81568627449999997" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fYG-zG-M5j">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fYG-zG-M5j" customClass="FNButtonRect">
                                             <rect key="frame" x="254" y="6" width="32" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -929,6 +930,87 @@
             <point key="canvasLocation" x="-3432" y="-104"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="FNAddPlayerVC" superclassName="FNViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAddPlayerVC.h"/>
+            <relationships>
+                <relationship kind="action" name="addPlayerPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="savePressed:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="addPlayerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="addPlayerView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="divider" candidateClass="UIView"/>
+                <relationship kind="outlet" name="name" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="noun0" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="noun1" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="noun2" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="noun3" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="noun4" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nounsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="saveButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="FNAddPlayersVC" superclassName="FNTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAddPlayersVC.h"/>
+        </class>
+        <class className="FNAssignTeamsVC" superclassName="FNTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAssignTeamsVC.h"/>
+        </class>
+        <class className="FNButtonCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNButtonCell.h"/>
+        </class>
+        <class className="FNButtonRect" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNButtonRect.h"/>
+        </class>
+        <class className="FNEditableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNEditableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="detailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FNNewGameVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNNewGameVC.h"/>
+        </class>
+        <class className="FNOrderTeamsVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNOrderTeamsVC.h"/>
+        </class>
+        <class className="FNPlainCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNPlainCell.h"/>
+        </class>
+        <class className="FNReorderableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNReorderableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="button" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FNSelectableCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNSelectableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="button" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FNStepperCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNStepperCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="detailButtonLabel" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="stepper" candidateClass="UIStepper"/>
+            </relationships>
+        </class>
+        <class className="FNTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNTableViewController.h"/>
+        </class>
+        <class className="FNViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
