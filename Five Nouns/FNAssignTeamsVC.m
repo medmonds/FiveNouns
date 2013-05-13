@@ -195,39 +195,41 @@
 
 - (void)assignUnAssignedPlayers
 {
-    NSInteger playersPerTeam = [self.brain.allPlayers count] / [self.teams count];
-    if (([self.brain.allPlayers count] % [self.teams count]) > 0) {
-        playersPerTeam++;
-    }
-    for (FNPlayer *player in self.brain.allPlayers) {
-        BOOL isOnTeam = NO;
-//        NSLog(@"current player: %@", player.name);
-        for (FNTeam *team in self.teams) {
-//            NSLog(@"team: %@", team.name);
-//            for (FNPlayer *player in team.players) {
-//                NSLog(@"%@", player.name);
-//            }
-            if ([team.players containsObject:player]) {
-                isOnTeam = YES;
-                break;
-            }
+    if ([self.teams count] > 0) {
+        NSInteger playersPerTeam = [self.brain.allPlayers count] / [self.teams count];
+        if (([self.brain.allPlayers count] % [self.teams count]) > 0) {
+            playersPerTeam++;
         }
-        if (!isOnTeam) {
-            NSArray *sorted = [self.teams sortedArrayUsingComparator:^NSComparisonResult(FNTeam *obj1, FNTeam *obj2) {
-                if ([obj1.players count] < [obj2.players count]) {
-                    return NSOrderedAscending;
-                } else if ([obj1.players count] > [obj2.players count]) {
-                    return NSOrderedDescending;
-                } else {
-                    return NSOrderedSame;
-                }
-            }];
-            for (FNTeam *team in sorted) {
-                if ([team.players count] < playersPerTeam) {
-//                    NSLog(@"Assigning: %@   to team: %@", player.name, team.name);
-                    [team addPlayer:player];
-                    [self refreshVisibleTeam];
+        for (FNPlayer *player in self.brain.allPlayers) {
+            BOOL isOnTeam = NO;
+            //        NSLog(@"current player: %@", player.name);
+            for (FNTeam *team in self.teams) {
+                //            NSLog(@"team: %@", team.name);
+                //            for (FNPlayer *player in team.players) {
+                //                NSLog(@"%@", player.name);
+                //            }
+                if ([team.players containsObject:player]) {
+                    isOnTeam = YES;
                     break;
+                }
+            }
+            if (!isOnTeam) {
+                NSArray *sorted = [self.teams sortedArrayUsingComparator:^NSComparisonResult(FNTeam *obj1, FNTeam *obj2) {
+                    if ([obj1.players count] < [obj2.players count]) {
+                        return NSOrderedAscending;
+                    } else if ([obj1.players count] > [obj2.players count]) {
+                        return NSOrderedDescending;
+                    } else {
+                        return NSOrderedSame;
+                    }
+                }];
+                for (FNTeam *team in sorted) {
+                    if ([team.players count] < playersPerTeam) {
+                        //                    NSLog(@"Assigning: %@   to team: %@", player.name, team.name);
+                        [team addPlayer:player];
+                        [self refreshVisibleTeam];
+                        break;
+                    }
                 }
             }
         }
