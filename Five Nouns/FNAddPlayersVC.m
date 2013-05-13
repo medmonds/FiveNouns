@@ -126,7 +126,19 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            [self toggleAddPlayerSavingCurrentPlayer:NO];
+            //[self toggleAddPlayerSavingCurrentPlayer:NO];
+            FNPlayer *one = [[FNPlayer alloc] init];
+            one.name = @"Matt";
+            [self.brain addPlayer:one];
+            FNPlayer *two = [[FNPlayer alloc] init];
+            two.name = @"Jill";
+            [self.brain addPlayer:two];
+            FNPlayer *three= [[FNPlayer alloc] init];
+            three.name = @"Abbey";
+            [self.brain addPlayer:three];
+            FNPlayer *four = [[FNPlayer alloc] init];
+            four.name = @"Wes";
+            [self.brain addPlayer:four];
         } else {
             // make the textfield (if cell has a textfield) the first responder
             id cell = [self.tableView cellForRowAtIndexPath:indexPath];
