@@ -13,4 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *mainTextLabel;
 @property (weak, nonatomic) IBOutlet UIButton *button;
 
+- (BOOL)isTouchInReorderControl:(UIGestureRecognizer *)touch;
+- (void)prepareForMove;
+
 @end

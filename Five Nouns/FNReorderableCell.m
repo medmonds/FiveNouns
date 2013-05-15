@@ -10,6 +10,18 @@
 
 @implementation FNReorderableCell
 
+- (BOOL)isTouchInReorderControl:(UIGestureRecognizer *)touch
+{
+    CGPoint point = [touch locationInView:self];
+    return CGRectContainsPoint(self.button.frame, point);
+}
+
+- (void)prepareForMove
+{
+    self.mainTextLabel.text = nil;
+    [self.button setHidden:YES];
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

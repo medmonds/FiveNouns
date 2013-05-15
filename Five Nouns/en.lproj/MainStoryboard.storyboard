@@ -347,7 +347,7 @@
         <scene sceneID="anP-2t-dxJ">
             <objects>
                 <tableViewController storyboardIdentifier="assignTeamsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5hy-Fj-K01" customClass="FNAssignTeamsVC" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="DKI-yd-9Ur">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="DKI-yd-9Ur" customClass="FMMoveTableView">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -931,6 +931,9 @@
         </scene>
     </scenes>
     <classes>
+        <class className="FMMoveTableView" superclassName="UITableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FMMoveTableView.h"/>
+        </class>
         <class className="FNAddPlayerVC" superclassName="FNViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAddPlayerVC.h"/>
             <relationships>

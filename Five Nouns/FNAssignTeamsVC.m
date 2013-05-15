@@ -14,6 +14,7 @@
 #import "FNStepperCell.h"
 #import "FNReorderableCell.h"
 #import "FNSelectableCell.h"
+#import "FMMoveTableView.h"
 
 @interface FNAssignTeamsVC ()
 @property (nonatomic, strong) NSMutableArray *teams;
@@ -44,8 +45,6 @@
  
  
  ***********************************************************************************************/
-
-
 
 
 
@@ -296,6 +295,54 @@
     ((FNSelectTeamVC *)segue.destinationViewController).brain = self.brain;
 }
 
+
+#pragma mark - Move Table View
+
+- (BOOL)moveTableView:(FMMoveTableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section >= 0) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)moveTableView:(FMMoveTableView *)tableView moveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    FNTeam *movedTeam = self.teams[fromIndexPath.section - 1];
+    [self.teams removeObjectAtIndex:fromIndexPath.section - 1];
+    [self.teams insertObject:movedTeam atIndex:toIndexPath.section - 1];
+    NSLog(@"Moved Team From Index: %d to %d", fromIndexPath.section, toIndexPath.section);
+}
+
+- (NSIndexPath *)moveTableView:(FMMoveTableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+{
+    if (proposedDestinationIndexPath.row == 1) {
+        //proposedDestinationIndexPath = [NSIndexPath indexPathForRow:0 inSection:proposedDestinationIndexPath.section + 1];
+    }
+	
+	return proposedDestinationIndexPath;
+}
+
+/*
+- (CGFloat)tableView:(FMMoveTableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+#warning Implement this check in your table view delegate if necessary
+//     * Implement this check in your table view delegate to ensure correct access to the row heights in
+//     * data source.
+//     *
+//     * SKIP this check if all of your rows have the same heigt!
+//     *
+//     * The data source is in a dirty state when moving a row and is only being updated after the user
+//     * releases the moving row
+    indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
+	
+    NSArray *movie = [[[self movies] objectAtIndex:[indexPath section]] objectAtIndex:[indexPath row]];
+    CGFloat heightForRow = [[movie objectAtIndex:kIndexRowHeightOfMovie] floatValue];
+    
+    return heightForRow;
+}
+*/
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -303,21 +350,38 @@
     return 1 + [self.teams count];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(FMMoveTableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSInteger numberOfRows = 0;
     if (section == 0) {
-        return 1;
+        numberOfRows = 1;
     } else {
         if (section == self.visibleTeam) {
             FNTeam *team = [self.teams objectAtIndex:section - 1];
             NSInteger playerCount = [team.players count];
-            return 2 + playerCount + [[self availablePlayersForTeam:team] count];
+            numberOfRows = 2 + playerCount + [[self availablePlayersForTeam:team] count];
+        } else {
+            numberOfRows = 1;
         }
-        return 1;
     }
+    /******************************** NOTE ************************************************************
+	 * Implement this check in your table view data source to ensure correct access to the data source
+	 * The data source is in a dirty state when moving a row and is only being updated after the user
+	 * releases the moving row
+     * 1. A row is in a moving state
+     * 2. The moving row is not in it's initial section
+	 *************************************************************************************************/
+    if ([tableView movingIndexPath] && [[tableView movingIndexPath] section] != [[tableView initialIndexPathForMovingRow] section]) {
+		if (section == [[tableView movingIndexPath] section]) {
+			numberOfRows++;
+		} else if (section == [[tableView initialIndexPathForMovingRow] section]) {
+			numberOfRows--;
+		}
+	}
+    return numberOfRows;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         FNStepperCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"stepper"];
@@ -336,6 +400,13 @@
             FNReorderableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"reorderable"];
             [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
             cell.mainTextLabel.text = team.name;
+            // Moving Table View Methods
+            cell.shouldIndentWhileEditing = NO;
+            cell.showsReorderControl = NO;
+            [cell.button setHidden:NO];
+            if ([tableView indexPathIsMovingIndexPath:indexPath]) {
+                [cell prepareForMove];
+            }
             return cell;
         } else if (indexPath.row == 1) {
             FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
