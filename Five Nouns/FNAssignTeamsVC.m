@@ -317,7 +317,7 @@
 - (NSIndexPath *)moveTableView:(FMMoveTableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
     if (proposedDestinationIndexPath.row == 1) {
-        //proposedDestinationIndexPath = [NSIndexPath indexPathForRow:0 inSection:proposedDestinationIndexPath.section + 1];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:proposedDestinationIndexPath.section + 1];
     }
 	
 	return proposedDestinationIndexPath;

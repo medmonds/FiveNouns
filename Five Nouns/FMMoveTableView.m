@@ -183,9 +183,10 @@
 			NSIndexPath *proposedDestinationIndexPath = [[self delegate] moveTableView:self targetIndexPathForMoveFromRowAtIndexPath:[self movingIndexPath] toProposedIndexPath:newIndexPath];
 			
 			// If the delegate does not allow moving to the new index path cancel moving row
-			if ([newIndexPath compare:proposedDestinationIndexPath] != NSOrderedSame) {
-				return;
-			}
+//			if ([newIndexPath compare:proposedDestinationIndexPath] != NSOrderedSame) {
+//				return;
+//			}
+            newIndexPath = proposedDestinationIndexPath;
 		}
 		
 		[self beginUpdates];
