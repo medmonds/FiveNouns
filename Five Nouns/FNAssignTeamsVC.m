@@ -316,10 +316,9 @@
 
 - (NSIndexPath *)moveTableView:(FMMoveTableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
-    if (proposedDestinationIndexPath.row == 1) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:proposedDestinationIndexPath.section + 1];
+    if (proposedDestinationIndexPath.row == 1 || proposedDestinationIndexPath.section == 0) {
+        proposedDestinationIndexPath = nil;
     }
-	
 	return proposedDestinationIndexPath;
 }
 
@@ -371,18 +370,20 @@
      * 1. A row is in a moving state
      * 2. The moving row is not in it's initial section
 	 *************************************************************************************************/
-    if ([tableView movingIndexPath] && [[tableView movingIndexPath] section] != [[tableView initialIndexPathForMovingRow] section]) {
-		if (section == [[tableView movingIndexPath] section]) {
-			numberOfRows++;
-		} else if (section == [[tableView initialIndexPathForMovingRow] section]) {
-			numberOfRows--;
-		}
-	}
+//    if ([tableView movingIndexPath] && [[tableView movingIndexPath] section] != [[tableView initialIndexPathForMovingRow] section]) {
+//		if (section == [[tableView movingIndexPath] section]) {
+//			numberOfRows++;
+//		} else if (section == [[tableView initialIndexPathForMovingRow] section]) {
+//			numberOfRows--;
+//		}
+//	}
     return numberOfRows;
 }
 
 - (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
+    
     if (indexPath.section == 0) {
         FNStepperCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"stepper"];
         [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];

@@ -172,6 +172,10 @@
 - (void)moveRowToLocation:(CGPoint)location 
 {
 	NSIndexPath *newIndexPath = [self indexPathForRowAtPoint:location];
+    
+    if (newIndexPath.row == 1) {
+        newIndexPath = [NSIndexPath indexPathForRow:0 inSection:newIndexPath.section];
+    }
 	
 	// Analyze the new moving index path
 	// 1. It's a valid index path
@@ -183,18 +187,16 @@
 			NSIndexPath *proposedDestinationIndexPath = [[self delegate] moveTableView:self targetIndexPathForMoveFromRowAtIndexPath:[self movingIndexPath] toProposedIndexPath:newIndexPath];
 			
 			// If the delegate does not allow moving to the new index path cancel moving row
-//			if ([newIndexPath compare:proposedDestinationIndexPath] != NSOrderedSame) {
-//				return;
-//			}
-            newIndexPath = proposedDestinationIndexPath;
+			if ([newIndexPath compare:proposedDestinationIndexPath] != NSOrderedSame) {
+				return;
+			}
 		}
 		
 		[self beginUpdates];
 		
-		// Move the row
-		[self deleteRowsAtIndexPaths:[NSArray arrayWithObject:[self movingIndexPath]] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-		
+		// Move the section		
+        [self moveSection:self.movingIndexPath.section toSection:newIndexPath.section];
+        
 		// Update the moving index path
 		[self setMovingIndexPath:newIndexPath];
 		[self endUpdates];
