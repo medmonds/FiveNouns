@@ -298,12 +298,12 @@
 
 #pragma mark - Move Table View
 
-- (BOOL)moveTableView:(FMMoveTableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)canReorderTableView
 {
-    if (indexPath.section >= 0) {
-        return YES;
+    if (self.visibleTeam > 0) {
+        return NO;
     }
-    return NO;
+    return YES;
 }
 
 - (void)moveTableView:(FMMoveTableView *)tableView moveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
@@ -341,6 +341,9 @@
     return heightForRow;
 }
 */
+
+// not implemented b/c if the row doesn't have a reorder control then is can't be moved
+//- (BOOL)moveTableView:(FMMoveTableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 
 #pragma mark - Table view data source
 
@@ -382,7 +385,7 @@
 
 - (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
+//    indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
     
     if (indexPath.section == 0) {
         FNStepperCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"stepper"];

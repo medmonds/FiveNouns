@@ -12,7 +12,7 @@
 
 
 /**
- * When the long press gesture recognizer began, we create a snap shot of the touched
+ * When the gesture recognizer began, we create a snap shot of the touched
  * cell so the user thinks that he is moving the cell itself. Instead we clear out the
  * touched cell and just move snap shot.
  */
@@ -43,7 +43,7 @@
 
 
 /**
- * We need a little helper to cancel the current touch of the long press gesture recognizer
+ * We need a little helper to cancel the current touch of the gesture recognizer
  * in the case the user does not tap on a row but on a section or table header
  */
 
@@ -131,7 +131,7 @@
 
 - (void)setup
 {
-	UIPanGestureRecognizer *movingGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+	UIPanGestureRecognizer *movingGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleReorderPan:)];
 	[movingGestureRecognizer setDelegate:self];
 	[self addGestureRecognizer:movingGestureRecognizer];
 	[self setMovingGestureRecognizer:movingGestureRecognizer];
@@ -204,99 +204,32 @@
 }
 
 
-- (NSIndexPath *)adaptedIndexPathForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Skip further calulations
-    // 1. There's no row in a moving state
-    // 2. Index path is in a different section than the moving row
-    if (![self movingIndexPath]) {
-        return indexPath;
-    }
-    
-    CGFloat adaptedRow = NSNotFound;
-
-    // It's the moving row so return the initial index path
-    if ([indexPath compare:[self movingIndexPath]] == NSOrderedSame)
-    {
-        indexPath = [self initialIndexPathForMovingRow];
-    }
-    // Moving row is still in it's inital section
-    else if ([[self movingIndexPath] section] == [[self initialIndexPathForMovingRow] section])
-    {
-        // 1. Index path comes after initial row or is at initial row
-        // 2. Index path comes before moving row
-        if ([indexPath row] >= [[self initialIndexPathForMovingRow] row] && [indexPath row] < [[self movingIndexPath] row])
-        {
-            adaptedRow = [indexPath row] + 1;
-        }
-        // 1. Index path comes before initial row or is at initial row
-        // 2. Index path comes after moving row
-        else if ([indexPath row] <= [[self initialIndexPathForMovingRow] row] && [indexPath row] > [[self movingIndexPath] row])
-        {
-            adaptedRow = [indexPath row] - 1;
-        }
-    }
-    // Moving row is no longer in it's inital section
-    else if ([[self movingIndexPath] section] != [[self initialIndexPathForMovingRow] section])
-    {
-        // 1. Index path is in the moving rows initial section
-        // 2. Index path comes after initial row or is at initial row
-        if ([indexPath section] == [[self initialIndexPathForMovingRow] section] && [indexPath row] >= [[self initialIndexPathForMovingRow] row])
-        {
-            adaptedRow = [indexPath row] + 1;
-        }
-        // 1. Index path is in the moving rows current section
-        // 2. Index path comes before moving row
-        else if ([indexPath section] == [[self movingIndexPath] section] && [indexPath row] > [[self movingIndexPath] row])
-        {
-            adaptedRow = [indexPath row] - 1;
-        }
-    }
-
-    // We finally need to create an adapted index path
-    if (adaptedRow != NSNotFound)
-    {
-        indexPath = [NSIndexPath indexPathForRow:adaptedRow inSection:[indexPath section]];
-    }
-    
-	return indexPath;
-}
-
-
-
-#pragma mark - Handle long press
+#pragma mark - Handle Reorder Pan
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
+    NSLog(@"touchIsForReorder: %@", [self touchIsForReorder:gestureRecognizer] ? @"YES" : @"NO");
+    
 	BOOL shouldBegin = YES;
-	
+    if ([gestureRecognizer isEqual:self.movingGestureRecognizer] && ![self.delegate canReorderTableView]) {
+        return NO;
+    }
+    // if the touch is in the reorder control or if the touch has drifted outside of the control during a reorder
     if ([self touchIsForReorder:gestureRecognizer] || self.reorderEnabled) {
+        // stops all other gestures
         if (![gestureRecognizer isEqual:self.movingGestureRecognizer] ) {
             shouldBegin = NO;
         }
+        // stops the reorder from interupting pan gestures etc
     } else if ([gestureRecognizer isEqual:self.movingGestureRecognizer]) {
-        return NO;
+        shouldBegin = NO;
     }
-    
-	if ([gestureRecognizer isEqual:[self movingGestureRecognizer]])
-	{
-		// Ask the data source if we are allowed to move the touched row
-		if ([[self dataSource] respondsToSelector:@selector(moveTableView:canMoveRowAtIndexPath:)]) 
-		{
-			// Grap the touched index path
-			CGPoint touchPoint = [gestureRecognizer locationInView:self];
-			NSIndexPath *touchedIndexPath = [self indexPathForRowAtPoint:touchPoint];
-			
-			shouldBegin = [[self dataSource] moveTableView:self canMoveRowAtIndexPath:touchedIndexPath];
-
-		}
-	}
 	
 	return shouldBegin;
 }
 
 
-- (void)handleLongPress:(UIPanGestureRecognizer *)gestureRecognizer
+- (void)handleReorderPan:(UIPanGestureRecognizer *)gestureRecognizer
 {
     
     
@@ -534,21 +467,7 @@
 
 #pragma mark - Accessor methods
 
-- (void)setSnapShotImageView:(FMSnapShotImageView *)snapShotImageView
-{
-	if (snapShotImageView)
-	{
-		// Create the shadow if a new snap shot is created
-		[[snapShotImageView layer] setShadowOpacity:0.7];
-		[[snapShotImageView layer] setShadowRadius:3];
-		[[snapShotImageView layer] setShadowOffset:CGSizeZero];
-		
-		CGPathRef shadowPath = [[UIBezierPath bezierPathWithRect:[[snapShotImageView layer] bounds]] CGPath];
-		[[snapShotImageView layer] setShadowPath:shadowPath];
-	}
-	
-	_snapShotImageView = snapShotImageView;
-}
+
 
 
 @end

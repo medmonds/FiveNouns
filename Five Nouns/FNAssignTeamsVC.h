@@ -13,5 +13,4 @@
 
 @interface FNAssignTeamsVC : FNTableViewController <FMMoveTableViewDataSource, FMMoveTableViewDelegate>
 @property (nonatomic, strong) FNBrain *brain;
-
 @end

@@ -17,6 +17,9 @@
 
 @optional
 
+// Indicates if the table view is allowed to reorder
+- (BOOL)canReorderTableView;
+
 // Allows customization of the target row for a particular row as it is being moved
 - (NSIndexPath *)moveTableView:(FMMoveTableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath;
 
@@ -51,7 +54,6 @@
 
 
 - (BOOL)indexPathIsMovingIndexPath:(NSIndexPath *)indexPath;
-- (NSIndexPath *)adaptedIndexPathForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (void)moveButtonPressed;
+//- (NSIndexPath *)adaptedIndexPathForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
