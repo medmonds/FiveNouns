@@ -15,7 +15,7 @@
 #import "FMMoveTableView.h"
 
 @interface FNAssignTeamsVC ()
-@property (nonatomic, strong) NSMutableArray *teams;
+//@property (nonatomic, strong) NSMutableArray *teams;
 @property (nonatomic) NSInteger visibleTeam;
 @end
 
@@ -23,21 +23,13 @@
 
 
 /*****************************************************************************************************
- 
- Doing:
- 
- // this one will just assign unassigned players
- I need to have a method to reassign user unassigned team members (players) to teams makeing
- sure to add players to the teams with the fewest number of players first. This should probably
- be performed whenever (just before) a new team is shown (shuffle while all players are hidden).
- 
+  
  To Do:
  
  - make button backgrounds for the selected state
  - set the selected background for the stepper when stepped
  - (??) set the selected background for the reorder control when reordering (not when pressed)
  - change team name to be edited in the button cell (row 0) and make the background dark when expanded
- - set the teams in the brain
  
  Ideas:
  
@@ -61,21 +53,13 @@
     return data;
 }
 
-- (NSMutableArray *)teams
-{
-    if (!_teams) {
-        _teams = [[NSMutableArray alloc] init];
-    }
-    return _teams;
-}
-
 #pragma mark - Text Field Delegate
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     // if the textfield is active & the team is deleted by the stepper could go out of array bounds
-    if ([self.teams count] > textField.tag) {
-        FNTeam *team = [self.teams objectAtIndex:textField.tag];
+    if ([self.brain.allTeams count] > textField.tag) {
+        FNTeam *team = [self.brain.allTeams objectAtIndex:textField.tag];
         team.name = textField.text;
     }
     return YES;
@@ -87,7 +71,7 @@
     FNSelectableCell *cell = ((FNSelectableCell *)sender.superview.superview);
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     FNPlayer *player = cell.objectForCell;
-    FNTeam *team = [self.teams objectAtIndex:indexPath.section - 1];
+    FNTeam *team = [self.brain.allTeams objectAtIndex:indexPath.section - 1];
     if ([team.players containsObject:player] && player.team == team) {
         // full release of player
         player.team = nil;
@@ -99,7 +83,7 @@
         [cell.button setImage:[FNAppearance checkmarkWithStyle:FNCheckmarkStyleUser] forState:UIControlStateNormal];
     } else {
         // computer assigned team
-        for (FNTeam *team in self.teams) {
+        for (FNTeam *team in self.brain.allTeams) {
             [team removePlayer:player];
         }
         [team addPlayer:player];
@@ -112,25 +96,25 @@
     [CATransaction begin];
     [self.tableView beginUpdates];
     int numberOfTeams = stepper.value;
-    if (numberOfTeams > [self.teams count]) {
+    if (numberOfTeams > [self.brain.allTeams count]) {
         [CATransaction setCompletionBlock:^{
             [self assignPlayersToTeams];
         }];
-        for (int i = numberOfTeams - [self.teams count]; i > 0; i--) {
+        for (int i = numberOfTeams - [self.brain.allTeams count]; i > 0; i--) {
             FNTeam *newTeam = [[FNTeam alloc] init];
-            newTeam.name = [NSString stringWithFormat:@"Team %d", [self.teams count] + 1];
-            [self.teams insertObject:newTeam atIndex:[self.teams count]];
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:[self.teams count]] withRowAnimation:UITableViewRowAnimationTop];
+            newTeam.name = [NSString stringWithFormat:@"Team %d", [self.brain.allTeams count] + 1];
+            [self.brain.allTeams insertObject:newTeam atIndex:[self.brain.allTeams count]];
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:[self.brain.allTeams count]] withRowAnimation:UITableViewRowAnimationTop];
         }
-    } else if ([self.teams count] > numberOfTeams) {
+    } else if ([self.brain.allTeams count] > numberOfTeams) {
         [CATransaction setCompletionBlock:^{
             [self assignUnAssignedPlayers];
         }];
-        for (int i = [self.teams count] - numberOfTeams; i > 0; i--) {
+        for (int i = [self.brain.allTeams count] - numberOfTeams; i > 0; i--) {
             // flip the order of remove object & the if statement
-            [self.teams removeLastObject];
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[self.teams count] + 1] withRowAnimation:UITableViewRowAnimationTop];
-            if (self.visibleTeam == [self.teams count] + 1) {
+            [self.brain.allTeams removeLastObject];
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:[self.brain.allTeams count] + 1] withRowAnimation:UITableViewRowAnimationTop];
+            if (self.visibleTeam == [self.brain.allTeams count] + 1) {
                 self.visibleTeam = 0;
             }
         }
@@ -146,7 +130,7 @@
 {
     // reset the computer assigned team assignments
     FNPlayer *player;
-    for (FNTeam *team in self.teams) {
+    for (FNTeam *team in self.brain.allTeams) {
         for (int i = [team.players count] -1; i >= 0; i--) {
             player = [team.players objectAtIndex:i];
             if (player.team != team) {
@@ -154,7 +138,7 @@
             }
         }
     }
-    if ([self.teams count] > 0) {
+    if ([self.brain.allTeams count] > 0) {
         // all players in the game
         NSMutableArray *players = [[NSMutableArray alloc] init];
         for (FNPlayer *player in [self.brain allPlayers]) {
@@ -162,8 +146,8 @@
                 [players addObject:player];
             }
         }
-        NSInteger playersPerTeam = [self.brain.allPlayers count] / [self.teams count];
-        for (FNTeam *team in self.teams) {
+        NSInteger playersPerTeam = [self.brain.allPlayers count] / [self.brain.allTeams count];
+        for (FNTeam *team in self.brain.allTeams) {
             for (int i = [team.players count]; i < playersPerTeam; i++) {
                 if ([players count] > 0) {
                     NSInteger randomPlayer = arc4random() % [players count];
@@ -175,7 +159,7 @@
         // to assign any left over players
         NSInteger index = 0;
         for (FNPlayer *player in players) {
-            FNTeam *team = [self.teams objectAtIndex:index];
+            FNTeam *team = [self.brain.allTeams objectAtIndex:index];
             [team addPlayer:player];
             index++;
         }
@@ -196,15 +180,15 @@
 
 - (void)assignUnAssignedPlayers
 {
-    if ([self.teams count] > 0) {
-        NSInteger playersPerTeam = [self.brain.allPlayers count] / [self.teams count];
-        if (([self.brain.allPlayers count] % [self.teams count]) > 0) {
+    if ([self.brain.allTeams count] > 0) {
+        NSInteger playersPerTeam = [self.brain.allPlayers count] / [self.brain.allTeams count];
+        if (([self.brain.allPlayers count] % [self.brain.allTeams count]) > 0) {
             playersPerTeam++;
         }
         for (FNPlayer *player in self.brain.allPlayers) {
             BOOL isOnTeam = NO;
             //        NSLog(@"current player: %@", player.name);
-            for (FNTeam *team in self.teams) {
+            for (FNTeam *team in self.brain.allTeams) {
                 //            NSLog(@"team: %@", team.name);
                 //            for (FNPlayer *player in team.players) {
                 //                NSLog(@"%@", player.name);
@@ -215,7 +199,7 @@
                 }
             }
             if (!isOnTeam) {
-                NSArray *sorted = [self.teams sortedArrayUsingComparator:^NSComparisonResult(FNTeam *obj1, FNTeam *obj2) {
+                NSArray *sorted = [self.brain.allTeams sortedArrayUsingComparator:^NSComparisonResult(FNTeam *obj1, FNTeam *obj2) {
                     if ([obj1.players count] < [obj2.players count]) {
                         return NSOrderedAscending;
                     } else if ([obj1.players count] > [obj2.players count]) {
@@ -310,9 +294,9 @@
 
 - (void)moveTableView:(FMMoveTableView *)tableView moveRowFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    FNTeam *movedTeam = self.teams[fromIndexPath.section - 1];
-    [self.teams removeObjectAtIndex:fromIndexPath.section - 1];
-    [self.teams insertObject:movedTeam atIndex:toIndexPath.section - 1];
+    FNTeam *movedTeam = self.brain.allTeams[fromIndexPath.section - 1];
+    [self.brain.allTeams removeObjectAtIndex:fromIndexPath.section - 1];
+    [self.brain.allTeams insertObject:movedTeam atIndex:toIndexPath.section - 1];
     NSLog(@"Moved Team From Index: %d to %d", fromIndexPath.section, toIndexPath.section);
 }
 
@@ -351,7 +335,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1 + [self.teams count];
+    return 1 + [self.brain.allTeams count];
 }
 
 - (NSInteger)tableView:(FMMoveTableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -361,7 +345,7 @@
         numberOfRows = 1;
     } else {
         if (section == self.visibleTeam) {
-            FNTeam *team = [self.teams objectAtIndex:section - 1];
+            FNTeam *team = [self.brain.allTeams objectAtIndex:section - 1];
             NSInteger playerCount = [team.players count];
             numberOfRows = 2 + playerCount + [[self availablePlayersForTeam:team] count];
         } else {
@@ -395,13 +379,13 @@
         cell.stepper.autorepeat = NO;
         cell.stepper.wraps = YES;
         cell.stepper.maximumValue = MIN(6, [self.brain.allPlayers count]);
-        cell.stepper.value = [self.teams count];
+        cell.stepper.value = [self.brain.allTeams count];
         [cell.stepper addTarget:self action:@selector(stepperDidStep:) forControlEvents:UIControlEventTouchUpInside];
         [cell.detailButtonLabel setBackgroundImage:[FNAppearance backgroundForTextField] forState:UIControlStateNormal];
-        cell.detailButtonLabel.titleLabel.text = [NSString stringWithFormat:@"%d", [self.teams count]];
+        cell.detailButtonLabel.titleLabel.text = [NSString stringWithFormat:@"%d", [self.brain.allTeams count]];
         return cell;
     } else {
-        FNTeam *team = [self.teams objectAtIndex:indexPath.section - 1];
+        FNTeam *team = [self.brain.allTeams objectAtIndex:indexPath.section - 1];
         if (indexPath.row == 0) {
             FNReorderableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"reorderable"];
             [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
@@ -453,7 +437,7 @@
 {
     NSInteger playerIndex = indexPath.row - 2;
     FNPlayer *player;
-    FNTeam *team = [self.teams objectAtIndex:indexPath.section - 1];
+    FNTeam *team = [self.brain.allTeams objectAtIndex:indexPath.section - 1];
     if ([team.players count] > playerIndex) {
         player = [team.players objectAtIndex:playerIndex];
     } else {
