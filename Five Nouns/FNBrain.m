@@ -35,10 +35,10 @@
     return _allTeams;
 }
 
-- (void)addTeam:(FNTeam *)team
-{
-    // incomplete implementation need to get the nous from the new player and whatever else...
-    [self.allTeams addObject:team];
-}
+//- (void)addTeam:(FNTeam *)team
+//{
+//    // incomplete implementation need to get the nous from the new player and whatever else...
+//    [self.allTeams addObject:team];
+//}
 
 @end

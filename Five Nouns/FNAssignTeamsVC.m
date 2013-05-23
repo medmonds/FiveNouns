@@ -8,9 +8,7 @@
 
 #import "FNAssignTeamsVC.h"
 #import <QuartzCore/QuartzCore.h>
-#import "FNSelectTeamVC.h"
 #import "FNPlayer.h"
-#import "FNOrderTeamsVC.h"
 #import "FNStepperCell.h"
 #import "FNReorderableCell.h"
 #import "FNSelectableCell.h"
@@ -24,7 +22,7 @@
 @implementation FNAssignTeamsVC
 
 
-/***********************************************************************************************
+/*****************************************************************************************************
  
  Doing:
  
@@ -35,7 +33,11 @@
  
  To Do:
  
- Make the teams rearrangeable...
+ - make button backgrounds for the selected state
+ - set the selected background for the stepper when stepped
+ - (??) set the selected background for the reorder control when reordering (not when pressed)
+ - change team name to be edited in the button cell (row 0) and make the background dark when expanded
+ - set the teams in the brain
  
  Ideas:
  
@@ -44,7 +46,7 @@
  animate and "push the cells into the game" for the the inset look
  
  
- ***********************************************************************************************/
+ ******************************************************************************************************/
 
 
 
@@ -292,7 +294,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ((FNSelectTeamVC *)segue.destinationViewController).brain = self.brain;
+    // set the brain on the new view controller
 }
 
 
@@ -389,7 +391,7 @@
     
     if (indexPath.section == 0) {
         FNStepperCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"stepper"];
-        [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
+        [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextField atIndexPath:indexPath];
         cell.stepper.autorepeat = NO;
         cell.stepper.wraps = YES;
         cell.stepper.maximumValue = MIN(6, [self.brain.allPlayers count]);
@@ -403,6 +405,7 @@
         if (indexPath.row == 0) {
             FNReorderableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"reorderable"];
             [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
+            [cell.button setImage:[FNAppearance reorderControlImage] forState:UIControlStateNormal];
             cell.mainTextLabel.text = team.name;
             // Moving Table View Methods
             cell.shouldIndentWhileEditing = NO;

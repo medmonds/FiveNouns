@@ -77,7 +77,9 @@
 {
     UIImage *background;
     if (style == FNTableViewCellStyleTextField || style == FNTableViewCellStyleTextFieldLabel || style == FNTableViewCellStyleTextFieldButton || style == FNTableViewCellStyleButtonSmall) {
-        if (position == FNTableViewCellPositionMiddle) {
+        if (position == FNTableViewCellPositionNone) {
+            background = [[UIImage imageNamed:@"cellBackDarkNone.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
+        } else if (position == FNTableViewCellPositionMiddle) {
             background = [UIImage imageNamed:@"cellBackDarkMiddle.png"];
             background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
         } else if (position == FNTableViewCellPositionBottom) {
@@ -133,6 +135,12 @@
         checkmark = [UIImage imageNamed:@"checkmarkUserSelected.png"];
     }
     return checkmark;
+}
+
++ (UIImage *)reorderControlImage
+{
+    UIImage *image = [UIImage imageNamed:@"reorderControl.png"];
+    return image;
 }
 
 @end

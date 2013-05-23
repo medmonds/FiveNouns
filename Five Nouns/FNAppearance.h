@@ -56,4 +56,6 @@ typedef NS_ENUM(NSInteger, FNCheckmarkStyle) {
 
 + (UIImage *)checkmarkWithStyle:(FNCheckmarkStyle)style;
 
++ (UIImage *)reorderControlImage;
+
 @end

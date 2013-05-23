@@ -254,6 +254,7 @@
 			
 			// Get the touched cell and reset it's selection state
 			FNReorderableCell *touchedCell = (FNReorderableCell *)[self cellForRowAtIndexPath:touchedIndexPath];
+            [touchedCell.button setHighlighted:YES];
 			[touchedCell setSelected:NO];
 			[touchedCell setHighlighted:NO];
 			
@@ -286,6 +287,7 @@
 			
 			
 			// Prepare the cell for moving (e.g. clear it's labels and imageView)
+            [touchedCell.button setHighlighted:NO];
 			[touchedCell prepareForMove];
 			
 			// Inform the delegate about the beginning of the move

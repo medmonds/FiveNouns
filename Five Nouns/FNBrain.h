@@ -21,7 +21,7 @@
 - (void)addPlayer:(FNPlayer *)player;
 
 @property (nonatomic, strong) NSMutableArray *allTeams;
-- (void)addTeam:(FNTeam *)team;
+//- (void)addTeam:(FNTeam *)team;
 
 - (void)addScoreCard:(FNScoreCard *)scoreCard;
 - (void)returnUnplayedNoun:(NSString *)noun;
