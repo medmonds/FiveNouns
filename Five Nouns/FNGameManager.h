@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class FNPlayer;
+@class FNBrain;
 
 @interface FNGameManager : UIViewController
+
+
+@property (nonatomic, strong) FNBrain *brain;
 
 - (void)newGame;
 

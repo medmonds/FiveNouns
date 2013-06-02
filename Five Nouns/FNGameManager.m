@@ -13,7 +13,6 @@
 #import "FNCountDownTimer.h"
 
 @interface FNGameManager () <FNCountDownTimerDelegate>
-@property (nonatomic, strong) FNBrain *brain;
 @property (nonatomic, weak) FNPlayer *currentPlayer;
 @property (nonatomic, weak) NSString *currentNoun;
 @property (nonatomic, weak) FNScoreCard *currentScoreCard;
@@ -99,16 +98,25 @@
 {
     self.countDownTimer = nil;
     [self.brain addScoreCard:self.currentScoreCard];
+
+    // need to track the players that have played to keep the playing order right
+    
+    
     self.currentScoreCard = nil; // not necessary but I like it
     [self.brain returnUnplayedNoun:self.currentNoun];
     self.currentNoun = nil;
+    // this should be safe
+    self.currentPlayer = nil;
     // show next player button on current screen with expired time
 }
 
 - (void)setupNewTurn
 {
     self.currentTurn++;
-    self.currentPlayer = [self.brain player];
+    
+    // get the next Up player from myself
+    
+    
     NSString *noun = [self askBrainForNoun];
     // show the new turn screen with noun, timer, & NEXT_NOUN_BUTTON
     
@@ -117,6 +125,7 @@
 - (void)gameOver
 {
     // show the game over screen
+    // add the current scoreCard to the brain
 }
 
 - (void)setCurrentPlayer:(FNPlayer *)currentPlayer

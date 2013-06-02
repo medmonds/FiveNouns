@@ -13,6 +13,7 @@
 #import "FNReorderableCell.h"
 #import "FNSelectableCell.h"
 #import "FMMoveTableView.h"
+#import "FNNextUpVC.h"
 
 @interface FNAssignTeamsVC ()
 //@property (nonatomic, strong) NSMutableArray *teams;
@@ -51,6 +52,16 @@
     }];
     data = [sorted mutableCopy];
     return data;
+}
+
+- (void)forwardBarButtonItemPressed
+{
+    [self performSegueWithIdentifier:@"nextUp" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    ((FNNextUpVC *)segue.destinationViewController).brain = self.brain;
 }
 
 #pragma mark - Text Field Delegate
@@ -212,6 +223,7 @@
                     if ([team.players count] < playersPerTeam) {
                         //                    NSLog(@"Assigning: %@   to team: %@", player.name, team.name);
                         [team addPlayer:player];
+                        // this refresh call should be moved ?? !!
                         [self refreshVisibleTeam];
                         break;
                     }
@@ -275,12 +287,6 @@
 {
     // should never be called
 }
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // set the brain on the new view controller
-}
-
 
 #pragma mark - Move Table View
 

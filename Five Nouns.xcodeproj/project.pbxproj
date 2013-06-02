@@ -95,6 +95,10 @@
 		C9A04EB617389FEB0016F65F /* FNSelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB417389FEB0016F65F /* FNSelectableCell.m */; };
 		C9B40EE7171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
 		C9B40EE8171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
+		C9BAFAF3175AEA1D00C908A6 /* FNScoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF2175AEA1D00C908A6 /* FNScoreViewCell.m */; };
+		C9BAFAF4175AEA1D00C908A6 /* FNScoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF2175AEA1D00C908A6 /* FNScoreViewCell.m */; };
+		C9BAFAF9175AEB1C00C908A6 /* FNScoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */; };
+		C9BAFAFA175AEB1C00C908A6 /* FNScoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */; };
 		C9F04F13171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
 		C9F04F14171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
 		C9F04F1F171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */; };
@@ -205,6 +209,10 @@
 		C9A04EB417389FEB0016F65F /* FNSelectableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNSelectableCell.m; sourceTree = "<group>"; };
 		C9B40EE5171A1CC100619D57 /* FNNewGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNNewGameVC.h; sourceTree = "<group>"; };
 		C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNNewGameVC.m; sourceTree = "<group>"; };
+		C9BAFAF1175AEA1D00C908A6 /* FNScoreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNScoreViewCell.h; sourceTree = "<group>"; };
+		C9BAFAF2175AEA1D00C908A6 /* FNScoreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNScoreViewCell.m; sourceTree = "<group>"; };
+		C9BAFAF7175AEB1C00C908A6 /* FNScoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNScoreVC.h; sourceTree = "<group>"; };
+		C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNScoreVC.m; sourceTree = "<group>"; };
 		C9F04F11171A282F00AAAF75 /* FNEditableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNEditableCell.h; sourceTree = "<group>"; };
 		C9F04F12171A282F00AAAF75 /* FNEditableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNEditableCell.m; sourceTree = "<group>"; };
 		C9F04F1B171A441100AAAF75 /* FNInfoFromModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNInfoFromModal.h; sourceTree = "<group>"; };
@@ -252,6 +260,8 @@
 				C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */,
 				A19426C9174DC43F00056345 /* FNNextUpVC.h */,
 				A19426CA174DC43F00056345 /* FNNextUpVC.m */,
+				C9BAFAF7175AEB1C00C908A6 /* FNScoreVC.h */,
+				C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -301,6 +311,7 @@
 				C97F67411743132100D5E9BC /* Move Table View */,
 				C993E2F11728C4F700C37DB8 /* Buttons */,
 				C9F04F16171A283500AAAF75 /* Table View Cells */,
+				C9BAFAF6175AEA2A00C908A6 /* Collection View Cells */,
 				C91B8D9D171A1E8B00AE468C /* View Controllers */,
 				C99279DC17192F180035658F /* FNGameManager.h */,
 				C99279DD17192F180035658F /* FNGameManager.m */,
@@ -410,6 +421,15 @@
 				C993E2F31728C6A800C37DB8 /* buttonRect@2x.png */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		C9BAFAF6175AEA2A00C908A6 /* Collection View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C9BAFAF1175AEA1D00C908A6 /* FNScoreViewCell.h */,
+				C9BAFAF2175AEA1D00C908A6 /* FNScoreViewCell.m */,
+			);
+			name = "Collection View Cells";
 			sourceTree = "<group>";
 		};
 		C9F04F16171A283500AAAF75 /* Table View Cells */ = {
@@ -604,6 +624,8 @@
 				C9A04EB517389FEB0016F65F /* FNSelectableCell.m in Sources */,
 				C97F673E1743131D00D5E9BC /* FMMoveTableView.m in Sources */,
 				A19426CB174DC43F00056345 /* FNNextUpVC.m in Sources */,
+				C9BAFAF3175AEA1D00C908A6 /* FNScoreViewCell.m in Sources */,
+				C9BAFAF9175AEB1C00C908A6 /* FNScoreVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,6 +652,8 @@
 				C9A04EB617389FEB0016F65F /* FNSelectableCell.m in Sources */,
 				C97F673F1743131D00D5E9BC /* FMMoveTableView.m in Sources */,
 				A19426CC174DC43F00056345 /* FNNextUpVC.m in Sources */,
+				C9BAFAF4175AEA1D00C908A6 /* FNScoreViewCell.m in Sources */,
+				C9BAFAFA175AEB1C00C908A6 /* FNScoreVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

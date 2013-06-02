@@ -17,13 +17,14 @@
 - (NSString *)noun;
 
 @property (nonatomic, strong) NSMutableArray *allPlayers;
-- (FNPlayer *)player;
 - (void)addPlayer:(FNPlayer *)player;
 
 @property (nonatomic, strong) NSMutableArray *allTeams;
 //- (void)addTeam:(FNTeam *)team;
 
 - (void)addScoreCard:(FNScoreCard *)scoreCard;
+- (NSArray *)allScoreCards;
+
 - (void)returnUnplayedNoun:(NSString *)noun;
 
 @end
