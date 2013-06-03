@@ -14,6 +14,7 @@
 #import "FNScoreViewCell.h"
 #import "FNAppearance.h"
 #import "FNGameManager.h"
+#import "FNRoundDirectionsVC.h"
 
 #import "FNScoreVC.h"
 
@@ -23,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *roundLabel;
 // Score View
 @property (nonatomic, strong) FNScoreVC *scoreVC;
+// Direction modal
+@property (nonatomic, strong) FNRoundDirectionsVC *directionsVC;
 @end
 
 @implementation FNNextUpVC
@@ -32,12 +35,31 @@
  
 */
 
-#pragma mark - IB Actions
+#pragma mark - Navigation
+
+- (void)optionsBarButtonItemPressed
+{
+    // create and show the options menu
+}
 
 - (IBAction)startPressed:(UIButton *)sender
 {
     [self assignTeamsToPlayers];
-    // do the rest of the stuff
+    // do the rest of the stuff to show the main game screen
+}
+
+- (void)showDirectionsForRound
+{
+    // put up the directions view
+    [self performSegueWithIdentifier:@"roundDirections" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UINavigationController *nc = segue.destinationViewController;
+    self.directionsVC = (FNRoundDirectionsVC *)nc.topViewController;
+    self.directionsVC.brain = self.brain;
+    self.directionsVC.round = self.round;
 }
 
 - (void)assignTeamsToPlayers
@@ -62,9 +84,9 @@
         self.player = firstTeam.players[0];
     }    
     if (!self.round) {
-        self.round = 0;
+        self.round = 1;
+        [self showDirectionsForRound];
     }
-    
     self.nextPlayerLabel.text = self.player.name;
     self.roundLabel.text = [NSString stringWithFormat:@"Round %d", self.round];
 }
@@ -87,22 +109,27 @@
 {
     [super viewDidLoad];
     
-    self.tableView.backgroundView = nil;
+    if (self.navigationController) {
+        // have not started yet so can go back to teams view
+        UIBarButtonItem *back = [FNAppearance backBarButtonItem];
+        [back setTarget:self.navigationController];
+        [back setAction:@selector(popViewControllerAnimated:)];
+        [self.navigationItem setLeftBarButtonItem:back];
+
+    }    
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
-    UIBarButtonItem *back = [FNAppearance backBarButtonItem];
-    [back setTarget:self.navigationController];
-    [back setAction:@selector(popViewControllerAnimated:)];
-    [self.navigationItem setLeftBarButtonItem:back];
-    UIBarButtonItem *forward = [FNAppearance forwardBarButtonItem];
-    [forward setTarget:self];
-    [forward setAction:@selector(forwardBarButtonItemPressed)];
-    [self.navigationItem setRightBarButtonItem:forward];
+    UIBarButtonItem *options = [FNAppearance optionsBarButtonItem];
+    [options setTarget:self];
+    [options setAction:@selector(optionsBarButtonItemPressed)];
+    [self.navigationItem setRightBarButtonItem:options];
     self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Next Up"];
 
     self.scoreVC = [[FNScoreVC alloc] init];
     self.scoreVC.mainScoreBoard = self.mainScoreBoard;
     self.scoreVC.headerScoreBoard = self.headerScoreBoard;
+    self.scoreVC.footerScoreBoard = self.footerScoreBoard;
     self.scoreVC.brain = self.brain;
+    self.shouldShowDirections = YES;    
 }
 
 - (void)viewWillAppear:(BOOL)animated

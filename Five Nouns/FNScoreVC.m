@@ -35,15 +35,19 @@
     [self configureData];
     [self.headerScoreBoard reloadData];
     [self.mainScoreBoard reloadData];
+    [self.footerScoreBoard reloadData];
 }
 
 - (void)configureViews
 {
     [self.headerScoreBoard setScrollEnabled:NO];
+    [self.footerScoreBoard setScrollEnabled:NO];
     self.mainScoreBoard.delegate = self;
     self.mainScoreBoard.dataSource = self;
     self.headerScoreBoard.delegate = self;
     self.headerScoreBoard.dataSource = self;
+    self.footerScoreBoard.delegate = self;
+    self.footerScoreBoard.dataSource = self;
 }
 
 - (void)configureData
@@ -64,18 +68,13 @@
             }
         }
     }];
+    
+    // fix this if no scoreCards then it wont create the list of teams and the score will be blank
     NSMutableArray *teamsAndScores = [[NSMutableArray alloc] init];
+    for (FNTeam *team in self.brain.allTeams) {
+        [teamsAndScores addObject:[[NSMutableArray alloc] initWithObjects:team, @0, nil]];
+    }
     for (FNScoreCard *card in sorted) {
-        // if 1st time seen the team add it to the teams array; add the score to the corrisponding team's score
-        BOOL containsTeam = NO;
-        for (NSMutableArray *team in teamsAndScores) {
-            if ([team containsObject:card.player.team]) {
-                containsTeam = YES;
-            }
-        }
-        if (!containsTeam) {
-            [teamsAndScores addObject:[[NSMutableArray alloc] initWithObjects:card.player.team, @0, nil]];
-        }
         for (NSMutableArray *team in teamsAndScores) {
             if ([team[0] isEqual:card.player.team]) {
                 team[1] = @([(NSNumber *)team[1] integerValue] + [card.nounsScored count]);
@@ -97,28 +96,17 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSInteger itemCount = 0;
-    if (collectionView == self.headerScoreBoard) {
+    if (collectionView == self.headerScoreBoard || collectionView == self.footerScoreBoard) {
         itemCount = [self.teamsAndScores count];
     } else {
-        if (section == 0) {
-            itemCount = [self.turnScores count];
-        }
-        else if (section == 1) {
-            itemCount = [self.teamsAndScores count];
-        }
+        itemCount = [self.turnScores count];
     }
     return itemCount;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    NSInteger sectionCount = 0;
-    if (collectionView == self.headerScoreBoard) {
-        sectionCount = 1;
-    } else {
-        sectionCount = 2;
-    }
-    return sectionCount;
+    return 1;
 }
 
 //- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -128,18 +116,19 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    FNScoreViewCell *cell = [self.mainScoreBoard dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    FNScoreViewCell *cell;
     if (collectionView == self.headerScoreBoard) {
+        cell = [self.headerScoreBoard dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         FNTeam *team = self.teamsAndScores[indexPath.item][0];
         cell.label.text = team.name;
+    } else if (collectionView == self.mainScoreBoard) {
+        cell = [self.mainScoreBoard dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+        FNScoreCard *score = self.turnScores[indexPath.item];
+        cell.label.text = [NSString stringWithFormat:@"%d", [[score nounsScored] count]];
     } else {
-        if (indexPath.section == 0) {
-            FNScoreCard *score = self.turnScores[indexPath.item];
-            cell.label.text = [NSString stringWithFormat:@"%d", [[score nounsScored] count]];
-        } else {
-            NSNumber *teamScore = (self.teamsAndScores[indexPath.item])[1];
-            cell.label.text = [teamScore stringValue];
-        }
+        cell = [self.footerScoreBoard dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+        NSNumber *teamScore = (self.teamsAndScores[indexPath.item])[1];
+        cell.label.text = [teamScore stringValue];
     }
     return cell;
 }

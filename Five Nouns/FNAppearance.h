@@ -38,6 +38,8 @@ typedef NS_ENUM(NSInteger, FNCheckmarkStyle) {
 
 @interface FNAppearance : NSObject
 
++ (UIFont *)fontWithSize:(CGFloat)fontSize;
+
 + (UIColor *)tableViewBackgroundColor;
 
 + (void)configureAppearanceProxies;
@@ -47,6 +49,10 @@ typedef NS_ENUM(NSInteger, FNCheckmarkStyle) {
 + (UIBarButtonItem *)backBarButtonItem;
 
 + (UIBarButtonItem *)forwardBarButtonItem;
+
++ (UIBarButtonItem *)optionsBarButtonItem;
+
++ (UIBarButtonItem *)barButtonItemDismiss;
 
 + (UIImage *)backgroundForCellWithStyle:(FNTableViewCellStyle)style forPosition:(FNTableViewCellPosition)position;
 

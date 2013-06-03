@@ -14,6 +14,15 @@
 
 @interface FNBrain : NSObject
 
+//typedef NS_ENUM(NSInteger, FNDirectionsForRound) {
+//    FNDirectionsForRoundOverview,
+//    FNDirectionsForRoundOne,
+//    FNDirectionsForRoundTwo,
+//    FNDirectionsForRoundThree,
+//    FNDirectionsForRoundFour
+//};
+
+
 - (NSString *)noun;
 
 @property (nonatomic, strong) NSMutableArray *allPlayers;
@@ -26,5 +35,7 @@
 - (NSArray *)allScoreCards;
 
 - (void)returnUnplayedNoun:(NSString *)noun;
+
+- (NSString *)directionsForRound:(NSInteger)round;
 
 @end

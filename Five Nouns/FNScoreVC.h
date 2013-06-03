@@ -13,7 +13,7 @@
 @property (nonatomic, strong) FNBrain *brain;
 @property (nonatomic, weak) UICollectionView *mainScoreBoard;
 @property (nonatomic, weak) UICollectionView *headerScoreBoard;
-
+@property (nonatomic, weak) UICollectionView *footerScoreBoard;
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration;
 
 @end

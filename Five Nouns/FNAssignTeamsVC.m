@@ -27,6 +27,9 @@
   
  To Do:
  
+ - animate adding and remove the forward button when number of teams moves to & past zero
+   then remove the check at - forwardBarButtonItemPressed
+ 
  - make button backgrounds for the selected state
  - set the selected background for the stepper when stepped
  - (??) set the selected background for the reorder control when reordering (not when pressed)
@@ -56,7 +59,9 @@
 
 - (void)forwardBarButtonItemPressed
 {
-    [self performSegueWithIdentifier:@"nextUp" sender:self];
+    if ([self.brain.allTeams count] > 0) {
+        [self performSegueWithIdentifier:@"nextUp" sender:self];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
