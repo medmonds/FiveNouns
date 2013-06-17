@@ -42,6 +42,12 @@ typedef NS_ENUM(NSInteger, FNCheckmarkStyle) {
 
 + (UIColor *)tableViewBackgroundColor;
 
++ (UIColor *)textColorLabel;
+
++ (UIColor *)textColorButton;
+
++ (UIColor *)backgroundColorAccent;
+
 + (void)configureAppearanceProxies;
 
 + (UILabel *)navBarTitleWithText:(NSString *)text;

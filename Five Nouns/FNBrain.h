@@ -27,6 +27,7 @@
 
 @property (nonatomic, strong) NSMutableArray *allPlayers;
 - (void)addPlayer:(FNPlayer *)player;
+- (FNPlayer *)nextPlayer;
 
 @property (nonatomic, strong) NSMutableArray *allTeams;
 //- (void)addTeam:(FNTeam *)team;
@@ -37,5 +38,7 @@
 - (void)returnUnplayedNoun:(NSString *)noun;
 
 - (NSString *)directionsForRound:(NSInteger)round;
+
+- (void)prepareForNewRound;
 
 @end

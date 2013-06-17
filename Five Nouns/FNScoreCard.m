@@ -10,4 +10,12 @@
 
 @implementation FNScoreCard
 
+- (NSMutableArray *)nounsScored
+{
+    if (!_nounsScored) {
+        _nounsScored = [[NSMutableArray alloc] init];
+    }
+    return _nounsScored;
+}
+
 @end

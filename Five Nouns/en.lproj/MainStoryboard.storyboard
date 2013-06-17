@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yJh-1r-Oq7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yJh-1r-Oq7">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
         <!--New GameVC - Five Nouns-->
@@ -761,12 +761,75 @@
                         <outlet property="mainScoreBoard" destination="tiP-pS-QQC" id="u21-lp-3Tt"/>
                         <outlet property="nextPlayerLabel" destination="ctx-jb-KUk" id="yz6-oO-ZFL"/>
                         <outlet property="roundLabel" destination="bdB-CS-vpq" id="1w9-q1-IFl"/>
-                        <segue destination="X5t-ae-vdt" kind="modal" identifier="roundDirections" id="TJU-GE-EoI"/>
+                        <segue destination="0bD-PD-imN" kind="push" id="PkX-pi-Mry"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KbN-gS-KNT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-5019" y="-1516"/>
+        </scene>
+        <!--GameVC - Five Nouns-->
+        <scene sceneID="0vD-vi-f90">
+            <objects>
+                <viewController storyboardIdentifier="gameVC" title="Five Nouns" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0bD-PD-imN" customClass="FNGameVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gsf-7a-KhU">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L4b-nA-K9r" customClass="FNCountdownTimer">
+                                <color key="backgroundColor" red="0.40784313729999999" green="0.80000000000000004" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Nouns: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7hd-sr-WRY">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="C95-hm-TIx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Civil War Tony Hair" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="298" translatesAutoresizingMaskIntoConstraints="NO" id="Chp-iF-6xo">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="164" id="eFn-YA-AXb"/>
+                                    <constraint firstAttribute="width" constant="298" id="jOE-6H-hbe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="120"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Player" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tH7-GE-irv">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="mZQ-6q-2mS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.84034199620000005" green="0.24304377730000001" blue="0.2183513859" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="7hd-sr-WRY" firstAttribute="leading" secondItem="Chp-iF-6xo" secondAttribute="leading" type="default" id="8QK-5t-4bb"/>
+                            <constraint firstItem="tH7-GE-irv" firstAttribute="baseline" secondItem="7hd-sr-WRY" secondAttribute="baseline" type="default" id="CuS-5c-cqk"/>
+                            <constraint firstItem="Chp-iF-6xo" firstAttribute="top" secondItem="7hd-sr-WRY" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="HDW-Yg-2JH"/>
+                            <constraint firstItem="L4b-nA-K9r" firstAttribute="leading" secondItem="gsf-7a-KhU" secondAttribute="leading" type="default" id="QzH-VK-Xdw"/>
+                            <constraint firstItem="7hd-sr-WRY" firstAttribute="top" secondItem="gsf-7a-KhU" secondAttribute="top" constant="4" id="U7q-5B-J6f"/>
+                            <constraint firstAttribute="bottom" secondItem="L4b-nA-K9r" secondAttribute="bottom" constant="12" id="WDS-Iw-6Fc"/>
+                            <constraint firstItem="L4b-nA-K9r" firstAttribute="centerX" secondItem="Chp-iF-6xo" secondAttribute="centerX" type="default" id="fll-UM-bK5"/>
+                            <constraint firstItem="L4b-nA-K9r" firstAttribute="top" secondItem="Chp-iF-6xo" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="lTi-3E-22o"/>
+                            <constraint firstItem="tH7-GE-irv" firstAttribute="trailing" secondItem="Chp-iF-6xo" secondAttribute="trailing" type="default" id="lgJ-RB-UtU"/>
+                            <constraint firstItem="L4b-nA-K9r" firstAttribute="trailing" secondItem="gsf-7a-KhU" secondAttribute="trailing" type="default" id="lxw-yM-P0o"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="FqH-YR-1rq"/>
+                    <connections>
+                        <outlet property="countDownTimer" destination="L4b-nA-K9r" id="qQ1-Fk-1gi"/>
+                        <outlet property="currentPlayerLabel" destination="tH7-GE-irv" id="P6n-Ql-uoz"/>
+                        <outlet property="nounLabel" destination="Chp-iF-6xo" id="KIM-44-6JO"/>
+                        <outlet property="scoreLabel" destination="7hd-sr-WRY" id="lGC-QU-1w4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3iD-1p-ZMX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5022" y="-850"/>
         </scene>
         <!--Round DirectionsVC - Directions-->
         <scene sceneID="u7a-y9-sDQ">
@@ -1111,7 +1174,7 @@
         <!--Navigation Controller-->
         <scene sceneID="64y-tO-VU4">
             <objects>
-                <navigationController id="X5t-ae-vdt" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="roundDirectionsNC" id="X5t-ae-vdt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LvI-V0-YGQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

@@ -26,6 +26,21 @@
     return [UIColor colorWithRed:104/255.0 green:204/255.0 blue:197/255.0 alpha:1];
 }
 
++ (UIColor *)textColorLabel
+{
+    return [UIColor whiteColor];
+}
+
++ (UIColor *)textColorButton
+{
+    return [UIColor colorWithRed:234/255.0f green:208/255.0f blue:76/255.0f alpha:1.];
+}
+
++ (UIColor *)backgroundColorAccent
+{
+    return [UIColor colorWithRed:74/255.0f green:74/255.0f blue:74/255.0f alpha:1];
+}
+
 + (void)configureAppearanceProxies
 {
     // UINavigationBar
