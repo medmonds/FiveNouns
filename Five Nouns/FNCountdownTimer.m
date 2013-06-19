@@ -228,13 +228,13 @@ NSString * const FNCDTTextLabelText = @"Start";
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
-//    if (self.touchInside) {
-//        if (self.isCountingDown) {
-//            [self stopCountDown];
-//        } else {
-//            [self startCountDown];
-//        }
-//    }
+    //    if (self.touchInside) {
+    //        if (self.isCountingDown) {
+    //            [self stopCountDown];
+    //        } else {
+    //            [self startCountDown];
+    //        }
+    //    }
     [super endTrackingWithTouch:touch withEvent:event];
 }
 
@@ -293,20 +293,20 @@ NSString * const FNCDTTextLabelText = @"Start";
     return [self outerRadius] * .4;
 }
 
-- (CGPathRef)timerPath
+- (UIBezierPath *)timerPath
 {
     NSInteger outerRadius = [self outerRadius];
     NSInteger lineWidth = [self lineWidth];
     NSInteger arcRadius = outerRadius - (lineWidth / 2);
     CGPoint centerPoint = CGPointMake(self.bounds.size.width / 2.0f, self.bounds.size.height / 2.0f);
-    return [UIBezierPath bezierPathWithArcCenter:centerPoint radius:arcRadius startAngle:ToRad(-90) endAngle:ToRad(270) clockwise:YES].CGPath;
+    return [UIBezierPath bezierPathWithArcCenter:centerPoint radius:arcRadius startAngle:ToRad(-90) endAngle:ToRad(270) clockwise:YES];
 }
 
-- (CGPathRef)touchCatcherPath
+- (UIBezierPath *)touchCatcherPath
 {
     NSInteger outerRadius = [self outerRadius];
     CGPoint centerPoint = CGPointMake(self.bounds.size.width / 2.0f, self.bounds.size.height / 2.0f);
-    return [UIBezierPath bezierPathWithArcCenter:centerPoint radius:outerRadius startAngle:ToRad(-90) endAngle:ToRad(270) clockwise:YES].CGPath;
+    return [UIBezierPath bezierPathWithArcCenter:centerPoint radius:outerRadius startAngle:ToRad(-90) endAngle:ToRad(270) clockwise:YES];
 }
 
 - (NSInteger)fontSize
@@ -348,11 +348,10 @@ NSString * const FNCDTTextLabelText = @"Start";
 {
     if (!_backgroundLayer) {
         CAShapeLayer *background = [[CAShapeLayer alloc] init];
-        background.path = [self timerPath];
+        background.path = [self timerPath].CGPath;
         background.lineWidth = [self lineWidth];
         background.strokeColor = [self timeRemainingColor].CGColor;
         background.fillColor = [self centerColor].CGColor;
-        background.anchorPoint = CGPointMake(0.5, 0.5);
         _backgroundLayer = background;
     }
     return _backgroundLayer;
@@ -362,8 +361,8 @@ NSString * const FNCDTTextLabelText = @"Start";
 {
     if (!_indicatorLayer) {
         CAShapeLayer *indicator = [[CAShapeLayer alloc] init];
-        indicator.path = [self timerPath];
-        indicator.lineWidth = [self lineWidth];
+        indicator.path = [self timerPath].CGPath;
+        indicator.lineWidth = [self lineWidth] - 2;
         indicator.strokeColor = [self timeElapsedColor].CGColor;
         indicator.strokeStart = 0;
         indicator.strokeEnd = 0;
@@ -377,7 +376,7 @@ NSString * const FNCDTTextLabelText = @"Start";
 {
     if (!_touchCatcherLayer) {
         CAShapeLayer *touchCatcher = [[CAShapeLayer alloc] init];
-        touchCatcher.path = [self touchCatcherPath];
+        touchCatcher.path = [self touchCatcherPath].CGPath;
         touchCatcher.strokeColor = [UIColor clearColor].CGColor;
         touchCatcher.backgroundColor = [UIColor clearColor].CGColor;
         touchCatcher.fillColor = [UIColor clearColor].CGColor;
@@ -397,6 +396,7 @@ NSString * const FNCDTTextLabelText = @"Start";
         layer.string = self.text;
         layer.font = CGFontCreateWithFontName((__bridge CFStringRef)[[self font] fontName]);
         layer.fontSize = [self fontSize];
+        layer.contentsScale = [[UIScreen mainScreen] scale];
         _textLayer = layer;
     }
     return _textLayer;
@@ -427,14 +427,14 @@ NSString * const FNCDTTextLabelText = @"Start";
     [self commonInit];
 }
 
-- (void)layoutSubviews
+- (void)layoutSublayersOfLayer:(CALayer *)layer
 {
-    [super layoutSubviews];
-    self.indicatorLayer.path = [self timerPath];
-    self.indicatorLayer.lineWidth = [self lineWidth];
-    self.backgroundLayer.path = [self timerPath];
+    [super layoutSublayersOfLayer:layer];
+    self.indicatorLayer.path = [self timerPath].CGPath;
+    self.indicatorLayer.lineWidth = [self lineWidth] - 2;
+    self.backgroundLayer.path = [self timerPath].CGPath;
     self.backgroundLayer.lineWidth = [self lineWidth];
-    self.touchCatcherLayer.path = [self touchCatcherPath];
+    self.touchCatcherLayer.path = [self touchCatcherPath].CGPath;
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     self.textLayer.frame = [self textLayerFrame];

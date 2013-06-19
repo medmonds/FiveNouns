@@ -129,19 +129,19 @@
             //[self toggleAddPlayerSavingCurrentPlayer:NO];
             FNPlayer *one = [[FNPlayer alloc] init];
             one.name = @"Matt";
-            one.nouns = [[NSMutableArray alloc] initWithObjects:@"Ham", @"Fish", @"Beef", nil];
+            one.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Beef", nil];
             [self.brain addPlayer:one];
             FNPlayer *two = [[FNPlayer alloc] init];
             two.name = @"Jill";
-            two.nouns = [[NSMutableArray alloc] initWithObjects:@"Cat", @"Dog", @"Gopher", nil];
+            two.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Gopher", nil];
             [self.brain addPlayer:two];
             FNPlayer *three= [[FNPlayer alloc] init];
             three.name = @"Abbey";
-            three.nouns = [[NSMutableArray alloc] initWithObjects:@"Chair", @"Table", @"Stool", nil];
+            three.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Stool", nil];
             [self.brain addPlayer:three];
             FNPlayer *four = [[FNPlayer alloc] init];
             four.name = @"Wes";
-            four.nouns = [[NSMutableArray alloc] initWithObjects:@"Cup", @"Fork", @"Spoon", nil];
+            four.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Spoon", nil];
             [self.brain addPlayer:four];
         } else {
             // make the textfield (if cell has a textfield) the first responder

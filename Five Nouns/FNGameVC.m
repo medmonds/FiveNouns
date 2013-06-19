@@ -202,6 +202,8 @@
     self.returnToNextUpVC = NO;
     self.gameWasPaused = NO;
     self.gameIsOver = NO;
+    // might not need this !!!
+    [self setupNewTurn];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -32,6 +32,7 @@
 @property (nonatomic, strong) FNGameVC *gameVC;
 // if this is the beginning of the game then can go back to teams vc otherwise can't
 @property (nonatomic) BOOL gameHasNotStarted;
+@property (nonatomic) BOOL showDirections;
 @end
 
 @implementation FNNextUpVC
@@ -97,11 +98,7 @@
     // get and show the next player up
     self.nextPlayer = [self.brain nextPlayer];
     self.nextPlayerLabel.text = self.nextPlayer.name;
-    
-    // if this is the 1st turn for the 1st round show the coresponding directions
-    if (self.gameHasNotStarted) {
-        [self showDirectionsForRound];
-    }
+
     self.roundLabel.text = [NSString stringWithFormat:@"Round %d", self.round];
 
     // setup the score view / refresh it
@@ -144,13 +141,26 @@
     self.scoreVC.footerScoreBoard = self.footerScoreBoard;
     self.scoreVC.brain = self.brain;
     self.gameHasNotStarted = YES;
+    self.showDirections = YES;
     self.round = 1;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    // this is broken because when the directions disappear it changes the next player !!!
     [self setup];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // if this is the 1st turn for the 1st round show the coresponding directions
+    if (self.showDirections) {
+        [self showDirectionsForRound];
+        self.showDirections = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning
