@@ -33,6 +33,17 @@
 @end
 
 @implementation FNGameVC
+/*
+ Juice it up!!
+ Needs to make noise & maybe vibrate when time ends
+ Noise when a noun is scored
+ 
+ Make the timer flash when time expires
+ 
+ 
+ 
+*/
+
 
 - (void)optionsBarButtonItemPressed
 {
@@ -42,7 +53,7 @@
 - (void)countDownTimerExpired
 {
     self.countDownTimer.labelString = @"Next Player";
-    [self.brain addScoreCard:self.currentScoreCard];
+    [self.currentPlayer.team addScoreCard:self.currentScoreCard];
     self.currentScoreCard = nil; // not necessary but I like it
     [self.brain returnUnplayedNoun:self.currentNoun];
     self.currentNoun = nil;
@@ -156,7 +167,7 @@
 {
     self.countDownTimer.labelString = @"Game Over";
     self.gameIsOver = YES;
-    [self.brain addScoreCard:self.currentScoreCard];
+    [self.currentPlayer.team addScoreCard:self.currentScoreCard];
     self.currentScoreCard = nil; // not necessary but I like it
 
     // show the game over screen

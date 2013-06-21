@@ -30,6 +30,7 @@
 - (FNPlayer *)nextPlayer;
 
 @property (nonatomic, strong) NSMutableArray *allTeams;
+@property (nonatomic, strong) NSArray *teamOrder;
 //- (void)addTeam:(FNTeam *)team;
 
 - (void)addScoreCard:(FNScoreCard *)scoreCard;

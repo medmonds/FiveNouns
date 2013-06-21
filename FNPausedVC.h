@@ -1,8 +1,8 @@
 //
-//  FNScoreVC.h
+//  FNPausedVC.h
 //  Five Nouns
 //
-//  Created by Matthew Edmonds on 6/1/13.
+//  Created by Matthew Edmonds on 6/19/13.
 //  Copyright (c) 2013 Matthew Edmonds. All rights reserved.
 //
 
@@ -11,8 +11,9 @@
 
 @class FNBrain;
 
-@interface FNScoreVC : FNTableViewController
+@interface FNPausedVC : FNTableViewController
 
 @property (nonatomic, strong) FNBrain *brain;
+//@property (nonatomic, weak) UIViewController *presentingVC;
 
 @end

@@ -14,7 +14,5 @@
 @interface FNNextUpVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) FNBrain *brain;
 @property (nonatomic) NSInteger round;
-@property (nonatomic, weak) IBOutlet UICollectionView *mainScoreBoard;
-@property (nonatomic, weak) IBOutlet UICollectionView *headerScoreBoard;
-@property (weak, nonatomic) IBOutlet UICollectionView *footerScoreBoard;
+//@property (nonatomic, weak) IBOutlet UITableViewController *scoreBoard;
 @end

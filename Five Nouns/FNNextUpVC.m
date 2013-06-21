@@ -11,11 +11,10 @@
 #import "FNBrain.h"
 #import "FNPlayer.h"
 #import "FNTeam.h"
-#import "FNScoreViewCell.h"
 #import "FNAppearance.h"
 #import "FNRoundDirectionsVC.h"
 #import "FNGameVC.h"
-
+#import "FNPausedVC.h"
 #import "FNScoreVC.h"
 
 @interface FNNextUpVC ()
@@ -28,6 +27,8 @@
 @property (nonatomic, strong) FNScoreVC *scoreVC;
 // Direction modal
 @property (nonatomic, strong) FNRoundDirectionsVC *directionsVC;
+// Paused (Options) modal
+@property (nonatomic, strong) FNPausedVC *pausedVC;
 // Game Screen (need to keep a reference to it when it is popped off the nav stack
 @property (nonatomic, strong) FNGameVC *gameVC;
 // if this is the beginning of the game then can go back to teams vc otherwise can't
@@ -46,7 +47,10 @@
 
 - (void)optionsBarButtonItemPressed
 {
-    // create and show the options menu
+    UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"pausedNC"];
+    FNPausedVC *options = (FNPausedVC *)nc.topViewController;
+    options.brain = self.brain;
+    [self.navigationController presentViewController:nc animated:YES completion:nil];
 }
 
 - (IBAction)startPressed:(UIButton *)sender
@@ -100,14 +104,6 @@
     self.nextPlayerLabel.text = self.nextPlayer.name;
 
     self.roundLabel.text = [NSString stringWithFormat:@"Round %d", self.round];
-
-    // setup the score view / refresh it
-    self.scoreVC.brain = self.brain;
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [self.scoreVC willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -135,10 +131,7 @@
     [self.navigationItem setRightBarButtonItem:options];
     self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Next Up"];
 
-    self.scoreVC = [[FNScoreVC alloc] init];
-    self.scoreVC.mainScoreBoard = self.mainScoreBoard;
-    self.scoreVC.headerScoreBoard = self.headerScoreBoard;
-    self.scoreVC.footerScoreBoard = self.footerScoreBoard;
+    self.scoreVC = self.childViewControllers[0];
     self.scoreVC.brain = self.brain;
     self.gameHasNotStarted = YES;
     self.showDirections = YES;

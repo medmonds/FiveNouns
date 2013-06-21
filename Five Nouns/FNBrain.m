@@ -114,10 +114,10 @@
     return _scoreCards;
 }
 
-
 - (void)addScoreCard:(FNScoreCard *)scoreCard
 {
     if (scoreCard) [self.scoreCards addObject:scoreCard];
+    
 }
 
 //- (void)addTeam:(FNTeam *)team

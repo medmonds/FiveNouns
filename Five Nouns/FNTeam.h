@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class FNPlayer;
+@class FNScoreCard;
 
 @interface FNTeam : NSObject
 
@@ -17,5 +18,8 @@
 
 - (void)addPlayer:(FNPlayer *)player;
 - (void)removePlayer:(FNPlayer *)player;
+- (NSInteger)currentScore;
+- (void)addScoreCard:(FNScoreCard *)scoreCard;
+- (NSArray *)scoreCards;
 
 @end

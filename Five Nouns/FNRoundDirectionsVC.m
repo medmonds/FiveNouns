@@ -62,7 +62,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -75,7 +74,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
     UIBarButtonItem *done = [FNAppearance barButtonItemDismiss];
     [done setTarget:self];

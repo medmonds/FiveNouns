@@ -95,10 +95,14 @@
 		C9A04EB217389E510016F65F /* FNReorderableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB017389E510016F65F /* FNReorderableCell.m */; };
 		C9A04EB517389FEB0016F65F /* FNSelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB417389FEB0016F65F /* FNSelectableCell.m */; };
 		C9A04EB617389FEB0016F65F /* FNSelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB417389FEB0016F65F /* FNSelectableCell.m */; };
+		C9A7911E1773E5D70090E689 /* FNScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A7911D1773E5D70090E689 /* FNScoreController.m */; };
+		C9A7911F1773E5D70090E689 /* FNScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A7911D1773E5D70090E689 /* FNScoreController.m */; };
 		C9ACDEAD1771461B00555CE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E441718B7390039B88E /* CoreGraphics.framework */; };
 		C9ACDEAE1771462700555CE8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95DA6B31730C600004F2841 /* QuartzCore.framework */; };
 		C9B13696176E439D00B792AD /* FNGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B13695176E439D00B792AD /* FNGameVC.m */; };
 		C9B13697176E439D00B792AD /* FNGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B13695176E439D00B792AD /* FNGameVC.m */; };
+		C9B2607D1772A22F009DBBC9 /* FNPausedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */; };
+		C9B2607E1772A22F009DBBC9 /* FNPausedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */; };
 		C9B40EE7171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
 		C9B40EE8171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
 		C9BAFAF3175AEA1D00C908A6 /* FNScoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF2175AEA1D00C908A6 /* FNScoreViewCell.m */; };
@@ -215,9 +219,12 @@
 		C9A04EB017389E510016F65F /* FNReorderableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNReorderableCell.m; sourceTree = "<group>"; };
 		C9A04EB317389FEB0016F65F /* FNSelectableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNSelectableCell.h; sourceTree = "<group>"; };
 		C9A04EB417389FEB0016F65F /* FNSelectableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNSelectableCell.m; sourceTree = "<group>"; };
-		C9A2DC6A17700A4A008A0AC4 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		C9A7911C1773E5D70090E689 /* FNScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNScoreController.h; sourceTree = "<group>"; };
+		C9A7911D1773E5D70090E689 /* FNScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNScoreController.m; sourceTree = "<group>"; };
 		C9B13694176E439D00B792AD /* FNGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNGameVC.h; sourceTree = "<group>"; };
 		C9B13695176E439D00B792AD /* FNGameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNGameVC.m; sourceTree = "<group>"; };
+		C9B2607B1772A22F009DBBC9 /* FNPausedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNPausedVC.h; path = ../FNPausedVC.h; sourceTree = "<group>"; };
+		C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNPausedVC.m; path = ../FNPausedVC.m; sourceTree = "<group>"; };
 		C9B40EE5171A1CC100619D57 /* FNNewGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNNewGameVC.h; sourceTree = "<group>"; };
 		C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNNewGameVC.m; sourceTree = "<group>"; };
 		C9BAFAF1175AEA1D00C908A6 /* FNScoreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNScoreViewCell.h; sourceTree = "<group>"; };
@@ -273,6 +280,7 @@
 				C9B1369D176E449F00B792AD /* GameVC */,
 				C99F9B2E175BF7690012A1D4 /* FNRoundDirectionsVC.h */,
 				C99F9B2F175BF7690012A1D4 /* FNRoundDirectionsVC.m */,
+				C9A7911B1773E5690090E689 /* PausedVC */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -280,8 +288,6 @@
 		C9649E311718B7390039B88E = {
 			isa = PBXGroup;
 			children = (
-				C9A2DC6A17700A4A008A0AC4 /* CoreText.framework */,
-				C95DA6B31730C600004F2841 /* QuartzCore.framework */,
 				C9649E461718B7390039B88E /* Five Nouns */,
 				C9649E6A1718B7390039B88E /* Five NounsTests */,
 				C9649E3F1718B7390039B88E /* Frameworks */,
@@ -301,6 +307,7 @@
 		C9649E3F1718B7390039B88E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C95DA6B31730C600004F2841 /* QuartzCore.framework */,
 				C9649E401718B7390039B88E /* UIKit.framework */,
 				C9649E421718B7390039B88E /* Foundation.framework */,
 				C9649E441718B7390039B88E /* CoreGraphics.framework */,
@@ -431,6 +438,17 @@
 				C993E2F31728C6A800C37DB8 /* buttonRect@2x.png */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		C9A7911B1773E5690090E689 /* PausedVC */ = {
+			isa = PBXGroup;
+			children = (
+				C9B2607B1772A22F009DBBC9 /* FNPausedVC.h */,
+				C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */,
+				C9A7911C1773E5D70090E689 /* FNScoreController.h */,
+				C9A7911D1773E5D70090E689 /* FNScoreController.m */,
+			);
+			name = PausedVC;
 			sourceTree = "<group>";
 		};
 		C9B1369C176E449100B792AD /* NextUpVC */ = {
@@ -663,6 +681,8 @@
 				C99F9B30175BF7690012A1D4 /* FNRoundDirectionsVC.m in Sources */,
 				C9B13696176E439D00B792AD /* FNGameVC.m in Sources */,
 				C99F2FF5176EC3E000406B2F /* FNCountdownTimer.m in Sources */,
+				C9B2607D1772A22F009DBBC9 /* FNPausedVC.m in Sources */,
+				C9A7911E1773E5D70090E689 /* FNScoreController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +712,8 @@
 				C99F9B31175BF7690012A1D4 /* FNRoundDirectionsVC.m in Sources */,
 				C9B13697176E439D00B792AD /* FNGameVC.m in Sources */,
 				C99F2FF6176EC3E000406B2F /* FNCountdownTimer.m in Sources */,
+				C9B2607E1772A22F009DBBC9 /* FNPausedVC.m in Sources */,
+				C9A7911F1773E5D70090E689 /* FNScoreController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

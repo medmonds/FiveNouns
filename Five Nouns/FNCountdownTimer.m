@@ -210,10 +210,35 @@ NSString * const FNCDTTextLabelText = @"Start";
     [self sendActionsForControlEvents:UIControlEventValueChanged];
     if (self.timeLeft <= 0) {
         [self.timer invalidate];
+        [self timeExpired];
         if ([self.delegate respondsToSelector:@selector(countDownTimerExpired)]) {
             [self.delegate countDownTimerExpired];
         }
     }
+}
+
+- (void)timeExpired
+{
+    CABasicAnimation *indicatorColor = [CABasicAnimation animationWithKeyPath:@"strokeColor"];
+    indicatorColor.toValue = (id)[self centerColor].CGColor;
+    indicatorColor.autoreverses = YES;
+    indicatorColor.duration = .3;
+    indicatorColor.repeatCount = 4;
+    [self.indicatorLayer addAnimation:indicatorColor forKey:nil];
+    
+    CABasicAnimation *centerColor = [CABasicAnimation animationWithKeyPath:@"fillColor"];
+    centerColor.toValue = (id)[self timeElapsedColor].CGColor;
+    centerColor.autoreverses = YES;
+    centerColor.duration = .3;
+    centerColor.repeatCount = 4;
+    [self.backgroundLayer addAnimation:centerColor forKey:nil];
+    
+    CABasicAnimation *textColor = [CABasicAnimation animationWithKeyPath:@"foregroundColor"];
+    textColor.toValue = (id)[self centerColor].CGColor;
+    textColor.autoreverses = YES;
+    textColor.duration = .3;
+    textColor.repeatCount = 4;
+    [self.textLayer addAnimation:textColor forKey:nil];
 }
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
@@ -228,13 +253,6 @@ NSString * const FNCDTTextLabelText = @"Start";
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    //    if (self.touchInside) {
-    //        if (self.isCountingDown) {
-    //            [self stopCountDown];
-    //        } else {
-    //            [self startCountDown];
-    //        }
-    //    }
     [super endTrackingWithTouch:touch withEvent:event];
 }
 
