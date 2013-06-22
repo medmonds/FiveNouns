@@ -10,6 +10,7 @@
 #import "FNBrain.h"
 #import "FNScoreCard.h"
 #import "FNPlayer.h"
+#import "FNAppearance.h"
 
 @interface FNScoreController ()
 
@@ -23,47 +24,70 @@
 //    FNScoreCellTypeTurn
 //};
 
+/*
+ why is not calling begin & endUpdates not blowing everything Up? !!!
+ 
+*/
+
 
 @implementation FNScoreController
 
 - (void)setup
 {
-    self.teams = [self.brain teamOrder];
+    self.teams = [NSMutableArray arrayWithArray:[self.brain teamOrder]];
     self.dataSource = [self.teams mutableCopy];
+    [self.dataSource insertObject:@"Score" atIndex:0];
     self.expandedTeam = nil;
 }
 
 - (void)collapseExpandedTeam
 {
-    NSInteger items = [self.dataSource count];
-    for (NSInteger i = 0; i > items; i++) {
+    NSMutableArray *toDelete = [[NSMutableArray alloc] init];
+    for (NSInteger i = 0; i < [self.dataSource count]; i++) {
         if ([self.dataSource[i] isKindOfClass:[FNScoreCard class]]) {
             [self.dataSource removeObjectAtIndex:i];
+            [toDelete addObject:[NSIndexPath indexPathForRow:i inSection:0]];
         }
     }
-    self.expandedTeam = nil;
+    [self.tvController deleteRowsAtIndexPaths:toDelete forController:self];
 }
 
 - (void)expandTeam:(FNTeam *)team
 {
     if (team) {
+        NSMutableArray *toInsert = [[NSMutableArray alloc] init];
         NSInteger cardIndex = 1;
         NSInteger teamIndex = [self.dataSource indexOfObject:team];
         for (FNScoreCard *card in team.scoreCards) {
             [self.dataSource insertObject:card atIndex:teamIndex + cardIndex];
+            [toInsert addObject:[NSIndexPath indexPathForRow:teamIndex + cardIndex inSection:0]];
             cardIndex ++;
         }
         self.expandedTeam = team;
+        [self.tvController insertRowsAtIndexPaths:toInsert forController:self];
     }
 }
 
+- (void)collapseScores
+{
+    NSMutableArray *toDelete = [[NSMutableArray alloc] initWithCapacity:[self.dataSource count] - 1];
+    NSInteger count = [self.dataSource count];
+    for (NSInteger i = 1; i < count; i++) {
+        [toDelete addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
+    self.dataSource = [@[@"Scores"] mutableCopy];
+    [self.tvController deleteRowsAtIndexPaths:toDelete forController:self];
+}
 
 
 #pragma mark - Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
+    if ([self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
+        [self collapseScores];
+        self.expandedTeam = nil;
+    } else if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
         FNTeam *possibleTeamToExpand;
         if (self.expandedTeam != self.dataSource[indexPath.row]) {
             possibleTeamToExpand = self.dataSource[indexPath.row];
@@ -72,12 +96,15 @@
             [self collapseExpandedTeam];
         }
         [self expandTeam:possibleTeamToExpand];
+        self.expandedTeam = possibleTeamToExpand;
     }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
+    if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]] ||
+        [self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
         return YES;
     }
     return NO;
@@ -112,11 +139,20 @@
 
 - (UITableViewCell *)refreshRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
+    if ([self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
+        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"headerCell"];
+        cell.textLabel.text = self.dataSource[indexPath.row];
+        cell.textLabel.font = [FNAppearance fontWithSize:30];
+        cell.textLabel.textColor = [FNAppearance textColorButton];
+        return cell;
+    } else if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
         FNTeam *team = self.dataSource[indexPath.row];
         cell.textLabel.text = team.name;
+        cell.textLabel.textColor = [FNAppearance textColorButton];
+        cell.textLabel.font = [FNAppearance fontWithSize:26];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", team.currentScore];
+        cell.textLabel.font = [FNAppearance fontWithSize:26];
         cell.indentationLevel = 0;
         NSLog(@"%@", team.name);
         return cell;
@@ -124,7 +160,10 @@
         UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
         FNScoreCard *card = self.dataSource[indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"Round %d", card.round];
+        cell.textLabel.textColor = [FNAppearance textColorLabel];
+        cell.textLabel.font = [FNAppearance fontWithSize:20];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [card.nounsScored count]];
+        cell.textLabel.font = [FNAppearance fontWithSize:20];
         cell.indentationLevel = 3;
         return cell;
     }

@@ -18,6 +18,14 @@
 
 @implementation FNTeam
 
+- (NSMutableArray *)teamScoreCards
+{
+    if (!_teamScoreCards) {
+        _teamScoreCards = [[NSMutableArray alloc] init];
+    }
+    return _teamScoreCards;
+}
+
 - (NSMutableArray *)players
 {
     if (!_players) {

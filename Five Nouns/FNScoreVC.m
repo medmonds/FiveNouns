@@ -10,11 +10,22 @@
 #import "FNScoreController.h"
 #import "FNAppearance.h"
 
-@interface FNScoreVC ()
+@interface FNScoreVC () <FNTVRowInsertAndDeleteManager>
 @property (nonatomic, strong) FNScoreController *scoreController;
 @end
 
 @implementation FNScoreVC
+
+- (void)insertRowsAtIndexPaths:(NSArray *)indexpaths forController:(id<UITableViewDelegate>)controller
+{
+    [self.tableView insertRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)deleteRowsAtIndexPaths:(NSArray *)indexpaths forController:(id<UITableViewDelegate>)controller
+{
+    [self.tableView deleteRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 
 - (void)setBrain:(FNBrain *)brain
 {
@@ -22,18 +33,23 @@
     self.scoreController.brain = _brain;
 }
 
-
 #pragma mark - Delegate
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.scoreController tableView:tableView didSelectRowAtIndexPath:indexPath];
+    if (indexPath.row != 0) {
+        [self.scoreController tableView:tableView didSelectRowAtIndexPath:indexPath];
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self.scoreController tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
+    if (indexPath.row == 0) {
+        return NO;
+    } else {
+        return [self.scoreController tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
@@ -63,6 +79,9 @@
 {
     UITableViewCell *cell = [self.scoreController tableView:tableView cellForRowAtIndexPath:indexPath];
     [super setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
+    if (indexPath.row == 0) {
+        cell.textLabel.textColor = [FNAppearance textColorLabel];
+    }
     return cell;
 }
 
@@ -94,6 +113,8 @@
     self.scoreController = [[FNScoreController alloc] init];
     self.scoreController.brain = self.brain;
     self.scoreController.tableView = self.tableView;
+    self.scoreController.tvController = self;
+    self.tableView.delegate = self.scoreController;
     
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
 }

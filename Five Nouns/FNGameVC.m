@@ -135,6 +135,7 @@
 - (void)beginNewRound;
 {
     self.currentRound++;
+    self.currentScoreCard.round = self.currentRound;
     [self showDirectionsForRound];
     self.countDownTimer.labelString = @"Start";
     self.nounLabel.text = @"New Round";

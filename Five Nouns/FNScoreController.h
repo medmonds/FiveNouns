@@ -11,11 +11,19 @@
 
 @class FNBrain;
 
+@protocol FNTVRowInsertAndDeleteManager <NSObject>
+
+- (void)insertRowsAtIndexPaths:(NSArray *)indexpaths forController:(id <UITableViewDelegate>)controller;
+- (void)deleteRowsAtIndexPaths:(NSArray *)indexpaths forController:(id <UITableViewDelegate>)controller;
+
+@end
+
 @interface FNScoreController : NSObject <UITableViewDataSource, UITableViewDelegate>
 
 - (void)setup;
 
 @property (nonatomic, strong) FNBrain *brain;
 @property (nonatomic, weak) UITableView *tableView;
+@property (nonatomic, weak) UITableViewController <FNTVRowInsertAndDeleteManager> *tvController;
 
 @end
