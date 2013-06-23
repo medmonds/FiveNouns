@@ -20,7 +20,7 @@
 
 @interface FNScoreController : NSObject <UITableViewDataSource, UITableViewDelegate>
 
-- (void)setup;
+- (void)setup; // will expand the table view and show the scores
 
 @property (nonatomic, strong) FNBrain *brain;
 @property (nonatomic, weak) UITableView *tableView;

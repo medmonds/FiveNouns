@@ -38,9 +38,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row != 0) {
-        [self.scoreController tableView:tableView didSelectRowAtIndexPath:indexPath];
-    }
+    [self.scoreController tableView:tableView didSelectRowAtIndexPath:indexPath];
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
@@ -54,12 +52,12 @@
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [self.scoreController tableView:tableView didHighlightRowAtIndexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [self.scoreController tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,10 +65,10 @@
     return [self.scoreController tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
-//- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//
-//}
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.scoreController tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
+}
 
 #pragma mark - Data Source
 
@@ -114,7 +112,6 @@
     self.scoreController.brain = self.brain;
     self.scoreController.tableView = self.tableView;
     self.scoreController.tvController = self;
-    self.tableView.delegate = self.scoreController;
     
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
 }

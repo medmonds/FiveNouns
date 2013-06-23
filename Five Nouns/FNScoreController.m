@@ -68,15 +68,26 @@
     }
 }
 
-- (void)collapseScores
+- (void)showHideScores
 {
-    NSMutableArray *toDelete = [[NSMutableArray alloc] initWithCapacity:[self.dataSource count] - 1];
-    NSInteger count = [self.dataSource count];
-    for (NSInteger i = 1; i < count; i++) {
-        [toDelete addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    if ([self.dataSource count] == 1) {
+        [self setup];
+        NSMutableArray *toInsert = [[NSMutableArray alloc] initWithCapacity:[self.dataSource count] - 1];
+        NSInteger count = [self.dataSource count];
+        for (NSInteger i = 1; i < count; i++) {
+            [toInsert addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+        }
+        [self.tvController insertRowsAtIndexPaths:toInsert forController:self];
+    } else {
+        NSMutableArray *toDelete = [[NSMutableArray alloc] initWithCapacity:[self.dataSource count] - 1];
+        NSInteger count = [self.dataSource count];
+        for (NSInteger i = 1; i < count; i++) {
+            [toDelete addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+        }
+        self.dataSource = [@[@"Scores"] mutableCopy];
+        [self.tvController deleteRowsAtIndexPaths:toDelete forController:self];
     }
-    self.dataSource = [@[@"Scores"] mutableCopy];
-    [self.tvController deleteRowsAtIndexPaths:toDelete forController:self];
+    self.expandedTeam = nil;
 }
 
 
@@ -85,8 +96,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
-        [self collapseScores];
-        self.expandedTeam = nil;
+        [self showHideScores];
     } else if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
         FNTeam *possibleTeamToExpand;
         if (self.expandedTeam != self.dataSource[indexPath.row]) {
@@ -112,12 +122,17 @@
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    cell.textLabel.textColor = [FNAppearance textColorLabel];
 }
 
 - (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    // this should really be done in custom cell subclasses    
+    [UIView animateWithDuration:.3 animations:^(void){
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        cell.textLabel.textColor = [FNAppearance textColorButton];
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -125,10 +140,16 @@
     return 44;
 }
 
-//- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    
-//}
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
+        return 0;
+    } else if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
+        return 0;
+    } else {
+        return 3;
+    }
+}
 
 #pragma mark - Data Source
 //

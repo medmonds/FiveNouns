@@ -12,7 +12,6 @@
 #import "FNPlayer.h"
 #import "FNTeam.h"
 #import "FNAppearance.h"
-#import "FNRoundDirectionsVC.h"
 #import "FNGameVC.h"
 #import "FNPausedVC.h"
 #import "FNScoreVC.h"
@@ -45,6 +44,15 @@
 
 #pragma mark - Navigation
 
+- (void)dismissDirectionVC:(FNRoundDirectionsVC *)vc
+{
+    [UIView animateWithDuration:.8 animations:^(void){
+        vc.view.alpha = 0;
+    } completion:^(BOOL finished){
+        [vc.view removeFromSuperview];
+    }];
+}
+
 - (void)optionsBarButtonItemPressed
 {
     UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"pausedNC"];
@@ -62,12 +70,17 @@
 
 - (void)showDirectionsForRound
 {
-    UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"roundDirectionsNC"];
-    FNRoundDirectionsVC *directions = (FNRoundDirectionsVC *)nc.topViewController;
-    directions.brain = self.brain;
-    directions.round = self.round;
-    [self.navigationController presentViewController:nc animated:YES completion:nil];
+    self.directionsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"roundDirections"];
+    self.directionsVC.brain = self.brain;
+    self.directionsVC.round = self.round;
+    self.directionsVC.presentingVC = self;
+    [self.navigationController.view addSubview:self.directionsVC.view];
+    [UIView animateWithDuration:.8 animations:^(void){
+        self.directionsVC.view.alpha = 1.0;
+    }];
 }
+
+
 
 - (void)beginGame
 {

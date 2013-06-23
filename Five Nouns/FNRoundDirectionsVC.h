@@ -9,11 +9,19 @@
 #import <UIKit/UIKit.h>
 
 @class FNBrain;
+@class FNRoundDirectionsVC;
+
+@protocol FNDirectionsVCPresenter <NSObject>
+
+- (void)dismissDirectionVC:(FNRoundDirectionsVC *)vc;
+
+@end
 
 @interface FNRoundDirectionsVC : UIViewController
 
 @property (nonatomic, weak) FNBrain *brain;
 @property (nonatomic) NSInteger round;
-@property (nonatomic, weak) UIViewController *presentingVC;
+@property (nonatomic, weak) UIViewController <FNDirectionsVCPresenter> *presentingVC;
+
 
 @end

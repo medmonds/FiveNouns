@@ -18,9 +18,15 @@
 
 @implementation FNRoundDirectionsVC
 
-- (void)donePressed
+- (IBAction)donePressed
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingVC dismissDirectionVC:self];
+    
+//    [UIView animateWithDuration:.8 animations:^(void){
+//        self.view.alpha = 0;
+//    } completion:^(BOOL finished){
+//        [self.view removeFromSuperview];
+//    }];
 }
 
 - (void)setDirectionsForRound
@@ -68,20 +74,23 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self setDirectionsForRound];
 }
+
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:animated];
+//    [UIView animateWithDuration:.8 animations:^(void){
+//        self.view.alpha = 1.0;
+//    }];
+//}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
-    UIBarButtonItem *done = [FNAppearance barButtonItemDismiss];
-    [done setTarget:self];
-    [done setAction:@selector(donePressed)];
-    [self.navigationItem setRightBarButtonItem:done];
-    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Directions"];
-    
+    self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    self.view.alpha = 0;
 }
 
 - (void)didReceiveMemoryWarning
