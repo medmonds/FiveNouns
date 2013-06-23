@@ -95,8 +95,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"Selected row: %@", [self.tableView indexPathForSelectedRow]);
     if ([self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
         [self showHideScores];
+        [self.tvController deselectRowAtIndexPath:indexPath forController:self];
     } else if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
         FNTeam *possibleTeamToExpand;
         if (self.expandedTeam != self.dataSource[indexPath.row]) {
@@ -104,11 +106,12 @@
         }
         if (self.expandedTeam) {
             [self collapseExpandedTeam];
+            NSIndexPath *toDeselect = [NSIndexPath indexPathForRow:[self.dataSource indexOfObject:self.expandedTeam] inSection:0];
+            [self.tvController deselectRowAtIndexPath:toDeselect forController:self];
         }
         [self expandTeam:possibleTeamToExpand];
         self.expandedTeam = possibleTeamToExpand;
     }
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,8 +125,7 @@
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    cell.textLabel.textColor = [FNAppearance textColorLabel];
+    
 }
 
 - (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath

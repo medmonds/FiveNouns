@@ -111,6 +111,8 @@
 		C9BAFAF4175AEA1D00C908A6 /* FNScoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF2175AEA1D00C908A6 /* FNScoreViewCell.m */; };
 		C9BAFAF9175AEB1C00C908A6 /* FNScoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */; };
 		C9BAFAFA175AEB1C00C908A6 /* FNScoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */; };
+		C9E2B6AC177786A300FD08E9 /* FNSeparatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */; };
+		C9E2B6AD177786A300FD08E9 /* FNSeparatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */; };
 		C9F04F13171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
 		C9F04F14171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
 		C9F04F1F171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */; };
@@ -235,6 +237,8 @@
 		C9BAFAF2175AEA1D00C908A6 /* FNScoreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNScoreViewCell.m; sourceTree = "<group>"; };
 		C9BAFAF7175AEB1C00C908A6 /* FNScoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNScoreVC.h; sourceTree = "<group>"; };
 		C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNScoreVC.m; sourceTree = "<group>"; };
+		C9E2B6AA177786A300FD08E9 /* FNSeparatorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNSeparatorCell.h; sourceTree = "<group>"; };
+		C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNSeparatorCell.m; sourceTree = "<group>"; };
 		C9F04F11171A282F00AAAF75 /* FNEditableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNEditableCell.h; sourceTree = "<group>"; };
 		C9F04F12171A282F00AAAF75 /* FNEditableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNEditableCell.m; sourceTree = "<group>"; };
 		C9F04F1B171A441100AAAF75 /* FNInfoFromModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNInfoFromModal.h; sourceTree = "<group>"; };
@@ -453,6 +457,8 @@
 				C9A7911D1773E5D70090E689 /* FNScoreController.m */,
 				C99F78CB1776BD0D003F3D76 /* FNHeaderCell.h */,
 				C99F78CC1776BD0D003F3D76 /* FNHeaderCell.m */,
+				C9E2B6AA177786A300FD08E9 /* FNSeparatorCell.h */,
+				C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */,
 			);
 			name = PausedVC;
 			sourceTree = "<group>";
@@ -690,6 +696,7 @@
 				C9B2607D1772A22F009DBBC9 /* FNPausedVC.m in Sources */,
 				C9A7911E1773E5D70090E689 /* FNScoreController.m in Sources */,
 				C99F78CD1776BD0D003F3D76 /* FNHeaderCell.m in Sources */,
+				C9E2B6AC177786A300FD08E9 /* FNSeparatorCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,6 +729,7 @@
 				C9B2607E1772A22F009DBBC9 /* FNPausedVC.m in Sources */,
 				C9A7911F1773E5D70090E689 /* FNScoreController.m in Sources */,
 				C99F78CE1776BD0D003F3D76 /* FNHeaderCell.m in Sources */,
+				C9E2B6AD177786A300FD08E9 /* FNSeparatorCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

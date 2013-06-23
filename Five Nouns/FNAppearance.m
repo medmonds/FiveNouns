@@ -26,6 +26,11 @@
     return [UIColor colorWithRed:104/255.0 green:204/255.0 blue:197/255.0 alpha:1];
 }
 
++ (UIColor *)cellSeparatorColor
+{
+    return [UIColor redColor];
+}
+
 + (UIColor *)textColorLabel
 {
     return [UIColor whiteColor];

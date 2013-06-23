@@ -26,6 +26,10 @@
     [self.tableView deleteRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+- (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(id<UITableViewDelegate>)controller
+{
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 - (void)setBrain:(FNBrain *)brain
 {

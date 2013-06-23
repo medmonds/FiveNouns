@@ -7,6 +7,12 @@
 //
 
 #import "FNHeaderCell.h"
+#import "FNAppearance.h"
+
+@interface FNHeaderCell ()
+
+@end
+
 
 @implementation FNHeaderCell
 
@@ -14,16 +20,9 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+            
     }
     return self;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Add the partial width seperator line to the bottom of the cell
 }
 
 
