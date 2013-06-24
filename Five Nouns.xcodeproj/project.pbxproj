@@ -79,8 +79,6 @@
 		C99B62A21737152F0011611A /* FNStepperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B62A01737152F0011611A /* FNStepperCell.m */; };
 		C99F2FF5176EC3E000406B2F /* FNCountdownTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F2FF4176EC3E000406B2F /* FNCountdownTimer.m */; };
 		C99F2FF6176EC3E000406B2F /* FNCountdownTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F2FF4176EC3E000406B2F /* FNCountdownTimer.m */; };
-		C99F78CD1776BD0D003F3D76 /* FNHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F78CC1776BD0D003F3D76 /* FNHeaderCell.m */; };
-		C99F78CE1776BD0D003F3D76 /* FNHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F78CC1776BD0D003F3D76 /* FNHeaderCell.m */; };
 		C99F9B30175BF7690012A1D4 /* FNRoundDirectionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F9B2F175BF7690012A1D4 /* FNRoundDirectionsVC.m */; };
 		C99F9B31175BF7690012A1D4 /* FNRoundDirectionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F9B2F175BF7690012A1D4 /* FNRoundDirectionsVC.m */; };
 		C99F9B35175C2CB50012A1D4 /* dismissControl.png in Resources */ = {isa = PBXBuildFile; fileRef = C99F9B33175C2CB50012A1D4 /* dismissControl.png */; };
@@ -97,6 +95,8 @@
 		C9A04EB217389E510016F65F /* FNReorderableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB017389E510016F65F /* FNReorderableCell.m */; };
 		C9A04EB517389FEB0016F65F /* FNSelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB417389FEB0016F65F /* FNSelectableCell.m */; };
 		C9A04EB617389FEB0016F65F /* FNSelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB417389FEB0016F65F /* FNSelectableCell.m */; };
+		C9A4CF471777DB46007F819A /* FNDirectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A4CF461777DB46007F819A /* FNDirectionView.m */; };
+		C9A4CF481777DB46007F819A /* FNDirectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A4CF461777DB46007F819A /* FNDirectionView.m */; };
 		C9A7911E1773E5D70090E689 /* FNScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A7911D1773E5D70090E689 /* FNScoreController.m */; };
 		C9A7911F1773E5D70090E689 /* FNScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A7911D1773E5D70090E689 /* FNScoreController.m */; };
 		C9ACDEAD1771461B00555CE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E441718B7390039B88E /* CoreGraphics.framework */; };
@@ -209,8 +209,6 @@
 		C99B62A01737152F0011611A /* FNStepperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNStepperCell.m; sourceTree = "<group>"; };
 		C99F2FF3176EC3E000406B2F /* FNCountdownTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNCountdownTimer.h; sourceTree = "<group>"; };
 		C99F2FF4176EC3E000406B2F /* FNCountdownTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNCountdownTimer.m; sourceTree = "<group>"; };
-		C99F78CB1776BD0D003F3D76 /* FNHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNHeaderCell.h; sourceTree = "<group>"; };
-		C99F78CC1776BD0D003F3D76 /* FNHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNHeaderCell.m; sourceTree = "<group>"; };
 		C99F9B2E175BF7690012A1D4 /* FNRoundDirectionsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNRoundDirectionsVC.h; sourceTree = "<group>"; };
 		C99F9B2F175BF7690012A1D4 /* FNRoundDirectionsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNRoundDirectionsVC.m; sourceTree = "<group>"; };
 		C99F9B33175C2CB50012A1D4 /* dismissControl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dismissControl.png; sourceTree = "<group>"; };
@@ -225,6 +223,8 @@
 		C9A04EB017389E510016F65F /* FNReorderableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNReorderableCell.m; sourceTree = "<group>"; };
 		C9A04EB317389FEB0016F65F /* FNSelectableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNSelectableCell.h; sourceTree = "<group>"; };
 		C9A04EB417389FEB0016F65F /* FNSelectableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNSelectableCell.m; sourceTree = "<group>"; };
+		C9A4CF451777DB46007F819A /* FNDirectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNDirectionView.h; sourceTree = "<group>"; };
+		C9A4CF461777DB46007F819A /* FNDirectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNDirectionView.m; sourceTree = "<group>"; };
 		C9A7911C1773E5D70090E689 /* FNScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNScoreController.h; sourceTree = "<group>"; };
 		C9A7911D1773E5D70090E689 /* FNScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNScoreController.m; sourceTree = "<group>"; };
 		C9B13694176E439D00B792AD /* FNGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNGameVC.h; sourceTree = "<group>"; };
@@ -288,6 +288,8 @@
 				C9B1369D176E449F00B792AD /* GameVC */,
 				C99F9B2E175BF7690012A1D4 /* FNRoundDirectionsVC.h */,
 				C99F9B2F175BF7690012A1D4 /* FNRoundDirectionsVC.m */,
+				C9A4CF451777DB46007F819A /* FNDirectionView.h */,
+				C9A4CF461777DB46007F819A /* FNDirectionView.m */,
 				C9A7911B1773E5690090E689 /* PausedVC */,
 			);
 			name = "View Controllers";
@@ -327,8 +329,8 @@
 		C9649E461718B7390039B88E /* Five Nouns */ = {
 			isa = PBXGroup;
 			children = (
-				C9649E4F1718B7390039B88E /* FNAppDelegate.h */,
 				C9649E501718B7390039B88E /* FNAppDelegate.m */,
+				C9649E4F1718B7390039B88E /* FNAppDelegate.h */,
 				C9649E581718B7390039B88E /* MainStoryboard.storyboard */,
 				C993E3031728DC0A00C37DB8 /* FNAppearance.h */,
 				C993E3041728DC0A00C37DB8 /* FNAppearance.m */,
@@ -455,8 +457,6 @@
 				C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */,
 				C9A7911C1773E5D70090E689 /* FNScoreController.h */,
 				C9A7911D1773E5D70090E689 /* FNScoreController.m */,
-				C99F78CB1776BD0D003F3D76 /* FNHeaderCell.h */,
-				C99F78CC1776BD0D003F3D76 /* FNHeaderCell.m */,
 				C9E2B6AA177786A300FD08E9 /* FNSeparatorCell.h */,
 				C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */,
 			);
@@ -695,8 +695,8 @@
 				C99F2FF5176EC3E000406B2F /* FNCountdownTimer.m in Sources */,
 				C9B2607D1772A22F009DBBC9 /* FNPausedVC.m in Sources */,
 				C9A7911E1773E5D70090E689 /* FNScoreController.m in Sources */,
-				C99F78CD1776BD0D003F3D76 /* FNHeaderCell.m in Sources */,
 				C9E2B6AC177786A300FD08E9 /* FNSeparatorCell.m in Sources */,
+				C9A4CF471777DB46007F819A /* FNDirectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,8 +728,8 @@
 				C99F2FF6176EC3E000406B2F /* FNCountdownTimer.m in Sources */,
 				C9B2607E1772A22F009DBBC9 /* FNPausedVC.m in Sources */,
 				C9A7911F1773E5D70090E689 /* FNScoreController.m in Sources */,
-				C99F78CE1776BD0D003F3D76 /* FNHeaderCell.m in Sources */,
 				C9E2B6AD177786A300FD08E9 /* FNSeparatorCell.m in Sources */,
+				C9A4CF481777DB46007F819A /* FNDirectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

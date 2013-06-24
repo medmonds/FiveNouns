@@ -11,6 +11,7 @@
 #import "FNScoreCard.h"
 #import "FNPlayer.h"
 #import "FNAppearance.h"
+#import "FNSeparatorCell.h"
 
 @interface FNScoreController ()
 
@@ -154,22 +155,33 @@
 }
 
 #pragma mark - Data Source
-//
-//- (FNScoreCellType)cellTypeForIndexPath
-//{
-//    
-//}
+
+- (BOOL)showCellSeparatorForIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
+        return NO;
+    } else if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
+        return indexPath.row != [self.dataSource count] - 1;
+    } else {
+        if ([self.dataSource count] - 1 > indexPath.row) {
+            return [self.dataSource[indexPath.row + 1] isKindOfClass:[FNTeam class]];
+        } else {
+            return NO;
+        }
+    }
+}
 
 - (UITableViewCell *)refreshRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
-        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"headerCell"];
+        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"headerCell"];
         cell.textLabel.text = self.dataSource[indexPath.row];
         cell.textLabel.font = [FNAppearance fontWithSize:30];
         cell.textLabel.textColor = [FNAppearance textColorButton];
+        cell.showCellSeparator = [self showCellSeparatorForIndexPath:indexPath];
         return cell;
     } else if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
-        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
         FNTeam *team = self.dataSource[indexPath.row];
         cell.textLabel.text = team.name;
         cell.textLabel.textColor = [FNAppearance textColorButton];
@@ -177,10 +189,10 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", team.currentScore];
         cell.textLabel.font = [FNAppearance fontWithSize:26];
         cell.indentationLevel = 0;
-        NSLog(@"%@", team.name);
+        cell.showCellSeparator = [self showCellSeparatorForIndexPath:indexPath];
         return cell;
     } else {
-        UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
         FNScoreCard *card = self.dataSource[indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"Round %d", card.round];
         cell.textLabel.textColor = [FNAppearance textColorLabel];
@@ -188,6 +200,7 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [card.nounsScored count]];
         cell.textLabel.font = [FNAppearance fontWithSize:20];
         cell.indentationLevel = 3;
+        cell.showCellSeparator = [self showCellSeparatorForIndexPath:indexPath];
         return cell;
     }
 }

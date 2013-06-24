@@ -15,6 +15,7 @@
 #import "FNGameVC.h"
 #import "FNPausedVC.h"
 #import "FNScoreVC.h"
+#import "FNDirectionView.h"
 
 @interface FNNextUpVC ()
 @property (nonatomic, weak) UITableView *tableView;
@@ -25,7 +26,7 @@
 // Score View
 @property (nonatomic, strong) FNScoreVC *scoreVC;
 // Direction modal
-@property (nonatomic, strong) FNRoundDirectionsVC *directionsVC;
+@property (nonatomic, strong) FNDirectionView *directionsVC;
 // Paused (Options) modal
 @property (nonatomic, strong) FNPausedVC *pausedVC;
 // Game Screen (need to keep a reference to it when it is popped off the nav stack
@@ -70,13 +71,12 @@
 
 - (void)showDirectionsForRound
 {
-    self.directionsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"roundDirections"];
-    self.directionsVC.brain = self.brain;
+    self.directionsVC = [[FNDirectionView alloc] initWithFrame:self.navigationController.view.bounds];
     self.directionsVC.round = self.round;
-    self.directionsVC.presentingVC = self;
-    [self.navigationController.view addSubview:self.directionsVC.view];
+    self.directionsVC.directions = [self.brain directionsForRound:self.round];
+    [self.navigationController.view addSubview:self.directionsVC];
     [UIView animateWithDuration:.8 animations:^(void){
-        self.directionsVC.view.alpha = 1.0;
+        self.directionsVC.alpha = 1.0;
     }];
 }
 

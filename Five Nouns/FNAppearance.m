@@ -15,6 +15,21 @@
 
 @implementation FNAppearance
 
++ (CGFloat)cellSeparatorPartialIndent
+{
+    return 30.0;
+}
+
++ (CGFloat)cellSeparatorPartialHeight
+{
+    return 1.0;
+}
+
++ (CGFloat)cellSeparatorHeight
+{
+    return 2.0;
+}
+
 + (UIFont *)fontWithSize:(CGFloat)fontSize
 {
     if (!fontSize) fontSize = 28;

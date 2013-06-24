@@ -38,6 +38,12 @@ typedef NS_ENUM(NSInteger, FNCheckmarkStyle) {
 
 @interface FNAppearance : NSObject
 
++ (CGFloat)cellSeparatorPartialIndent;
+
++ (CGFloat)cellSeparatorPartialHeight;
+
++ (CGFloat)cellSeparatorHeight;
+
 + (UIFont *)fontWithSize:(CGFloat)fontSize;
 
 + (UIColor *)tableViewBackgroundColor;

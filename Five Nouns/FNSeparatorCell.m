@@ -14,9 +14,6 @@
 @property (nonatomic, strong) UIView *separator;
 @end
 
-#define PARTIAL_SEPARATOR_HEIGHT 1
-#define SEPARATOR_HEIGHT 2
-#define PARTIAL_SEPARATOR_WIDTH 30
 
 @implementation FNSeparatorCell
 
@@ -53,14 +50,14 @@
 
 - (void)addSeparatorConstraints
 {
-    NSLayoutConstraint *leading = [NSLayoutConstraint constraintWithItem:_partialSeparator
+    NSLayoutConstraint *left = [NSLayoutConstraint constraintWithItem:_partialSeparator
                                                                attribute:NSLayoutAttributeLeft
                                                                relatedBy:NSLayoutRelationEqual
                                                                   toItem:_partialSeparator.superview
                                                                attribute:NSLayoutAttributeLeft
                                                               multiplier:1
-                                                                constant:PARTIAL_SEPARATOR_WIDTH];
-    NSLayoutConstraint *trailing = [NSLayoutConstraint constraintWithItem:_partialSeparator
+                                                                constant:[FNAppearance cellSeparatorPartialIndent]];
+    NSLayoutConstraint *right = [NSLayoutConstraint constraintWithItem:_partialSeparator
                                                                 attribute:NSLayoutAttributeRight
                                                                 relatedBy:NSLayoutRelationEqual
                                                                    toItem:_partialSeparator.superview
@@ -80,17 +77,17 @@
                                                                  toItem:nil
                                                               attribute:NSLayoutAttributeNotAnAttribute
                                                              multiplier:1
-                                                               constant:PARTIAL_SEPARATOR_HEIGHT];
-    [_partialSeparator.superview addConstraints:@[leading, trailing, bottom, height]];
+                                                               constant:[FNAppearance cellSeparatorPartialHeight]];
+    [_partialSeparator.superview addConstraints:@[left, right, bottom, height]];
     
-    NSLayoutConstraint *leading1 = [NSLayoutConstraint constraintWithItem:_separator
+    NSLayoutConstraint *left1 = [NSLayoutConstraint constraintWithItem:_separator
                                                                 attribute:NSLayoutAttributeLeft
                                                                 relatedBy:NSLayoutRelationEqual
                                                                    toItem:_separator.superview
                                                                 attribute:NSLayoutAttributeLeft
                                                                multiplier:1
                                                                  constant:0];
-    NSLayoutConstraint *trailing1 = [NSLayoutConstraint constraintWithItem:_separator
+    NSLayoutConstraint *right1 = [NSLayoutConstraint constraintWithItem:_separator
                                                                  attribute:NSLayoutAttributeRight
                                                                  relatedBy:NSLayoutRelationEqual
                                                                     toItem:_separator.superview
@@ -110,47 +107,53 @@
                                                                   toItem:nil
                                                                attribute:NSLayoutAttributeNotAnAttribute
                                                               multiplier:1
-                                                                constant:SEPARATOR_HEIGHT];
-    [_partialSeparator.superview addConstraints:@[leading1, trailing1, bottom1, height1]];
+                                                                constant:[FNAppearance cellSeparatorHeight]];
+    [_separator.superview addConstraints:@[left1, right1, bottom1, height1]];
 }
 
 - (void)setShowCellSeparator:(BOOL)showCellSeparator
 {
+    _showCellSeparator = showCellSeparator;
     if (showCellSeparator) {
-        [self.backgroundView addSubview:self.separator];
+        _separator.alpha = 1;
+        _partialSeparator.alpha = 1;
     } else {
-        [self.separator removeFromSuperview];
+        _separator.alpha = 0;
+        _partialSeparator.alpha = 0;
     }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    if (selected) {
-        // Add the partial width seperator line to the bottom of the cell
-        self.partialSeparator.alpha = 0;
-        [UIView animateWithDuration:.3 animations:^(void){
-            self.separator.alpha = 0;
-            self.partialSeparator.alpha = 1;
-        }];
-    } else {
-        // Conditionally add the seperator
-        if (self.showCellSeparator) {
-            self.separator.alpha = 0;
-        }
-        [UIView animateWithDuration:.3 animations:^(void){
-            self.separator.alpha = 1;
+    if (self.showCellSeparator) {
+        if (selected) {
+            // Add the partial width seperator line to the bottom of the cell
             self.partialSeparator.alpha = 0;
-        }];
+            [UIView animateWithDuration:.3 animations:^(void){
+                self.separator.alpha = 0;
+                self.partialSeparator.alpha = 1;
+            }];
+        } else {
+            // Conditionally add the seperator
+            if (self.showCellSeparator) {
+                self.separator.alpha = 0;
+            }
+            [UIView animateWithDuration:.3 animations:^(void){
+                self.separator.alpha = 1;
+                self.partialSeparator.alpha = 0;
+            }];
+        }
     }
 }
 
 - (void)setBackgroundView:(UIView *)backgroundView
 {
+    [_partialSeparator removeFromSuperview];
+    [_separator removeFromSuperview];
     [super setBackgroundView:backgroundView];
     [backgroundView addSubview:_partialSeparator];
     [backgroundView addSubview:_separator];
-
     [self addSeparatorConstraints];
 }
 
