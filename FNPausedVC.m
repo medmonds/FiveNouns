@@ -10,7 +10,7 @@
 #import "FNScoreController.h"
 #import "FNTableViewController.h"
 
-@interface FNPausedVC ()
+@interface FNPausedVC () <FNTVRowInsertAndDeleteManager>
 @property (nonatomic, strong) FNScoreController *scoreController;
 @end
 
@@ -23,12 +23,40 @@
 
 
 
+- (void)insertRowsAtIndexPaths:(NSArray *)indexpaths forController:(id<UITableViewDelegate>)controller
+{
+    [self.tableView insertRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)deleteRowsAtIndexPaths:(NSArray *)indexpaths forController:(id<UITableViewDelegate>)controller
+{
+    [self.tableView deleteRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(id<UITableViewDelegate>)controller
+{
+    if (indexPath.section == 0) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    } else if (indexPath.section == 1) {
+        
+    } else {
+        
+    }
+}
+
+
 #pragma mark - Delegate
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (indexPath.section == 0) {
+        [self.scoreController tableView:tableView didSelectRowAtIndexPath:indexPath];
+    } else if (indexPath.section == 1) {
+        
+    } else {
+        
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
@@ -44,12 +72,26 @@
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (indexPath.section == 0) {
+        [self.scoreController tableView:tableView didHighlightRowAtIndexPath:indexPath];
+    } else if (indexPath.section == 1) {
+        
+    } else {
+        
+    }
+
 }
 
 - (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (indexPath.section == 0) {
+        [self.scoreController tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
+    } else if (indexPath.section == 1) {
+        
+    } else {
+        
+    }
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -120,6 +162,7 @@
     self.scoreController = [[FNScoreController alloc] init];
     self.scoreController.brain = self.brain;
     self.scoreController.tableView = self.tableView;
+    self.scoreController.tvController = self;
     
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
     UIBarButtonItem *done = [FNAppearance barButtonItemDismiss];
@@ -127,6 +170,7 @@
     [done setAction:@selector(donePressed)];
     [self.navigationItem setRightBarButtonItem:done];
     self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Directions"];
+    self.navigationItem.leftBarButtonItem = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated

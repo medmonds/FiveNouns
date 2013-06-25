@@ -8,11 +8,13 @@
 
 #import "FNDirectionView.h"
 #import "FNAppearance.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface FNDirectionView ()
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UILabel *roundLabel;
 @property (nonatomic, strong) UIButton *doneButton;
+@property (nonatomic, strong) CALayer *contentBackground;
 @end
 
 @implementation FNDirectionView
@@ -28,28 +30,38 @@
 
 - (void)commonInit
 {
-    _roundLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 40)];
+    _contentBackground = [[CALayer alloc] init];
+    _contentBackground.backgroundColor = [UIColor whiteColor].CGColor;
+    _contentBackground.cornerRadius = 3.0;
+    [self.layer addSublayer:_contentBackground];
+    
+    _roundLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [_roundLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    _roundLabel.backgroundColor = [UIColor redColor];
+    _roundLabel.backgroundColor = [UIColor clearColor];
     _roundLabel.font = [FNAppearance fontWithSize:30];
     _roundLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_roundLabel];
     
-    _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 0, 40)];
+    _textView = [[UITextView alloc] initWithFrame:CGRectZero];
     [_textView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    _textView.backgroundColor = [UIColor whiteColor];
+    _textView.backgroundColor = [UIColor clearColor];
     _textView.font = [FNAppearance fontWithSize:16];
     _textView.text = @"temp";
     _textView.userInteractionEnabled = NO;
     [self addSubview:_textView];
     
-    _doneButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 44)];
+    _doneButton = [[UIButton alloc] initWithFrame:CGRectZero];
     [_doneButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-    _doneButton.backgroundColor = [UIColor blueColor];
+    [_doneButton setBackgroundImage:[FNAppearance backgroundForCellWithStyle:FNTableViewCellStyleButton forPosition:FNTableViewCellPositionBottom] forState:UIControlStateNormal];
+    [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
+    _doneButton.titleLabel.font = [FNAppearance fontWithSize:26];
+    [_doneButton setTitleColor:[FNAppearance textColorButton] forState:UIControlStateNormal];
+    [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [_doneButton addTarget:self action:@selector(donePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_doneButton];
     
-    self.backgroundColor = [UIColor colorWithWhite:.5 alpha:.5];
-    
+    self.backgroundColor = [UIColor clearColor];//[UIColor colorWithWhite:.5 alpha:.5];
+    self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self setAutolayoutConstraints];
 }
 
@@ -74,9 +86,16 @@
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:_roundLabel.superview
                                                               attribute:NSLayoutAttributeTop
-                                                             multiplier:1
-                                                               constant:100];
-    [_roundLabel.superview addConstraints:@[labelCenterx, labelWidth, labelY]];
+                                                             multiplier:.8
+                                                               constant:0];
+    NSLayoutConstraint *labelHeight = [NSLayoutConstraint constraintWithItem:_roundLabel
+                                                                   attribute:NSLayoutAttributeHeight
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:nil
+                                                                   attribute:NSLayoutAttributeNotAnAttribute
+                                                                  multiplier:1
+                                                                    constant:40];
+    [_roundLabel.superview addConstraints:@[labelCenterx, labelWidth, labelY, labelHeight]];
     
     NSLayoutConstraint *textCenterx = [NSLayoutConstraint constraintWithItem:_textView
                                                                     attribute:NSLayoutAttributeCenterX
@@ -121,14 +140,14 @@
                                                                   attribute:NSLayoutAttributeWidth
                                                                  multiplier:.8
                                                                    constant:0];
-    NSLayoutConstraint *buttonY = [NSLayoutConstraint constraintWithItem:_doneButton
-                                                              attribute:NSLayoutAttributeTop
+    NSLayoutConstraint *buttonHeight = [NSLayoutConstraint constraintWithItem:_doneButton
+                                                              attribute:NSLayoutAttributeHeight
                                                               relatedBy:NSLayoutRelationEqual
-                                                                 toItem:_textView
-                                                              attribute:NSLayoutAttributeBottom
+                                                                 toItem:nil
+                                                              attribute:NSLayoutAttributeNotAnAttribute
                                                              multiplier:1
-                                                                constant:0];
-    [_doneButton.superview addConstraints:@[buttonCenterx, buttonWidth, buttonY]];
+                                                                constant:44];
+    [_doneButton.superview addConstraints:@[buttonCenterx, buttonWidth, buttonHeight]];
 }
 
 - (void)setRound:(NSInteger)round
@@ -151,21 +170,32 @@
 {
     _directions = directions;
     _textView.text = directions;
-//    CGRect frame = _textView.frame;
-//    frame.size.height = _textView.contentSize.height;
-//    _textView.frame = frame;
     [self setNeedsLayout];
 }
 
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)layoutSubviews
 {
-    // Drawing code
+    [super layoutSubviews];
+    
+    CGRect frame = _textView.frame;
+    frame.size.height = _textView.contentSize.height;
+    _textView.frame = frame;
+    
+    CGRect buttonFrame = _doneButton.frame;
+    buttonFrame.origin.y = CGRectGetMaxY(_textView.frame);
+    _doneButton.frame = buttonFrame;
+    
+    CGRect backgroundFrame = CGRectMake(CGRectGetMinX(_roundLabel.frame), CGRectGetMinY(_roundLabel.frame), CGRectGetWidth(_roundLabel.frame), CGRectGetMaxY(_doneButton.frame) - CGRectGetMinY(_roundLabel.frame));
+    _contentBackground.frame =backgroundFrame;
 }
-*/
+
+- (void)donePressed:(id)sender
+{
+    [UIView animateWithDuration:.5 animations:^(void){
+        self.alpha = 0;
+    } completion:^(BOOL finished){
+        [self removeFromSuperview];
+    }];
+}
 
 @end

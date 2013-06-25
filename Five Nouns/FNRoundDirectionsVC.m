@@ -22,11 +22,11 @@
 {
     [self.presentingVC dismissDirectionVC:self];
     
-//    [UIView animateWithDuration:.8 animations:^(void){
-//        self.view.alpha = 0;
-//    } completion:^(BOOL finished){
-//        [self.view removeFromSuperview];
-//    }];
+    [UIView animateWithDuration:.8 animations:^(void){
+        self.view.alpha = 0;
+    } completion:^(BOOL finished){
+        [self.view removeFromSuperview];
+    }];
 }
 
 - (void)setDirectionsForRound
@@ -78,13 +78,13 @@
     [self setDirectionsForRound];
 }
 
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-//    [UIView animateWithDuration:.8 animations:^(void){
-//        self.view.alpha = 1.0;
-//    }];
-//}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [UIView animateWithDuration:.8 animations:^(void){
+        self.view.alpha = 1.0;
+    }];
+}
 
 - (void)viewDidLoad
 {

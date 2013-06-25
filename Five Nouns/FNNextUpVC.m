@@ -28,7 +28,7 @@
 // Direction modal
 @property (nonatomic, strong) FNDirectionView *directionsVC;
 // Paused (Options) modal
-@property (nonatomic, strong) FNPausedVC *pausedVC;
+//@property (nonatomic, strong) FNPausedVC *pausedVC;
 // Game Screen (need to keep a reference to it when it is popped off the nav stack
 @property (nonatomic, strong) FNGameVC *gameVC;
 // if this is the beginning of the game then can go back to teams vc otherwise can't
@@ -45,14 +45,6 @@
 
 #pragma mark - Navigation
 
-- (void)dismissDirectionVC:(FNRoundDirectionsVC *)vc
-{
-    [UIView animateWithDuration:.8 animations:^(void){
-        vc.view.alpha = 0;
-    } completion:^(BOOL finished){
-        [vc.view removeFromSuperview];
-    }];
-}
 
 - (void)optionsBarButtonItemPressed
 {
@@ -71,11 +63,12 @@
 
 - (void)showDirectionsForRound
 {
-    self.directionsVC = [[FNDirectionView alloc] initWithFrame:self.navigationController.view.bounds];
+    self.directionsVC = [[FNDirectionView alloc] initWithFrame:self.view.bounds];
     self.directionsVC.round = self.round;
     self.directionsVC.directions = [self.brain directionsForRound:self.round];
-    [self.navigationController.view addSubview:self.directionsVC];
-    [UIView animateWithDuration:.8 animations:^(void){
+    self.directionsVC.alpha = 0.0;
+    [self.view addSubview:self.directionsVC];
+    [UIView animateWithDuration:0.5 animations:^(void){
         self.directionsVC.alpha = 1.0;
     }];
 }

@@ -12,7 +12,7 @@
 #import "FNScoreCard.h"
 #import "FNCountdownTimer.h"
 #import "FNAppearance.h"
-#import "FNRoundDirectionsVC.h"
+#import "FNDirectionView.h"
 
 @interface FNGameVC ()
 @property (nonatomic, weak) NSString *currentNoun;
@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *nounLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentPlayerLabel;
+
+@property (nonatomic, strong) FNDirectionView *directionsVC;
 
 @property BOOL startTimerAndRevealNoun;
 @property BOOL returnToNextUpVC;
@@ -125,11 +127,14 @@
 
 - (void)showDirectionsForRound
 {
-    UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"roundDirectionsNC"];
-    FNRoundDirectionsVC *directions = (FNRoundDirectionsVC *)nc.topViewController;
-    directions.brain = self.brain;
-    directions.round = self.currentRound;
-    [self.navigationController presentViewController:nc animated:YES completion:nil];
+    self.directionsVC = [[FNDirectionView alloc] initWithFrame:self.view.bounds];
+    self.directionsVC.round = self.currentRound;
+    self.directionsVC.directions = [self.brain directionsForRound:self.currentRound];
+    self.directionsVC.alpha = 0.0;
+    [self.view addSubview:self.directionsVC];
+    [UIView animateWithDuration:0.5 animations:^(void){
+        self.directionsVC.alpha = 1.0;
+    }];
 }
 
 - (void)beginNewRound;

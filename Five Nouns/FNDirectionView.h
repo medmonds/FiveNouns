@@ -11,5 +11,5 @@
 @interface FNDirectionView : UIView
 @property (nonatomic) NSInteger round;
 @property (nonatomic, strong) NSString *directions;
-
+@property (nonatomic, strong) UIImage *backgroundImage;
 @end
