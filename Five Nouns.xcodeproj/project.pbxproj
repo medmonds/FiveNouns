@@ -101,6 +101,12 @@
 		C9A7911F1773E5D70090E689 /* FNScoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A7911D1773E5D70090E689 /* FNScoreController.m */; };
 		C9ACDEAD1771461B00555CE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E441718B7390039B88E /* CoreGraphics.framework */; };
 		C9ACDEAE1771462700555CE8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95DA6B31730C600004F2841 /* QuartzCore.framework */; };
+		C9B03F31177A947E00226B06 /* FNDirectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F30177A947E00226B06 /* FNDirectionsController.m */; };
+		C9B03F32177A947E00226B06 /* FNDirectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F30177A947E00226B06 /* FNDirectionsController.m */; };
+		C9B03F35177A996900226B06 /* FNGameDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F34177A996900226B06 /* FNGameDirections.m */; };
+		C9B03F36177A996900226B06 /* FNGameDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F34177A996900226B06 /* FNGameDirections.m */; };
+		C9B03F39177AA44F00226B06 /* FNTVController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F38177AA44F00226B06 /* FNTVController.m */; };
+		C9B03F3A177AA44F00226B06 /* FNTVController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F38177AA44F00226B06 /* FNTVController.m */; };
 		C9B13696176E439D00B792AD /* FNGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B13695176E439D00B792AD /* FNGameVC.m */; };
 		C9B13697176E439D00B792AD /* FNGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B13695176E439D00B792AD /* FNGameVC.m */; };
 		C9B2607D1772A22F009DBBC9 /* FNPausedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */; };
@@ -227,6 +233,12 @@
 		C9A4CF461777DB46007F819A /* FNDirectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNDirectionView.m; sourceTree = "<group>"; };
 		C9A7911C1773E5D70090E689 /* FNScoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNScoreController.h; sourceTree = "<group>"; };
 		C9A7911D1773E5D70090E689 /* FNScoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNScoreController.m; sourceTree = "<group>"; };
+		C9B03F2F177A947E00226B06 /* FNDirectionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNDirectionsController.h; sourceTree = "<group>"; };
+		C9B03F30177A947E00226B06 /* FNDirectionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNDirectionsController.m; sourceTree = "<group>"; };
+		C9B03F33177A996900226B06 /* FNGameDirections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNGameDirections.h; sourceTree = "<group>"; };
+		C9B03F34177A996900226B06 /* FNGameDirections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNGameDirections.m; sourceTree = "<group>"; };
+		C9B03F37177AA44E00226B06 /* FNTVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNTVController.h; sourceTree = "<group>"; };
+		C9B03F38177AA44F00226B06 /* FNTVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTVController.m; sourceTree = "<group>"; };
 		C9B13694176E439D00B792AD /* FNGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNGameVC.h; sourceTree = "<group>"; };
 		C9B13695176E439D00B792AD /* FNGameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNGameVC.m; sourceTree = "<group>"; };
 		C9B2607B1772A22F009DBBC9 /* FNPausedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNPausedVC.h; path = ../FNPausedVC.h; sourceTree = "<group>"; };
@@ -348,6 +360,8 @@
 				C9F04F22171A69EA00AAAF75 /* FNTeam.m */,
 				C99279E917193C780035658F /* FNScoreCard.h */,
 				C99279EA17193C780035658F /* FNScoreCard.m */,
+				C9B03F33177A996900226B06 /* FNGameDirections.h */,
+				C9B03F34177A996900226B06 /* FNGameDirections.m */,
 				C9649E471718B7390039B88E /* Supporting Files */,
 			);
 			path = "Five Nouns";
@@ -457,6 +471,10 @@
 				C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */,
 				C9A7911C1773E5D70090E689 /* FNScoreController.h */,
 				C9A7911D1773E5D70090E689 /* FNScoreController.m */,
+				C9B03F2F177A947E00226B06 /* FNDirectionsController.h */,
+				C9B03F30177A947E00226B06 /* FNDirectionsController.m */,
+				C9B03F37177AA44E00226B06 /* FNTVController.h */,
+				C9B03F38177AA44F00226B06 /* FNTVController.m */,
 				C9E2B6AA177786A300FD08E9 /* FNSeparatorCell.h */,
 				C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */,
 			);
@@ -697,6 +715,9 @@
 				C9A7911E1773E5D70090E689 /* FNScoreController.m in Sources */,
 				C9E2B6AC177786A300FD08E9 /* FNSeparatorCell.m in Sources */,
 				C9A4CF471777DB46007F819A /* FNDirectionView.m in Sources */,
+				C9B03F31177A947E00226B06 /* FNDirectionsController.m in Sources */,
+				C9B03F35177A996900226B06 /* FNGameDirections.m in Sources */,
+				C9B03F39177AA44F00226B06 /* FNTVController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -730,6 +751,9 @@
 				C9A7911F1773E5D70090E689 /* FNScoreController.m in Sources */,
 				C9E2B6AD177786A300FD08E9 /* FNSeparatorCell.m in Sources */,
 				C9A4CF481777DB46007F819A /* FNDirectionView.m in Sources */,
+				C9B03F32177A947E00226B06 /* FNDirectionsController.m in Sources */,
+				C9B03F36177A996900226B06 /* FNGameDirections.m in Sources */,
+				C9B03F3A177AA44F00226B06 /* FNTVController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

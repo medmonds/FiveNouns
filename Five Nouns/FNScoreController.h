@@ -8,23 +8,24 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "FNTVController.h"
 
 @class FNBrain;
 
-@protocol FNTVRowInsertAndDeleteManager <NSObject>
+//@protocol FNTVRowInsertAndDeleteManager <NSObject>
+//
+//- (void)insertRowsAtIndexPaths:(NSArray *)indexpaths forController:(id <UITableViewDelegate>)controller;
+//- (void)deleteRowsAtIndexPaths:(NSArray *)indexpaths forController:(id <UITableViewDelegate>)controller;
+//- (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(id <UITableViewDelegate>)controller;
+//
+//@end
 
-- (void)insertRowsAtIndexPaths:(NSArray *)indexpaths forController:(id <UITableViewDelegate>)controller;
-- (void)deleteRowsAtIndexPaths:(NSArray *)indexpaths forController:(id <UITableViewDelegate>)controller;
-- (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(id <UITableViewDelegate>)controller;
-
-@end
-
-@interface FNScoreController : NSObject <UITableViewDataSource, UITableViewDelegate>
+@interface FNScoreController : FNTVController //<UITableViewDataSource, UITableViewDelegate>
 
 - (void)setup; // will expand the table view and show the scores
 
 @property (nonatomic, strong) FNBrain *brain;
-@property (nonatomic, weak) UITableView *tableView;
-@property (nonatomic, weak) UITableViewController <FNTVRowInsertAndDeleteManager> *tvController;
+//@property (nonatomic, weak) UITableView *tableView;
+//@property (nonatomic, weak) UITableViewController <FNTVRowInsertAndDeleteManager> *tvController;
 
 @end

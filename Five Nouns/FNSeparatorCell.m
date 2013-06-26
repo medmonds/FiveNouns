@@ -157,7 +157,14 @@
     [self addSeparatorConstraints];
 }
 
-
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    if (highlighted) {
+        self.textLabel.textColor = [FNAppearance textColorButton];
+    } else{
+        self.textLabel.textColor = [FNAppearance textColorLabel];
+    }
+}
 
 
 

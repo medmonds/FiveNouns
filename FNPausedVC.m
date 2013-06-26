@@ -134,14 +134,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    if (section == 0) {
+    if (section == 0) {
         return [self.scoreController tableView:tableView numberOfRowsInSection:section];
-//    }
-//    } else if (section == 1) {
-//        
-//    } else {
-//        
-//    }
+    } else if (section == 1) {
+        
+    } else {
+        
+    }
 }
 
 

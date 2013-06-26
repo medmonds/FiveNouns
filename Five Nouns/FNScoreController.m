@@ -20,11 +20,6 @@
 @property (nonatomic, strong) NSArray *teams;
 @end
 
-//typedef NS_ENUM(NSInteger, FNScoreCellType) {
-//    FNScoreCellTypeTeam,
-//    FNScoreCellTypeTurn
-//};
-
 /*
  why is not calling begin & endUpdates not blowing everything Up? !!!
  
@@ -33,8 +28,90 @@
 
 @implementation FNScoreController
 
+
+
 - (void)setup
 {
+    self.title = @"Score";
+    // assigning a mutablearry to an array !!!
+    self.allData = [NSMutableArray arrayWithArray:[self.brain teamOrder]];
+    self.dataSource = [self.allData mutableCopy];
+    [self.dataSource insertObject:self.title atIndex:0];
+    self.subCategoryType = [[FNScoreCard alloc] init];
+    self.categoryType = [[FNTeam alloc] init];
+    [super setup];
+}
+
+- (NSMutableArray *)subCategoriesForCategory:(id)category
+{
+    return [((FNTeam *)category).scoreCards mutableCopy];
+}
+
+
+- (UITableViewCell *)refreshRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
+        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"headerCell"];
+        cell.textLabel.text = self.dataSource[indexPath.row];
+        cell.textLabel.font = [FNAppearance fontWithSize:30];
+        cell.textLabel.textColor = [FNAppearance textColorButton];
+        cell.showCellSeparator = [super showCellSeparatorForIndexPath:indexPath];
+        return cell;
+    } else if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
+        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+        FNTeam *team = self.dataSource[indexPath.row];
+        cell.textLabel.text = team.name;
+        cell.textLabel.textColor = [FNAppearance textColorButton];
+        cell.textLabel.font = [FNAppearance fontWithSize:26];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", team.currentScore];
+        cell.textLabel.font = [FNAppearance fontWithSize:26];
+        cell.indentationLevel = 0;
+        cell.showCellSeparator = [super showCellSeparatorForIndexPath:indexPath];
+        return cell;
+    } else {
+        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+        FNScoreCard *card = self.dataSource[indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"Round %d", card.round];
+        cell.textLabel.textColor = [FNAppearance textColorLabel];
+        cell.textLabel.font = [FNAppearance fontWithSize:20];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [card.nounsScored count]];
+        cell.textLabel.font = [FNAppearance fontWithSize:20];
+        cell.indentationLevel = 3;
+        cell.showCellSeparator = [super showCellSeparatorForIndexPath:indexPath];
+        return cell;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+- (void)setup
+{
+    // assigning a mutablearry to an array !!!
     self.teams = [NSMutableArray arrayWithArray:[self.brain teamOrder]];
     self.dataSource = [self.teams mutableCopy];
     [self.dataSource insertObject:@"Score" atIndex:0];
@@ -126,16 +203,14 @@
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [cell setHighlighted:YES animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // this should really be done in custom cell subclasses    
-    [UIView animateWithDuration:.3 animations:^(void){
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        cell.textLabel.textColor = [FNAppearance textColorButton];
-    }];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [cell setHighlighted:NO animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -215,7 +290,7 @@
     NSInteger rows = [self.dataSource count];
     return rows;
 }
-
+*/
 @end
 
 
