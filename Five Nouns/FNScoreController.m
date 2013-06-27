@@ -25,84 +25,97 @@
  
 */
 
+//typedef void (^CellConfigBlock)(UITableViewCell *, id);
+
 
 @implementation FNScoreController
 
-
-
-- (void)setup
-{
-    self.title = @"Score";
-    // assigning a mutablearry to an array !!!
-    self.allData = [NSMutableArray arrayWithArray:[self.brain teamOrder]];
-    self.dataSource = [self.allData mutableCopy];
-    [self.dataSource insertObject:self.title atIndex:0];
-    self.subCategoryType = [[FNScoreCard alloc] init];
-    self.categoryType = [[FNTeam alloc] init];
-    [super setup];
-}
-
-- (NSMutableArray *)subCategoriesForCategory:(id)category
-{
-    return [((FNTeam *)category).scoreCards mutableCopy];
-}
-
-
-- (UITableViewCell *)refreshRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
-        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"headerCell"];
-        cell.textLabel.text = self.dataSource[indexPath.row];
-        cell.textLabel.font = [FNAppearance fontWithSize:30];
-        cell.textLabel.textColor = [FNAppearance textColorButton];
-        cell.showCellSeparator = [super showCellSeparatorForIndexPath:indexPath];
-        return cell;
-    } else if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
-        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
-        FNTeam *team = self.dataSource[indexPath.row];
-        cell.textLabel.text = team.name;
-        cell.textLabel.textColor = [FNAppearance textColorButton];
-        cell.textLabel.font = [FNAppearance fontWithSize:26];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", team.currentScore];
-        cell.textLabel.font = [FNAppearance fontWithSize:26];
-        cell.indentationLevel = 0;
-        cell.showCellSeparator = [super showCellSeparatorForIndexPath:indexPath];
-        return cell;
-    } else {
-        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
-        FNScoreCard *card = self.dataSource[indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"Round %d", card.round];
-        cell.textLabel.textColor = [FNAppearance textColorLabel];
-        cell.textLabel.font = [FNAppearance fontWithSize:20];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [card.nounsScored count]];
-        cell.textLabel.font = [FNAppearance fontWithSize:20];
-        cell.indentationLevel = 3;
-        cell.showCellSeparator = [super showCellSeparatorForIndexPath:indexPath];
-        return cell;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//
+//- (void)setup
+//{
+//    self.title = @"Score";
+//    // assigning a mutablearry to an array !!!
+//    self.allData = [NSMutableArray arrayWithArray:[self.brain teamOrder]];
+//    self.dataSource = [self.allData mutableCopy];
+//    [self.dataSource insertObject:self.title atIndex:0];
+//    self.subCategoryType = [[FNScoreCard alloc] init];
+//    self.categoryType = [[FNTeam alloc] init];
+//    [super setup];
+//}
+//
+//- (CellConfigBlock)cellConfigureBlockForTitle
+//{
+//    CellConfigBlock titleBlock = ^(UITableViewCell *cell, id object) {
+//        if ([object isKindOfClass:[NSString class]]) {
+//            cell.textLabel.text = (NSString *)object;
+//            cell.textLabel.font = [FNAppearance fontWithSize:30];
+//            cell.textLabel.textColor = [FNAppearance textColorButton];
+//        }
+//    };
+//    return titleBlock;
+//}
+//
+//
+//- (NSMutableArray *)subCategoriesForCategory:(id)category
+//{
+//    return [((FNTeam *)category).scoreCards mutableCopy];
+//}
+//
+//- (UITableViewCell *)refreshRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if ([self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
+//        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"headerCell"];
+//        cell.textLabel.text = self.dataSource[indexPath.row];
+//        cell.textLabel.font = [FNAppearance fontWithSize:30];
+//        cell.textLabel.textColor = [FNAppearance textColorButton];
+//        cell.showCellSeparator = [super showCellSeparatorForIndexPath:indexPath];
+//        return cell;
+//    } else if ([self.dataSource[indexPath.row] isKindOfClass:[FNTeam class]]) {
+//        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+//        FNTeam *team = self.dataSource[indexPath.row];
+//        cell.textLabel.text = team.name;
+//        cell.textLabel.textColor = [FNAppearance textColorButton];
+//        cell.textLabel.font = [FNAppearance fontWithSize:26];
+//        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", team.currentScore];
+//        cell.textLabel.font = [FNAppearance fontWithSize:26];
+//        cell.indentationLevel = 0;
+//        cell.showCellSeparator = [super showCellSeparatorForIndexPath:indexPath];
+//        return cell;
+//    } else {
+//        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+//        FNScoreCard *card = self.dataSource[indexPath.row];
+//        cell.textLabel.text = [NSString stringWithFormat:@"Round %d", card.round];
+//        cell.textLabel.textColor = [FNAppearance textColorLabel];
+//        cell.textLabel.font = [FNAppearance fontWithSize:20];
+//        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [card.nounsScored count]];
+//        cell.textLabel.font = [FNAppearance fontWithSize:20];
+//        cell.indentationLevel = 3;
+//        cell.showCellSeparator = [super showCellSeparatorForIndexPath:indexPath];
+//        return cell;
+//    }
+//}
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 

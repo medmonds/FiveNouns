@@ -7,14 +7,17 @@
 //
 
 #import "FNScoreVC.h"
-#import "FNScoreController.h"
+#import "FNTVController.h"
 #import "FNAppearance.h"
+#import "FNTVScoreDelegate.h"
 
 @interface FNScoreVC () <FNTVRowInsertAndDeleteManager>
-@property (nonatomic, strong) FNScoreController *scoreController;
+@property (nonatomic, strong) FNTVController *scoreController;
 @end
 
 @implementation FNScoreVC
+
+#pragma mark - FNTVRowInsertAndDeleteManager
 
 - (void)insertRowsAtIndexPaths:(NSArray *)indexpaths forController:(id<UITableViewDelegate>)controller
 {
@@ -31,51 +34,16 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
+
 - (void)setBrain:(FNBrain *)brain
 {
     _brain = brain;
-    self.scoreController.brain = _brain;
+    self.scoreController.delegate.brain = _brain;
 }
 
-#pragma mark - Delegate
 
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.scoreController tableView:tableView didSelectRowAtIndexPath:indexPath];
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row == 0) {
-        return NO;
-    } else {
-        return [self.scoreController tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.scoreController tableView:tableView didHighlightRowAtIndexPath:indexPath];
-}
-
-- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.scoreController tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [self.scoreController tableView:tableView heightForRowAtIndexPath:indexPath];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [self.scoreController tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
-}
-
-#pragma mark - Data Source
-
+#pragma mark - Table View Data Source
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -87,16 +55,16 @@
     return cell;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSInteger rows = [self.scoreController tableView:tableView numberOfRowsInSection:section];
+    return rows;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [self.scoreController tableView:tableView numberOfRowsInSection:section];
-}
-
 
 #pragma mark - Life Cycle
 
@@ -112,10 +80,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.scoreController = [[FNScoreController alloc] init];
-    self.scoreController.brain = self.brain;
+    self.scoreController = [[FNTVController alloc] init];
+    self.scoreController.delegate = [[FNTVScoreDelegate alloc] init];
+    self.scoreController.delegate.brain = self.brain;
+    self.scoreController.delegate.shouldCollapseOnTitleTap = NO;
     self.scoreController.tableView = self.tableView;
     self.scoreController.tvController = self;
+    self.tableView.delegate = self.scoreController;
     
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
 }
@@ -131,10 +102,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
-
-
 
 @end
