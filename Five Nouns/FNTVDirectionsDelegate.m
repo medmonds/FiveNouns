@@ -1,18 +1,16 @@
 //
-//  FNTVScoreDelegate.m
+//  FNTVDirectionsDelegate.m
 //  Five Nouns
 //
-//  Created by Matthew Edmonds on 6/26/13.
+//  Created by Matthew Edmonds on 6/27/13.
 //  Copyright (c) 2013 Matthew Edmonds. All rights reserved.
 //
 
-#import "FNTVScoreDelegate.h"
-#import "FNBrain.h"
-#import "FNTeam.h"
-#import "FNScoreCard.h"
+#import "FNTVDirectionsDelegate.h"
+#import "FNGameDirections.h"
 #import "FNAppearance.h"
 
-@implementation FNTVScoreDelegate
+@implementation FNTVDirectionsDelegate
 
 - (BOOL)shouldCollapseOnTitleTap
 {
@@ -24,20 +22,26 @@
 
 - (NSArray *)categories
 {
-    return [self.brain teamOrder];
+    return [FNGameDirections allDirectionsForGame];
 }
 
 - (NSString *)title
 {
-    return @"Score";
+    return @"Directions";
 }
 
 - (NSArray *)itemsForCategory:(id)category
 {
-    if ([category isKindOfClass:[FNTeam class]]) {
-        return ((FNTeam *)category).scoreCards;
+    if ([category isKindOfClass:[FNGameDirections class]]) {
+        return @[((FNGameDirections *)category).directions];
     }
     return nil;
+}
+
+- (CGFloat)heightForCell:(UITableViewCell *)cell withItem:(id)item
+{
+    // change this !!!
+    return 44;
 }
 
 - (CellConfigBlock)titleCellConfigureBlockForController:(FNTVController *)controller
@@ -55,12 +59,11 @@
 - (CellConfigBlock)categoryCellConfigureBlockForController:(FNTVController *)controller
 {
     CellConfigBlock block = ^(UITableViewCell *cell, id object) {
-        if ([object isKindOfClass:[FNTeam class]]) {
-            cell.textLabel.text = ((FNTeam *)object).name;
+        if ([object isKindOfClass:[FNGameDirections class]]) {
+            cell.textLabel.text = ((FNGameDirections *)object).title;
             cell.textLabel.textColor = [FNAppearance textColorButton];
             cell.textLabel.font = [FNAppearance fontWithSize:26];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", ((FNTeam *)object).currentScore];
-            cell.textLabel.font = [FNAppearance fontWithSize:26];
+            cell.detailTextLabel.text = nil;
             cell.indentationLevel = 0;
         }
     };
@@ -70,12 +73,14 @@
 - (CellConfigBlock)itemCellConfigureBlockForController:(FNTVController *)controller
 {
     CellConfigBlock block = ^(UITableViewCell *cell, id object) {
-        if ([object isKindOfClass:[FNScoreCard class]]) {
-            cell.textLabel.text = [NSString stringWithFormat:@"Round %d", ((FNScoreCard *)object).round];
+        if ([object isKindOfClass:[NSString class]]) {
+            cell.textLabel.text = (NSString *)object;
             cell.textLabel.textColor = [FNAppearance textColorLabel];
             cell.textLabel.font = [FNAppearance fontWithSize:20];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [((FNScoreCard *)object).nounsScored count]];
-            cell.detailTextLabel.font = [FNAppearance fontWithSize:20];
+            cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            cell.textLabel.numberOfLines = 0;
+            cell.detailTextLabel.text = nil;
+            cell.textLabel.font = [FNAppearance fontWithSize:20];
             cell.indentationLevel = 3;
         }
     };

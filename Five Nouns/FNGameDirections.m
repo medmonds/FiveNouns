@@ -14,40 +14,40 @@
 {
     NSMutableArray *all = [[NSMutableArray alloc] initWithCapacity:5];
     for (NSInteger i = 0; i < 5; i ++) {
-        [all addObject:[FNGameDirections directionsOfType:[FNGameDirections directionTypeForRound:i]]];
+        [all addObject:[FNGameDirections directionsOfType:[FNGameDirections directionsTypeForRound:i]]];
     }
     return [NSArray arrayWithArray:all];
 }
 
-+ (FNGameDirections *)directionsOfType:(FNGameDirectionType)type
++ (FNGameDirections *)directionsOfType:(FNGameDirectionsType)type
 {
     FNGameDirections *directions = [[FNGameDirections alloc] init];
-    if (type == FNGameDirectionTypeOverview) {
-        directions.type = FNGameDirectionTypeOverview;
-    } else if (type == FNGameDirectionTypeRoundOne) {
-        directions.type = FNGameDirectionTypeRoundOne;
-    } else if (type == FNGameDirectionTypeRoundTwo) {
-        directions.type = FNGameDirectionTypeRoundTwo;
-    } else if (type == FNGameDirectionTypeRoundThree) {
-        directions.type = FNGameDirectionTypeRoundThree;
-    } else if (type == FNGameDirectionTypeRoundFour) {
-        directions.type = FNGameDirectionTypeRoundFour;
+    if (type == FNGameDirectionsTypeOverview) {
+        directions.type = FNGameDirectionsTypeOverview;
+    } else if (type == FNGameDirectionsTypeRoundOne) {
+        directions.type = FNGameDirectionsTypeRoundOne;
+    } else if (type == FNGameDirectionsTypeRoundTwo) {
+        directions.type = FNGameDirectionsTypeRoundTwo;
+    } else if (type == FNGameDirectionsTypeRoundThree) {
+        directions.type = FNGameDirectionsTypeRoundThree;
+    } else if (type == FNGameDirectionsTypeRoundFour) {
+        directions.type = FNGameDirectionsTypeRoundFour;
     }
     return directions;
 }
 
-+ (FNGameDirectionType)directionTypeForRound:(NSInteger)round
++ (FNGameDirectionsType)directionsTypeForRound:(NSInteger)round
 {
     if (round == 0) {
-        return FNGameDirectionTypeOverview;
+        return FNGameDirectionsTypeOverview;
     } else if (round == 1) {
-        return FNGameDirectionTypeRoundOne;
+        return FNGameDirectionsTypeRoundOne;
     } else if (round == 2) {
-        return FNGameDirectionTypeRoundTwo;
+        return FNGameDirectionsTypeRoundTwo;
     } else if (round == 3) {
-        return FNGameDirectionTypeRoundThree;
+        return FNGameDirectionsTypeRoundThree;
     } else if (round == 4) {
-        return FNGameDirectionTypeRoundFour;
+        return FNGameDirectionsTypeRoundFour;
     } else {
         return nil;
     }
@@ -63,34 +63,34 @@
     return [self directionsForType:self.type];
 }
 
-- (NSString *)titleForType:(FNGameDirectionType)type
+- (NSString *)titleForType:(FNGameDirectionsType)type
 {
-    if (type == FNGameDirectionTypeOverview) {
+    if (type == FNGameDirectionsTypeOverview) {
         return @"Overview";
-    } else if (type == FNGameDirectionTypeRoundOne) {
+    } else if (type == FNGameDirectionsTypeRoundOne) {
         return @"Round One";
-    } else if (type == FNGameDirectionTypeRoundTwo) {
+    } else if (type == FNGameDirectionsTypeRoundTwo) {
         return @"Round Two";
-    } else if (type == FNGameDirectionTypeRoundThree) {
+    } else if (type == FNGameDirectionsTypeRoundThree) {
         return @"Round Three";
-    } else if (type == FNGameDirectionTypeRoundFour) {
+    } else if (type == FNGameDirectionsTypeRoundFour) {
         return @"Round Four";
     } else {
         return nil;
     }
 }
 
-- (NSString *)directionsForType:(FNGameDirectionType)type
+- (NSString *)directionsForType:(FNGameDirectionsType)type
 {
-    if (type == FNGameDirectionTypeOverview) {
+    if (type == FNGameDirectionsTypeOverview) {
         return @"An instance of the UIButton class implements a button on the touch screen. A button intercepts touch events and sends an action message to a target object when tapped. Methods for setting the target";
-    } else if (type == FNGameDirectionTypeRoundOne) {
+    } else if (type == FNGameDirectionsTypeRoundOne) {
         return @"An instance of the UIButton class implements a button on the touch screen. A button intercepts touch events and sends an action message to a target object when tapped. Methods for setting the target";
-    } else if (type == FNGameDirectionTypeRoundTwo) {
+    } else if (type == FNGameDirectionsTypeRoundTwo) {
         return @"An instance of the UIButton class implements a button on the touch screen. A button intercepts touch events and sends an action message to a target object when tapped. Methods for setting the target";
-    } else if (type == FNGameDirectionTypeRoundThree) {
+    } else if (type == FNGameDirectionsTypeRoundThree) {
         return @"An instance of the UIButton class implements a button on the touch screen. A button intercepts touch events and sends an action message to a target object when tapped. Methods for setting the target";
-    } else if (type == FNGameDirectionTypeRoundFour) {
+    } else if (type == FNGameDirectionsTypeRoundFour) {
         return @"An instance of the UIButton class implements a button on the touch screen. A button intercepts touch events and sends an action message to a target object when tapped. Methods for setting the target";
     } else {
         return nil;

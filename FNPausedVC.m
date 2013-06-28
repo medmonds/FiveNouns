@@ -7,11 +7,14 @@
 //
 
 #import "FNPausedVC.h"
-#import "FNScoreController.h"
-#import "FNTableViewController.h"
+#import "FNTVController.h"
+#import "FNTVScoreDelegate.h"
+#import "FNTVDirectionsDelegate.h"
 
 @interface FNPausedVC () <FNTVRowInsertAndDeleteManager>
-@property (nonatomic, strong) FNScoreController *scoreController;
+@property (nonatomic, strong) FNTVController *scoreController;
+@property (nonatomic, strong) FNTVController *directionController;
+@property (nonatomic, strong) FNTVController *addPlayerController;
 @end
 
 @implementation FNPausedVC
@@ -21,88 +24,88 @@
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-
-- (void)insertRowsAtIndexPaths:(NSArray *)indexpaths forController:(id<UITableViewDelegate>)controller
+- (void)insertRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
-    [self.tableView insertRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSArray *convertedIndexPaths = [self convertIndexPaths:indexPaths fromController:controller];
+    [self.tableView insertRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)deleteRowsAtIndexPaths:(NSArray *)indexpaths forController:(id<UITableViewDelegate>)controller
+- (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
-    [self.tableView deleteRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSArray *convertedIndexPaths = [self convertIndexPaths:indexPaths fromController:controller];
+    [self.tableView deleteRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(id<UITableViewDelegate>)controller
+- (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(FNTVController *)controller
 {
-    if (indexPath.section == 0) {
-        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    } else if (indexPath.section == 1) {
-        
-    } else {
-        
+    NSArray *convertedIndexPaths = [self convertIndexPaths:@[indexPath] fromController:controller];
+    [self.tableView deselectRowAtIndexPath:convertedIndexPaths[0] animated:YES];
+}
+
+- (NSArray *)convertIndexPaths:(NSArray *)indexPaths fromController:(FNTVController *)controller
+{
+    NSInteger section = [self sectionForController:controller];
+    NSMutableArray *converted = [[NSMutableArray alloc] initWithCapacity:[indexPaths count]];
+    for (NSIndexPath *index in indexPaths) {
+        [converted addObject:[NSIndexPath indexPathForRow:index.row inSection:section]];
     }
+    return converted;
 }
 
+- (NSInteger)sectionForController:(FNTVController *)controller
+{
+    NSInteger section = -1;
+    if (controller == self.scoreController) {
+        section = 0;
+    } else if (controller == self.directionController) {
+        section = 1;
+    } else if (controller == self.scoreController) {
+        section = 2;
+    }
+    NSAssert(section >= -1, @"Tried to convert indexPaths for an unrecognized controller");
+    return section;
+}
+
+- (FNTVController *)controllerForIndexPath:(NSIndexPath *)indexPath
+{
+    FNTVController *controller;
+    if (indexPath.section == 0) {
+        controller = self.scoreController;
+    } else if (indexPath.section == 1) {
+        controller = self.directionController;
+    } else if (indexPath.section == 2) {
+        controller = self.addPlayerController;
+    }
+    NSAssert(controller, @"Tried to get controller for an out of bounds indexPath");
+    return controller;
+}
 
 #pragma mark - Delegate
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        [self.scoreController tableView:tableView didSelectRowAtIndexPath:indexPath];
-    } else if (indexPath.section == 1) {
-        
-    } else {
-        
-    }
+    [[self controllerForIndexPath:indexPath] tableView:tableView didSelectRowAtIndexPath:indexPath];
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return [self.scoreController tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
-    } else if (indexPath.section == 1) {
-        
-    } else {
-        
-    }
+    return [[self controllerForIndexPath:indexPath] tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        [self.scoreController tableView:tableView didHighlightRowAtIndexPath:indexPath];
-    } else if (indexPath.section == 1) {
-        
-    } else {
-        
-    }
-
+    [[self controllerForIndexPath:indexPath] tableView:tableView didHighlightRowAtIndexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        [self.scoreController tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
-    } else if (indexPath.section == 1) {
-        
-    } else {
-        
-    }
-
+    [[self controllerForIndexPath:indexPath] tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return [self.scoreController tableView:tableView heightForRowAtIndexPath:indexPath];
-    } else if (indexPath.section == 1) {
-        
-    } else {
-
-    }
+    return [[self controllerForIndexPath:indexPath] tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
 //- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -115,32 +118,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
-    if (indexPath.section == 0) {
-        cell = [self.scoreController tableView:tableView cellForRowAtIndexPath:indexPath];
-    } else if (indexPath.section == 1) {
-        
-    } else {
-        
-    }
+    UITableViewCell *cell = [[self controllerForIndexPath:indexPath] tableView:tableView cellForRowAtIndexPath:indexPath];
     [super setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
     return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return [self.scoreController tableView:tableView numberOfRowsInSection:section];
-    } else if (section == 1) {
-        
-    } else {
-        
-    }
+    return [[self controllerForIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] tableView:tableView numberOfRowsInSection:section];
 }
 
 
@@ -158,10 +148,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.scoreController = [[FNScoreController alloc] init];
-    self.scoreController.brain = self.brain;
+    self.scoreController = [[FNTVController alloc] init];
+    self.scoreController.delegate = [[FNTVScoreDelegate alloc] init];
+    self.scoreController.delegate.brain = self.brain;
+    self.scoreController.delegate.shouldCollapseOnTitleTap = YES;
     self.scoreController.tableView = self.tableView;
     self.scoreController.tvController = self;
+    [self.scoreController setup];
+    
+    self.directionController = [[FNTVController alloc] init];
+    self.directionController.delegate = [[FNTVDirectionsDelegate alloc] init];
+    self.directionController.delegate.shouldCollapseOnTitleTap = YES;
+    self.directionController.tableView = self.tableView;
+    self.directionController.tvController = self;
+    [self.directionController setup];
     
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
     UIBarButtonItem *done = [FNAppearance barButtonItemDismiss];

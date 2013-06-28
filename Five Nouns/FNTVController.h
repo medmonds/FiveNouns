@@ -14,8 +14,8 @@
 
 @protocol FNTVRowInsertAndDeleteManager <NSObject>
 
-- (void)insertRowsAtIndexPaths:(NSArray *)indexpaths forController:(id <UITableViewDelegate>)controller;
-- (void)deleteRowsAtIndexPaths:(NSArray *)indexpaths forController:(id <UITableViewDelegate>)controller;
+- (void)insertRowsAtIndexPaths:(NSArray *)indexPaths forController:(id <UITableViewDelegate>)controller;
+- (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths forController:(id <UITableViewDelegate>)controller;
 - (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(id <UITableViewDelegate>)controller;
 
 @end
@@ -25,9 +25,15 @@
 @protocol FNTVControllerDelegate <NSObject>
 
 typedef void (^CellConfigBlock)(UITableViewCell *, id);
-@property (nonatomic) BOOL shouldCollapseOnTitleTap;
-@property (nonatomic, strong) FNBrain *brain;
 
+// configure these properties. wait these should be on the FNTVScoreDelegate not the protocol !!! maybe
+@optional
+@property (nonatomic, strong) FNBrain *brain;
+- (CGFloat)heightForCell:(UITableViewCell *)cell withItem:(id)item;
+
+@required
+@property (nonatomic) BOOL shouldCollapseOnTitleTap;
+// it answers these questions
 - (NSArray *)categories;
 - (NSString *)title;
 - (NSArray *)itemsForCategory:(id)category;

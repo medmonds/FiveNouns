@@ -11,19 +11,19 @@
 
 @interface FNGameDirections : NSObject
 
-typedef NS_ENUM(NSInteger, FNGameDirectionType) {
-    FNGameDirectionTypeOverview,
-    FNGameDirectionTypeRoundOne,
-    FNGameDirectionTypeRoundTwo,
-    FNGameDirectionTypeRoundThree,
-    FNGameDirectionTypeRoundFour,
+typedef NS_ENUM(NSInteger, FNGameDirectionsType) {
+    FNGameDirectionsTypeOverview,
+    FNGameDirectionsTypeRoundOne,
+    FNGameDirectionsTypeRoundTwo,
+    FNGameDirectionsTypeRoundThree,
+    FNGameDirectionsTypeRoundFour,
 };
 
-@property (nonatomic) FNGameDirectionType *type;
+@property (nonatomic) FNGameDirectionsType *type;
 
 + (NSArray *)allDirectionsForGame;
-+ (FNGameDirections *)directionsOfType:(FNGameDirectionType)type;
-+ (FNGameDirectionType)directionTypeForRound:(NSInteger)round;
++ (FNGameDirections *)directionsOfType:(FNGameDirectionsType)type;
++ (FNGameDirectionsType)directionsTypeForRound:(NSInteger)round;
 
 - (NSString *)directions;
 - (NSString *)title;

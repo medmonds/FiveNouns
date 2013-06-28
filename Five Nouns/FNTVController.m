@@ -33,11 +33,28 @@
 - (void)setup
 {
     self.expanded = nil;
-    self.categoriesInDataSource = [NSMutableSet setWithArray:[self.delegate categories]];
     self.titleInDataSource = [self.delegate title];
     self.dataSource = [@[self.titleInDataSource] mutableCopy];
-    [self.dataSource addObjectsFromArray:[self.categoriesInDataSource allObjects]];
+    if (!self.delegate.shouldCollapseOnTitleTap) {
+        [self addCategoriesToDataSource];
+    }
 }
+
+- (NSMutableSet *)itemsInDataSource
+{
+    if (!_itemsInDataSource) {
+        _itemsInDataSource = [[NSMutableSet alloc] init];
+    }
+    return _itemsInDataSource;
+}
+
+- (void)addCategoriesToDataSource
+{
+    NSArray *categoriesFromDelegate = [self.delegate categories];
+    [self.dataSource addObjectsFromArray:categoriesFromDelegate];
+    self.categoriesInDataSource = [NSMutableSet setWithArray:categoriesFromDelegate];
+}
+
 
 - (void)configureTitleCell:(FNSeparatorCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
@@ -63,7 +80,6 @@
     cell.showCellSeparator = [self showCellSeparatorForIndexPath:indexPath];
 }
 
-// need to change this to just ask for a block to setup the cell with
 - (UITableViewCell *)refreshRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // is this the best way to check the title !!!
@@ -119,11 +135,11 @@
 {
     if ([self.delegate shouldCollapseOnTitleTap]) {
         if ([self.dataSource count] == 1) {
-            [self setup];
-            NSMutableArray *toInsert = [[NSMutableArray alloc] initWithCapacity:[self.dataSource count] - 1];
-            NSInteger count = [self.dataSource count];
-            for (NSInteger i = 1; i < count; i++) {
-                [toInsert addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+            [self addCategoriesToDataSource];
+            NSMutableArray *toInsert = [[NSMutableArray alloc] initWithCapacity:[self.dataSource count]];
+            NSInteger count = [[self.delegate categories] count];
+            for (NSInteger i = 0; i < count; i++) {
+                [toInsert addObject:[NSIndexPath indexPathForRow:i + 1 inSection:0]];
             }
             [self.tvController insertRowsAtIndexPaths:toInsert forController:self];
         } else {
@@ -186,6 +202,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell = [self refreshRowAtIndexPath:indexPath];
+    if ([self.delegate respondsToSelector:@selector(heightForCell:withItem:)]) {
+        return [self.delegate heightForCell:cell withItem:self.dataSource[indexPath.row]];
+    }
     return 44;
 }
 
@@ -223,8 +243,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger rows = [self.dataSource count];
-    return rows;
+    return [self.dataSource count];
 }
 
 // this is only used if this is the only thing in the tableview

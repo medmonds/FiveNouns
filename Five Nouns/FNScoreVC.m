@@ -19,27 +19,19 @@
 
 #pragma mark - FNTVRowInsertAndDeleteManager
 
-- (void)insertRowsAtIndexPaths:(NSArray *)indexpaths forController:(id<UITableViewDelegate>)controller
+- (void)insertRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
-    [self.tableView insertRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)deleteRowsAtIndexPaths:(NSArray *)indexpaths forController:(id<UITableViewDelegate>)controller
+- (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
-    [self.tableView deleteRowsAtIndexPaths:indexpaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(id<UITableViewDelegate>)controller
+- (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(FNTVController *)controller
 {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-
-
-- (void)setBrain:(FNBrain *)brain
-{
-    _brain = brain;
-    self.scoreController.delegate.brain = _brain;
 }
 
 
@@ -66,6 +58,16 @@
     return 1;
 }
 
+
+#pragma mark - Internal Methods
+
+- (void)setBrain:(FNBrain *)brain
+{
+    _brain = brain;
+    self.scoreController.delegate.brain = _brain;
+}
+
+
 #pragma mark - Life Cycle
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -87,7 +89,7 @@
     self.scoreController.tableView = self.tableView;
     self.scoreController.tvController = self;
     self.tableView.delegate = self.scoreController;
-    
+    [self.scoreController setup];
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
 }
 
