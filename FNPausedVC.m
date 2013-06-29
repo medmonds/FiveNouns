@@ -149,18 +149,20 @@
 {
     [super viewDidLoad];
     self.scoreController = [[FNTVController alloc] init];
-    self.scoreController.delegate = [[FNTVScoreDelegate alloc] init];
-    self.scoreController.delegate.brain = self.brain;
-    self.scoreController.delegate.shouldCollapseOnTitleTap = YES;
     self.scoreController.tableView = self.tableView;
     self.scoreController.tvController = self;
+    FNTVScoreDelegate *score = [[FNTVScoreDelegate alloc] init];
+    score.brain = self.brain;
+    score.shouldCollapseOnTitleTap = YES;
+    self.scoreController.delegate = score;
     [self.scoreController setup];
     
     self.directionController = [[FNTVController alloc] init];
-    self.directionController.delegate = [[FNTVDirectionsDelegate alloc] init];
-    self.directionController.delegate.shouldCollapseOnTitleTap = YES;
     self.directionController.tableView = self.tableView;
     self.directionController.tvController = self;
+    FNTVDirectionsDelegate *directions = [[FNTVDirectionsDelegate alloc] init];
+    directions.shouldCollapseOnTitleTap = YES;
+    self.directionController.delegate = directions;
     [self.directionController setup];
     
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];

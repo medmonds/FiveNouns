@@ -202,8 +202,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self refreshRowAtIndexPath:indexPath];
     if ([self.delegate respondsToSelector:@selector(heightForCell:withItem:)]) {
+        UITableViewCell *cell = [self refreshRowAtIndexPath:indexPath];
         return [self.delegate heightForCell:cell withItem:self.dataSource[indexPath.row]];
     }
     return 44;
@@ -224,14 +224,15 @@
 - (BOOL)showCellSeparatorForIndexPath:(NSIndexPath *)indexPath
 {
     if (self.titleInDataSource == self.dataSource[indexPath.row]) {
-        return NO;
+        return NO;  // no separator under the title
     } else if ([self.categoriesInDataSource containsObject:self.dataSource[indexPath.row]]) {
-        return indexPath.row != [self.dataSource count] - 1;
+        return indexPath.row != [self.dataSource count] - 1;  // no separator under the last cell
     } else {
         if ([self.dataSource count] - 1 > indexPath.row) {
-            return [self.categoriesInDataSource containsObject:self.dataSource[indexPath.row]];
+            // separator for the last item cell and there is another category below it
+            return [self.categoriesInDataSource containsObject:self.dataSource[indexPath.row + 1]];
         } else {
-            return NO;
+            return NO;  // no separator under middle item cells
         }
     }
 }

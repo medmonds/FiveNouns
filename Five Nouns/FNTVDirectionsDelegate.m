@@ -40,8 +40,16 @@
 
 - (CGFloat)heightForCell:(UITableViewCell *)cell withItem:(id)item
 {
-    // change this !!!
-    return 44;
+    // only need to resize the cell for the long directions string
+    if (![item isKindOfClass:[NSString class]] || [[self title] isEqual:item]) {
+        return 44;
+    }
+    CGFloat width = CGRectGetWidth(cell.frame);
+    CGSize constraint = CGSizeMake(width, CGFLOAT_MAX);
+    CGSize height = [(NSString *)item sizeWithFont:[FNAppearance fontWithSize:20]
+                                 constrainedToSize:constraint
+                                     lineBreakMode:NSLineBreakByWordWrapping];
+    return height.height + 30; // padding
 }
 
 - (CellConfigBlock)titleCellConfigureBlockForController:(FNTVController *)controller

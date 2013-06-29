@@ -32,6 +32,16 @@
 
 #pragma mark - Actions
 
+- (void)displayInvalidPlayerAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Save Player"
+                                                    message:@"New Player's must have a name and at least three nouns."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
 - (void)cellButtonPressed
 {
     // save button pressed validate the input and proceed or reject with error message
@@ -40,8 +50,7 @@
         [self toggleAddPlayerSavingCurrentPlayer:YES];
         self.currentPlayer = nil;
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Save Player" message:@"New Player's must have a name and at least three nouns." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        [self displayInvalidPlayerAlert];
     }
 }
 
@@ -80,7 +89,7 @@
     [CATransaction begin];
     [CATransaction setCompletionBlock:^{
         // change the add player button on completion otherwise the removed cell fade out
-        // above the add player button and look bad
+        // above the add player button and which looks bad
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }];
     [self.tableView beginUpdates];
@@ -90,12 +99,15 @@
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
     } else {
-        self.addPlayerIsVisible = NO;
+        self.addPlayerIsVisible = NO; // why do I need to set this? !!!
         if (save) {
             // save the currentPlayer and add it to the table view
             [self.brain addPlayer:self.currentPlayer];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.brain.allPlayers indexOfObject:self.currentPlayer] inSection:1];
             [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+            if ([self.brain.allPlayers count] == 1) {
+                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationBottom];
+            }
         }
         [self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
     }
@@ -126,23 +138,23 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            //[self toggleAddPlayerSavingCurrentPlayer:NO];
-            FNPlayer *one = [[FNPlayer alloc] init];
-            one.name = @"Matt";
-            one.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Beef", nil];
-            [self.brain addPlayer:one];
-            FNPlayer *two = [[FNPlayer alloc] init];
-            two.name = @"Jill";
-            two.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Gopher", nil];
-            [self.brain addPlayer:two];
-            FNPlayer *three= [[FNPlayer alloc] init];
-            three.name = @"Abbey";
-            three.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Stool", nil];
-            [self.brain addPlayer:three];
-            FNPlayer *four = [[FNPlayer alloc] init];
-            four.name = @"Wes";
-            four.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Spoon", nil];
-            [self.brain addPlayer:four];
+            [self toggleAddPlayerSavingCurrentPlayer:NO];
+//            FNPlayer *one = [[FNPlayer alloc] init];
+//            one.name = @"Matt";
+//            one.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Beef", nil];
+//            [self.brain addPlayer:one];
+//            FNPlayer *two = [[FNPlayer alloc] init];
+//            two.name = @"Jill";
+//            two.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Gopher", nil];
+//            [self.brain addPlayer:two];
+//            FNPlayer *three= [[FNPlayer alloc] init];
+//            three.name = @"Abbey";
+//            three.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Stool", nil];
+//            [self.brain addPlayer:three];
+//            FNPlayer *four = [[FNPlayer alloc] init];
+//            four.name = @"Wes";
+//            four.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Spoon", nil];
+//            [self.brain addPlayer:four];
         } else {
             // make the textfield (if cell has a textfield) the first responder
             id cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -153,11 +165,6 @@
         }
     }
     return NO;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // do nothing here cells should never be selected
 }
 
 // to allow deteing players
@@ -187,7 +194,7 @@
     if ([self.brain.allPlayers count] > 0) {
         return 2;
     }
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -256,27 +263,13 @@
     }
 }
 
-//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (indexPath.section == 0) {
-//        if (indexPath.row == 0) {
-//            [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
-//        } else if (indexPath.row > 0 && indexPath.row < ([self.tableView numberOfRowsInSection:indexPath.section] - 1)) {
-//            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextField atIndexPath:indexPath];
-//        } else {
-//            [self setBackgroundForCell:cell Style:FNTableViewCellStyleButtonSmall atIndexPath:indexPath];
-//        }
-//    } else {
-//        [self setBackgroundForCell:cell Style:FNTableViewCellStylePlain atIndexPath:indexPath];
-//        UIImage *cellImage = ((UIImageView *)cell.backgroundView).image;
-//    }
-//}
-
 #pragma mark - View Controller Life Cycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players"];
+    self.addPlayerIsVisible = NO;
 }
+
 @end
