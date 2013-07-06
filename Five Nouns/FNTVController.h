@@ -44,7 +44,9 @@ typedef void (^CellConfigBlock)(UITableViewCell *, id);
 
 ////////////////////////////////////////////////////////////////
 
-@interface FNTVController : NSObject <UITableViewDataSource, UITableViewDelegate>
+@interface FNTVController : NSObject <UITableViewDataSource, UITableViewDelegate> {
+    
+}
 
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, weak) UITableViewController <FNTVRowInsertAndDeleteManager> *tvController;

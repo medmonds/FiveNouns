@@ -12,6 +12,7 @@
 #import "FNBrain.h"
 #import "FNPlayer.h"
 #import "FNPlainCell.h"
+//#import "FNSeparatorCell.h"
 
 @interface FNAddPlayersVC ()
 @property BOOL addPlayerIsVisible;
@@ -29,6 +30,7 @@
     }
     return _currentPlayer;
 }
+
 
 #pragma mark - Actions
 
@@ -64,6 +66,7 @@
     ((FNAssignTeamsVC *)segue.destinationViewController).brain = self.brain;
 }
 
+
 #pragma mark - Text Field Delegate
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
@@ -88,8 +91,8 @@
     
     [CATransaction begin];
     [CATransaction setCompletionBlock:^{
-        // change the add player button on completion otherwise the removed cell fade out
-        // above the add player button and which looks bad
+        // change the add player button on completion otherwise the removed cell fades out
+        // above the add player button which looks bad
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }];
     [self.tableView beginUpdates];
@@ -139,22 +142,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             [self toggleAddPlayerSavingCurrentPlayer:NO];
-//            FNPlayer *one = [[FNPlayer alloc] init];
-//            one.name = @"Matt";
-//            one.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Beef", nil];
-//            [self.brain addPlayer:one];
-//            FNPlayer *two = [[FNPlayer alloc] init];
-//            two.name = @"Jill";
-//            two.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Gopher", nil];
-//            [self.brain addPlayer:two];
-//            FNPlayer *three= [[FNPlayer alloc] init];
-//            three.name = @"Abbey";
-//            three.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Stool", nil];
-//            [self.brain addPlayer:three];
-//            FNPlayer *four = [[FNPlayer alloc] init];
-//            four.name = @"Wes";
-//            four.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Spoon", nil];
-//            [self.brain addPlayer:four];
+            //[self addDummyData];
         } else {
             // make the textfield (if cell has a textfield) the first responder
             id cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -201,75 +189,120 @@
 {
     if (section == 0) {
         if (self.addPlayerIsVisible) {
-            // add player cell + name + save cell + (minimum of 3 nouns)
-            // return (3 + MAX([self.currentPlayer.nouns count], 3));
-            // a fixed number of nouns is sooooo much easier
             return 8;
-        } else {
-            return 1;
         }
-    } else {
-        return [self.brain.allPlayers count];
+        return 1;
     }
+    return [self.brain.allPlayers count];
+}
+
+- (UITableViewCell *)configureTitleCellForIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_BUTTON];
+    cell.textLabel.text = @"Add Player";
+    return cell;
+}
+
+- (UITableViewCell *)configureNameCellForIndexPath:(NSIndexPath *)indexPath
+{
+    FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
+    cell.mainTextLabel.text = @"name:";
+    cell.detailTextField.text = self.currentPlayer.name;
+    cell.detailTextField.tag = indexPath.row - 2;
+    cell.detailTextField.delegate = self;
+    [self setBackgroundForTextField:cell.detailTextField];
+    return cell;
+}
+
+- (UITableViewCell *)configureNounCellForIndexPath:(NSIndexPath *)indexPath
+{
+    FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
+    // if it is the 1st noun show the "nouns" label
+    if (indexPath.row == 2) {
+        [cell.mainTextLabel setText:@"nouns"];
+    } else {
+        [cell.mainTextLabel setText:nil];
+    }
+    // if there is a noun to show, show it
+    if ([self.currentPlayer.nouns count] >= indexPath.row - 1) {
+        cell.detailTextField.text = [self.currentPlayer.nouns objectAtIndex:indexPath.row - 2];
+    } else {
+        cell.detailTextField.text = nil;
+    }
+    cell.detailTextField.delegate = self;
+    cell.detailTextField.tag = indexPath.row - 2;
+    [self setBackgroundForTextField:cell.detailTextField];
+    return cell;
+}
+
+- (UITableViewCell *)configureSaveCellForIndexPath:(NSIndexPath *)indexPath
+{
+    FNButtonCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_SMALL_BUTTON];
+    cell.delegate = self;
+    return cell;
+}
+
+- (UITableViewCell *)configureAddedPlayerCellForIndexPath:(NSIndexPath *)indexPath
+{
+    FNPlainCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_PLAIN];
+    FNPlayer *player = [self.brain.allPlayers objectAtIndex:indexPath.row];
+    cell.textLabel.text = player.name;
+    return cell;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             // add player button cell
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_BUTTON];
-            cell.textLabel.text = @"Add Player";
-            [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
-            return cell;
-        } else if (indexPath.row > 0 && indexPath.row < ([self.tableView numberOfRowsInSection:indexPath.section] - 1)) {
-            FNEditableCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
-            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextField atIndexPath:indexPath];
-            [self setBackgroundForTextField:cell.detailTextField];
-            cell.detailTextField.delegate = self;
-            cell.detailTextField.tag = indexPath.row - 2;
-            cell.mainTextLabel.text = nil;
-            cell.detailTextField.text = nil;
-            if (indexPath.row == 1) {
-                // name cell
-                cell.mainTextLabel.text = @"name:";
-                cell.detailTextField.text = self.currentPlayer.name;
-            } else if (indexPath.row == 2 ) {
-                // the 1st noun
-                cell.mainTextLabel.text = @"nouns:";
-                if ([self.currentPlayer.nouns count] > 0) {
-                    cell.detailTextField.text = [self.currentPlayer.nouns objectAtIndex:0];
-                }
-            } else if (indexPath.row != [self.tableView numberOfRowsInSection:indexPath.section] - 1) {
-                // not the last row so still a noun
-                cell.mainTextLabel.text = nil;
-                if ([self.currentPlayer.nouns count] >= indexPath.row - 1) {
-                    cell.detailTextField.text = [self.currentPlayer.nouns objectAtIndex:indexPath.row - 2];
-                }
-            }
-            return cell;
+            cell = [self configureTitleCellForIndexPath:indexPath];
+        } else if (indexPath.row == 1) {
+            // name cell
+            cell = [self configureNameCellForIndexPath:indexPath];
+        } else if (indexPath.row > 1 && indexPath.row < ([self.tableView numberOfRowsInSection:indexPath.section] - 1)) {
+            // noun cell
+            cell = [self configureNounCellForIndexPath:indexPath];
         } else {
-            FNButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_SMALL_BUTTON];
-            [self setBackgroundForCell:cell Style:FNTableViewCellStyleButtonSmall atIndexPath:indexPath];
-            cell.delegate = self;
-            return cell;
+            // save button cell
+            cell = [self configureSaveCellForIndexPath:indexPath];
         }
+        [self setBackgroundForCell:cell Style:FNTableViewCellStyleButtonSmall atIndexPath:indexPath];
     } else {
-        FNPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_PLAIN];
+        cell = [self configureAddedPlayerCellForIndexPath:indexPath];
         [self setBackgroundForCell:cell Style:FNTableViewCellStylePlain atIndexPath:indexPath];
-        FNPlayer *player = [self.brain.allPlayers objectAtIndex:indexPath.row];
-        cell.textLabel.text = player.name;
-        return cell;
     }
+    return cell;
 }
 
 #pragma mark - View Controller Life Cycle
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players"];
     self.addPlayerIsVisible = NO;
+}
+
+- (void)addDummyData
+{
+    FNPlayer *one = [[FNPlayer alloc] init];
+    one.name = @"Matt";
+    one.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Beef", nil];
+    [self.brain addPlayer:one];
+    FNPlayer *two = [[FNPlayer alloc] init];
+    two.name = @"Jill";
+    two.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Gopher", nil];
+    [self.brain addPlayer:two];
+    FNPlayer *three= [[FNPlayer alloc] init];
+    three.name = @"Abbey";
+    three.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Stool", nil];
+    [self.brain addPlayer:three];
+    FNPlayer *four = [[FNPlayer alloc] init];
+    four.name = @"Wes";
+    four.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Spoon", nil];
+    [self.brain addPlayer:four];
 }
 
 @end
