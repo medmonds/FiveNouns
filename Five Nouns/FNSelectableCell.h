@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FNSeparatorCell.h"
 
-@interface FNSelectableCell : UITableViewCell
+@interface FNSelectableCell : FNSeparatorCell
 
 @property (weak, nonatomic) IBOutlet UILabel *mainTextLabel;
 @property (weak, nonatomic) IBOutlet UIButton *button;

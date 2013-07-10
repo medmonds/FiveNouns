@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSMutableSet *itemsInDataSource;
 @property (nonatomic, strong) NSMutableSet *categoriesInDataSource;
 @property (nonatomic, strong) NSString *titleInDataSource;
+@property (nonatomic, strong) NSString *categoryCellIdentifier;
+@property (nonatomic, strong) NSString *itemCellIdentifier;
 @end
 
 /*
@@ -24,12 +26,6 @@
 
 @implementation FNTVController
 
-//- (void)setDelegate:(id<FNTVControllerDelegate>)delegate
-//{
-//    _delegate = delegate;
-//    [self setup];
-//}
-
 - (void)setup
 {
     self.expanded = nil;
@@ -38,6 +34,30 @@
     if (!self.delegate.shouldCollapseOnTitleTap) {
         [self addCategoriesToDataSource];
     }
+}
+
+- (NSString *)categoryCellIdentifier
+{
+    if (!_categoryCellIdentifier) {
+        if ([self.delegate respondsToSelector:@selector(cellIdentifierForCategory)]) {
+            _categoryCellIdentifier = [self.delegate cellIdentifierForCategory];
+        } else {
+            _categoryCellIdentifier = @"cell";
+        }
+    }
+    return _categoryCellIdentifier;
+}
+
+- (NSString *)itemCellIdentifier
+{
+    if (!_itemCellIdentifier) {
+        if ([self.delegate respondsToSelector:@selector(cellIdentifierForItem)]) {
+            _itemCellIdentifier = [self.delegate cellIdentifierForItem];
+        } else {
+            _itemCellIdentifier = @"cell";
+        }
+    }
+    return _itemCellIdentifier;
 }
 
 - (NSMutableSet *)itemsInDataSource
@@ -88,11 +108,11 @@
         [self configureTitleCell:cell forIndexPath:indexPath];
         return cell;
     } else if ([self.categoriesInDataSource containsObject:self.dataSource[indexPath.row]]) {
-        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.categoryCellIdentifier];
         [self configureCategoryCell:cell forIndexPath:indexPath];
         return cell;
     } else if ([self.itemsInDataSource containsObject:self.dataSource[indexPath.row]]){
-        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+        FNSeparatorCell *cell = [self.tableView dequeueReusableCellWithIdentifier:self.itemCellIdentifier];
         [self configureItemCell:cell forIndexPath:indexPath];
         return cell;
     } else {
@@ -105,10 +125,10 @@
     NSMutableArray *toDelete = [[NSMutableArray alloc] init];
     for (NSInteger i = 0; i < [self.dataSource count]; i++) {
         if ([self.itemsInDataSource containsObject:self.dataSource[i]]) {
-            [self.dataSource removeObjectAtIndex:i];
             [toDelete addObject:[NSIndexPath indexPathForRow:i inSection:0]];
         }
     }
+    [self.dataSource removeObjectsInArray:[self.itemsInDataSource allObjects]];
     [self.itemsInDataSource removeAllObjects];
     [self.tvController deleteRowsAtIndexPaths:toDelete forController:self];
 }
@@ -142,6 +162,12 @@
                 [toInsert addObject:[NSIndexPath indexPathForRow:i + 1 inSection:0]];
             }
             [self.tvController insertRowsAtIndexPaths:toInsert forController:self];
+            if ([self.categoriesInDataSource count] == 1) {
+                NSIndexPath *temp = [self.tableView indexPathForSelectedRow];
+                NSIndexPath *catIndex = [NSIndexPath indexPathForRow:temp.row + 1 inSection:temp.section];
+                [self.tableView selectRowAtIndexPath:catIndex animated:YES scrollPosition:UITableViewScrollPositionNone];
+                [self expandCategory:[self.categoriesInDataSource anyObject]];
+            }
         } else {
             NSMutableArray *toDelete = [[NSMutableArray alloc] initWithCapacity:[self.dataSource count] - 1];
             NSInteger count = [self.dataSource count];
@@ -160,11 +186,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Selected row: %@", [self.tableView indexPathForSelectedRow]); // !!!
+    //NSLog(@"Selected row: %@", [self.tableView indexPathForSelectedRow]); // !!!
     if ([self.dataSource[indexPath.row] isKindOfClass:[NSString class]]) {
         [self showHideCategories];
         [self.tvController deselectRowAtIndexPath:indexPath forController:self];
-    } else if ([self.categoriesInDataSource containsObject:self.dataSource[indexPath.row]]) {
+    } else if ([self.categoriesInDataSource containsObject:self.dataSource[indexPath.row]] && [self.categoriesInDataSource count] > 1) {
         id possibleCategoryToExpand;
         if (self.expanded != self.dataSource[indexPath.row]) {
             possibleCategoryToExpand = self.dataSource[indexPath.row];
@@ -181,13 +207,14 @@
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.categoriesInDataSource containsObject:self.dataSource[indexPath.row]] ||
-        self.titleInDataSource == self.dataSource[indexPath.row]) {
+    if (([self.categoriesInDataSource containsObject:self.dataSource[indexPath.row]] && [self.categoriesInDataSource count] > 1) ||
+        (self.titleInDataSource == self.dataSource[indexPath.row] && [self.delegate shouldCollapseOnTitleTap])) {
         return YES;
     }
     return NO;
 }
 
+// do i have to call these? !!!
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -223,18 +250,21 @@
 
 - (BOOL)showCellSeparatorForIndexPath:(NSIndexPath *)indexPath
 {
+    BOOL decision;
     if (self.titleInDataSource == self.dataSource[indexPath.row]) {
-        return NO;  // no separator under the title
+        decision = NO;  // no separator under the title
     } else if ([self.categoriesInDataSource containsObject:self.dataSource[indexPath.row]]) {
-        return indexPath.row != [self.dataSource count] - 1;  // no separator under the last cell
+        decision = YES;  //indexPath.row != [self.dataSource count] - 1;  // no separator under the last cell
     } else {
         if ([self.dataSource count] - 1 > indexPath.row) {
             // separator for the last item cell and there is another category below it
-            return [self.categoriesInDataSource containsObject:self.dataSource[indexPath.row + 1]];
+            decision = [self.categoriesInDataSource containsObject:self.dataSource[indexPath.row + 1]];
         } else {
-            return NO;  // no separator under middle item cells
+            decision =  NO;  // no separator under middle item cells
         }
     }
+    NSLog(@"Controller: %@   IndexPath: %@   Decision: %d", self.delegate, indexPath, decision);
+    return decision;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

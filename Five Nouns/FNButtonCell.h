@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FNSeparatorCell.h"
 
-@interface FNButtonCell : UITableViewCell
+@interface FNButtonCell : FNSeparatorCell
 
 @property (nonatomic, weak) id delegate;
 

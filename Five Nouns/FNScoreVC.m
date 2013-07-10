@@ -40,7 +40,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [self.scoreController tableView:tableView cellForRowAtIndexPath:indexPath];
-    [super setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
+    [super setBackgroundForCell:cell atIndexPath:indexPath];
     if (indexPath.row == 0) {
         cell.textLabel.textColor = [FNAppearance textColorLabel];
     }

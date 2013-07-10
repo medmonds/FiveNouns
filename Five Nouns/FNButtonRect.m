@@ -32,8 +32,8 @@
 
 - (void)initializeButton
 {
-    UIImage *background = [FNAppearance backgroundForButton];
-    [self setBackgroundImage:background forState:UIControlStateNormal];
+    //UIImage *background = [FNAppearance backgroundForButton];
+    [self setBackgroundImage:nil forState:UIControlStateNormal];
 }
 
 

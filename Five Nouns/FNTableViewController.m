@@ -24,26 +24,26 @@
 
 #pragma mark - Appearance Customization
 
-- (void)setBackgroundForCell:(UITableViewCell *)cell Style:(FNTableViewCellStyle)style atIndexPath:(NSIndexPath *)indexPath
+- (void)setBackgroundForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 {
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:cell.frame];
     NSInteger sectionRows = [self.tableView numberOfRowsInSection:indexPath.section];
     NSInteger row = indexPath.row;
     if (row == 0 && row == sectionRows - 1)
     {
-        backgroundView.image = [FNAppearance backgroundForCellWithStyle:style forPosition:FNTableViewCellPositionNone];
+        backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionNone];
     }
     else if (row == 0)
     {
-        backgroundView.image = [FNAppearance backgroundForCellWithStyle:style forPosition:FNTableViewCellPositionTop];
+        backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionTop];
     }
     else if (row == sectionRows - 1)
     {
-        backgroundView.image = [FNAppearance backgroundForCellWithStyle:style forPosition:FNTableViewCellPositionBottom];
+        backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionBottom];
     }
     else
     {
-        backgroundView.image = [FNAppearance backgroundForCellWithStyle:style forPosition:FNTableViewCellPositionMiddle];
+        backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionMiddle];
     }
     cell.backgroundView = backgroundView;
 }
@@ -58,6 +58,22 @@
     textField.borderStyle = UITextBorderStyleNone;
     textField.background = background;
 }
+
+#pragma mark - Table View Headers
+// to pad between the sections
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 6;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *header = [[UIView alloc] init];
+    header.backgroundColor = [FNAppearance tableViewBackgroundColor];
+    return header;
+}
+
 
 #pragma mark - View Controller Life Cycle
 

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FNSeparatorCell.h"
 
-@interface FNPlainCell : UITableViewCell
+@interface FNPlainCell : FNSeparatorCell
 
 
 @end

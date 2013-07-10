@@ -93,7 +93,12 @@
     [CATransaction setCompletionBlock:^{
         // change the add player button on completion otherwise the removed cell fades out
         // above the add player button which looks bad
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        NSIndexPath *section0Top = [NSIndexPath indexPathForRow:0 inSection:0];
+        if (save) {
+            NSIndexPath *last = [NSIndexPath indexPathForRow:MAX(0, [self.tableView numberOfRowsInSection:1] - 2) inSection:1];
+            [self.tableView reloadRowsAtIndexPaths:@[last] withRowAnimation:UITableViewRowAnimationNone];
+        }
+        [self.tableView reloadRowsAtIndexPaths:@[section0Top] withRowAnimation:UITableViewRowAnimationNone];
     }];
     [self.tableView beginUpdates];
     
@@ -137,12 +142,25 @@
 
 #pragma mark - Table view delegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 6;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *header = [[UIView alloc] init];
+    header.backgroundColor = [FNAppearance tableViewBackgroundColor];
+    return header;
+}
+
+// should this be in didSelectRowAtIndexPath not shouldSelect? !!!
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            [self toggleAddPlayerSavingCurrentPlayer:NO];
-            //[self addDummyData];
+            //[self toggleAddPlayerSavingCurrentPlayer:NO];
+            [self addDummyData];
         } else {
             // make the textfield (if cell has a textfield) the first responder
             id cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -209,8 +227,11 @@
     cell.mainTextLabel.text = @"name:";
     cell.detailTextField.text = self.currentPlayer.name;
     cell.detailTextField.tag = indexPath.row - 2;
+    cell.detailTextField.placeholder = @"New Player";
+    cell.detailTextField.placeholderTextColor = [FNAppearance textColorButton];
     cell.detailTextField.delegate = self;
     [self setBackgroundForTextField:cell.detailTextField];
+    cell.showCellSeparator = NO;
     return cell;
 }
 
@@ -219,7 +240,7 @@
     FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
     // if it is the 1st noun show the "nouns" label
     if (indexPath.row == 2) {
-        [cell.mainTextLabel setText:@"nouns"];
+        [cell.mainTextLabel setText:@"nouns:"];
     } else {
         [cell.mainTextLabel setText:nil];
     }
@@ -229,9 +250,12 @@
     } else {
         cell.detailTextField.text = nil;
     }
+    cell.detailTextField.placeholder = @"Noun";
+    cell.detailTextField.placeholderTextColor = [FNAppearance textColorButton];
     cell.detailTextField.delegate = self;
     cell.detailTextField.tag = indexPath.row - 2;
     [self setBackgroundForTextField:cell.detailTextField];
+    cell.showCellSeparator = NO;
     return cell;
 }
 
@@ -239,6 +263,7 @@
 {
     FNButtonCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_SMALL_BUTTON];
     cell.delegate = self;
+    cell.showCellSeparator = NO;
     return cell;
 }
 
@@ -247,6 +272,8 @@
     FNPlainCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_PLAIN];
     FNPlayer *player = [self.brain.allPlayers objectAtIndex:indexPath.row];
     cell.textLabel.text = player.name;
+    cell.textLabel.textColor = [FNAppearance textColorLabel];
+    cell.showCellSeparator = [self showCellSeparatorForIndexPath:indexPath];
     return cell;
 }
 
@@ -267,13 +294,24 @@
             // save button cell
             cell = [self configureSaveCellForIndexPath:indexPath];
         }
-        [self setBackgroundForCell:cell Style:FNTableViewCellStyleButtonSmall atIndexPath:indexPath];
+        [self setBackgroundForCell:cell atIndexPath:indexPath];
     } else {
         cell = [self configureAddedPlayerCellForIndexPath:indexPath];
-        [self setBackgroundForCell:cell Style:FNTableViewCellStylePlain atIndexPath:indexPath];
+        [self setBackgroundForCell:cell atIndexPath:indexPath];
     }
     return cell;
 }
+
+- (BOOL)showCellSeparatorForIndexPath:(NSIndexPath *)indexPath
+{
+    BOOL decision = NO;
+    if (indexPath.section == 1) {
+        decision = indexPath.row != [self.tableView numberOfRowsInSection:1] - 1;
+    }
+    NSLog(@"IndexPath: %@   Decision: %d", indexPath, decision);
+    return decision;
+}
+
 
 #pragma mark - View Controller Life Cycle
 

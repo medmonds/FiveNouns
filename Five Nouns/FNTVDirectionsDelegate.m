@@ -15,7 +15,7 @@
 - (BOOL)shouldCollapseOnTitleTap
 {
     if (!_shouldCollapseOnTitleTap) {
-        return NO;
+        _shouldCollapseOnTitleTap = NO;
     }
     return _shouldCollapseOnTitleTap;
 }
@@ -88,7 +88,6 @@
             cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
             cell.textLabel.numberOfLines = 0;
             cell.detailTextLabel.text = nil;
-            cell.textLabel.font = [FNAppearance fontWithSize:20];
             cell.indentationLevel = 3;
         }
     };

@@ -52,7 +52,7 @@
     
     _doneButton = [[UIButton alloc] initWithFrame:CGRectZero];
     [_doneButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [_doneButton setBackgroundImage:[FNAppearance backgroundForCellWithStyle:FNTableViewCellStyleButton forPosition:FNTableViewCellPositionBottom] forState:UIControlStateNormal];
+    [_doneButton setBackgroundImage:[FNAppearance cellBackgroundForPosition:FNTableViewCellPositionBottom] forState:UIControlStateNormal];
     [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
     _doneButton.titleLabel.font = [FNAppearance fontWithSize:26];
     [_doneButton setTitleColor:[FNAppearance textColorButton] forState:UIControlStateNormal];

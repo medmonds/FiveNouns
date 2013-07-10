@@ -9,6 +9,7 @@
 #import "FNNewGameVC.h"
 #import "FNBrain.h"
 #import "FNAddPlayersVC.h"
+#import "FNAppearance.h"
 
 @interface FNNewGameVC ()
 @property (nonatomic, strong) FNBrain *brain;
@@ -43,7 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:104/255.0 green:204/255.0 blue:197/255.0 alpha:1];
+    self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
     
 }
 

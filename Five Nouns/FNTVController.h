@@ -16,6 +16,7 @@
 
 - (void)insertRowsAtIndexPaths:(NSArray *)indexPaths forController:(id <UITableViewDelegate>)controller;
 - (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths forController:(id <UITableViewDelegate>)controller;
+//- (void)reloadRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller;
 - (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(id <UITableViewDelegate>)controller;
 
 @end
@@ -30,6 +31,8 @@ typedef void (^CellConfigBlock)(UITableViewCell *, id);
 @optional
 @property (nonatomic, strong) FNBrain *brain;
 - (CGFloat)heightForCell:(UITableViewCell *)cell withItem:(id)item;
+- (NSString *)cellIdentifierForCategory;
+- (NSString *)cellIdentifierForItem;
 
 @required
 @property (nonatomic) BOOL shouldCollapseOnTitleTap;
@@ -44,9 +47,7 @@ typedef void (^CellConfigBlock)(UITableViewCell *, id);
 
 ////////////////////////////////////////////////////////////////
 
-@interface FNTVController : NSObject <UITableViewDataSource, UITableViewDelegate> {
-    
-}
+@interface FNTVController : NSObject <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, weak) UITableViewController <FNTVRowInsertAndDeleteManager> *tvController;

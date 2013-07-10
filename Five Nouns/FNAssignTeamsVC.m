@@ -14,11 +14,15 @@
 #import "FNSelectableCell.h"
 #import "FMMoveTableView.h"
 #import "FNNextUpVC.h"
+#import "FNStepperView.h"
 
 @interface FNAssignTeamsVC ()
 //@property (nonatomic, strong) NSMutableArray *teams;
 @property (nonatomic) NSInteger visibleTeam;
+@property (strong, nonatomic) FNStepperView *stepperView;
 @end
+
+
 
 @implementation FNAssignTeamsVC
 
@@ -45,6 +49,12 @@
  ******************************************************************************************************/
 
 
+typedef NS_ENUM(NSInteger, FNTeamCellType) {
+    FNTeamCellTypeNumberOfTeams,
+    FNTeamCellTypeReorder,
+    FNTeamCellTypeName,
+    FNTeamCellTypePlayer
+};
 
 - (NSMutableArray *)configureDataSource:(NSMutableArray*)data
 {
@@ -244,8 +254,12 @@
     [CATransaction begin];
     NSInteger oldTeam = self.visibleTeam;
     [CATransaction setCompletionBlock:^{
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:oldTeam]] withRowAnimation:UITableViewRowAnimationNone];
+        NSIndexPath *index1 = [NSIndexPath indexPathForRow:0 inSection:section];
+        NSIndexPath *index2 = [NSIndexPath indexPathForRow:0 inSection:oldTeam];
+        UITableViewCell *cell1 = [self.tableView cellForRowAtIndexPath:index1];
+        UITableViewCell *cell2 = [self.tableView cellForRowAtIndexPath:index2];
+        [self setBackgroundForCell:cell1 atIndexPath:index1];
+        [self setBackgroundForCell:cell2 atIndexPath:index2];
     }];
     [self.tableView beginUpdates];
     NSInteger currentlyVisible = self.visibleTeam;
@@ -285,7 +299,19 @@
     if (indexPath.section != 0) {
         [self toggleTeamForSection:indexPath.section];
     }
-    return NO;
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [cell setHighlighted:YES animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [cell setHighlighted:NO animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -380,66 +406,149 @@
     return numberOfRows;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 0;
+    } else if (section == 1) {
+        return 6;
+    }
+    return 2;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *header = [[UIView alloc] init];
+    header.backgroundColor = [FNAppearance tableViewBackgroundColor];
+    return header;
+}
+
+- (UITableViewCell *)configureNumberOfTeamsCellForIndexPath:(NSIndexPath *)indexPath
+{
+    FNStepperCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"stepper"];
+    [self setBackgroundForCell:cell atIndexPath:indexPath];
+    cell.stepper.autorepeat = NO;
+    cell.stepper.wraps = YES;
+    cell.stepper.maximumValue = MIN(6, [self.brain.allPlayers count]);
+    cell.stepper.value = [self.brain.allTeams count];
+    [cell.stepper addTarget:self action:@selector(stepperDidStep:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.detailButtonLabel setBackgroundImage:[FNAppearance backgroundForTextField] forState:UIControlStateNormal];
+    cell.detailButtonLabel.titleLabel.text = [NSString stringWithFormat:@"%d", [self.brain.allTeams count]];
+    return cell;
+}
+
+- (UITableViewCell *)configureTeamReorderCellForIndexPath:(NSIndexPath *)indexPath
+{
+    FNReorderableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"reorderable"];
+    FNTeam *team = [self.brain.allTeams objectAtIndex:indexPath.section - 1];
+    [self setBackgroundForCell:cell atIndexPath:indexPath];
+    [cell.button setImage:[FNAppearance reorderControlImage] forState:UIControlStateNormal];
+    cell.mainTextLabel.text = team.name;
+    // Moving Table View Methods
+    cell.shouldIndentWhileEditing = NO;
+    cell.showsReorderControl = NO;
+    [cell.button setHidden:NO];
+    if ([(FMMoveTableView *)self.tableView indexPathIsMovingIndexPath:indexPath]) {
+        [cell prepareForMove];
+    }
+    cell.showCellSeparator = YES;
+    return cell;
+}
+
+- (UITableViewCell *)configureNameCellForIndexPath:(NSIndexPath *)indexPath
+{
+    FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
+    FNTeam *team = [self.brain.allTeams objectAtIndex:indexPath.section - 1];
+    [self setBackgroundForCell:cell atIndexPath:indexPath];
+    [self setBackgroundForTextField:cell.detailTextField];
+    cell.detailTextField.delegate = self;
+    cell.detailTextField.tag = indexPath.section -1;
+    cell.mainTextLabel.text = @"name:";
+    cell.detailTextField.text = team.name;
+    cell.showCellSeparator = NO;
+    cell.indentationLevel = 3;
+    return cell;
+}
+
+- (UITableViewCell *)configurePlayerCellForIndexPath:(NSIndexPath *)indexPath
+{
+    FNSelectableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"selectable"];
+    FNTeam *team = [self.brain.allTeams objectAtIndex:indexPath.section - 1];
+    [self setBackgroundForCell:cell atIndexPath:indexPath];
+    [cell.button addTarget:self action:@selector(playerAssignmentIndicatorPressed:) forControlEvents:UIControlEventTouchUpInside];
+    FNPlayer *player = [self playerForIndexPath:indexPath];
+    cell.objectForCell = player;
+    if (player.team == team) {
+        [cell.button setImage:[FNAppearance checkmarkWithStyle:FNCheckmarkStyleUser] forState:UIControlStateNormal];
+    } else if ([team.players containsObject:player]) {
+        [cell.button setImage:[FNAppearance checkmarkWithStyle:FNCheckmarkStyleGame] forState:UIControlStateNormal];
+    } else {
+        [cell.button setImage:[[UIImage alloc] init] forState:UIControlStateNormal];
+    }
+    cell.mainTextLabel.text = player.name;
+    if (indexPath.row == [self.tableView numberOfRowsInSection:indexPath.section] - 1) {
+        cell.showCellSeparator = YES;
+    } else {
+        cell.showCellSeparator = NO;
+    }
+    cell.indentationLevel = 3;
+    return cell;
+}
+
+- (FNTeamCellType)cellTypeForIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        return FNTeamCellTypeNumberOfTeams;
+    } else {
+        if (indexPath.row == 0) {
+            return FNTeamCellTypeReorder;
+        } else if (indexPath.row == 1) {
+            return FNTeamCellTypeName;
+        } else {
+            return FNTeamCellTypePlayer;
+        }
+    }
+}
+
+- (void)setBackgroundForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:cell.frame];
+    NSInteger numberOfSections = [self.tableView numberOfSections];
+    NSInteger section = indexPath.section;
+    NSInteger rowsInSection = [self.tableView numberOfRowsInSection:section];
+    NSInteger row = indexPath.row;
+    
+    if ([self cellTypeForIndexPath:indexPath] == FNTeamCellTypeNumberOfTeams) {
+        backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionNone];
+    } else if ([self cellTypeForIndexPath:indexPath] == FNTeamCellTypeReorder) {
+        if (section == 1 && numberOfSections == 2 && rowsInSection == 1) {
+            backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionNone];
+        } else if (section == 1) {
+            backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionTop];
+        } else if (numberOfSections > 2 && rowsInSection == 1) {
+            backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionBottom];
+        } else {
+            backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionMiddle];
+        }
+    } else if (section == numberOfSections - 1 && row == rowsInSection - 1) {
+        backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionBottom];
+    } else {
+        backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionMiddle];
+    }
+    cell.backgroundView = backgroundView;
+}
+
 - (UITableViewCell *)tableView:(FMMoveTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    indexPath = [tableView adaptedIndexPathForRowAtIndexPath:indexPath];
-    
-    if (indexPath.section == 0) {
-        FNStepperCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"stepper"];
-        [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextField atIndexPath:indexPath];
-        cell.stepper.autorepeat = NO;
-        cell.stepper.wraps = YES;
-        cell.stepper.maximumValue = MIN(6, [self.brain.allPlayers count]);
-        cell.stepper.value = [self.brain.allTeams count];
-        [cell.stepper addTarget:self action:@selector(stepperDidStep:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.detailButtonLabel setBackgroundImage:[FNAppearance backgroundForTextField] forState:UIControlStateNormal];
-        cell.detailButtonLabel.titleLabel.text = [NSString stringWithFormat:@"%d", [self.brain.allTeams count]];
-        return cell;
+    if ([self cellTypeForIndexPath:indexPath] == FNTeamCellTypeNumberOfTeams) {
+        return [self configureNumberOfTeamsCellForIndexPath:indexPath];
     } else {
-        FNTeam *team = [self.brain.allTeams objectAtIndex:indexPath.section - 1];
-        if (indexPath.row == 0) {
-            FNReorderableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"reorderable"];
-            [self setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
-            [cell.button setImage:[FNAppearance reorderControlImage] forState:UIControlStateNormal];
-            cell.mainTextLabel.text = team.name;
-            // Moving Table View Methods
-            cell.shouldIndentWhileEditing = NO;
-            cell.showsReorderControl = NO;
-            [cell.button setHidden:NO];
-            if ([tableView indexPathIsMovingIndexPath:indexPath]) {
-                [cell prepareForMove];
-            }
-            return cell;
-        } else if (indexPath.row == 1) {
-            FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
-            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextField atIndexPath:indexPath];
-            [self setBackgroundForTextField:cell.detailTextField];
-            cell.detailTextField.delegate = self;
-            cell.detailTextField.tag = indexPath.section -1;
-            cell.mainTextLabel.text = nil;
-            cell.detailTextField.text = nil;
-            cell.mainTextLabel.text = @"name:";
-            cell.detailTextField.text = team.name;
-            return cell;
+        if ([self cellTypeForIndexPath:indexPath] == FNTeamCellTypeReorder) {
+            return [self configureTeamReorderCellForIndexPath:indexPath];
+        } else if ([self cellTypeForIndexPath:indexPath] == FNTeamCellTypeName) {
+            return [self configureNameCellForIndexPath:indexPath];
         } else {
-            FNSelectableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"selectable"];
-            [self setBackgroundForCell:cell Style:FNTableViewCellStyleTextField atIndexPath:indexPath];
-            [cell.button addTarget:self action:@selector(playerAssignmentIndicatorPressed:) forControlEvents:UIControlEventTouchUpInside];
-            FNPlayer *player = [self playerForIndexPath:indexPath];
-            cell.objectForCell = player;
-//            NSLog(@"IndexPath: %d", indexPath.row);
-//            NSLog(@"playerIndex: %d", indexPath.row - 2);
-//            NSLog(@"[Team.players count]: %d", [team.players count]);
-//            NSLog(@"[self availablePlayerForTeam count]: %d", [[self availablePlayersForTeam:team] count]);
-            if (player.team == team) {
-                [cell.button setImage:[FNAppearance checkmarkWithStyle:FNCheckmarkStyleUser] forState:UIControlStateNormal];
-            } else if ([team.players containsObject:player]) {
-                [cell.button setImage:[FNAppearance checkmarkWithStyle:FNCheckmarkStyleGame] forState:UIControlStateNormal];
-            } else {
-                [cell.button setImage:[[UIImage alloc] init] forState:UIControlStateNormal];
-            }
-            cell.mainTextLabel.text = player.name;
-            return cell;
+            return [self configurePlayerCellForIndexPath:indexPath];
         }
     }
 }
@@ -469,15 +578,6 @@
     return [self configureDataSource:availablePlayers];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -490,10 +590,29 @@
     [super viewWillDisappear:animated];
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"Content Offset: %f", self.tableView.contentOffset.y);
+    NSLog(@"Origin: %f", self.tableView.bounds.origin.y);
+    CGRect newFrame = CGRectMake(0, self.tableView.contentOffset.y, self.tableView.bounds.size.width, 44);
+    self.stepperView.frame = newFrame;
+}
+
+
+- (void)viewWillLayoutSubviews
+{
+    CGRect newFrame = CGRectMake(0, self.tableView.contentOffset.y, self.tableView.bounds.size.width, 44);
+    self.stepperView.frame = newFrame;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Teams"];
+    self.stepperView = [[FNStepperView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 44)];
+    [self.stepperView.stepper addTarget:self action:@selector(stepperDidStep:) forControlEvents:UIControlEventTouchUpInside];
+    self.stepperView.title.text = @"Teams";
+    [self.tableView addSubview:self.stepperView];
 }
 
 @end

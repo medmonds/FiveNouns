@@ -38,12 +38,12 @@
 
 + (UIColor *)tableViewBackgroundColor
 {
-    return [UIColor colorWithRed:104/255.0 green:204/255.0 blue:197/255.0 alpha:1];
+    return [UIColor colorWithRed:12/255.0 green:182/255.0 blue:152/255.0 alpha:1];
 }
 
 + (UIColor *)cellSeparatorColor
 {
-    return [UIColor redColor];
+    return [FNAppearance tableViewBackgroundColor];
 }
 
 + (UIColor *)textColorLabel
@@ -138,42 +138,22 @@
     return button;
 }
 
-+ (UIImage *)backgroundForCellWithStyle:(FNTableViewCellStyle)style forPosition:(FNTableViewCellPosition)position
++ (UIImage *)cellBackgroundForPosition:(FNTableViewCellPosition)position;
 {
     UIImage *background;
-    if (style == FNTableViewCellStyleTextField || style == FNTableViewCellStyleTextFieldLabel || style == FNTableViewCellStyleTextFieldButton || style == FNTableViewCellStyleButtonSmall) {
-        if (position == FNTableViewCellPositionNone) {
-            background = [[UIImage imageNamed:@"cellBackDarkNone.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
-        } else if (position == FNTableViewCellPositionMiddle) {
-            background = [UIImage imageNamed:@"cellBackDarkMiddle.png"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
-        } else if (position == FNTableViewCellPositionBottom) {
-            background = [UIImage imageNamed:@"cellBackDarkBottom.png"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
-        }
-    } else if (style == FNTableViewCellStyleButton) {
-        if (position == FNTableViewCellPositionNone) {
-            background = [UIImage imageNamed:@"cellBackButton.png"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
-        } else if (position == FNTableViewCellPositionTop) {
-            background = [UIImage imageNamed:@"cellBackButtonTop.png"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
-        }
-    } else if (style == FNTableViewCellStylePlain) {
-        if (position == FNTableViewCellPositionNone) {
-            background = [UIImage imageNamed:@"cellBackPlain"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
-        } else if (position == FNTableViewCellPositionTop) {
-            background = [UIImage imageNamed:@"cellBackPlain"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
-        } else if (position == FNTableViewCellPositionMiddle) {
-            background = [UIImage imageNamed:@"cellBackPlain"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
-        } else if (position == FNTableViewCellPositionBottom) {
-            background = [UIImage imageNamed:@"cellBackPlain"];
-            background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
-        }
-    } 
+    if (position == FNTableViewCellPositionNone) {
+        background = [UIImage imageNamed:@"cellNone"];
+        background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
+    } else if (position == FNTableViewCellPositionTop) {
+        background = [UIImage imageNamed:@"cellTop"];
+        background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
+    } else if (position == FNTableViewCellPositionMiddle) {
+        background = [UIImage imageNamed:@"cellMiddle"];
+        background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
+    } else if (position == FNTableViewCellPositionBottom) {
+        background = [UIImage imageNamed:@"cellBottom"];
+        background = [background resizableImageWithCapInsets:UIEdgeInsetsMake(3, 13, 3, 13)];
+    }
     return background;
 }
 

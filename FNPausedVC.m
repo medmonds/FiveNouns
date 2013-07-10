@@ -10,6 +10,7 @@
 #import "FNTVController.h"
 #import "FNTVScoreDelegate.h"
 #import "FNTVDirectionsDelegate.h"
+#import "FNTVAddPlayerDelegate.h"
 
 @interface FNPausedVC () <FNTVRowInsertAndDeleteManager>
 @property (nonatomic, strong) FNTVController *scoreController;
@@ -36,6 +37,12 @@
     [self.tableView deleteRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+//- (void)reloadRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
+//{
+//    NSArray *convertedIndexPaths = [self convertIndexPaths:indexPaths fromController:controller];
+//    [self.tableView reloadRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationNone];
+//}
+
 - (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(FNTVController *)controller
 {
     NSArray *convertedIndexPaths = [self convertIndexPaths:@[indexPath] fromController:controller];
@@ -59,7 +66,7 @@
         section = 0;
     } else if (controller == self.directionController) {
         section = 1;
-    } else if (controller == self.scoreController) {
+    } else if (controller == self.addPlayerController) {
         section = 2;
     }
     NSAssert(section >= -1, @"Tried to convert indexPaths for an unrecognized controller");
@@ -119,13 +126,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[self controllerForIndexPath:indexPath] tableView:tableView cellForRowAtIndexPath:indexPath];
-    [super setBackgroundForCell:cell Style:FNTableViewCellStyleButton atIndexPath:indexPath];
+    [super setBackgroundForCell:cell atIndexPath:indexPath];
     return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -164,6 +171,14 @@
     directions.shouldCollapseOnTitleTap = YES;
     self.directionController.delegate = directions;
     [self.directionController setup];
+    
+    self.addPlayerController = [[FNTVController alloc] init];
+    self.addPlayerController.tableView = self.tableView;
+    self.addPlayerController.tvController = self;
+    FNTVAddPlayerDelegate *addPlayer = [[FNTVAddPlayerDelegate alloc] init];
+    addPlayer.brain = self.brain;
+    self.addPlayerController.delegate = addPlayer;
+    [self.addPlayerController setup];
     
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
     UIBarButtonItem *done = [FNAppearance barButtonItemDismiss];
