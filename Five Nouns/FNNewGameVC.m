@@ -8,7 +8,7 @@
 
 #import "FNNewGameVC.h"
 #import "FNBrain.h"
-#import "FNAddPlayersVC.h"
+#import "FNAddPlayersContainer.h"
 #import "FNAppearance.h"
 
 @interface FNNewGameVC ()
@@ -36,8 +36,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"addPlayers"]) {
-        FNAddPlayersVC *vc = segue.destinationViewController;
-        vc.brain = self.brain;
+        ((FNAddPlayersContainer *)segue.destinationViewController).brain = self.brain;
     }
 }
 

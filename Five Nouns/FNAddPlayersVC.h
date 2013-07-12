@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) FNBrain *brain;
 
-- (void)cellButtonPressed;
+- (void)addPlayer;
+
+//- (void)cellButtonPressed;
 
 @end

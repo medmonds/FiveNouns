@@ -8,7 +8,6 @@
 
 #import "FNAddPlayersVC.h"
 #import <QuartzCore/QuartzCore.h>
-#import "FNAssignTeamsContainer.h"
 #import "FNBrain.h"
 #import "FNPlayer.h"
 #import "FNPlainCell.h"
@@ -56,16 +55,10 @@
     }
 }
 
-- (void)forwardBarButtonItemPressed
+- (void)addPlayer
 {
-    [self performSegueWithIdentifier:@"teamsOverview" sender:self];
+    [self toggleAddPlayerSavingCurrentPlayer:NO];
 }
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    ((FNAssignTeamsContainer *)segue.destinationViewController).brain = self.brain;
-}
-
 
 #pragma mark - Text Field Delegate
 
@@ -160,7 +153,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             //[self toggleAddPlayerSavingCurrentPlayer:NO];
-            [self addDummyData];
+            //[self addDummyData];
         } else {
             // make the textfield (if cell has a textfield) the first responder
             id cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -319,7 +312,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players"];
     self.addPlayerIsVisible = NO;
 }
 
