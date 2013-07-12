@@ -9,7 +9,10 @@
 #import "FNTableViewController.h"
 
 @interface FNTableViewController ()
-
+@property (nonatomic, strong) UIImage *none;
+@property (nonatomic, strong) UIImage *top;
+@property (nonatomic, strong) UIImage *bottom;
+@property (nonatomic, strong) UIImage *middle;
 @end
 
 @implementation FNTableViewController
@@ -26,26 +29,33 @@
 
 - (void)setBackgroundForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 {
-    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:cell.frame];
+    if (![cell.backgroundView isKindOfClass:[UIImageView class]]) {
+        UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:cell.frame];
+        cell.backgroundView = backgroundView;
+    }
     NSInteger sectionRows = [self.tableView numberOfRowsInSection:indexPath.section];
     NSInteger row = indexPath.row;
-    if (row == 0 && row == sectionRows - 1)
-    {
-        backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionNone];
+    if (row == 0 && row == sectionRows - 1) {
+        if (!self.none) self.none = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionNone];
+        if (((UIImageView *)cell.backgroundView).image != self.none) {
+            ((UIImageView *)cell.backgroundView).image = self.none;
+        }
+    } else if (row == 0) {
+        if (!self.top) self.top = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionTop];
+        if (((UIImageView *)cell.backgroundView).image != self.top) {
+            ((UIImageView *)cell.backgroundView).image = self.top;
+        }
+    } else if (row == sectionRows - 1) {
+        if (!self.bottom) self.bottom = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionBottom];
+        if (((UIImageView *)cell.backgroundView).image != self.bottom) {
+            ((UIImageView *)cell.backgroundView).image = self.bottom;
+        }
+    } else {
+        if (!self.middle) self.middle = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionMiddle];
+        if (((UIImageView *)cell.backgroundView).image != self.middle) {
+            ((UIImageView *)cell.backgroundView).image = self.middle;
+        }
     }
-    else if (row == 0)
-    {
-        backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionTop];
-    }
-    else if (row == sectionRows - 1)
-    {
-        backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionBottom];
-    }
-    else
-    {
-        backgroundView.image = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionMiddle];
-    }
-    cell.backgroundView = backgroundView;
 }
 
 - (void)setBackgroundForTextField:(UITextField *)textField

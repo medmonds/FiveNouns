@@ -8,7 +8,7 @@
 
 #import "FNAddPlayersVC.h"
 #import <QuartzCore/QuartzCore.h>
-#import "FNAssignTeamsVC.h"
+#import "FNAssignTeamsContainer.h"
 #import "FNBrain.h"
 #import "FNPlayer.h"
 #import "FNPlainCell.h"
@@ -63,7 +63,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ((FNAssignTeamsVC *)segue.destinationViewController).brain = self.brain;
+    ((FNAssignTeamsContainer *)segue.destinationViewController).brain = self.brain;
 }
 
 

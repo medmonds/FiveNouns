@@ -14,4 +14,6 @@
 @property UIStepper *stepper;
 @property UILabel *title;
 
+- (void)setCurrentNumber:(NSInteger)number;
+
 @end

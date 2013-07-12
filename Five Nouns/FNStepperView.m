@@ -11,7 +11,7 @@
 
 @interface FNStepperView ()
 
-@property UILabel *numberOfTeams;
+@property UILabel *number;
 
 @end
 
@@ -27,6 +27,17 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    [self commonInit];
+}
+
+- (void)setCurrentNumber:(NSInteger)number
+{
+    self.stepper.value = number;
+    self.number.text = [NSString stringWithFormat:@"%d", number];
+}
+
 - (void)setMaxTeams:(NSInteger)maxTeams
 {
     _maxTeams = maxTeams;
@@ -35,7 +46,7 @@
 
 - (void)stepperDidStep:(UIStepper *)stepper
 {
-    self.numberOfTeams.text = [NSString stringWithFormat:@"%d", [@(stepper.value) integerValue]];
+    self.number.text = [NSString stringWithFormat:@"%d", [@(stepper.value) integerValue]];
 }
 
 - (void)commonInit
@@ -45,19 +56,21 @@
     self.title.font = [FNAppearance fontWithSize:32];
     self.title.textColor = [FNAppearance textColorLabel];
     self.title.backgroundColor = [FNAppearance tableViewBackgroundColor];
+    self.title.text = @"Teams";
     [self addSubview:self.title];
 
-    self.numberOfTeams = [[UILabel alloc] initWithFrame:CGRectZero];
-    [self.numberOfTeams setTranslatesAutoresizingMaskIntoConstraints:NO];
-    self.numberOfTeams.font = [FNAppearance fontWithSize:32];
-    self.numberOfTeams.textColor = [FNAppearance textColorLabel];
-    self.numberOfTeams.text = @"0";
-    self.numberOfTeams.backgroundColor = [FNAppearance tableViewBackgroundColor];
-    [self addSubview:self.numberOfTeams];
+    self.number = [[UILabel alloc] initWithFrame:CGRectZero];
+    [self.number setTranslatesAutoresizingMaskIntoConstraints:NO];
+    self.number.font = [FNAppearance fontWithSize:32];
+    self.number.textColor = [FNAppearance textColorLabel];
+    self.number.text = @"0";
+    self.number.backgroundColor = [FNAppearance tableViewBackgroundColor];
+    [self addSubview:self.number];
 
     self.stepper = [[UIStepper alloc] initWithFrame:CGRectMake(0, 0, 94, 27)];
     [self.stepper setTranslatesAutoresizingMaskIntoConstraints:NO];
     self.stepper.wraps = YES;
+    self.stepper.autorepeat = NO;
     [self.stepper addTarget:self action:@selector(stepperDidStep:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.stepper];
     
@@ -73,40 +86,40 @@
 
 - (void)setupConstraints
 {
-    NSLayoutConstraint *numberRight = [NSLayoutConstraint constraintWithItem:self.numberOfTeams
+    NSLayoutConstraint *numberRight = [NSLayoutConstraint constraintWithItem:self.number
                                                                    attribute:NSLayoutAttributeRight
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:self
                                                                    attribute:NSLayoutAttributeRight
                                                                   multiplier:1
                                                                     constant:-12];
-    NSLayoutConstraint *numberWidth = [NSLayoutConstraint constraintWithItem:self.numberOfTeams
+    NSLayoutConstraint *numberWidth = [NSLayoutConstraint constraintWithItem:self.number
                                                                    attribute:NSLayoutAttributeWidth
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:nil
                                                                    attribute:NSLayoutAttributeNotAnAttribute
                                                                   multiplier:1
                                                                     constant:32];
-    NSLayoutConstraint *numberHeight = [NSLayoutConstraint constraintWithItem:self.numberOfTeams
+    NSLayoutConstraint *numberHeight = [NSLayoutConstraint constraintWithItem:self.number
                                                                     attribute:NSLayoutAttributeHeight
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:nil
                                                                     attribute:NSLayoutAttributeNotAnAttribute
                                                                    multiplier:1
                                                                      constant:32];
-    NSLayoutConstraint *numberCenter = [NSLayoutConstraint constraintWithItem:self.numberOfTeams
+    NSLayoutConstraint *numberCenter = [NSLayoutConstraint constraintWithItem:self.number
                                                                     attribute:NSLayoutAttributeCenterY
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:self
                                                                     attribute:NSLayoutAttributeCenterY
                                                                    multiplier:1
                                                                      constant:0];
-    [self.numberOfTeams.superview addConstraints:@[numberRight, numberWidth, numberHeight, numberCenter]];
+    [self.number.superview addConstraints:@[numberRight, numberWidth, numberHeight, numberCenter]];
     
     NSLayoutConstraint *stepperRight = [NSLayoutConstraint constraintWithItem:self.stepper
                                                                     attribute:NSLayoutAttributeRight
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:self.numberOfTeams
+                                                                       toItem:self.number
                                                                     attribute:NSLayoutAttributeLeft
                                                                    multiplier:1
                                                                      constant:-12];
