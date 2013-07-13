@@ -58,6 +58,7 @@
 - (void)addPlayer
 {
     [self toggleAddPlayerSavingCurrentPlayer:NO];
+    //[self addDummyData];
 }
 
 #pragma mark - Text Field Delegate
@@ -77,7 +78,7 @@
 - (void)toggleAddPlayerSavingCurrentPlayer:(BOOL)save
 {
     NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:7];
-    for (int i = 1; i < 8; i++) {
+    for (int i = 0; i < 7; i++) {
         NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
         [array addObject:path];
     }
@@ -86,18 +87,16 @@
     [CATransaction setCompletionBlock:^{
         // change the add player button on completion otherwise the removed cell fades out
         // above the add player button which looks bad
-        NSIndexPath *section0Top = [NSIndexPath indexPathForRow:0 inSection:0];
         if (save) {
             NSIndexPath *last = [NSIndexPath indexPathForRow:MAX(0, [self.tableView numberOfRowsInSection:1] - 2) inSection:1];
             [self.tableView reloadRowsAtIndexPaths:@[last] withRowAnimation:UITableViewRowAnimationNone];
         }
-        [self.tableView reloadRowsAtIndexPaths:@[section0Top] withRowAnimation:UITableViewRowAnimationNone];
     }];
     [self.tableView beginUpdates];
     
     if (!self.addPlayerIsVisible) {
         self.addPlayerIsVisible = YES;
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        //[self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
         [self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
     } else {
         self.addPlayerIsVisible = NO; // why do I need to set this? !!!
@@ -111,6 +110,7 @@
             }
         }
         [self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
+        //[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
     }
     [self.tableView endUpdates];
     [CATransaction commit];
@@ -137,7 +137,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 6;
+    return 3;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -150,18 +150,11 @@
 // should this be in didSelectRowAtIndexPath not shouldSelect? !!!
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            //[self toggleAddPlayerSavingCurrentPlayer:NO];
-            //[self addDummyData];
-        } else {
-            // make the textfield (if cell has a textfield) the first responder
-            id cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            if ([cell isKindOfClass:[FNEditableCell class]]) {
-                FNEditableCell *textFieldCell = cell;
-                [textFieldCell.detailTextField becomeFirstResponder];
-            }
-        }
+    // make the textfield (if cell has a textfield) the first responder
+    id cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[FNEditableCell class]]) {
+        FNEditableCell *textFieldCell = cell;
+        [textFieldCell.detailTextField becomeFirstResponder];
     }
     return NO;
 }
@@ -169,9 +162,6 @@
 // to allow deteing players
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return NO;
-    }
     return YES;
 }
 
@@ -194,24 +184,36 @@
         return 2;
     }
     return 1;
+    
+//    if ([self.brain.allPlayers count] > 0 && self.addPlayerIsVisible) {
+//        return 2;
+//    } else if ([self.brain.allPlayers count] > 0 || self.addPlayerIsVisible) {
+//        return 1;
+//    } else {
+//        return 0;
+//    }
+    
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
         if (self.addPlayerIsVisible) {
-            return 8;
+            return 7;
         }
-        return 1;
+        return 0;
     }
     return [self.brain.allPlayers count];
-}
+    
+//    if (section == 0) {
+//        if (self.addPlayerIsVisible) {
+//            return 7;
+//        }
+//        return [self.brain.allPlayers count];
+//    }
 
-- (UITableViewCell *)configureTitleCellForIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_BUTTON];
-    cell.textLabel.text = @"Add Player";
-    return cell;
+    
 }
 
 - (UITableViewCell *)configureNameCellForIndexPath:(NSIndexPath *)indexPath
@@ -219,7 +221,7 @@
     FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
     cell.mainTextLabel.text = @"name:";
     cell.detailTextField.text = self.currentPlayer.name;
-    cell.detailTextField.tag = indexPath.row - 2;
+    cell.detailTextField.tag = indexPath.row - 1;
     cell.detailTextField.placeholder = @"New Player";
     cell.detailTextField.placeholderTextColor = [FNAppearance textColorButton];
     cell.detailTextField.delegate = self;
@@ -232,21 +234,21 @@
 {
     FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
     // if it is the 1st noun show the "nouns" label
-    if (indexPath.row == 2) {
+    if (indexPath.row == 1) {
         [cell.mainTextLabel setText:@"nouns:"];
     } else {
         [cell.mainTextLabel setText:nil];
     }
     // if there is a noun to show, show it
     if ([self.currentPlayer.nouns count] >= indexPath.row - 1) {
-        cell.detailTextField.text = [self.currentPlayer.nouns objectAtIndex:indexPath.row - 2];
+        cell.detailTextField.text = [self.currentPlayer.nouns objectAtIndex:indexPath.row - 1];
     } else {
         cell.detailTextField.text = nil;
     }
     cell.detailTextField.placeholder = @"Noun";
     cell.detailTextField.placeholderTextColor = [FNAppearance textColorButton];
     cell.detailTextField.delegate = self;
-    cell.detailTextField.tag = indexPath.row - 2;
+    cell.detailTextField.tag = indexPath.row - 1;
     [self setBackgroundForTextField:cell.detailTextField];
     cell.showCellSeparator = NO;
     return cell;
@@ -275,12 +277,9 @@
     UITableViewCell *cell;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            // add player button cell
-            cell = [self configureTitleCellForIndexPath:indexPath];
-        } else if (indexPath.row == 1) {
             // name cell
             cell = [self configureNameCellForIndexPath:indexPath];
-        } else if (indexPath.row > 1 && indexPath.row < ([self.tableView numberOfRowsInSection:indexPath.section] - 1)) {
+        } else if (indexPath.row < ([self.tableView numberOfRowsInSection:indexPath.section] - 1)) {
             // noun cell
             cell = [self configureNounCellForIndexPath:indexPath];
         } else {
@@ -298,9 +297,7 @@
 - (BOOL)showCellSeparatorForIndexPath:(NSIndexPath *)indexPath
 {
     BOOL decision = NO;
-    if (indexPath.section == 1) {
-        decision = indexPath.row != [self.tableView numberOfRowsInSection:1] - 1;
-    }
+    decision = indexPath.row != [self.tableView numberOfRowsInSection:1] - 1;
     NSLog(@"IndexPath: %@   Decision: %d", indexPath, decision);
     return decision;
 }
