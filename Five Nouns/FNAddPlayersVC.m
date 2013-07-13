@@ -7,11 +7,9 @@
 //
 
 #import "FNAddPlayersVC.h"
-#import <QuartzCore/QuartzCore.h>
 #import "FNBrain.h"
 #import "FNPlayer.h"
 #import "FNPlainCell.h"
-//#import "FNSeparatorCell.h"
 
 @interface FNAddPlayersVC ()
 @property BOOL addPlayerIsVisible;
@@ -57,8 +55,8 @@
 
 - (void)addPlayer
 {
-    [self toggleAddPlayerSavingCurrentPlayer:NO];
-    //[self addDummyData];
+    //[self toggleAddPlayerSavingCurrentPlayer:NO];
+    [self addDummyData];
 }
 
 #pragma mark - Text Field Delegate
@@ -77,43 +75,26 @@
 
 - (void)toggleAddPlayerSavingCurrentPlayer:(BOOL)save
 {
-    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:7];
-    for (int i = 0; i < 7; i++) {
-        NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
-        [array addObject:path];
+    // to change the bottom cell background to flat bottomed before the new cell is inserted
+    if ([self.brain.allPlayers count] > 0 && save) {
+        NSIndexPath *indexFor2ndToBottom =[NSIndexPath indexPathForRow:[self.brain.allPlayers count] - 1 inSection:1];
+        [self.tableView reloadRowsAtIndexPaths:@[indexFor2ndToBottom] withRowAnimation:UITableViewRowAnimationNone];
     }
-    
-    [CATransaction begin];
-    [CATransaction setCompletionBlock:^{
-        // change the add player button on completion otherwise the removed cell fades out
-        // above the add player button which looks bad
-        if (save) {
-            NSIndexPath *last = [NSIndexPath indexPathForRow:MAX(0, [self.tableView numberOfRowsInSection:1] - 2) inSection:1];
-            [self.tableView reloadRowsAtIndexPaths:@[last] withRowAnimation:UITableViewRowAnimationNone];
-        }
-    }];
     [self.tableView beginUpdates];
-    
     if (!self.addPlayerIsVisible) {
         self.addPlayerIsVisible = YES;
-        //[self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
-        [self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
     } else {
         self.addPlayerIsVisible = NO; // why do I need to set this? !!!
         if (save) {
             // save the currentPlayer and add it to the table view
             [self.brain addPlayer:self.currentPlayer];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.brain.allPlayers indexOfObject:self.currentPlayer] inSection:1];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.brain.allPlayers indexOfObject:self.currentPlayer] inSection:0];
             [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
-            if ([self.brain.allPlayers count] == 1) {
-                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationBottom];
-            }
         }
-        [self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
-        //[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
     }
     [self.tableView endUpdates];
-    [CATransaction commit];
 }
 
 - (BOOL)currentPlayerIsValid
@@ -180,20 +161,10 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if ([self.brain.allPlayers count] > 0) {
+    if (self.addPlayerIsVisible) {
         return 2;
     }
     return 1;
-    
-//    if ([self.brain.allPlayers count] > 0 && self.addPlayerIsVisible) {
-//        return 2;
-//    } else if ([self.brain.allPlayers count] > 0 || self.addPlayerIsVisible) {
-//        return 1;
-//    } else {
-//        return 0;
-//    }
-    
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -202,18 +173,9 @@
         if (self.addPlayerIsVisible) {
             return 7;
         }
-        return 0;
+        return [self.brain.allPlayers count];
     }
     return [self.brain.allPlayers count];
-    
-//    if (section == 0) {
-//        if (self.addPlayerIsVisible) {
-//            return 7;
-//        }
-//        return [self.brain.allPlayers count];
-//    }
-
-    
 }
 
 - (UITableViewCell *)configureNameCellForIndexPath:(NSIndexPath *)indexPath
@@ -275,7 +237,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 && self.addPlayerIsVisible) {
         if (indexPath.row == 0) {
             // name cell
             cell = [self configureNameCellForIndexPath:indexPath];
@@ -296,8 +258,9 @@
 
 - (BOOL)showCellSeparatorForIndexPath:(NSIndexPath *)indexPath
 {
+    // only called for the added player cells
     BOOL decision = NO;
-    decision = indexPath.row != [self.tableView numberOfRowsInSection:1] - 1;
+    decision = indexPath.row != [self.tableView numberOfRowsInSection:0] - 1;
     NSLog(@"IndexPath: %@   Decision: %d", indexPath, decision);
     return decision;
 }

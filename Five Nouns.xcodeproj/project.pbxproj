@@ -294,10 +294,7 @@
 				C993E3081728DD8000C37DB8 /* FNTableViewController.m */,
 				C9B40EE5171A1CC100619D57 /* FNNewGameVC.h */,
 				C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */,
-				C978AA52178FB3A00070B34B /* FNAddPlayersContainer.h */,
-				C978AA53178FB3A00070B34B /* FNAddPlayersContainer.m */,
-				C91B8D9E171A1F2600AE468C /* FNAddPlayersVC.h */,
-				C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */,
+				C9D952451791F10F00D2F173 /* Add Players */,
 				C978AA51178FB3830070B34B /* Assign Teams */,
 				C9B1369C176E449100B792AD /* NextUpVC */,
 				C9B1369D176E449F00B792AD /* GameVC */,
@@ -513,6 +510,17 @@
 				C99F2FF4176EC3E000406B2F /* FNCountdownTimer.m */,
 			);
 			name = GameVC;
+			sourceTree = "<group>";
+		};
+		C9D952451791F10F00D2F173 /* Add Players */ = {
+			isa = PBXGroup;
+			children = (
+				C978AA52178FB3A00070B34B /* FNAddPlayersContainer.h */,
+				C978AA53178FB3A00070B34B /* FNAddPlayersContainer.m */,
+				C91B8D9E171A1F2600AE468C /* FNAddPlayersVC.h */,
+				C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */,
+			);
+			name = "Add Players";
 			sourceTree = "<group>";
 		};
 		C9F04F16171A283500AAAF75 /* Table View Cells */ = {

@@ -414,7 +414,7 @@ typedef NS_ENUM(NSInteger, FNTeamCellType) {
     if ([(FMMoveTableView *)self.tableView indexPathIsMovingIndexPath:indexPath]) {
         [cell prepareForMove];
     }
-    cell.showCellSeparator = YES;
+    cell.showCellSeparator = NO;
     return cell;
 }
 
