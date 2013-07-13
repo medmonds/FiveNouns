@@ -20,6 +20,7 @@
 @interface FNAssignTeamsVC ()
 //@property (nonatomic, strong) NSMutableArray *teams;
 @property (nonatomic) NSInteger visibleTeam;
+@property (nonatomic, strong) NSMutableArray *headerViews;
 @end
 
 
@@ -55,6 +56,14 @@ typedef NS_ENUM(NSInteger, FNTeamCellType) {
     FNTeamCellTypeName,
     FNTeamCellTypePlayer
 };
+
+- (NSMutableArray *)headerViews
+{
+    if (!_headerViews) {
+        _headerViews = [[NSMutableArray alloc] init];
+    }
+    return _headerViews;
+}
 
 - (NSMutableArray *)configureDataSource:(NSMutableArray*)data
 {
@@ -107,13 +116,19 @@ typedef NS_ENUM(NSInteger, FNTeamCellType) {
 
 - (void)stepperDidStep:(UIStepper *)stepper
 {
+    UIView *headerForBottomSection;
+    if ([self.headerViews count] >= [self.tableView numberOfSections] && [self.tableView numberOfSections] > 0) {
+        headerForBottomSection = [self.headerViews objectAtIndex:[self.tableView numberOfSections] - 1];
+    }
     [CATransaction begin];
     [self.tableView beginUpdates];
     int numberOfTeams = stepper.value;
     if (numberOfTeams > [self.brain.allTeams count]) {
         [CATransaction setCompletionBlock:^{
             [self assignPlayersToTeams];
+            headerForBottomSection.backgroundColor = [UIColor clearColor];
         }];
+        headerForBottomSection.backgroundColor = [FNAppearance tableViewBackgroundColor];
         for (int i = numberOfTeams - [self.brain.allTeams count]; i > 0; i--) {
             FNTeam *newTeam = [[FNTeam alloc] init];
             newTeam.name = [NSString stringWithFormat:@"Team %d", [self.brain.allTeams count] + 1];
@@ -124,6 +139,7 @@ typedef NS_ENUM(NSInteger, FNTeamCellType) {
         [CATransaction setCompletionBlock:^{
             [self assignUnAssignedPlayers];
         }];
+        //headerForBottomSection.backgroundColor = [UIColor clearColor];
         for (int i = [self.brain.allTeams count] - numberOfTeams; i > 0; i--) {
             // flip the order of remove object & the if statement
             [self.brain.allTeams removeLastObject];
@@ -395,8 +411,14 @@ typedef NS_ENUM(NSInteger, FNTeamCellType) {
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *header = [[UIView alloc] init];
-    header.backgroundColor = [FNAppearance tableViewBackgroundColor];
+    UIView *header;
+    if ([self.headerViews count] > section) {
+        header = [self.headerViews objectAtIndex:section];
+    } else {
+        header = [[UIView alloc] init];
+        header.backgroundColor = [UIColor clearColor];
+        [self.headerViews insertObject:header atIndex:section];
+    }
     return header;
 }
 
