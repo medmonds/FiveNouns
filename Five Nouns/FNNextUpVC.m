@@ -73,8 +73,6 @@
     }];
 }
 
-
-
 - (void)beginGame
 {
     [self assignTeamsToPlayers];

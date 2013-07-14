@@ -18,4 +18,27 @@
     return _nounsScored;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    self.player = [aDecoder decodeObjectForKey:@"player"];
+    self.nounsScored = [aDecoder decodeObjectForKey:@"nounsScored"];
+    self.round = [aDecoder decodeIntegerForKey:@"round"];
+    self.turn = [aDecoder decodeIntegerForKey:@"turn"];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.player forKey:@"player"];
+    [aCoder encodeObject:self.nounsScored forKey:@"nounsScored"];
+    [aCoder encodeInteger:self.round forKey:@"round"];
+    [aCoder encodeInteger:self.turn forKey:@"turn"];
+}
+
 @end

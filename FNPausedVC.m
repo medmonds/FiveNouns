@@ -11,8 +11,9 @@
 #import "FNTVScoreDelegate.h"
 #import "FNTVDirectionsDelegate.h"
 #import "FNTVAddPlayerDelegate.h"
+#import "FNNewGameVC.h"
 
-@interface FNPausedVC () <FNTVRowInsertAndDeleteManager>
+@interface FNPausedVC () <FNTVRowInsertAndDeleteManager, UIActionSheetDelegate>
 @property (nonatomic, strong) FNTVController *scoreController;
 @property (nonatomic, strong) FNTVController *directionController;
 @property (nonatomic, strong) FNTVController *addPlayerController;
@@ -25,6 +26,33 @@
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == [actionSheet destructiveButtonIndex]) {
+        [self returnToMainMenu];
+    }
+}
+
+- (void)quitPressed
+{
+    NSLog(@"Quit Pressed");
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure you want to quit?"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                         destructiveButtonTitle:@"Quit Game"
+                                              otherButtonTitles:nil];
+    [sheet showInView:self.view];
+}
+
+- (void)returnToMainMenu
+{
+    //save the game to be accessible from the Resume Game Button on main page
+    
+    // instaniate the main menu controller & push it on the stack
+    FNNewGameVC *mainMenu = [self.storyboard instantiateViewControllerWithIdentifier:@"NewGameVC"];
+    [self.navigationController setViewControllers:@[mainMenu] animated:YES];
+}
+
 - (void)insertRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
     NSArray *convertedIndexPaths = [self convertIndexPaths:indexPaths fromController:controller];
@@ -34,7 +62,7 @@
 - (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
     NSArray *convertedIndexPaths = [self convertIndexPaths:indexPaths fromController:controller];
-    [self.tableView deleteRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView deleteRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationTop];
 }
 
 //- (void)reloadRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
@@ -68,6 +96,8 @@
         section = 1;
     } else if (controller == self.addPlayerController) {
         section = 2;
+    } else if (!controller) {
+        section = 3;
     }
     NSAssert(section >= -1, @"Tried to convert indexPaths for an unrecognized controller");
     return section;
@@ -82,8 +112,10 @@
         controller = self.directionController;
     } else if (indexPath.section == 2) {
         controller = self.addPlayerController;
+    } else if (indexPath.section == 3) {
+        controller = nil;
     }
-    NSAssert(controller, @"Tried to get controller for an out of bounds indexPath");
+    //NSAssert(controller, @"Tried to get controller for an out of bounds indexPath");
     return controller;
 }
 
@@ -92,27 +124,55 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[self controllerForIndexPath:indexPath] tableView:tableView didSelectRowAtIndexPath:indexPath];
+    FNTVController *controller = [self controllerForIndexPath:indexPath];
+    if (controller) {
+        [controller tableView:tableView didSelectRowAtIndexPath:indexPath];
+    } else {
+        // this is for the quite button.
+        [self quitPressed];
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[self controllerForIndexPath:indexPath] tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
+    FNTVController *controller = [self controllerForIndexPath:indexPath];
+    if (controller) {
+        return [controller tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
+    } else {
+        // this is for the quite button.
+        return YES;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[self controllerForIndexPath:indexPath] tableView:tableView didHighlightRowAtIndexPath:indexPath];
+    FNTVController *controller = [self controllerForIndexPath:indexPath];
+    if (controller) {
+        [controller tableView:tableView didHighlightRowAtIndexPath:indexPath];
+    } else {
+        // this is for the quite button.
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[self controllerForIndexPath:indexPath] tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
+    FNTVController *controller = [self controllerForIndexPath:indexPath];
+    if (controller) {
+        [controller tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
+    } else {
+        // this is for the quite button.
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[self controllerForIndexPath:indexPath] tableView:tableView heightForRowAtIndexPath:indexPath];
+    FNTVController *controller = [self controllerForIndexPath:indexPath];
+    if (controller) {
+        return [controller tableView:tableView heightForRowAtIndexPath:indexPath];
+    } else {
+        // this is for the quite button.
+        return 44;
+    }
 }
 
 //- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -125,19 +185,35 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[self controllerForIndexPath:indexPath] tableView:tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell *cell;
+    FNTVController *controller = [self controllerForIndexPath:indexPath];
+    if (controller) {
+        cell = [[self controllerForIndexPath:indexPath] tableView:tableView cellForRowAtIndexPath:indexPath];
+    } else {
+        // this is for the quite button.
+        cell = [tableView dequeueReusableCellWithIdentifier:@"headerCell" forIndexPath:indexPath];
+        cell.textLabel.text = @"Quit Game";
+        cell.textLabel.font = [FNAppearance fontWithSize:30];
+        cell.textLabel.textColor = [UIColor redColor];
+    }
     [super setBackgroundForCell:cell atIndexPath:indexPath];
     return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self controllerForIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] tableView:tableView numberOfRowsInSection:section];
+    FNTVController *controller = [self controllerForIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+    if (controller) {
+        return [controller tableView:tableView numberOfRowsInSection:section];
+    } else {
+        // this is for the quite button.
+        return 1;
+    }
 }
 
 
@@ -185,7 +261,7 @@
     [done setTarget:self];
     [done setAction:@selector(donePressed)];
     [self.navigationItem setRightBarButtonItem:done];
-    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Directions"];
+    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Options"];
     self.navigationItem.leftBarButtonItem = nil;
 }
 

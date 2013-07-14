@@ -43,6 +43,15 @@
     return self;
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:30];
+    } else {
+        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:36];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

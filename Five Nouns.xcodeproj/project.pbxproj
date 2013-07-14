@@ -124,6 +124,10 @@
 		C9F04F20171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */; };
 		C9F04F23171A69EA00AAAF75 /* FNTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F22171A69EA00AAAF75 /* FNTeam.m */; };
 		C9F04F24171A69EA00AAAF75 /* FNTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F22171A69EA00AAAF75 /* FNTeam.m */; };
+		C9F1E3621792233C00F1237E /* FNMaxFontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E3611792233C00F1237E /* FNMaxFontLabel.m */; };
+		C9F1E3631792233C00F1237E /* FNMaxFontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E3611792233C00F1237E /* FNMaxFontLabel.m */; };
+		C9F1E36617924D6200F1237E /* FNTurnData.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E36517924D6200F1237E /* FNTurnData.m */; };
+		C9F1E36717924D6200F1237E /* FNTurnData.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E36517924D6200F1237E /* FNTurnData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -260,6 +264,10 @@
 		C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNAssignTeamsVC.m; sourceTree = "<group>"; };
 		C9F04F21171A69EA00AAAF75 /* FNTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNTeam.h; sourceTree = "<group>"; };
 		C9F04F22171A69EA00AAAF75 /* FNTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTeam.m; sourceTree = "<group>"; };
+		C9F1E3601792233C00F1237E /* FNMaxFontLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMaxFontLabel.h; sourceTree = "<group>"; };
+		C9F1E3611792233C00F1237E /* FNMaxFontLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMaxFontLabel.m; sourceTree = "<group>"; };
+		C9F1E36417924D6200F1237E /* FNTurnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNTurnData.h; sourceTree = "<group>"; };
+		C9F1E36517924D6200F1237E /* FNTurnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTurnData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -353,6 +361,8 @@
 				C9C0566E178A2FA900735AEA /* SSTextField.m */,
 				C9C05670178A2FBC00735AEA /* SSDrawingUtilities.h */,
 				C9C05671178A2FBC00735AEA /* SSDrawingUtilities.m */,
+				C9F1E3601792233C00F1237E /* FNMaxFontLabel.h */,
+				C9F1E3611792233C00F1237E /* FNMaxFontLabel.m */,
 				C97F67411743132100D5E9BC /* Move Table View */,
 				C993E2F11728C4F700C37DB8 /* Buttons */,
 				C9F04F16171A283500AAAF75 /* Table View Cells */,
@@ -363,6 +373,8 @@
 				C9F04F22171A69EA00AAAF75 /* FNTeam.m */,
 				C99279E917193C780035658F /* FNScoreCard.h */,
 				C99279EA17193C780035658F /* FNScoreCard.m */,
+				C9F1E36417924D6200F1237E /* FNTurnData.h */,
+				C9F1E36517924D6200F1237E /* FNTurnData.m */,
 				C9B03F33177A996900226B06 /* FNGameDirections.h */,
 				C9B03F34177A996900226B06 /* FNGameDirections.m */,
 				C9649E471718B7390039B88E /* Supporting Files */,
@@ -727,6 +739,8 @@
 				C9E52BB5178D09C7003DF207 /* FNStepperView.m in Sources */,
 				C978AA4F178FA5C00070B34B /* FNAssignTeamsContainer.m in Sources */,
 				C978AA54178FB3A00070B34B /* FNAddPlayersContainer.m in Sources */,
+				C9F1E3621792233C00F1237E /* FNMaxFontLabel.m in Sources */,
+				C9F1E36617924D6200F1237E /* FNTurnData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,6 +780,8 @@
 				C9E52BB6178D09C7003DF207 /* FNStepperView.m in Sources */,
 				C978AA50178FA5C00070B34B /* FNAssignTeamsContainer.m in Sources */,
 				C978AA55178FB3A00070B34B /* FNAddPlayersContainer.m in Sources */,
+				C9F1E3631792233C00F1237E /* FNMaxFontLabel.m in Sources */,
+				C9F1E36717924D6200F1237E /* FNTurnData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

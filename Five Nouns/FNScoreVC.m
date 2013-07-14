@@ -26,7 +26,7 @@
 
 - (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
-    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
 }
 
 - (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(FNTVController *)controller

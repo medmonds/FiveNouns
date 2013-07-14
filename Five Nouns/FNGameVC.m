@@ -13,6 +13,8 @@
 #import "FNCountdownTimer.h"
 #import "FNAppearance.h"
 #import "FNDirectionView.h"
+#import "FNPausedVC.h"
+#import "FNTurnData.h"
 
 @interface FNGameVC ()
 @property (nonatomic, weak) NSString *currentNoun;
@@ -42,14 +44,44 @@
  
  Make the timer flash when time expires
  
+ ** Save the Game State
+ THINGS TO SAVE
+ - the current noun
+ - the time remaining
+ 
+ - the current score card
+ - current round score
+ - current round
+ - current turn
+ - current player
+ 
+ 
  
  
 */
 
 
+- (void)saveCurrentGameState
+{
+    // send it to the brain the brain will handle the actual persistance
+    // should probably be an object that way I can take this obj and start a turn on the fly with it too
+    FNTurnData *turnData = [[FNTurnData alloc] init];
+    turnData.noun = self.currentNoun;
+    turnData.timeRemaining = self.countDownTimer.timeRemaining;
+    turnData.scoreCard = self.currentScoreCard;
+    turnData.round = self.currentRound;
+    turnData.turn = self.currentTurn;
+    turnData.player = self.currentPlayer;
+    [self.brain saveCurrentTurn:turnData];
+}
+
+
 - (void)optionsBarButtonItemPressed
 {
-    // create and show the options menu
+    UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"pausedNC"];
+    FNPausedVC *options = (FNPausedVC *)nc.topViewController;
+    options.brain = self.brain;
+    [self.navigationController presentViewController:nc animated:YES completion:nil];
 }
 
 - (void)countDownTimerExpired
@@ -188,6 +220,16 @@
     _currentScoreCard.player = currentPlayer;
     [self setupNewTurn];
     _currentPlayer = currentPlayer;
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    //UILabel *title = [FNAppearance navBarTitleWithText:@"Players"];
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:30];
+    } else {
+        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:36];
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

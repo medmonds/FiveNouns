@@ -10,7 +10,7 @@
 
 @class FNPlayer;
 
-@interface FNScoreCard : NSObject
+@interface FNScoreCard : NSObject <NSCoding>
 
 @property (nonatomic, strong) FNPlayer *player;
 @property (nonatomic, strong) NSMutableArray *nounsScored;

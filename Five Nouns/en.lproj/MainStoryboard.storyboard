@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="11G63" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yJh-1r-Oq7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yJh-1r-Oq7">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -813,7 +813,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L4b-nA-K9r" customClass="FNCountdownTimer">
-                                <color key="backgroundColor" red="0.40784313729999999" green="0.80000000000000004" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.21960784310000001" green="0.57254901960000004" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Nouns: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7hd-sr-WRY">
                                 <constraints>
@@ -887,7 +887,6 @@
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
                                     </subviews>
@@ -954,8 +953,8 @@
                                 <constraints>
                                     <constraint firstItem="2vd-02-eYK" firstAttribute="top" secondItem="w6G-RS-kD6" secondAttribute="top" constant="5" id="HEq-D0-eOu"/>
                                     <constraint firstItem="WRo-W7-6iL" firstAttribute="centerY" secondItem="w6G-RS-kD6" secondAttribute="centerY" type="default" id="U8K-TM-4uT"/>
-                                    <constraint firstAttribute="trailing" secondItem="2vd-02-eYK" secondAttribute="trailing" constant="20" type="default" id="eGv-D3-LHx"/>
-                                    <constraint firstItem="WRo-W7-6iL" firstAttribute="leading" secondItem="w6G-RS-kD6" secondAttribute="leading" constant="15" id="wyQ-69-4Nw"/>
+                                    <constraint firstAttribute="trailing" secondItem="2vd-02-eYK" secondAttribute="trailing" constant="20" type="default" id="cdb-U0-VIb"/>
+                                    <constraint firstItem="WRo-W7-6iL" firstAttribute="leading" secondItem="w6G-RS-kD6" secondAttribute="leading" constant="15" id="hpO-pz-Kqm"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="detailTextField" destination="2vd-02-eYK" id="REJ-E0-efe"/>
@@ -998,8 +997,8 @@
                                 <constraints>
                                     <constraint firstItem="EVq-OM-l6U" firstAttribute="top" secondItem="m9Y-5c-5Nb" secondAttribute="top" constant="6" id="4xN-w8-IIU"/>
                                     <constraint firstItem="638-78-bHM" firstAttribute="centerY" secondItem="EVq-OM-l6U" secondAttribute="centerY" type="default" id="7j0-2p-wmw"/>
-                                    <constraint firstItem="638-78-bHM" firstAttribute="leading" secondItem="m9Y-5c-5Nb" secondAttribute="leading" constant="15" id="PaJ-U2-bHn"/>
-                                    <constraint firstAttribute="trailing" secondItem="EVq-OM-l6U" secondAttribute="trailing" constant="20" type="default" id="X7j-C7-y8T"/>
+                                    <constraint firstItem="638-78-bHM" firstAttribute="leading" secondItem="m9Y-5c-5Nb" secondAttribute="leading" constant="15" id="f6d-9r-13T"/>
+                                    <constraint firstAttribute="trailing" secondItem="EVq-OM-l6U" secondAttribute="trailing" constant="20" type="default" id="gHe-De-KYs"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="button" destination="EVq-OM-l6U" id="gvg-Yf-Olq"/>
@@ -1016,7 +1015,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hkr-kL-ZrW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3178" y="-544"/>
+            <point key="canvasLocation" x="-3162" y="-544"/>
         </scene>
         <!--Round DirectionsVC - Directions-->
         <scene sceneID="u7a-y9-sDQ">
@@ -1390,7 +1389,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="68H-UI-1cy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3704" y="-544"/>
+            <point key="canvasLocation" x="-3688" y="-544"/>
         </scene>
     </scenes>
     <classes>
@@ -1399,6 +1398,9 @@
         </class>
         <class className="FNAddPlayersContainer" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAddPlayersContainer.h"/>
+            <relationships>
+                <relationship kind="action" name="addPlayerPressed:" candidateClass="UIButton"/>
+            </relationships>
         </class>
         <class className="FNAddPlayersVC" superclassName="FNTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAddPlayersVC.h"/>
@@ -1443,6 +1445,7 @@
         <class className="FNNextUpVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FNNextUpVC.h"/>
             <relationships>
+                <relationship kind="action" name="startPressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="nextPlayerLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="roundLabel" candidateClass="UILabel"/>
             </relationships>

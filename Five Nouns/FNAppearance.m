@@ -7,6 +7,7 @@
 //
 
 #import "FNAppearance.h"
+#import "FNMaxFontLabel.h"
 
 @interface FNAppearance ()
 
@@ -77,8 +78,8 @@
     [toolbarProxy setBackgroundImage:background forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsLandscapePhone];
     
     // UIStepper
-    UIImage *stepperBackground = [[UIImage imageNamed:@"buttonRect.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
-    UIImage *divider = [[UIImage imageNamed:@"stepperDivider.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    UIImage *stepperBackground = [[UIImage alloc] init];  //[[UIImage imageNamed:@"buttonRect.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
+    UIImage *divider = [[UIImage alloc] init]; //[[UIImage imageNamed:@"stepperDivider.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     UIStepper *stepperProxy = [UIStepper appearance];
     [stepperProxy setBackgroundImage:stepperBackground forState:UIControlStateNormal];
     [stepperProxy setIncrementImage:[UIImage imageNamed:@"incrementImage.png"] forState:UIControlStateNormal];
@@ -91,6 +92,7 @@
     UIFont *gameFont = [FNAppearance fontWithSize:36];
     CGSize titleSize = [text sizeWithFont:gameFont];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = gameFont;

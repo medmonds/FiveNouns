@@ -11,7 +11,7 @@
 @class FNPlayer;
 @class FNScoreCard;
 
-@interface FNTeam : NSObject
+@interface FNTeam : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSMutableArray *players;

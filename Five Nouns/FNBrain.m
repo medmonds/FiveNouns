@@ -132,6 +132,11 @@
     return cards;
 }
 
+- (void)saveCurrentTurn:(FNTurnData *)turn
+{
+    
+}
+
 
 @end
 

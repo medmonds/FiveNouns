@@ -65,5 +65,42 @@
     return [self.teamScoreCards copy];
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    self.name = [aDecoder decodeObjectForKey:@"name"];
+    self.players = [aDecoder decodeObjectForKey:@"players"];
+    self.teamScoreCards = [aDecoder decodeObjectForKey:@"teamScoreCards"];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.players forKey:@"players"];
+    [aCoder encodeObject:self.teamScoreCards forKey:@"teamScoreCards"];
+}
+
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

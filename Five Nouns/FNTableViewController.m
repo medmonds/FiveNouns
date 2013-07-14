@@ -27,6 +27,16 @@
 
 #pragma mark - Appearance Customization
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    //UILabel *title = [FNAppearance navBarTitleWithText:@"Players"];
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:30];
+    } else {
+        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:36];
+    }
+}
+
 - (void)setBackgroundForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 {
     if (![cell.backgroundView isKindOfClass:[UIImageView class]]) {

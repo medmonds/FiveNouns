@@ -11,6 +11,7 @@
 @class FNScoreCard;
 @class FNPlayer;
 @class FNTeam;
+@class FNTurnData;
 
 @interface FNBrain : NSObject
 
@@ -41,5 +42,7 @@
 - (NSString *)directionsForRound:(NSInteger)round;
 
 - (void)prepareForNewRound;
+
+- (void)saveCurrentTurn:(FNTurnData *)turn;
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FNTeam.h"
-@interface FNPlayer : NSObject
+@interface FNPlayer : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSMutableArray *nouns;
