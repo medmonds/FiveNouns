@@ -25,7 +25,8 @@
 
 - (IBAction)resumeGamePressed
 {
-    
+    self.brain = [FNBrain brainFromPreviousGame];
+    [self performSegueWithIdentifier:@"addPlayers" sender:self];
 }
 
 - (IBAction)instructionsPressed

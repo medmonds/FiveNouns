@@ -132,13 +132,81 @@
     return cards;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    self.allPlayers = [aDecoder decodeObjectForKey:@"allPlayers"];
+    self.allTeams = [aDecoder decodeObjectForKey:@"allTeams"];
+    self.teamOrder = [aDecoder decodeObjectForKey:@"teamOrder"];
+    self.unplayedNouns = [aDecoder decodeObjectForKey:@"unplayedNouns"];
+    self.playedNouns = [aDecoder decodeObjectForKey:@"playedNouns"];
+    self.scoreCards = [aDecoder decodeObjectForKey:@"scoreCards"];
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.allPlayers forKey:@"allPlayers"];
+    [aCoder encodeObject:self.allTeams forKey:@"allTeams"];
+    [aCoder encodeObject:self.teamOrder forKey:@"teamOrder"];
+    [aCoder encodeObject:self.unplayedNouns forKey:@"unplayedNouns"];
+    [aCoder encodeObject:self.playedNouns forKey:@"playedNouns"];
+    [aCoder encodeObject:self.scoreCards forKey:@"scoreCards"];
+}
+
 - (void)saveCurrentTurn:(FNTurnData *)turn
 {
+    // this will be saved more frequently then the rest of the game data
+    // game data will be saved after every turn ends
+    // then this info + the rest of the game data will make a whole game
+    // can then just rotate through nouns and players in the game data to match the turn data and then have complete picture again
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *turnDataFile = [documentsDirectory stringByAppendingPathComponent:@"turnData.fiveNouns"];
+    BOOL success = [NSKeyedArchiver archiveRootObject:turn toFile:turnDataFile];
+    NSLog(@"Saved turn data: %d", success);
+}
+
+- (void)saveGameData
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *gameDataFile = [documentsDirectory stringByAppendingPathComponent:@"gameData.fiveNouns"];
+    BOOL success = [NSKeyedArchiver archiveRootObject:self toFile:gameDataFile];
+    NSLog(@"Saved game data: %d", success);
+}
+
++ (FNBrain *)brainFromPreviousGame
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *gameDataFile = [documentsDirectory stringByAppendingPathComponent:@"gameData.fiveNouns"];
+    FNBrain *previousBrain = [NSKeyedUnarchiver unarchiveObjectWithFile:gameDataFile];
+    return previousBrain;
 }
 
 
+
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -13,7 +13,7 @@
 @class FNTeam;
 @class FNTurnData;
 
-@interface FNBrain : NSObject
+@interface FNBrain : NSObject <NSCoding>
 
 //typedef NS_ENUM(NSInteger, FNDirectionsForRound) {
 //    FNDirectionsForRoundOverview,
@@ -44,5 +44,9 @@
 - (void)prepareForNewRound;
 
 - (void)saveCurrentTurn:(FNTurnData *)turn;
+
+- (void)saveGameData;
+
++ (FNBrain *)brainFromPreviousGame;
 
 @end
