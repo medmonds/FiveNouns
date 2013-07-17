@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class FNMultiplayerManager;
+
 @interface FNAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

@@ -24,6 +24,7 @@
 //};
 
 
+
 - (NSString *)noun;
 
 @property (nonatomic, strong) NSMutableArray *allPlayers;
@@ -50,3 +51,7 @@
 + (FNBrain *)brainFromPreviousGame;
 
 @end
+
+
+
+

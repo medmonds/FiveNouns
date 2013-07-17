@@ -135,7 +135,7 @@
     [options setTarget:self];
     [options setAction:@selector(optionsBarButtonItemPressed)];
     [self.navigationItem setRightBarButtonItem:options];
-    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Next Up"];
+    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Next Up" forOrientation:self.interfaceOrientation];
 
     self.scoreVC = self.childViewControllers[0];
     self.scoreVC.brain = self.brain;

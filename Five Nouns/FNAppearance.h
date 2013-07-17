@@ -58,7 +58,7 @@ typedef NS_ENUM(NSInteger, FNCheckmarkStyle) {
 
 + (void)configureAppearanceProxies;
 
-+ (UILabel *)navBarTitleWithText:(NSString *)text;
++ (UIView *)navBarTitleWithText:(NSString *)text forOrientation:(UIInterfaceOrientation)orientation;
 
 + (UIBarButtonItem *)backBarButtonItem;
 

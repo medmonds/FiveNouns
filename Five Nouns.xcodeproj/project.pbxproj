@@ -11,6 +11,10 @@
 		A19426C8174DAEC200056345 /* reorderControl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A19426C6174DAEC200056345 /* reorderControl@2x.png */; };
 		A19426CB174DC43F00056345 /* FNNextUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A19426CA174DC43F00056345 /* FNNextUpVC.m */; };
 		A19426CC174DC43F00056345 /* FNNextUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A19426CA174DC43F00056345 /* FNNextUpVC.m */; };
+		C90151751794D7EC00D90DF0 /* FNMultiPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C90151741794D7EC00D90DF0 /* FNMultiPlayerVC.m */; };
+		C90151761794D7EC00D90DF0 /* FNMultiPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C90151741794D7EC00D90DF0 /* FNMultiPlayerVC.m */; };
+		C901517917950B2500D90DF0 /* FNMultiplayerContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C901517817950B2500D90DF0 /* FNMultiplayerContainer.m */; };
+		C901517A17950B2500D90DF0 /* FNMultiplayerContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C901517817950B2500D90DF0 /* FNMultiplayerContainer.m */; };
 		C914EA46177BEEB500255E41 /* FNTVScoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C914EA45177BEEB500255E41 /* FNTVScoreDelegate.m */; };
 		C914EA47177BEEB500255E41 /* FNTVScoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C914EA45177BEEB500255E41 /* FNTVScoreDelegate.m */; };
 		C91B8DA0171A1F2600AE468C /* FNAddPlayersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */; };
@@ -114,6 +118,9 @@
 		C9C05672178A2FBC00735AEA /* SSDrawingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C05671178A2FBC00735AEA /* SSDrawingUtilities.m */; };
 		C9C05675178A312200735AEA /* navBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C05673178A312200735AEA /* navBarBackground.png */; };
 		C9C05676178A312200735AEA /* navBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C05674178A312200735AEA /* navBarBackground@2x.png */; };
+		C9C5307C17934EA900A7A268 /* FNMultiplayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C5307B17934EA900A7A268 /* FNMultiplayerManager.m */; };
+		C9C5307D17934EA900A7A268 /* FNMultiplayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C5307B17934EA900A7A268 /* FNMultiplayerManager.m */; };
+		C9C5307F17936F8900A7A268 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C5307E17936F8900A7A268 /* GameKit.framework */; };
 		C9E2B6AC177786A300FD08E9 /* FNSeparatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */; };
 		C9E2B6AD177786A300FD08E9 /* FNSeparatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */; };
 		C9E52BB5178D09C7003DF207 /* FNStepperView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E52BB4178D09C7003DF207 /* FNStepperView.m */; };
@@ -145,6 +152,10 @@
 		A19426C6174DAEC200056345 /* reorderControl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reorderControl@2x.png"; sourceTree = "<group>"; };
 		A19426C9174DC43F00056345 /* FNNextUpVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNNextUpVC.h; sourceTree = "<group>"; };
 		A19426CA174DC43F00056345 /* FNNextUpVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNNextUpVC.m; sourceTree = "<group>"; };
+		C90151731794D7EC00D90DF0 /* FNMultiPlayerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMultiPlayerVC.h; sourceTree = "<group>"; };
+		C90151741794D7EC00D90DF0 /* FNMultiPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiPlayerVC.m; sourceTree = "<group>"; };
+		C901517717950B2500D90DF0 /* FNMultiplayerContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMultiplayerContainer.h; sourceTree = "<group>"; };
+		C901517817950B2500D90DF0 /* FNMultiplayerContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiplayerContainer.m; sourceTree = "<group>"; };
 		C914EA44177BEEB500255E41 /* FNTVScoreDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNTVScoreDelegate.h; sourceTree = "<group>"; };
 		C914EA45177BEEB500255E41 /* FNTVScoreDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTVScoreDelegate.m; sourceTree = "<group>"; };
 		C91B8D9E171A1F2600AE468C /* FNAddPlayersVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNAddPlayersVC.h; sourceTree = "<group>"; };
@@ -253,6 +264,9 @@
 		C9C05671178A2FBC00735AEA /* SSDrawingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSDrawingUtilities.m; sourceTree = "<group>"; };
 		C9C05673178A312200735AEA /* navBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarBackground.png; sourceTree = "<group>"; };
 		C9C05674178A312200735AEA /* navBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarBackground@2x.png"; sourceTree = "<group>"; };
+		C9C5307A17934EA900A7A268 /* FNMultiplayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMultiplayerManager.h; sourceTree = "<group>"; };
+		C9C5307B17934EA900A7A268 /* FNMultiplayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiplayerManager.m; sourceTree = "<group>"; };
+		C9C5307E17936F8900A7A268 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		C9E2B6AA177786A300FD08E9 /* FNSeparatorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNSeparatorCell.h; sourceTree = "<group>"; };
 		C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNSeparatorCell.m; sourceTree = "<group>"; };
 		C9E52BB3178D09C7003DF207 /* FNStepperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNStepperView.h; sourceTree = "<group>"; };
@@ -275,6 +289,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9C5307F17936F8900A7A268 /* GameKit.framework in Frameworks */,
 				C9ACDEAE1771462700555CE8 /* QuartzCore.framework in Frameworks */,
 				C9ACDEAD1771461B00555CE8 /* CoreGraphics.framework in Frameworks */,
 				C9649E411718B7390039B88E /* UIKit.framework in Frameworks */,
@@ -318,6 +333,7 @@
 		C9649E311718B7390039B88E = {
 			isa = PBXGroup;
 			children = (
+				C9C5307E17936F8900A7A268 /* GameKit.framework */,
 				C9649E461718B7390039B88E /* Five Nouns */,
 				C9649E6A1718B7390039B88E /* Five NounsTests */,
 				C9649E3F1718B7390039B88E /* Frameworks */,
@@ -349,13 +365,19 @@
 		C9649E461718B7390039B88E /* Five Nouns */ = {
 			isa = PBXGroup;
 			children = (
-				C9649E501718B7390039B88E /* FNAppDelegate.m */,
 				C9649E4F1718B7390039B88E /* FNAppDelegate.h */,
+				C9649E501718B7390039B88E /* FNAppDelegate.m */,
 				C9649E581718B7390039B88E /* MainStoryboard.storyboard */,
 				C993E3031728DC0A00C37DB8 /* FNAppearance.h */,
 				C993E3041728DC0A00C37DB8 /* FNAppearance.m */,
 				C99279E1171932510035658F /* FNBrain.h */,
 				C99279E2171932510035658F /* FNBrain.m */,
+				C9C5307A17934EA900A7A268 /* FNMultiplayerManager.h */,
+				C9C5307B17934EA900A7A268 /* FNMultiplayerManager.m */,
+				C90151731794D7EC00D90DF0 /* FNMultiPlayerVC.h */,
+				C90151741794D7EC00D90DF0 /* FNMultiPlayerVC.m */,
+				C901517717950B2500D90DF0 /* FNMultiplayerContainer.h */,
+				C901517817950B2500D90DF0 /* FNMultiplayerContainer.m */,
 				C9F04F1B171A441100AAAF75 /* FNInfoFromModal.h */,
 				C9C0566D178A2FA900735AEA /* SSTextField.h */,
 				C9C0566E178A2FA900735AEA /* SSTextField.m */,
@@ -741,6 +763,9 @@
 				C978AA54178FB3A00070B34B /* FNAddPlayersContainer.m in Sources */,
 				C9F1E3621792233C00F1237E /* FNMaxFontLabel.m in Sources */,
 				C9F1E36617924D6200F1237E /* FNTurnData.m in Sources */,
+				C9C5307C17934EA900A7A268 /* FNMultiplayerManager.m in Sources */,
+				C90151751794D7EC00D90DF0 /* FNMultiPlayerVC.m in Sources */,
+				C901517917950B2500D90DF0 /* FNMultiplayerContainer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,6 +807,9 @@
 				C978AA55178FB3A00070B34B /* FNAddPlayersContainer.m in Sources */,
 				C9F1E3631792233C00F1237E /* FNMaxFontLabel.m in Sources */,
 				C9F1E36717924D6200F1237E /* FNTurnData.m in Sources */,
+				C9C5307D17934EA900A7A268 /* FNMultiplayerManager.m in Sources */,
+				C90151761794D7EC00D90DF0 /* FNMultiPlayerVC.m in Sources */,
+				C901517A17950B2500D90DF0 /* FNMultiplayerContainer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,11 +904,15 @@
 		C9649E761718B7390039B88E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Matthew Edmonds (NDQZTX32EB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matthew Edmonds (NDQZTX32EB)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Five Nouns/Five Nouns-Prefix.pch";
 				INFOPLIST_FILE = "Five Nouns/Five Nouns-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7DA2492A-F0C3-4001-98E0-26A50E48682B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7DA2492A-F0C3-4001-98E0-26A50E48682B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -888,11 +920,15 @@
 		C9649E771718B7390039B88E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Matthew Edmonds (NDQZTX32EB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matthew Edmonds (NDQZTX32EB)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Five Nouns/Five Nouns-Prefix.pch";
 				INFOPLIST_FILE = "Five Nouns/Five Nouns-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7DA2492A-F0C3-4001-98E0-26A50E48682B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7DA2492A-F0C3-4001-98E0-26A50E48682B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

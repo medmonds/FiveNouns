@@ -8,6 +8,7 @@
 
 #import "FNAppearance.h"
 #import "FNMaxFontLabel.h"
+#import "FNMultiplayerManager.h"
 
 @interface FNAppearance ()
 
@@ -87,17 +88,34 @@
     [stepperProxy setDividerImage:divider forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal];
 }
 
-+ (UILabel *)navBarTitleWithText:(NSString *)text
++ (UIView *)navBarTitleWithText:(NSString *)text forOrientation:(UIInterfaceOrientation)orientation
 {
-    UIFont *gameFont = [FNAppearance fontWithSize:36];
+    UIFont *gameFont;
+    if (UIInterfaceOrientationIsPortrait(orientation)) {
+        gameFont = [FNAppearance fontWithSize:36];
+    } else {
+        gameFont = [FNAppearance fontWithSize:30];
+    }
     CGSize titleSize = [text sizeWithFont:gameFont];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, titleSize.width, titleSize.height)];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = gameFont;
-    titleLabel.text = text;
-    return titleLabel;
+    CGRect titleFrame = CGRectMake(0, 0, titleSize.width, titleSize.height);
+    UIView *titleView = [[UIView alloc] initWithFrame:titleFrame];
+    titleView.backgroundColor = [UIColor clearColor];
+    UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    titleButton.frame = titleFrame;
+    [titleView addSubview:titleButton];
+    if ([[FNMultiplayerManager sharedMultiplayerManager] isMultiplayerEnabled]) {
+        [titleButton setTitleColor:[FNAppearance textColorButton] forState:UIControlStateNormal];
+        [titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [titleButton addTarget:[FNMultiplayerManager sharedMultiplayerManager] action:[FNMultiplayerManager selectorForMultiplayerView] forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        [titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        titleButton.userInteractionEnabled = NO;
+    }
+    titleButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleButton.backgroundColor = [UIColor clearColor];
+    titleButton.titleLabel.font = gameFont;
+    [titleButton setTitle:text forState:UIControlStateNormal];
+    return titleView;
 }
 
 + (UIBarButtonItem *)backBarButtonItem

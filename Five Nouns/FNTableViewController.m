@@ -29,12 +29,7 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    //UILabel *title = [FNAppearance navBarTitleWithText:@"Players"];
-    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:30];
-    } else {
-        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:36];
-    }
+    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players" forOrientation:self.interfaceOrientation];
 }
 
 - (void)setBackgroundForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;

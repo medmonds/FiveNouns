@@ -261,7 +261,7 @@
     [done setTarget:self];
     [done setAction:@selector(donePressed)];
     [self.navigationItem setRightBarButtonItem:done];
-    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Options"];
+    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Options" forOrientation:self.interfaceOrientation];
     self.navigationItem.leftBarButtonItem = nil;
 }
 

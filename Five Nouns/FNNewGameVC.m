@@ -10,8 +10,10 @@
 #import "FNBrain.h"
 #import "FNAddPlayersContainer.h"
 #import "FNAppearance.h"
+#import "FNMultiplayerManager.h"
 
 @interface FNNewGameVC ()
+@property (nonatomic, strong) FNMultiplayerManager *multiplayerManager;
 @property (nonatomic, strong) FNBrain *brain;
 @end
 
@@ -45,13 +47,21 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
-    
+    // I will want the same manager when I quite the game & Come back to tthis screen so Need to deal with that !!!
+    self.multiplayerManager = [FNMultiplayerManager sharedMultiplayerManager];
+    self.multiplayerManager.hostViewController = self;
+    // add this manager to the brain when it is created and then add a pointer to the brain to the currently displayed vc so it can present views when necessary
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     //[self.navigationController setNavigationBarHidden:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.multiplayerManager authenticateLocalPlayer];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

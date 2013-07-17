@@ -224,12 +224,7 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    //UILabel *title = [FNAppearance navBarTitleWithText:@"Players"];
-    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:30];
-    } else {
-        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:36];
-    }
+    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players" forOrientation:toInterfaceOrientation];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -250,7 +245,7 @@
     [options setTarget:self];
     [options setAction:@selector(optionsBarButtonItemPressed)];
     [self.navigationItem setRightBarButtonItem:options];
-    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Five Nouns"];
+    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Five Nouns" forOrientation:self.interfaceOrientation];
     [self.navigationItem setHidesBackButton:YES];
 
     // Setup the timer control

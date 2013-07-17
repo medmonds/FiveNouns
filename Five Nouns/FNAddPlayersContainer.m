@@ -45,17 +45,13 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:30];
-    } else {
-        ((UILabel *)self.navigationItem.titleView).font = [FNAppearance fontWithSize:36];
-    }
+    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players" forOrientation:toInterfaceOrientation];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players"];
+    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players" forOrientation:self.interfaceOrientation];
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
     UIBarButtonItem *back = [FNAppearance backBarButtonItem];
     [back setTarget:self.navigationController];
