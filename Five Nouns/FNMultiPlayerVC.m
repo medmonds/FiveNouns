@@ -7,49 +7,23 @@
 //
 
 #import "FNMultiPlayerVC.h"
+#import "FNMultiplayerHostDelegate.h"
+#import "FNReorderableCell.h"
 
 @interface FNMultiPlayerVC ()
-@property (nonatomic) BOOL localPlayersAreVisible;
+
 @end
 
 @implementation FNMultiPlayerVC
 
-@synthesize localPlayers = _localPlayers;
-@synthesize connectedPlayers = _connectedPlayers;
-
-- (NSMutableArray *)localPlayers
+- (void)insertClientAtIndex:(NSInteger)index
 {
-    if (!_localPlayers) {
-        _localPlayers = [[NSMutableArray alloc] init];
-    }
-    return _localPlayers;
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (NSMutableArray *)connectedPlayers
+- (void)deleteClientAtIndex:(NSInteger)index
 {
-    if (!_connectedPlayers) {
-        _connectedPlayers = [[NSMutableArray alloc] init];
-    }
-    return _connectedPlayers;
-}
-
-- (void)showLocalPlayersPressed
-{
-    
-}
-
-- (void)insertLocalPlayer:(GKPlayer *)player
-{
-    // just for testing !!!
-    [self.localPlayers addObject:player];
-    [self.tableView reloadData];
-}
-
-- (void)deleteLocalPlayer:(GKPlayer *)player
-{
-    // just for testing !!!
-    [self.localPlayers removeObject:player];
-    [self.tableView reloadData];
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Table view data source
@@ -57,58 +31,33 @@
 // should this be in didSelectRowAtIndexPath not shouldSelect? !!!
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // make the textfield (if cell has a textfield) the first responder
-    id cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    if ([cell isKindOfClass:[FNEditableCell class]]) {
-        FNEditableCell *textFieldCell = cell;
-        [textFieldCell.detailTextField becomeFirstResponder];
-    }
     return NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.localPlayersAreVisible) {
-        return 2;
-    }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        if (self.localPlayersAreVisible) {
-            return [self.localPlayers count];
-        } else {
-            return [self.localPlayers count];
-        }
-    }
-    return [self.connectedPlayers count];
+    return [self.dataSource clientsCount];
 }
 
 - (UITableViewCell *)configureNameCellForIndexPath:(NSIndexPath *)indexPath
 {
-    FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
-    cell.mainTextLabel.text = @"name:";
-    cell.detailTextField.tag = indexPath.row - 1;
-    cell.detailTextField.placeholder = @"New Player";
-    cell.detailTextField.placeholderTextColor = [FNAppearance textColorButton];
-    cell.detailTextField.delegate = self;
-    [self setBackgroundForTextField:cell.detailTextField];
+    FNReorderableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"reorderable"];
+    cell.mainTextLabel.text = [self.dataSource displayNameForClientAtIndex:indexPath.row];
     cell.showCellSeparator = NO;
     return cell;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
-    if (indexPath.section == 0) {
-        cell = [self configureNameCellForIndexPath:indexPath];
-    }
+    UITableViewCell *cell = [self configureNameCellForIndexPath:indexPath];
+    [super setBackgroundForCell:cell atIndexPath:indexPath];
     return cell;
 }
-
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -119,18 +68,16 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.dataSource viewControllerWillAppear];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // just for testing !!!
-    self.localPlayersAreVisible = YES;
-	// Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end

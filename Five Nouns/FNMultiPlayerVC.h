@@ -9,21 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "FNTableViewController.h"
 
-@class FNMultiplayerManager;
-@class GKPlayer;
+@class FNMultiplayerHostDelegate;
 
 @interface FNMultiPlayerVC : FNTableViewController
-@property (nonatomic, strong) FNMultiplayerManager *multiplayerManager;
 
-@property (nonatomic, strong) NSMutableArray *connectedPlayers;
-@property (nonatomic, strong) NSMutableArray *localPlayers;
+@property (nonatomic, strong) FNMultiplayerHostDelegate *dataSource;
 
-- (void)showLocalPlayersPressed;
-
-- (void)insertLocalPlayer:(GKPlayer *)player;
-- (void)deleteLocalPlayer:(GKPlayer *)player;
-
-- (void)insertConnectedPlayer:(GKPlayer *)player;
-- (void)deleteConnectedPlayer:(GKPlayer *)player;
+- (void)insertClientAtIndex:(NSInteger)index;
+- (void)deleteClientAtIndex:(NSInteger)index;
 
 @end

@@ -8,94 +8,41 @@
 
 #import "FNMultiplayerContainer.h"
 #import "FNMultiPlayerVC.h"
-#import "FNMultiplayerManager.h"
+#import "FNMultiplayerHostDelegate.h"
 
 @interface FNMultiplayerContainer ()
-@property (nonatomic, strong) FNMultiPlayerVC *childVC;
+
 @end
 
 
 @implementation FNMultiplayerContainer
 
-@synthesize localPlayers = _localPlayers;
-@synthesize connectedPlayers = _connectedPlayers;
-
-
-- (NSMutableArray *)localPlayers
+- (IBAction)stopHostingGamePressed:(id)sender
 {
-    if (!_localPlayers) {
-        _localPlayers = [[NSMutableArray alloc] init];
-    }
-    return _localPlayers;
+    [self.dataSource stopHostingGame];
 }
 
-- (NSMutableArray *)connectedPlayers
+- (void)insertClientAtIndex:(NSInteger)index
 {
-    if (!_connectedPlayers) {
-        _connectedPlayers = [[NSMutableArray alloc] init];
-    }
-    return _connectedPlayers;
+    [((FNMultiPlayerVC *)self.childViewControllers[0]) insertClientAtIndex:index];
 }
 
-- (void)setMultiplayerManager:(FNMultiplayerManager *)multiplayerManager
+- (void)deleteClientAtIndex:(NSInteger)index
 {
-    _multiplayerManager = multiplayerManager;
-    self.childVC.multiplayerManager = multiplayerManager;
-}
-
-- (void)setConnectedPlayers:(NSMutableArray *)connectedPlayers
-{
-    _connectedPlayers = connectedPlayers;
-    self.childVC.connectedPlayers = connectedPlayers;
-}
-
-- (void)setLocalPlayers:(NSMutableArray *)localPlayers
-{
-    _localPlayers = localPlayers;
-    self.childVC.localPlayers = localPlayers;
-}
-
-- (void)insertLocalPlayer:(GKPlayer *)player
-{
-    [self.localPlayers addObject:player];
-    [self.childVC insertLocalPlayer:player];
-}
-
-- (void)deleteLocalPlayer:(GKPlayer *)player
-{
-    [self.localPlayers removeObject:player];
-    [self.childVC deleteLocalPlayer:player];
-}
-
-- (void)insertConnectedPlayer:(GKPlayer *)player
-{
-    [self.connectedPlayers addObject:player];
-    [self.childVC insertConnectedPlayer:player];
-}
-
-- (void)deleteConnectedPlayer:(GKPlayer *)player
-{
-    [self.connectedPlayers removeObject:player];
-    [self.childVC deleteConnectedPlayer:player];
-}
-
-- (IBAction)showLocalPlayersPressed:(id)sender
-{
-    [self.childVC showLocalPlayersPressed];
+    [((FNMultiPlayerVC *)self.childViewControllers[0]) deleteClientAtIndex:index];
 }
 
 - (void)donePressed
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        [self.multiplayerManager multiplayerVCDidDisappear];
+        [self.dataSource viewControllerWasDismissed];
     }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    self.childVC.multiplayerManager = self.multiplayerManager;
-    self.childVC.connectedPlayers = self.connectedPlayers;
-    self.childVC.localPlayers = self.localPlayers;
+    FNMultiPlayerVC *childVC = self.childViewControllers[0];
+    childVC.dataSource = self.dataSource;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -109,7 +56,7 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    UIView *navTitle = [FNAppearance navBarTitleWithText:@"Remote Players" forOrientation:self.interfaceOrientation];
+    UIView *navTitle = [FNAppearance navBarTitleWithText:@"Connected Players" forOrientation:self.interfaceOrientation];
     // need to change the color too !!!
     [navTitle setUserInteractionEnabled:NO];
     self.navigationItem.titleView = navTitle;
@@ -118,7 +65,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIView *navTitle = [FNAppearance navBarTitleWithText:@"Remote Players" forOrientation:self.interfaceOrientation];
+    UIView *navTitle = [FNAppearance navBarTitleWithText:@"Connected Players" forOrientation:self.interfaceOrientation];
     // need to change the color too !!!
     [navTitle setUserInteractionEnabled:NO];
     self.navigationItem.titleView = navTitle;

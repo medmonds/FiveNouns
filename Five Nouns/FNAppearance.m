@@ -103,14 +103,9 @@
     UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
     titleButton.frame = titleFrame;
     [titleView addSubview:titleButton];
-    if ([[FNMultiplayerManager sharedMultiplayerManager] isMultiplayerEnabled]) {
-        [titleButton setTitleColor:[FNAppearance textColorButton] forState:UIControlStateNormal];
-        [titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        [titleButton addTarget:[FNMultiplayerManager sharedMultiplayerManager] action:[FNMultiplayerManager selectorForMultiplayerView] forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        [titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        titleButton.userInteractionEnabled = NO;
-    }
+    [titleButton setTitleColor:[FNAppearance textColorButton] forState:UIControlStateNormal];
+    [titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [titleButton addTarget:[FNMultiplayerManager sharedMultiplayerManager] action:[FNMultiplayerManager selectorForMultiplayerView] forControlEvents:UIControlEventTouchUpInside];
     titleButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     titleButton.backgroundColor = [UIColor clearColor];
     titleButton.titleLabel.font = gameFont;

@@ -15,10 +15,18 @@
 		C90151761794D7EC00D90DF0 /* FNMultiPlayerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C90151741794D7EC00D90DF0 /* FNMultiPlayerVC.m */; };
 		C901517917950B2500D90DF0 /* FNMultiplayerContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C901517817950B2500D90DF0 /* FNMultiplayerContainer.m */; };
 		C901517A17950B2500D90DF0 /* FNMultiplayerContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C901517817950B2500D90DF0 /* FNMultiplayerContainer.m */; };
+		C9073D1E1798CD5800A6CD3D /* FNSpinnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9073D1D1798CD5800A6CD3D /* FNSpinnerCell.m */; };
+		C9073D1F1798CD5800A6CD3D /* FNSpinnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9073D1D1798CD5800A6CD3D /* FNSpinnerCell.m */; };
 		C914EA46177BEEB500255E41 /* FNTVScoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C914EA45177BEEB500255E41 /* FNTVScoreDelegate.m */; };
 		C914EA47177BEEB500255E41 /* FNTVScoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C914EA45177BEEB500255E41 /* FNTVScoreDelegate.m */; };
 		C91B8DA0171A1F2600AE468C /* FNAddPlayersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */; };
 		C91B8DA1171A1F2600AE468C /* FNAddPlayersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */; };
+		C92039321797812B0013002E /* FNMultiplayerHostDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039311797812B0013002E /* FNMultiplayerHostDelegate.m */; };
+		C92039331797812B0013002E /* FNMultiplayerHostDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039311797812B0013002E /* FNMultiplayerHostDelegate.m */; };
+		C9203936179781410013002E /* FNMultiplayerClientDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9203935179781410013002E /* FNMultiplayerClientDelegate.m */; };
+		C9203937179781410013002E /* FNMultiplayerClientDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9203935179781410013002E /* FNMultiplayerClientDelegate.m */; };
+		C92039421797A6890013002E /* FNMultiplayerJoinVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039411797A6890013002E /* FNMultiplayerJoinVC.m */; };
+		C92039431797A6890013002E /* FNMultiplayerJoinVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039411797A6890013002E /* FNMultiplayerJoinVC.m */; };
 		C95DD934177D20B0009EF626 /* FNTVDirectionsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */; };
 		C95DD935177D20B0009EF626 /* FNTVDirectionsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */; };
 		C9649E411718B7390039B88E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E401718B7390039B88E /* UIKit.framework */; };
@@ -156,10 +164,18 @@
 		C90151741794D7EC00D90DF0 /* FNMultiPlayerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiPlayerVC.m; sourceTree = "<group>"; };
 		C901517717950B2500D90DF0 /* FNMultiplayerContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMultiplayerContainer.h; sourceTree = "<group>"; };
 		C901517817950B2500D90DF0 /* FNMultiplayerContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiplayerContainer.m; sourceTree = "<group>"; };
+		C9073D1C1798CD5800A6CD3D /* FNSpinnerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNSpinnerCell.h; sourceTree = "<group>"; };
+		C9073D1D1798CD5800A6CD3D /* FNSpinnerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNSpinnerCell.m; sourceTree = "<group>"; };
 		C914EA44177BEEB500255E41 /* FNTVScoreDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNTVScoreDelegate.h; sourceTree = "<group>"; };
 		C914EA45177BEEB500255E41 /* FNTVScoreDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTVScoreDelegate.m; sourceTree = "<group>"; };
 		C91B8D9E171A1F2600AE468C /* FNAddPlayersVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNAddPlayersVC.h; sourceTree = "<group>"; };
 		C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNAddPlayersVC.m; sourceTree = "<group>"; };
+		C92039301797812B0013002E /* FNMultiplayerHostDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMultiplayerHostDelegate.h; sourceTree = "<group>"; };
+		C92039311797812B0013002E /* FNMultiplayerHostDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiplayerHostDelegate.m; sourceTree = "<group>"; };
+		C9203934179781410013002E /* FNMultiplayerClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMultiplayerClientDelegate.h; sourceTree = "<group>"; };
+		C9203935179781410013002E /* FNMultiplayerClientDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiplayerClientDelegate.m; sourceTree = "<group>"; };
+		C92039401797A6890013002E /* FNMultiplayerJoinVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMultiplayerJoinVC.h; sourceTree = "<group>"; };
+		C92039411797A6890013002E /* FNMultiplayerJoinVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiplayerJoinVC.m; sourceTree = "<group>"; };
 		C95DA6B31730C600004F2841 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C95DD932177D20B0009EF626 /* FNTVDirectionsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNTVDirectionsDelegate.h; sourceTree = "<group>"; };
 		C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTVDirectionsDelegate.m; sourceTree = "<group>"; };
@@ -374,10 +390,12 @@
 				C99279E2171932510035658F /* FNBrain.m */,
 				C9C5307A17934EA900A7A268 /* FNMultiplayerManager.h */,
 				C9C5307B17934EA900A7A268 /* FNMultiplayerManager.m */,
-				C90151731794D7EC00D90DF0 /* FNMultiPlayerVC.h */,
-				C90151741794D7EC00D90DF0 /* FNMultiPlayerVC.m */,
-				C901517717950B2500D90DF0 /* FNMultiplayerContainer.h */,
-				C901517817950B2500D90DF0 /* FNMultiplayerContainer.m */,
+				C92039301797812B0013002E /* FNMultiplayerHostDelegate.h */,
+				C92039311797812B0013002E /* FNMultiplayerHostDelegate.m */,
+				C9203934179781410013002E /* FNMultiplayerClientDelegate.h */,
+				C9203935179781410013002E /* FNMultiplayerClientDelegate.m */,
+				C9AC74281798F19900D78865 /* Server VCs */,
+				C9AC74291798F1B100D78865 /* Client VC */,
 				C9F04F1B171A441100AAAF75 /* FNInfoFromModal.h */,
 				C9C0566D178A2FA900735AEA /* SSTextField.h */,
 				C9C0566E178A2FA900735AEA /* SSTextField.m */,
@@ -524,6 +542,26 @@
 			name = PausedVC;
 			sourceTree = "<group>";
 		};
+		C9AC74281798F19900D78865 /* Server VCs */ = {
+			isa = PBXGroup;
+			children = (
+				C901517717950B2500D90DF0 /* FNMultiplayerContainer.h */,
+				C901517817950B2500D90DF0 /* FNMultiplayerContainer.m */,
+				C90151731794D7EC00D90DF0 /* FNMultiPlayerVC.h */,
+				C90151741794D7EC00D90DF0 /* FNMultiPlayerVC.m */,
+			);
+			name = "Server VCs";
+			sourceTree = "<group>";
+		};
+		C9AC74291798F1B100D78865 /* Client VC */ = {
+			isa = PBXGroup;
+			children = (
+				C92039401797A6890013002E /* FNMultiplayerJoinVC.h */,
+				C92039411797A6890013002E /* FNMultiplayerJoinVC.m */,
+			);
+			name = "Client VC";
+			sourceTree = "<group>";
+		};
 		C9B1369C176E449100B792AD /* NextUpVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -574,6 +612,8 @@
 				C9A04EB417389FEB0016F65F /* FNSelectableCell.m */,
 				C9E2B6AA177786A300FD08E9 /* FNSeparatorCell.h */,
 				C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */,
+				C9073D1C1798CD5800A6CD3D /* FNSpinnerCell.h */,
+				C9073D1D1798CD5800A6CD3D /* FNSpinnerCell.m */,
 			);
 			name = "Table View Cells";
 			sourceTree = "<group>";
@@ -766,6 +806,10 @@
 				C9C5307C17934EA900A7A268 /* FNMultiplayerManager.m in Sources */,
 				C90151751794D7EC00D90DF0 /* FNMultiPlayerVC.m in Sources */,
 				C901517917950B2500D90DF0 /* FNMultiplayerContainer.m in Sources */,
+				C92039321797812B0013002E /* FNMultiplayerHostDelegate.m in Sources */,
+				C9203936179781410013002E /* FNMultiplayerClientDelegate.m in Sources */,
+				C92039421797A6890013002E /* FNMultiplayerJoinVC.m in Sources */,
+				C9073D1E1798CD5800A6CD3D /* FNSpinnerCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -810,6 +854,10 @@
 				C9C5307D17934EA900A7A268 /* FNMultiplayerManager.m in Sources */,
 				C90151761794D7EC00D90DF0 /* FNMultiPlayerVC.m in Sources */,
 				C901517A17950B2500D90DF0 /* FNMultiplayerContainer.m in Sources */,
+				C92039331797812B0013002E /* FNMultiplayerHostDelegate.m in Sources */,
+				C9203937179781410013002E /* FNMultiplayerClientDelegate.m in Sources */,
+				C92039431797A6890013002E /* FNMultiplayerJoinVC.m in Sources */,
+				C9073D1F1798CD5800A6CD3D /* FNSpinnerCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

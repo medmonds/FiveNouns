@@ -13,7 +13,6 @@
 #import "FNMultiplayerManager.h"
 
 @interface FNNewGameVC ()
-@property (nonatomic, strong) FNMultiplayerManager *multiplayerManager;
 @property (nonatomic, strong) FNBrain *brain;
 @end
 
@@ -22,18 +21,28 @@
 - (IBAction)newGamePressed
 {
     self.brain = [[FNBrain alloc] init];
+    [[FNMultiplayerManager sharedMultiplayerManager] startServingGame];
     [self performSegueWithIdentifier:@"addPlayers" sender:self];
 }
 
-- (IBAction)resumeGamePressed
-{
-    self.brain = [FNBrain brainFromPreviousGame];
-    [self performSegueWithIdentifier:@"addPlayers" sender:self];
-}
+// this should automatically happen when launched if the last game was not finished
+//- (IBAction)resumeGamePressed
+//{
+//    self.brain = [FNBrain brainFromPreviousGame];
+//    [self performSegueWithIdentifier:@"addPlayers" sender:self];
+//}
 
 - (IBAction)instructionsPressed
 {
-    
+    // get the multiplayerManager and tell it to present the joinVC
+    // when a game is joined then this should segue to the appropriate VC
+    // if the view is cancelled (donePressed) then just return to the main menu
+}
+
+- (IBAction)joinGamePressed:(id)sender
+{
+    UIViewController *joinVC = [[FNMultiplayerManager sharedMultiplayerManager] joinViewController];
+    [self.navigationController pushViewController:joinVC animated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -47,9 +56,6 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
-    // I will want the same manager when I quite the game & Come back to tthis screen so Need to deal with that !!!
-    self.multiplayerManager = [FNMultiplayerManager sharedMultiplayerManager];
-    self.multiplayerManager.hostViewController = self;
     // add this manager to the brain when it is created and then add a pointer to the brain to the currently displayed vc so it can present views when necessary
 }
 
@@ -57,11 +63,6 @@
 {
     [super viewWillAppear:animated];
     //[self.navigationController setNavigationBarHidden:YES];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [self.multiplayerManager authenticateLocalPlayer];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

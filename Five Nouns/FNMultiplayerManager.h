@@ -7,22 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GameKit/GameKit.h>
 
-@class GKMatch;
+@class FNMultiplayerJoinVC;
+
+@protocol FNMultiplayerManagerDelegate <NSObject, GKSessionDelegate>
+- (UIViewController *)viewController;
+- (void)start;
+- (void)stop;
+@end
 
 @interface FNMultiplayerManager : NSObject
 
-@property (nonatomic, weak) UIViewController *hostViewController;
+#define SESSION_ID @"FiveNouns"
+
+@property (nonatomic, strong) GKSession *session;
 
 + (FNMultiplayerManager *)sharedMultiplayerManager;
-
 + (SEL)selectorForMultiplayerView;
 
-- (void)authenticateLocalPlayer;
+- (UIViewController *)joinViewController;
+- (void)startServingGame;
 
-- (BOOL)isMultiplayerEnabled;
-
-// called by the multiplayerVC
-- (void)multiplayerVCDidDisappear;
-
+- (void)delegate:(id <FNMultiplayerManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID;
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToClient:(NSString *)clientPeerID;
+// add disconnect methods
 @end
