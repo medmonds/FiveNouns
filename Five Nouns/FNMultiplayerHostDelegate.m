@@ -16,12 +16,40 @@
 @property (nonatomic, strong) NSMutableArray *connectedClients;
 @property (nonatomic) NSInteger maxConnectedClients;
 @property (nonatomic, strong) GKSession *session;
+//@property (nonatomic, strong) UINavigationController *viewController;
 @property (nonatomic, strong) FNMultiplayerContainer *serverVC;
 @end
 
 
 @implementation FNMultiplayerHostDelegate
 
+#pragma mark - FNMultiplayerManagerDelegate Methods
+
+- (UIViewController *)viewController
+{
+    UINavigationController *nc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"MultiplayerNC"];
+    self.serverVC = nc.childViewControllers[0];
+    self.serverVC.dataSource = self;
+    return nc;
+}
+
+- (void)start
+{
+    self.session = [[GKSession alloc] initWithSessionID:SESSION_ID displayName:nil sessionMode:GKSessionModeServer];
+    self.session.delegate = self;
+    [self.session setDataReceiveHandler:self withContext:nil];
+    self.session.available = YES;
+    self.manager.session = self.session;
+}
+
+- (void)stop
+{
+    self.session.available = NO;
+    [self.session disconnectFromAllPeers];
+    self.session = nil;
+}
+
+#pragma mark - FNMultiplayerHostDelegate Header Methods
 
 - (instancetype)initWithManager:(FNMultiplayerManager *)manager
 {
@@ -29,33 +57,24 @@
     if (!self) {
         return nil;
     }
+    self.maxConnectedClients = 3;
     self.manager = manager;
     return self;
 }
 
-- (UIViewController *)viewController
+- (void)userStartServingGame
 {
-    UINavigationController *nc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"MultiplayerJoinVC"];
-    self.serverVC = nc.childViewControllers[0];
-    return nc;
+    [self.manager startServingGame];
 }
 
-- (void)viewControllerWillAppear
+- (void)userStopServingGame
 {
-    
-}
-
-- (void)viewControllerWasDismissed
-{
-    
-}
-
-- (NSMutableArray *)connectedClients
-{
-    if (!_connectedClients) {
-        _connectedClients = [[NSMutableArray alloc] init];
+    NSInteger count = [self.connectedClients count];
+    for (NSInteger i = 0; i < count; i++) {
+        [self.connectedClients removeObjectAtIndex:i];
+        [self.serverVC deleteClientAtIndex:i];
     }
-    return _connectedClients;
+    [self.manager stopServingGame];
 }
 
 - (NSArray *)connectedClientPeerIDs
@@ -63,17 +82,13 @@
     return [self.connectedClients copy];
 }
 
-- (void)stop
+- (BOOL)isMultiplayerEnabled
 {
-    // implement
-}
-
-- (void)start
-{
-    self.session = [[GKSession alloc] initWithSessionID:SESSION_ID displayName:nil sessionMode:GKSessionModeServer];
-    self.session.delegate = self;
-    self.session.available = YES;
-    self.manager.session = self.session;
+    if (self.session) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (NSInteger)clientsCount
@@ -90,11 +105,51 @@
     return displayName;
 }
 
+- (void)viewControllerWillAppear:(FNMultiplayerContainer *)viewController
+{
+
+}
+
+- (void)viewControllerWasDismissed:(FNMultiplayerContainer *)viewController
+{
+    self.serverVC = nil;
+}
+
+
+#pragma mark - Private Methods
+
+- (NSMutableArray *)connectedClients
+{
+    if (!_connectedClients) {
+        _connectedClients = [[NSMutableArray alloc] init];
+    }
+    return _connectedClients;
+}
+
+
+#pragma mark - GKSessionDelegate Methods
+
+- (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context
+{
+    [self.manager delegate:self didRecieveData:data];
+}
+
+- (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode
+{
+    NSError *error;
+    if (![self.session sendData:data toPeers:[self.connectedClients copy] withDataMode:mode error:&error]) {
+        NSLog(@"Host - Send data to Clients: %@ failed with Error: %@", self.connectedClients, error);
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
 - (void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state
 {
-	NSLog(@"MatchmakingServer: peer %@ changed state %d", peerID, state);
     switch (state) {
         case GKPeerStateConnected:
+            NSLog(@"Server - Peer: %@ changed state to: Connected", peerID);
             if (![self.connectedClients containsObject:peerID]) {
                 [self.connectedClients addObject:peerID];
                 NSInteger index = [self.connectedClients indexOfObject:peerID];
@@ -103,6 +158,7 @@
             break;
             
         case GKPeerStateDisconnected:
+            NSLog(@"Server - Peer: %@ changed state to: Disconnected", peerID);
             if ([self.connectedClients containsObject:peerID]) {
                 NSInteger index = [self.connectedClients indexOfObject:peerID];
                 [self.connectedClients removeObject:peerID];
@@ -111,13 +167,14 @@
             break;
             
         default:
+            NSLog(@"MatchmakingServer: peer %@ changed state %d", peerID, state);
             break;
     }
 }
 
 - (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID
 {
-    if (self.maxConnectedClients < [self.connectedClients count]) {
+    if (self.maxConnectedClients > [self.connectedClients count]) {
         NSError *error;
         if (![self.session acceptConnectionFromPeer:peerID error:&error]) {
             NSLog(@"Multiplayer Host connection request for peerID: %@ failed with error: %@", peerID, error);

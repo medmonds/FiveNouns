@@ -54,13 +54,17 @@
 - (void)startServingGame
 {
     self.isHost = YES;
-    self.sessionDelegate = [[FNMultiplayerHostDelegate alloc] initWithManager:self];
+    if (![self.sessionDelegate isKindOfClass:[FNMultiplayerHostDelegate class]]) {
+        self.sessionDelegate = [[FNMultiplayerHostDelegate alloc] initWithManager:self];
+    }
     [self.sessionDelegate start];
 }
 
 - (void)stopServingGame
 {
-    
+    [self.sessionDelegate stop];
+    self.session = nil;
+    self.isHost = NO;
 }
 
 - (void)browseForGames
@@ -84,11 +88,47 @@
     }];
 }
 
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToClient:(NSString *)clientPeerID
+{
+    
+}
+
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID
+{
+    
+}
+
+-(void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didRecieveData:(NSData *)data
+{
+    
+}
+
+#pragma mark - Private Methods
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 @end
+
+
+
+
+
+
+
+
+
 
 

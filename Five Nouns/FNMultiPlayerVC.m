@@ -9,6 +9,7 @@
 #import "FNMultiPlayerVC.h"
 #import "FNMultiplayerHostDelegate.h"
 #import "FNReorderableCell.h"
+#import "FNMultiplayerContainer.h"
 
 @interface FNMultiPlayerVC ()
 
@@ -26,13 +27,30 @@
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table View Delegate
 
-// should this be in didSelectRowAtIndexPath not shouldSelect? !!!
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NO;
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UILabel *header = [[UILabel alloc] init];
+    header.text = @"Connected Players";
+    header.textColor = [FNAppearance textColorLabel];
+    header.font = [FNAppearance fontWithSize:18];
+    header.backgroundColor = [FNAppearance tableViewBackgroundColor];
+    header.textAlignment = NSTextAlignmentCenter;
+    return header;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 24;
+}
+
+#pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -71,7 +89,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.dataSource viewControllerWillAppear];
 }
 
 - (void)viewDidLoad

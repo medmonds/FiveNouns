@@ -559,15 +559,18 @@
                                     <constraint firstAttribute="height" constant="45" id="jKx-5f-0Oe"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
-                                <state key="normal" title="Stop Hosting Game">
+                                <state key="normal" title="test text">
                                     <color key="titleColor" red="0.91764705879999997" green="0.81568627449999997" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="selected">
+                                    <color key="titleColor" red="0.91764705879999997" green="0.81568627449999997" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.91764705879999997" green="0.81568627449999997" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="stopHostingGamePressed:" destination="59a-Fk-R6r" eventType="touchUpInside" id="3IL-ot-Dfl"/>
+                                    <action selector="toggleMultiplayerServerStatePressed:" destination="59a-Fk-R6r" eventType="touchUpInside" id="ur4-Xf-nG4"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -583,6 +586,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="H8Q-md-fFe"/>
+                    <connections>
+                        <outlet property="multiplayerServerStateToggle" destination="tLA-eG-Vvj" id="nHl-oQ-4do"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXN-D9-kMI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -592,7 +598,7 @@
         <scene sceneID="LoC-Bb-hCE">
             <objects>
                 <tableViewController id="QOx-xw-dr7" customClass="FNMultiPlayerVC" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="YtH-8Y-H2R">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="YtH-8Y-H2R">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -606,7 +612,6 @@
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Team 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ysV-KM-Deo">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="120" id="4Zn-7T-HCY"/>
                                                 <constraint firstAttribute="height" constant="31" id="oLq-OW-RHC"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
@@ -635,6 +640,7 @@
                                     <constraint firstItem="ysV-KM-Deo" firstAttribute="leading" secondItem="cpr-Xj-ET3" secondAttribute="leading" constant="14" type="user" id="9r0-Tb-tkJ"/>
                                     <constraint firstAttribute="centerY" secondItem="ysV-KM-Deo" secondAttribute="centerY" type="user" id="EMQ-OU-vr8"/>
                                     <constraint firstItem="Q7F-Vl-7bw" firstAttribute="top" secondItem="ysV-KM-Deo" secondAttribute="top" type="default" id="v26-Ir-e27"/>
+                                    <constraint firstItem="ysV-KM-Deo" firstAttribute="trailing" secondItem="Q7F-Vl-7bw" secondAttribute="trailing" type="default" id="wSb-lK-qdC"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="button" destination="Q7F-Vl-7bw" id="Qfs-FY-Wxt"/>
@@ -1525,7 +1531,7 @@
         <scene sceneID="cXJ-5u-4XK">
             <objects>
                 <tableViewController storyboardIdentifier="MultiplayerJoinVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gSw-eK-vxV" customClass="FNMultiplayerJoinVC" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="xst-vH-Ew0">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="xst-vH-Ew0">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1537,16 +1543,19 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Team 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjW-1u-sxi">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Team 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="rjW-1u-sxi">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="120" id="Hqh-Q1-pTW"/>
                                                 <constraint firstAttribute="height" constant="31" id="ucr-E8-Hhf"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
                                             <color key="textColor" red="0.91764705879999997" green="0.81568627449999997" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
-                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Gd3-od-ZF1"/>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Gd3-od-ZF1">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="37" id="peQ-q5-kst"/>
+                                            </constraints>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -1555,6 +1564,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Gd3-od-ZF1" secondAttribute="trailing" constant="14" type="user" id="Gns-VB-WR3"/>
                                     <constraint firstItem="rjW-1u-sxi" firstAttribute="leading" secondItem="KMq-V1-iD2" secondAttribute="leading" constant="14" type="user" id="OVT-C1-w3a"/>
                                     <constraint firstAttribute="centerY" secondItem="rjW-1u-sxi" secondAttribute="centerY" type="user" id="Psi-gG-SHr"/>
+                                    <constraint firstItem="Gd3-od-ZF1" firstAttribute="leading" secondItem="rjW-1u-sxi" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="gt5-85-5b0"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="mainTextLabel" destination="rjW-1u-sxi" id="0LR-58-6t9"/>
@@ -1571,7 +1581,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zax-oZ-vH1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3590" y="-3075"/>
+            <point key="canvasLocation" x="-3948" y="-3085"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

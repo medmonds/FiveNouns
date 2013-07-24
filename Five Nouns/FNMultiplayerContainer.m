@@ -9,17 +9,39 @@
 #import "FNMultiplayerContainer.h"
 #import "FNMultiPlayerVC.h"
 #import "FNMultiplayerHostDelegate.h"
+#import "FNButtonRect.h"
 
 @interface FNMultiplayerContainer ()
-
+@property (weak, nonatomic) IBOutlet FNButtonRect *multiplayerServerStateToggle;
 @end
 
 
 @implementation FNMultiplayerContainer
 
-- (IBAction)stopHostingGamePressed:(id)sender
+
+- (IBAction)toggleMultiplayerServerStatePressed:(UIButton *)sender
 {
-    [self.dataSource stopHostingGame];
+    if ([self.dataSource isMultiplayerEnabled]) {
+        [self.dataSource userStopServingGame];
+        [UIView animateWithDuration:.2 animations:^{
+            self.multiplayerServerStateToggle.alpha = 0.2;
+        } completion:^(BOOL finished) {
+            [self.multiplayerServerStateToggle setTitle:@"Start Hosting Game" forState:UIControlStateNormal];
+            [UIView animateWithDuration:.2 animations:^{
+                self.multiplayerServerStateToggle.alpha = 1.0;
+            }];
+        }];
+    } else {
+        [self.dataSource userStartServingGame];
+        [UIView animateWithDuration:.2 animations:^{
+            self.multiplayerServerStateToggle.alpha = 0.2;
+        } completion:^(BOOL finished) {
+            [self.multiplayerServerStateToggle setTitle:@"Stop Hosting Game" forState:UIControlStateNormal];
+            [UIView animateWithDuration:.2 animations:^{
+                self.multiplayerServerStateToggle.alpha = 1.0;
+            }];
+        }];
+    }
 }
 
 - (void)insertClientAtIndex:(NSInteger)index
@@ -35,14 +57,13 @@
 - (void)donePressed
 {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        [self.dataSource viewControllerWasDismissed];
+        [self.dataSource viewControllerWasDismissed:self];
     }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    FNMultiPlayerVC *childVC = self.childViewControllers[0];
-    childVC.dataSource = self.dataSource;
+    ((FNMultiPlayerVC *)segue.destinationViewController).dataSource = self.dataSource;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -56,7 +77,7 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    UIView *navTitle = [FNAppearance navBarTitleWithText:@"Connected Players" forOrientation:self.interfaceOrientation];
+    UIView *navTitle = [FNAppearance navBarTitleWithText:@"Multiplayer" forOrientation:self.interfaceOrientation];
     // need to change the color too !!!
     [navTitle setUserInteractionEnabled:NO];
     self.navigationItem.titleView = navTitle;
@@ -65,7 +86,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIView *navTitle = [FNAppearance navBarTitleWithText:@"Connected Players" forOrientation:self.interfaceOrientation];
+    UIView *navTitle = [FNAppearance navBarTitleWithText:@"Multiplayer" forOrientation:self.interfaceOrientation];
     // need to change the color too !!!
     [navTitle setUserInteractionEnabled:NO];
     self.navigationItem.titleView = navTitle;
@@ -76,10 +97,16 @@
     [self.navigationItem setRightBarButtonItem:done];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillAppear:animated];
+    [self.dataSource viewControllerWillAppear:self];
+    if ([self.dataSource isMultiplayerEnabled]) {
+        [self.multiplayerServerStateToggle setTitle:@"Stop Hosting Game" forState:UIControlStateNormal];
+    } else {
+        [self.multiplayerServerStateToggle setTitle:@"Start Hosting Game" forState:UIControlStateNormal];
+    }
 }
+
 
 @end

@@ -82,7 +82,9 @@
 
 - (void)start
 {
-    self.session = [[GKSession alloc] initWithSessionID:SESSION_ID displayName:nil sessionMode:GKSessionModeClient];
+    if (!self.session) {
+        self.session = [[GKSession alloc] initWithSessionID:SESSION_ID displayName:nil sessionMode:GKSessionModeClient];
+    }
     self.session.delegate = self;
     self.session.available = YES;
     self.manager.session = self.session;
@@ -112,11 +114,35 @@
     [self.manager delegate:self didConnectToServer:peerID];
 }
 
+- (void)didDisconnectFromPeer:(NSString *)peerID
+{
+    NSInteger index = [self.availableServers indexOfObject:peerID];
+    [self.availableServers removeObject:peerID];
+    [self.joinVC deleteAvailableServerAtIndex:index];
+    [self start];
+}
+
+- (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context
+{
+    [self.manager delegate:self didRecieveData:data];
+}
+
+- (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode
+{
+    NSError *error;
+    if (![self.session sendData:data toPeers:@[self.serverPeerID copy] withDataMode:mode error:&error]) {
+        NSLog(@"Client - Send data to Server: %@ failed with Error: %@", self.serverPeerID, error);
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
 - (void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state
 {
-	NSLog(@"MatchmakingServer: peer %@ changed state %d", peerID, state);
     switch (state) {
         case GKPeerStateAvailable:
+            NSLog(@"Client - Peer: %@ changed state to: Available", peerID);
             if (![self.availableServers containsObject:peerID]) {
                 [self.availableServers addObject:peerID];
                 NSInteger index = [self.availableServers indexOfObject:peerID];
@@ -125,6 +151,7 @@
             break;
             
         case GKPeerStateUnavailable:
+            NSLog(@"Client - Peer: %@ changed state to: Unavailable", peerID);
             if ([self.availableServers containsObject:peerID]) {
                 NSInteger index = [self.availableServers indexOfObject:peerID];
                 [self.availableServers removeObject:peerID];
@@ -133,14 +160,18 @@
             break;
             
         case GKPeerStateConnected:
+            NSLog(@"Client - Peer: %@ changed state to: Connected", peerID);
             [self didConnectToPeer:peerID];
             break;
             
         case GKPeerStateDisconnected:
+            NSLog(@"Client Peer: %@ changed state to: Disconnected", peerID);
             // stop sending data etc...
+            [self didDisconnectFromPeer:peerID];
             break;
             
         default:
+            NSLog(@"MatchmakingClient: peer %@ changed state %d", peerID, state);
             break;
     }
 }

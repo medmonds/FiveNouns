@@ -10,21 +10,25 @@
 #import <GameKit/GameKit.h>
 #import "FNMultiplayerManager.h"
 
+@class FNMultiplayerContainer;
+
 @interface FNMultiplayerHostDelegate : NSObject <GKSessionDelegate, FNMultiplayerManagerDelegate>
 
 // the designated initializer
 - (instancetype)initWithManager:(FNMultiplayerManager *)manager;
 
+- (void)userStartServingGame;
+- (void)userStopServingGame;
 // could be a property
 - (NSArray *)connectedClientPeerIDs;
-- (void)startHostingGame;
-- (void)stopHostingGame;
+
 
 // to be used by the UI
+- (BOOL)isMultiplayerEnabled;
 - (NSInteger)clientsCount;
 - (NSString *)displayNameForClientAtIndex:(NSInteger)index;
 
-- (void)viewControllerWillAppear;
-- (void)viewControllerWasDismissed;
+- (void)viewControllerWillAppear:(FNMultiplayerContainer *)viewController;
+- (void)viewControllerWasDismissed:(FNMultiplayerContainer *)viewController;
 
 @end

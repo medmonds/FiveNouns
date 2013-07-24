@@ -45,17 +45,13 @@
     UIView *navTitle = [FNAppearance navBarTitleWithText:@"Join Game" forOrientation:self.interfaceOrientation];
     // need to change the color too !!!
     [navTitle setUserInteractionEnabled:NO];
+    self.navigationItem.rightBarButtonItem = nil;
     self.navigationItem.titleView = navTitle;
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
-    UIBarButtonItem *done = [FNAppearance barButtonItemDismiss];
-    [done setTarget:self];
-    [done setAction:@selector(donePressed)];
-    [self.navigationItem setRightBarButtonItem:done];
 }
 
-- (void)donePressed
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [self.navigationController popViewControllerAnimated:YES];
     [self.dataSource viewControllerWasDismissed];
 }
 
