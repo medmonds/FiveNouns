@@ -9,6 +9,7 @@
 #import "FNDirectionView.h"
 #import "FNAppearance.h"
 #import <QuartzCore/QuartzCore.h>
+#import "FNGameDirections.h"
 
 @interface FNDirectionView ()
 @property (nonatomic, strong) UITextView *textView;
@@ -164,6 +165,7 @@
         partial = [partial stringByAppendingString:@"Four"];
     }
     self.roundLabel.text = partial;
+    self.directions = [FNGameDirections directionsOfType:[FNGameDirections directionsTypeForRound:round]].directions;
 }
 
 - (void)setDirections:(NSString *)directions

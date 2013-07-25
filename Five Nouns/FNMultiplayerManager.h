@@ -10,6 +10,14 @@
 #import <GameKit/GameKit.h>
 
 @class FNMultiplayerJoinVC;
+@class FNBrain;
+@class FNUpdate;
+
+@protocol FNMultiplayerBrain <NSObject>
+
+- (void)didConnectToClient:(NSString *)peerID;
+
+@end
 
 @protocol FNMultiplayerManagerDelegate <NSObject, GKSessionDelegate>
 - (UIViewController *)viewController;
@@ -19,18 +27,25 @@
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode;
 @end
 
+
+
+
 @interface FNMultiplayerManager : NSObject
 
 #define SESSION_ID @"FiveNouns"
-
+@property (nonatomic, weak) FNBrain *brain;
 @property (nonatomic, strong) GKSession *session;
 
 + (FNMultiplayerManager *)sharedMultiplayerManager;
 + (SEL)selectorForMultiplayerView;
 
+- (BOOL)sendUpdate:(FNUpdate *)update;
+
 - (UIViewController *)joinViewController;
 - (void)startServingGame;
 - (void)stopServingGame;
+
+
 - (void)delegate:(id <FNMultiplayerManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID;
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToClient:(NSString *)clientPeerID;
 // add disconnect methods

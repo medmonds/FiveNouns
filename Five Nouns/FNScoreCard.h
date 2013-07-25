@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FNUniqueIDObject.h"
 
 @class FNPlayer;
 
-@interface FNScoreCard : NSObject <NSCoding>
+@interface FNScoreCard : FNUniqueIDObject <NSCoding>
 
 @property (nonatomic, strong) FNPlayer *player;
 @property (nonatomic, strong) NSMutableArray *nounsScored;

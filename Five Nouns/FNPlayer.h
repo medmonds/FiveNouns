@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FNTeam.h"
-@interface FNPlayer : NSObject <NSCoding>
+#import "FNUniqueIDObject.h"
+
+@class FNTeam;
+
+@interface FNPlayer : FNUniqueIDObject <NSCoding>
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSMutableArray *nouns;
 @property (nonatomic, weak) FNTeam *team;
 
 @end
+
+

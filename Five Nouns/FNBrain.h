@@ -7,21 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FNMultiplayerManager.h"
 
 @class FNScoreCard;
 @class FNPlayer;
 @class FNTeam;
 @class FNTurnData;
 
-@interface FNBrain : NSObject <NSCoding>
+@interface FNBrain : NSObject <NSCoding, FNMultiplayerBrain>
 
-//typedef NS_ENUM(NSInteger, FNDirectionsForRound) {
-//    FNDirectionsForRoundOverview,
-//    FNDirectionsForRoundOne,
-//    FNDirectionsForRoundTwo,
-//    FNDirectionsForRoundThree,
-//    FNDirectionsForRoundFour
-//};
 
  
 
@@ -29,18 +23,18 @@
 
 @property (nonatomic, strong) NSMutableArray *allPlayers;
 - (void)addPlayer:(FNPlayer *)player;
+- (void)removePlayer:(FNPlayer *)player;
 - (FNPlayer *)nextPlayer;
 
 @property (nonatomic, strong) NSMutableArray *allTeams;
+- (void)addTeam:(FNTeam *)team;
+- (void)removeTeam:(FNTeam *)team;
 @property (nonatomic, strong) NSArray *teamOrder;
-//- (void)addTeam:(FNTeam *)team;
 
 - (void)addScoreCard:(FNScoreCard *)scoreCard;
 - (NSArray *)allScoreCards;
 
 - (void)returnUnplayedNoun:(NSString *)noun;
-
-- (NSString *)directionsForRound:(NSInteger)round;
 
 - (void)prepareForNewRound;
 

@@ -21,6 +21,7 @@
 - (IBAction)newGamePressed
 {
     self.brain = [[FNBrain alloc] init];
+    [FNMultiplayerManager sharedMultiplayerManager].brain = self.brain;
     [[FNMultiplayerManager sharedMultiplayerManager] startServingGame];
     [self performSegueWithIdentifier:@"addPlayers" sender:self];
 }
@@ -41,6 +42,10 @@
 
 - (IBAction)joinGamePressed:(id)sender
 {
+    if (!self.brain) {
+        self.brain = [[FNBrain alloc] init];
+        [FNMultiplayerManager sharedMultiplayerManager].brain = self.brain;
+    }
     UIViewController *joinVC = [[FNMultiplayerManager sharedMultiplayerManager] joinViewController];
     [self.navigationController pushViewController:joinVC animated:YES];
 }

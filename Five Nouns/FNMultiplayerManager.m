@@ -10,6 +10,8 @@
 #import "FNMultiplayerContainer.h"
 #import "FNMultiplayerHostDelegate.h"
 #import "FNMultiplayerClientDelegate.h"
+#import "FNBrain.h"
+#import "FNUpdate.h"
 
 @interface FNMultiplayerManager ()
 @property (nonatomic) BOOL isHost;
@@ -90,7 +92,8 @@
 
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToClient:(NSString *)clientPeerID
 {
-    
+    // tell the brain that a new client just joined the game so it can get it on the same page
+    [self.brain didConnectToClient:clientPeerID];
 }
 
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID
@@ -98,10 +101,20 @@
     
 }
 
--(void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didRecieveData:(NSData *)data
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didRecieveData:(NSData *)data
 {
-    
+    // for debug !!!
+    [self displayMultiplayerMenuButtonTounched];
 }
+
+- (BOOL)sendUpdate:(FNUpdate *)update
+{
+    return [self.sessionDelegate sendData:[FNUpdate dataForUpdate:update] withDataMode:GKSendDataReliable];
+}
+
+
+
+
 
 #pragma mark - Private Methods
 

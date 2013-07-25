@@ -7,17 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FNUniqueIDObject.h"
 
 @class FNPlayer;
 @class FNScoreCard;
 
-@interface FNTeam : NSObject <NSCoding>
+@interface FNTeam : FNUniqueIDObject <NSCoding>
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSMutableArray *players;
 
 - (void)addPlayer:(FNPlayer *)player;
 - (void)removePlayer:(FNPlayer *)player;
+- (FNPlayer *)nextPlayer;
 - (NSInteger)currentScore;
 - (void)addScoreCard:(FNScoreCard *)scoreCard;
 - (NSArray *)scoreCards;

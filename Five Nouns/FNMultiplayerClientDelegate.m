@@ -86,6 +86,7 @@
         self.session = [[GKSession alloc] initWithSessionID:SESSION_ID displayName:nil sessionMode:GKSessionModeClient];
     }
     self.session.delegate = self;
+    [self.session setDataReceiveHandler:self withContext:nil];
     self.session.available = YES;
     self.manager.session = self.session;
     self.isLookingForServers = YES;
@@ -124,13 +125,14 @@
 
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context
 {
+    NSLog(@"Client - Did receive data from Peer: %@", peer);
     [self.manager delegate:self didRecieveData:data];
 }
 
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode
 {
     NSError *error;
-    if (![self.session sendData:data toPeers:@[self.serverPeerID copy] withDataMode:mode error:&error]) {
+    if (![self.session sendData:data toPeers:@[[self.serverPeerID copy]] withDataMode:mode error:&error]) {
         NSLog(@"Client - Send data to Server: %@ failed with Error: %@", self.serverPeerID, error);
         return NO;
     } else {

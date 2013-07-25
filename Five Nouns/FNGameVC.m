@@ -15,6 +15,7 @@
 #import "FNDirectionView.h"
 #import "FNPausedVC.h"
 #import "FNTurnData.h"
+#import "FNTeam.h"
 
 @interface FNGameVC ()
 @property (nonatomic, weak) NSString *currentNoun;
@@ -161,7 +162,6 @@
 {
     self.directionsVC = [[FNDirectionView alloc] initWithFrame:self.view.bounds];
     self.directionsVC.round = self.currentRound;
-    self.directionsVC.directions = [self.brain directionsForRound:self.currentRound];
     self.directionsVC.alpha = 0.0;
     [self.view addSubview:self.directionsVC];
     [UIView animateWithDuration:0.5 animations:^(void){

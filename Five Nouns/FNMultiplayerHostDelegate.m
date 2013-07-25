@@ -131,16 +131,19 @@
 
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context
 {
+    NSLog(@"Host - Did receive data from Peer: %@", peer);
     [self.manager delegate:self didRecieveData:data];
 }
 
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode
 {
+    sleep(2);
     NSError *error;
-    if (![self.session sendData:data toPeers:[self.connectedClients copy] withDataMode:mode error:&error]) {
+    if (![self.session sendData:data toPeers:self.connectedClients withDataMode:mode error:&error]) {
         NSLog(@"Host - Send data to Clients: %@ failed with Error: %@", self.connectedClients, error);
         return NO;
     } else {
+        NSLog(@"Host - Sent data to Clients: %@", self.connectedClients);
         return YES;
     }
 }
@@ -154,6 +157,7 @@
                 [self.connectedClients addObject:peerID];
                 NSInteger index = [self.connectedClients indexOfObject:peerID];
                 [self.serverVC insertClientAtIndex:index];
+                [self.manager delegate:self didConnectToClient:peerID];
             }
             break;
             
@@ -178,9 +182,6 @@
         NSError *error;
         if (![self.session acceptConnectionFromPeer:peerID error:&error]) {
             NSLog(@"Multiplayer Host connection request for peerID: %@ failed with error: %@", peerID, error);
-        } else {
-            [self.manager delegate:self didConnectToClient:peerID];
-            NSLog(@"Multiplayer Host connected to peerID: %@", peerID);
         }
     } else {
         [self.session denyConnectionFromPeer:peerID];

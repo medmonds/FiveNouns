@@ -12,6 +12,7 @@
 #import "FNBrain.h"
 #import "FNSelectableCell.h"
 #import "FNEditableCell.h"
+#import "FNTeam.h"
 
 @interface FNTVAddPlayerDelegate () <UITextFieldDelegate>
 @property (nonatomic, strong) FNPlayer *player;

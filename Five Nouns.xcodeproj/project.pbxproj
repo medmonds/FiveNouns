@@ -112,6 +112,8 @@
 		C9B2607E1772A22F009DBBC9 /* FNPausedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */; };
 		C9B40EE7171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
 		C9B40EE8171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
+		C9B68990179F72B800003760 /* FNUniqueIDObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B6898F179F72B800003760 /* FNUniqueIDObject.m */; };
+		C9B68991179F72B800003760 /* FNUniqueIDObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B6898F179F72B800003760 /* FNUniqueIDObject.m */; };
 		C9BAFAF9175AEB1C00C908A6 /* FNScoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */; };
 		C9BAFAFA175AEB1C00C908A6 /* FNScoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */; };
 		C9C05663178A215400735AEA /* cellBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C0565B178A215300735AEA /* cellBottom.png */; };
@@ -143,6 +145,8 @@
 		C9F1E3631792233C00F1237E /* FNMaxFontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E3611792233C00F1237E /* FNMaxFontLabel.m */; };
 		C9F1E36617924D6200F1237E /* FNTurnData.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E36517924D6200F1237E /* FNTurnData.m */; };
 		C9F1E36717924D6200F1237E /* FNTurnData.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E36517924D6200F1237E /* FNTurnData.m */; };
+		C9F9EF1D17A0C79000A83EE6 /* FNUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F9EF1C17A0C79000A83EE6 /* FNUpdate.m */; };
+		C9F9EF1E17A0C79000A83EE6 /* FNUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F9EF1C17A0C79000A83EE6 /* FNUpdate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,6 +268,8 @@
 		C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNPausedVC.m; path = ../FNPausedVC.m; sourceTree = "<group>"; };
 		C9B40EE5171A1CC100619D57 /* FNNewGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNNewGameVC.h; sourceTree = "<group>"; };
 		C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNNewGameVC.m; sourceTree = "<group>"; };
+		C9B6898E179F72B800003760 /* FNUniqueIDObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNUniqueIDObject.h; sourceTree = "<group>"; };
+		C9B6898F179F72B800003760 /* FNUniqueIDObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNUniqueIDObject.m; sourceTree = "<group>"; };
 		C9BAFAF7175AEB1C00C908A6 /* FNScoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNScoreVC.h; sourceTree = "<group>"; };
 		C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNScoreVC.m; sourceTree = "<group>"; };
 		C9C0565B178A215300735AEA /* cellBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellBottom.png; sourceTree = "<group>"; };
@@ -298,6 +304,8 @@
 		C9F1E3611792233C00F1237E /* FNMaxFontLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMaxFontLabel.m; sourceTree = "<group>"; };
 		C9F1E36417924D6200F1237E /* FNTurnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNTurnData.h; sourceTree = "<group>"; };
 		C9F1E36517924D6200F1237E /* FNTurnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTurnData.m; sourceTree = "<group>"; };
+		C9F9EF1B17A0C79000A83EE6 /* FNUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNUpdate.h; sourceTree = "<group>"; };
+		C9F9EF1C17A0C79000A83EE6 /* FNUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNUpdate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,6 +396,8 @@
 				C993E3041728DC0A00C37DB8 /* FNAppearance.m */,
 				C99279E1171932510035658F /* FNBrain.h */,
 				C99279E2171932510035658F /* FNBrain.m */,
+				C9F9EF1B17A0C79000A83EE6 /* FNUpdate.h */,
+				C9F9EF1C17A0C79000A83EE6 /* FNUpdate.m */,
 				C9C5307A17934EA900A7A268 /* FNMultiplayerManager.h */,
 				C9C5307B17934EA900A7A268 /* FNMultiplayerManager.m */,
 				C92039301797812B0013002E /* FNMultiplayerHostDelegate.h */,
@@ -407,6 +417,8 @@
 				C993E2F11728C4F700C37DB8 /* Buttons */,
 				C9F04F16171A283500AAAF75 /* Table View Cells */,
 				C91B8D9D171A1E8B00AE468C /* View Controllers */,
+				C9B6898E179F72B800003760 /* FNUniqueIDObject.h */,
+				C9B6898F179F72B800003760 /* FNUniqueIDObject.m */,
 				C99279E517193AAD0035658F /* FNPlayer.h */,
 				C99279E617193AAD0035658F /* FNPlayer.m */,
 				C9F04F21171A69EA00AAAF75 /* FNTeam.h */,
@@ -810,6 +822,8 @@
 				C9203936179781410013002E /* FNMultiplayerClientDelegate.m in Sources */,
 				C92039421797A6890013002E /* FNMultiplayerJoinVC.m in Sources */,
 				C9073D1E1798CD5800A6CD3D /* FNSpinnerCell.m in Sources */,
+				C9B68990179F72B800003760 /* FNUniqueIDObject.m in Sources */,
+				C9F9EF1D17A0C79000A83EE6 /* FNUpdate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,6 +872,8 @@
 				C9203937179781410013002E /* FNMultiplayerClientDelegate.m in Sources */,
 				C92039431797A6890013002E /* FNMultiplayerJoinVC.m in Sources */,
 				C9073D1F1798CD5800A6CD3D /* FNSpinnerCell.m in Sources */,
+				C9B68991179F72B800003760 /* FNUniqueIDObject.m in Sources */,
+				C9F9EF1E17A0C79000A83EE6 /* FNUpdate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

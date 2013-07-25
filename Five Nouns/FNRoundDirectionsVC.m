@@ -37,7 +37,7 @@
 
 - (void)configureDirectionsView
 {
-    NSString *directions = [self.brain directionsForRound:self.round];
+    NSString *directions = @"This is depricated"; //= [self.brain directionsForRound:self.round];
     CGSize textViewWidth = CGSizeMake(self.view.frame.size.width - 20, 420);
     CGSize textSize = [directions sizeWithFont:self.directionsTextView.font
                              constrainedToSize:textViewWidth

@@ -65,7 +65,6 @@
 {
     self.directionsVC = [[FNDirectionView alloc] initWithFrame:self.view.bounds];
     self.directionsVC.round = self.round;
-    self.directionsVC.directions = [self.brain directionsForRound:self.round];
     self.directionsVC.alpha = 0.0;
     [self.view addSubview:self.directionsVC];
     [UIView animateWithDuration:0.5 animations:^(void){

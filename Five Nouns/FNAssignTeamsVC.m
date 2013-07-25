@@ -15,7 +15,7 @@
 #import "FMMoveTableView.h"
 #import "FNNextUpVC.h"
 #import "FNBrain.h"
-
+#import "FNTeam.h"
 
 @interface FNAssignTeamsVC ()
 //@property (nonatomic, strong) NSMutableArray *teams;

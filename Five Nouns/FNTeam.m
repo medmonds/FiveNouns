@@ -46,6 +46,18 @@
     //player.team = nil;
 }
 
+- (FNPlayer *)nextPlayer
+{
+    if ([self.players count] == 0) {
+        return nil;
+    }
+    // rotate players
+    FNPlayer *nextPlayer = self.players[0];
+    [self.players removeObjectAtIndex:0];
+    [self.players addObject:nextPlayer];
+    return nextPlayer;
+}
+
 - (NSInteger)currentScore
 {
     NSInteger currentScore = 0;

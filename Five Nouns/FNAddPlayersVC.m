@@ -55,8 +55,8 @@
 
 - (void)addPlayer
 {
-    [self toggleAddPlayerSavingCurrentPlayer:NO];
-    //[self addDummyData];
+    //[self toggleAddPlayerSavingCurrentPlayer:NO];
+    [self addDummyData];
 }
 
 #pragma mark - Text Field Delegate
