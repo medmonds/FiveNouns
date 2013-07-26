@@ -17,6 +17,8 @@
 @property (nonatomic) BOOL isHost;
 @property (nonatomic, strong) FNMultiplayerContainer *multiplayerVC;
 @property (nonatomic, strong) id <FNMultiplayerManagerDelegate> sessionDelegate;
+@property (nonatomic, strong) NSString *server;
+@property (nonatomic, strong) NSMutableSet *clients;
 @end
 
 
@@ -29,6 +31,14 @@
         return nil;
     }
     return self;
+}
+
+- (NSMutableSet *)clients
+{
+    if (!_clients) {
+        _clients = [[NSMutableSet alloc] initWithCapacity:3]; // the maximum connected clients...!!!
+    }
+    return _clients;
 }
 
 - (UIViewController *)joinViewController
@@ -93,22 +103,26 @@
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToClient:(NSString *)clientPeerID
 {
     // tell the brain that a new client just joined the game so it can get it on the same page
+    [self.clients addObject:clientPeerID];
     [self.brain didConnectToClient:clientPeerID];
 }
 
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID
 {
-    
+    self.server = serverPeerID;
 }
 
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didRecieveData:(NSData *)data
 {
-    // for debug !!!
-    [self displayMultiplayerMenuButtonTounched];
+    [self.brain handleUpdate:[FNUpdate updateForData:data]];
 }
 
 - (BOOL)sendUpdate:(FNUpdate *)update
 {
+    if ([self.clients count] == 0 && !self.server) {
+        // should this return YES? !!!
+        return YES;
+    }
     return [self.sessionDelegate sendData:[FNUpdate dataForUpdate:update] withDataMode:GKSendDataReliable];
 }
 

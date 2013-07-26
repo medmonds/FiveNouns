@@ -137,7 +137,6 @@
 
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode
 {
-    sleep(2);
     NSError *error;
     if (![self.session sendData:data toPeers:self.connectedClients withDataMode:mode error:&error]) {
         NSLog(@"Host - Send data to Clients: %@ failed with Error: %@", self.connectedClients, error);

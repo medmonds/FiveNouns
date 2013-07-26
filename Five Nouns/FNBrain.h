@@ -14,10 +14,14 @@
 @class FNTeam;
 @class FNTurnData;
 
+typedef NS_ENUM(NSInteger, FNGameStatus) {
+    FNGameStatusNotStarted,
+    FNGameStatusStarted,
+    FNGameStatusTurnInProgress,
+};
+
+
 @interface FNBrain : NSObject <NSCoding, FNMultiplayerBrain>
-
-
- 
 
 - (NSString *)noun;
 
@@ -37,12 +41,15 @@
 - (void)returnUnplayedNoun:(NSString *)noun;
 
 - (void)prepareForNewRound;
+- (void)gameStatus:(FNGameStatus)status;
 
 - (void)saveCurrentTurn:(FNTurnData *)turn;
 
 - (void)saveGameData;
 
 + (FNBrain *)brainFromPreviousGame;
+
+- (void)handleUpdate:(FNUpdate *)newUpdate;
 
 @end
 

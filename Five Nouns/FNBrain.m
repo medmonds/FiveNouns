@@ -16,13 +16,16 @@
 @property (nonatomic, strong) NSMutableSet *unplayedNouns;
 @property (nonatomic, strong) NSMutableSet *playedNouns;
 @property (nonatomic, strong) NSMutableArray *scoreCards;
+@property (nonatomic, strong) NSNumber *gameStatus;
 @end
 
-static NSString * const FNAllTeams = @"allTeams";
-static NSString * const FNTeamOrder = @"teamOrder";
-static NSString * const FNAllPlayers = @"allPlayers";
-static NSString * const FNScoreCards = @"scoreCards";
-
+static NSString * const AllTeamsKey = @"allTeams";
+static NSString * const TeamOrderKey = @"teamOrder";
+static NSString * const AllPlayersKey = @"allPlayers";
+static NSString * const ScoreCardsKey = @"scoreCards";
+static NSString * const UnplayedNounsKey = @"unplayedNouns";
+static NSString * const PlayedNounsKey = @"playedNouns";
+static NSString * const GameStatusKey = @"gameStatus";
 
 @implementation FNBrain
 
@@ -76,6 +79,8 @@ static NSString * const FNScoreCards = @"scoreCards";
     return noun;
 }
 
+#pragma mark - Players
+
 - (NSMutableArray *)allPlayers
 {
     if (!_allPlayers) {
@@ -84,12 +89,42 @@ static NSString * const FNScoreCards = @"scoreCards";
     return _allPlayers;
 }
 
+- (NSUInteger)countOfAllPlayers
+{
+    return [self.allPlayers count];
+}
+
+- (FNPlayer *)objectInAllPlayersAtIndex:(NSUInteger)index
+{
+    return [self.allPlayers objectAtIndex:index];
+}
+
+- (void)insertObject:(FNPlayer *)object inAllPlayersAtIndex:(NSUInteger)index
+{
+    [self.allPlayers insertObject:object atIndex:index];
+}
+
+- (void)removeObjectFromAllPlayersAtIndex:(NSUInteger)index
+{
+    [self.allPlayers removeObjectAtIndex:index];
+}
+
 - (void)addPlayer:(FNPlayer *)player
 {
-    // incomplete implementation need to get the nous from the new player and whatever else...
-    [self.allPlayers addObject:player];
+    [self insertObject:player inAllPlayersAtIndex:[self.allPlayers count]];
     [self.unplayedNouns addObjectsFromArray:player.nouns];
+    FNUpdate *update = [[FNUpdate alloc] init];
+    update.updateType = FNUpdateTypePlayerAdd;
+    update.valueNew = player;
+    [self sendUpdate:update];
 }
+
+- (void)removePlayer:(FNPlayer *)player
+{
+    
+}
+
+#pragma mark - Teams
 
 - (NSMutableArray *)allTeams
 {
@@ -124,31 +159,41 @@ static NSString * const FNScoreCards = @"scoreCards";
     return cards;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    self.gameStatus = @(FNGameStatusNotStarted);
+    return self;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super init];
     if (!self) {
         return nil;
     }
-    
-    self.allPlayers = [aDecoder decodeObjectForKey:@"allPlayers"];
-    self.allTeams = [aDecoder decodeObjectForKey:@"allTeams"];
-    self.teamOrder = [aDecoder decodeObjectForKey:@"teamOrder"];
-    self.unplayedNouns = [aDecoder decodeObjectForKey:@"unplayedNouns"];
-    self.playedNouns = [aDecoder decodeObjectForKey:@"playedNouns"];
-    self.scoreCards = [aDecoder decodeObjectForKey:@"scoreCards"];
-    
+    self.allPlayers = [aDecoder decodeObjectForKey:AllPlayersKey];
+    self.allTeams = [aDecoder decodeObjectForKey:AllTeamsKey];
+    self.teamOrder = [aDecoder decodeObjectForKey:TeamOrderKey];
+    self.unplayedNouns = [aDecoder decodeObjectForKey:UnplayedNounsKey];
+    self.playedNouns = [aDecoder decodeObjectForKey:PlayedNounsKey];
+    self.scoreCards = [aDecoder decodeObjectForKey:ScoreCardsKey];
+    self.gameStatus = [aDecoder decodeObjectForKey:GameStatusKey];
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:self.allPlayers forKey:@"allPlayers"];
-    [aCoder encodeObject:self.allTeams forKey:@"allTeams"];
-    [aCoder encodeObject:self.teamOrder forKey:@"teamOrder"];
-    [aCoder encodeObject:self.unplayedNouns forKey:@"unplayedNouns"];
-    [aCoder encodeObject:self.playedNouns forKey:@"playedNouns"];
-    [aCoder encodeObject:self.scoreCards forKey:@"scoreCards"];
+    [aCoder encodeObject:self.allPlayers forKey:AllPlayersKey];
+    [aCoder encodeObject:self.allTeams forKey:AllTeamsKey];
+    [aCoder encodeObject:self.teamOrder forKey:TeamOrderKey];
+    [aCoder encodeObject:self.unplayedNouns forKey:UnplayedNounsKey];
+    [aCoder encodeObject:self.playedNouns forKey:PlayedNounsKey];
+    [aCoder encodeObject:self.scoreCards forKey:ScoreCardsKey];
+    [aCoder encodeObject:self.gameStatus forKey:GameStatusKey];
 }
 
 - (void)saveCurrentTurn:(FNTurnData *)turn
@@ -192,7 +237,11 @@ static NSString * const FNScoreCards = @"scoreCards";
     NSData *teamOrder = [NSKeyedArchiver archivedDataWithRootObject:self.teamOrder];
     NSData *allPlayers = [NSKeyedArchiver archivedDataWithRootObject:self.allPlayers];
     NSData *scoreCards = [NSKeyedArchiver archivedDataWithRootObject:self.scoreCards];
-    NSDictionary *gameState = @{FNAllTeams : allTeams, FNTeamOrder : teamOrder, FNAllPlayers : allPlayers, FNScoreCards : scoreCards};
+    NSData *unplayedNouns = [NSKeyedArchiver archivedDataWithRootObject:self.unplayedNouns];
+    NSData *playedNouns = [NSKeyedArchiver archivedDataWithRootObject:self.playedNouns];
+    NSData *gameStatus = [NSKeyedArchiver archivedDataWithRootObject:self.gameStatus];
+    
+    NSDictionary *gameState = @{AllTeamsKey : allTeams, TeamOrderKey : teamOrder, AllPlayersKey : allPlayers, ScoreCardsKey : scoreCards, UnplayedNounsKey : unplayedNouns, PlayedNounsKey : playedNouns, GameStatusKey : gameStatus};
     return gameState;
 }
 
@@ -201,9 +250,55 @@ static NSString * const FNScoreCards = @"scoreCards";
     FNUpdate *update = [[FNUpdate alloc] init];
     update.updateType = FNUpdateTypeEverything;
     update.valueNew = [self currentGameState];
+    [self sendUpdate:update];
+    // need to handle if this send fails well if all sends fail i guess !!!
+}
+
+- (void)sendUpdate:(FNUpdate *)update
+{
     BOOL success = [[FNMultiplayerManager sharedMultiplayerManager] sendUpdate:update];
 }
 
+- (void)handleUpdate:(FNUpdate *)update
+{
+    switch (update.updateType) {
+        case FNUpdateTypeEverything: {
+            // Just received a wholesale update from the game server
+            [update.valueNew enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+                [self setValue:obj forKey:key];
+            }];
+            [self updateUIForGameStatus];
+            break;
+        }
+        case FNUpdateTypePlayerAdd: {
+            [self.allPlayers addObject:update.valueNew];
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
+- (void)updateUIForGameStatus
+{
+    switch ([self.gameStatus integerValue]) {
+        case FNGameStatusNotStarted:
+            // trigger a segue to the addPlayers Screen
+            break;
+            
+        case FNGameStatusStarted:
+            // trigger a segue to the NextUp Screen
+            break;
+            
+        case FNGameStatusTurnInProgress:
+            // trigger a segue to the gameVC
+            break;
+            
+        default:
+            break;
+    }
+}
 
 
 @end

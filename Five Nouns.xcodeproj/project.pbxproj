@@ -27,6 +27,8 @@
 		C9203937179781410013002E /* FNMultiplayerClientDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9203935179781410013002E /* FNMultiplayerClientDelegate.m */; };
 		C92039421797A6890013002E /* FNMultiplayerJoinVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039411797A6890013002E /* FNMultiplayerJoinVC.m */; };
 		C92039431797A6890013002E /* FNMultiplayerJoinVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039411797A6890013002E /* FNMultiplayerJoinVC.m */; };
+		C94F0C5817A226B300DBF2B9 /* THObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C94F0C5317A226B300DBF2B9 /* THObserver.m */; };
+		C94F0C5917A226B300DBF2B9 /* THObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C94F0C5317A226B300DBF2B9 /* THObserver.m */; };
 		C95DD934177D20B0009EF626 /* FNTVDirectionsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */; };
 		C95DD935177D20B0009EF626 /* FNTVDirectionsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */; };
 		C9649E411718B7390039B88E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E401718B7390039B88E /* UIKit.framework */; };
@@ -180,6 +182,10 @@
 		C9203935179781410013002E /* FNMultiplayerClientDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiplayerClientDelegate.m; sourceTree = "<group>"; };
 		C92039401797A6890013002E /* FNMultiplayerJoinVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMultiplayerJoinVC.h; sourceTree = "<group>"; };
 		C92039411797A6890013002E /* FNMultiplayerJoinVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiplayerJoinVC.m; sourceTree = "<group>"; };
+		C94F0C5217A226B300DBF2B9 /* THObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THObserver.h; sourceTree = "<group>"; };
+		C94F0C5317A226B300DBF2B9 /* THObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THObserver.m; sourceTree = "<group>"; };
+		C94F0C5417A226B300DBF2B9 /* THObserversAndBinders-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "THObserversAndBinders-Prefix.pch"; sourceTree = "<group>"; };
+		C94F0C5517A226B300DBF2B9 /* THObserversAndBinders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THObserversAndBinders.h; sourceTree = "<group>"; };
 		C95DA6B31730C600004F2841 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C95DD932177D20B0009EF626 /* FNTVDirectionsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNTVDirectionsDelegate.h; sourceTree = "<group>"; };
 		C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTVDirectionsDelegate.m; sourceTree = "<group>"; };
@@ -354,6 +360,17 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
+		C94F0C5A17A226BA00DBF2B9 /* THObservers */ = {
+			isa = PBXGroup;
+			children = (
+				C94F0C5217A226B300DBF2B9 /* THObserver.h */,
+				C94F0C5317A226B300DBF2B9 /* THObserver.m */,
+				C94F0C5417A226B300DBF2B9 /* THObserversAndBinders-Prefix.pch */,
+				C94F0C5517A226B300DBF2B9 /* THObserversAndBinders.h */,
+			);
+			name = THObservers;
+			sourceTree = "<group>";
+		};
 		C9649E311718B7390039B88E = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +430,7 @@
 				C9C05671178A2FBC00735AEA /* SSDrawingUtilities.m */,
 				C9F1E3601792233C00F1237E /* FNMaxFontLabel.h */,
 				C9F1E3611792233C00F1237E /* FNMaxFontLabel.m */,
+				C94F0C5A17A226BA00DBF2B9 /* THObservers */,
 				C97F67411743132100D5E9BC /* Move Table View */,
 				C993E2F11728C4F700C37DB8 /* Buttons */,
 				C9F04F16171A283500AAAF75 /* Table View Cells */,
@@ -824,6 +842,7 @@
 				C9073D1E1798CD5800A6CD3D /* FNSpinnerCell.m in Sources */,
 				C9B68990179F72B800003760 /* FNUniqueIDObject.m in Sources */,
 				C9F9EF1D17A0C79000A83EE6 /* FNUpdate.m in Sources */,
+				C94F0C5817A226B300DBF2B9 /* THObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -874,6 +893,7 @@
 				C9073D1F1798CD5800A6CD3D /* FNSpinnerCell.m in Sources */,
 				C9B68991179F72B800003760 /* FNUniqueIDObject.m in Sources */,
 				C9F9EF1E17A0C79000A83EE6 /* FNUpdate.m in Sources */,
+				C94F0C5917A226B300DBF2B9 /* THObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

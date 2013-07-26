@@ -19,6 +19,20 @@
 
 @implementation FNAddPlayersVC
 
+/*
+ have to add and remove players in the brain in a KVO compliant manner
+ 
+ 
+KVO for UI updates:
+ 
+ observe the allPlayers Keypath on the brain and get the new values only then compare them to my working model
+ so I need to keep a local data model to work off of
+ if a player was added then add it
+ if a player was removed then remove it
+ 
+*/
+
+
 - (FNPlayer *)currentPlayer
 {
     if (!_currentPlayer) {
@@ -55,8 +69,8 @@
 
 - (void)addPlayer
 {
-    //[self toggleAddPlayerSavingCurrentPlayer:NO];
-    [self addDummyData];
+    [self toggleAddPlayerSavingCurrentPlayer:NO];
+    //[self addDummyData];
 }
 
 #pragma mark - Text Field Delegate
