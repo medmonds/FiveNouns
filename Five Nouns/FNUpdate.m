@@ -10,6 +10,16 @@
 
 @implementation FNUpdate
 
++ (FNUpdate *)updateForObject:(id)updatedObjectID updateType:(FNUpdateType)updateType valueNew:(id)valueNew valueOld:(id)valueOld
+{
+    FNUpdate *update = [[FNUpdate alloc] init];
+    update.updatedObjectID = updatedObjectID;
+    update.updateType = updateType;
+    update.valueNew = valueNew;
+    update.valueOld = valueOld;
+    return update;
+}
+
 + (NSData *)dataForUpdate:(FNUpdate *)update
 {
     return [NSKeyedArchiver archivedDataWithRootObject:update];

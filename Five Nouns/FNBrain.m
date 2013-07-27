@@ -113,15 +113,15 @@ static NSString * const GameStatusKey = @"gameStatus";
 {
     [self insertObject:player inAllPlayersAtIndex:[self.allPlayers count]];
     [self.unplayedNouns addObjectsFromArray:player.nouns];
-    FNUpdate *update = [[FNUpdate alloc] init];
-    update.updateType = FNUpdateTypePlayerAdd;
-    update.valueNew = player;
+    FNUpdate *update = [FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerAdd valueNew:player valueOld:nil];
     [self sendUpdate:update];
 }
 
 - (void)removePlayer:(FNPlayer *)player
 {
-    
+    [self removeObjectFromAllPlayersAtIndex:[self.allPlayers indexOfObject:player]];
+    FNUpdate *update = [FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerRemove valueNew:nil valueOld:player];
+    [self sendUpdate:update];
 }
 
 #pragma mark - Teams
@@ -271,7 +271,11 @@ static NSString * const GameStatusKey = @"gameStatus";
             break;
         }
         case FNUpdateTypePlayerAdd: {
-            [self.allPlayers addObject:update.valueNew];
+            [self addPlayer:update.valueNew];
+            break;
+        }
+        case FNUpdateTypePlayerRemove: {
+            [self removePlayer:update.valueOld];
             break;
         }
             

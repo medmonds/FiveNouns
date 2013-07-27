@@ -10,11 +10,16 @@
 #import "FNBrain.h"
 #import "FNPlayer.h"
 #import "FNPlainCell.h"
+#import "THObserver.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface FNAddPlayersVC ()
 @property BOOL addPlayerIsVisible;
 @property (nonatomic, strong) FNPlayer *currentPlayer;
 @property (nonatomic, weak) UITableViewCell *cellShowingDelete;
+@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) THObserver *observer;
+@property (nonatomic, strong) NSMutableArray *cellBackgrounds;
 @end
 
 @implementation FNAddPlayersVC
@@ -32,6 +37,79 @@ KVO for UI updates:
  
 */
 
+- (NSMutableArray *)cellBackgrounds
+{
+    if (!_cellBackgrounds) {
+        _cellBackgrounds = [[NSMutableArray alloc] init];
+    }
+    return _cellBackgrounds;
+}
+
+- (void)setupDataSource
+{
+    self.dataSource = [self.brain.allPlayers mutableCopy];
+    self.observer = [THObserver observerForObject:self.brain keyPath:@"allPlayers" options:NSKeyValueObservingOptionNew target:self action:@selector(actionForObject:keyPath:change:)];
+}
+
+- (void)actionForObject:(id)object keyPath:(NSString *)keyPath change:(NSDictionary *)changeDictionary
+{
+    NSLog(@"It Worked");
+    NSKeyValueChange change = [[changeDictionary objectForKey:NSKeyValueChangeKindKey] integerValue];
+    NSIndexSet *indexes = [changeDictionary objectForKey:NSKeyValueChangeIndexesKey];
+    NSInteger section = [self numberOfSectionsInTableView:self.tableView] - 1;
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [self refreshCells];
+    }];
+    [self.tableView beginUpdates];
+    switch (change) {
+        case NSKeyValueChangeInsertion: {
+            NSArray *inserted = [changeDictionary objectForKey:NSKeyValueChangeNewKey];
+            [self.dataSource insertObjects:inserted atIndexes:indexes];
+            NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:[indexes count]];
+            [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+                [indexPaths addObject:[NSIndexPath indexPathForRow:idx inSection:section]];
+            }];
+            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+            break;
+        }
+        case NSKeyValueChangeRemoval: {
+            [self.dataSource removeObjectsAtIndexes:indexes];
+            NSMutableArray *toRemove = [[NSMutableArray alloc] initWithCapacity:[indexes count]];
+            [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+                [toRemove addObject:[NSIndexPath indexPathForRow:idx inSection:section]];
+            }];
+            [self.tableView deleteRowsAtIndexPaths:toRemove withRowAnimation:UITableViewRowAnimationTop];
+            break;
+        }
+        case NSKeyValueChangeReplacement: {
+            NSArray *replacements = [changeDictionary objectForKey:NSKeyValueChangeNewKey];
+            [self.dataSource replaceObjectsAtIndexes:indexes withObjects:replacements];
+            NSMutableArray *toReplace = [[NSMutableArray alloc] initWithCapacity:[indexes count]];
+            [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+                [toReplace addObject:[NSIndexPath indexPathForRow:idx inSection:section]];
+            }];
+            [self.tableView reloadRowsAtIndexPaths:toReplace withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        }
+        default:
+            break;
+    }
+    [self.tableView endUpdates];
+    [CATransaction commit];
+}
+
+- (void)refreshCells
+{
+    NSIndexPath *indexPath;
+    for (UITableViewCell *cell in [self.tableView visibleCells]) {
+        if ([cell isKindOfClass:[FNPlainCell class]]) {
+            indexPath = [self.tableView indexPathForCell:cell];
+            [super setBackgroundForCell:cell atIndexPath:indexPath];
+            ((FNPlainCell*)cell).showCellSeparator = [self showCellSeparatorForIndexPath:indexPath];
+        }
+    }
+}
 
 - (FNPlayer *)currentPlayer
 {
@@ -41,7 +119,6 @@ KVO for UI updates:
     }
     return _currentPlayer;
 }
-
 
 #pragma mark - Actions
 
@@ -70,7 +147,7 @@ KVO for UI updates:
 - (void)addPlayer
 {
     [self toggleAddPlayerSavingCurrentPlayer:NO];
-    //[self addDummyData];
+    [self addDummyData];
 }
 
 #pragma mark - Text Field Delegate
@@ -89,24 +166,16 @@ KVO for UI updates:
 
 - (void)toggleAddPlayerSavingCurrentPlayer:(BOOL)save
 {
-    // to change the bottom cell background to flat bottomed before the new cell is inserted
-    if ([self.brain.allPlayers count] > 0 && save) {
-        NSIndexPath *indexFor2ndToBottom =[NSIndexPath indexPathForRow:[self.brain.allPlayers count] - 1 inSection:1];
-        [self.tableView reloadRowsAtIndexPaths:@[indexFor2ndToBottom] withRowAnimation:UITableViewRowAnimationNone];
-    }
     [self.tableView beginUpdates];
     if (!self.addPlayerIsVisible) {
         self.addPlayerIsVisible = YES;
         [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
     } else {
-        self.addPlayerIsVisible = NO; // why do I need to set this? !!!
-        if (save) {
-            // save the currentPlayer and add it to the table view
-            [self.brain addPlayer:self.currentPlayer];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.brain.allPlayers indexOfObject:self.currentPlayer] inSection:0];
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
-        }
+        self.addPlayerIsVisible = NO;
         [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+        if (save) {
+            [self.brain addPlayer:self.currentPlayer];
+        }
     }
     [self.tableView endUpdates];
 }
@@ -157,17 +226,20 @@ KVO for UI updates:
 // to allow deteing players
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    if (self.addPlayerIsVisible && indexPath.section == 1) {
+        return YES;
+    } else if (!self.addPlayerIsVisible && indexPath.section == 0) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 // deletes the player
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.tableView beginUpdates];
-        [self.brain.allPlayers removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
+        [self.brain removePlayer:self.dataSource[indexPath.row]];
     }
 }
 
@@ -187,14 +259,14 @@ KVO for UI updates:
         if (self.addPlayerIsVisible) {
             return 7;
         }
-        return [self.brain.allPlayers count];
+        return [self.dataSource count];
     }
-    return [self.brain.allPlayers count];
+    return [self.dataSource count];
 }
 
 - (UITableViewCell *)configureNameCellForIndexPath:(NSIndexPath *)indexPath
 {
-    FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
+    FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD forIndexPath:indexPath];
     cell.mainTextLabel.text = @"name:";
     cell.detailTextField.text = self.currentPlayer.name;
     cell.detailTextField.tag = indexPath.row - 1;
@@ -208,7 +280,7 @@ KVO for UI updates:
 
 - (UITableViewCell *)configureNounCellForIndexPath:(NSIndexPath *)indexPath
 {
-    FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD];
+    FNEditableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_TEXT_FIELD forIndexPath:indexPath];
     // if it is the 1st noun show the "nouns" label
     if (indexPath.row == 1) {
         [cell.mainTextLabel setText:@"nouns:"];
@@ -232,7 +304,7 @@ KVO for UI updates:
 
 - (UITableViewCell *)configureSaveCellForIndexPath:(NSIndexPath *)indexPath
 {
-    FNButtonCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_SMALL_BUTTON];
+    FNButtonCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_SMALL_BUTTON forIndexPath:indexPath];
     cell.delegate = self;
     cell.showCellSeparator = NO;
     return cell;
@@ -240,8 +312,8 @@ KVO for UI updates:
 
 - (UITableViewCell *)configureAddedPlayerCellForIndexPath:(NSIndexPath *)indexPath
 {
-    FNPlainCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_PLAIN];
-    FNPlayer *player = [self.brain.allPlayers objectAtIndex:indexPath.row];
+    FNPlainCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_PLAIN forIndexPath:indexPath];
+    FNPlayer *player = [self.dataSource objectAtIndex:indexPath.row];
     cell.textLabel.text = player.name;
     cell.textLabel.textColor = [FNAppearance textColorLabel];
     cell.showCellSeparator = [self showCellSeparatorForIndexPath:indexPath];
@@ -274,7 +346,7 @@ KVO for UI updates:
 {
     // only called for the added player cells
     BOOL decision = NO;
-    decision = indexPath.row != [self.tableView numberOfRowsInSection:0] - 1;
+    decision = indexPath.row != [self.dataSource count] - 1;
     NSLog(@"IndexPath: %@   Decision: %d", indexPath, decision);
     return decision;
 }
@@ -286,6 +358,7 @@ KVO for UI updates:
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setupDataSource];
     self.addPlayerIsVisible = NO;
 }
 

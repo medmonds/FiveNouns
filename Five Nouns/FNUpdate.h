@@ -23,6 +23,10 @@ typedef NS_ENUM(NSInteger, FNUpdateType) {
 
 @interface FNUpdate : NSObject <NSCoding>
 
++ (FNUpdate *)updateForObject:(id)updatedObjectID
+                         updateType:(FNUpdateType)updateType
+                     valueNew:(id)valueNew
+                     valueOld:(id)valueOld;
 
 @property FNUpdateType updateType;
 @property (nonatomic, strong) id updatedObjectID;
