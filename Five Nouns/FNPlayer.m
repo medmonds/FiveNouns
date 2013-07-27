@@ -12,7 +12,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super init];
+    self = [super initWithCoder:aDecoder];
     if (!self) {
         return nil;
     }
@@ -26,6 +26,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    [super encodeWithCoder:aCoder];
     [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.nouns forKey:@"nouns"];
     [aCoder encodeObject:self.team forKey:@"team"];

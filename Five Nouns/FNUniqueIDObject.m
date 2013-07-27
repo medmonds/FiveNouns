@@ -10,12 +10,14 @@
 
 @implementation FNUniqueIDObject
 
-- (NSUUID *)uniqueID
+- (instancetype)init
 {
-    if (!_uniqueID) {
-        _uniqueID = [NSUUID UUID];
+    self = [super init];
+    if (!self) {
+        return nil;
     }
-    return _uniqueID;
+    self.uniqueID = [NSUUID UUID];
+    return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder

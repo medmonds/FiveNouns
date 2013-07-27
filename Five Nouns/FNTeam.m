@@ -79,11 +79,10 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super init];
+    self = [super initWithCoder:aDecoder];
     if (!self) {
         return nil;
     }
-    
     self.name = [aDecoder decodeObjectForKey:@"name"];
     self.players = [aDecoder decodeObjectForKey:@"players"];
     self.teamScoreCards = [aDecoder decodeObjectForKey:@"teamScoreCards"];
@@ -93,6 +92,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    [super encodeWithCoder:aCoder];
     [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.players forKey:@"players"];
     [aCoder encodeObject:self.teamScoreCards forKey:@"teamScoreCards"];

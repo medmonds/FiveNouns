@@ -11,6 +11,7 @@
 #import "FNPlayer.h"
 #import "FNTeam.h"
 #import "FNUpdate.h"
+#import "FNAddPlayersContainer.h"
 
 @interface FNBrain ()
 @property (nonatomic, strong) NSMutableSet *unplayedNouns;
@@ -107,6 +108,17 @@ static NSString * const GameStatusKey = @"gameStatus";
 - (void)removeObjectFromAllPlayersAtIndex:(NSUInteger)index
 {
     [self.allPlayers removeObjectAtIndex:index];
+}
+
+- (void)addPlayerWithoutUpdate:(FNPlayer *)player
+{
+    [self insertObject:player inAllPlayersAtIndex:[self.allPlayers count]];
+    [self.unplayedNouns addObjectsFromArray:player.nouns];
+}
+
+- (void)removePlayerWithoutUpdate:(FNPlayer *)player
+{
+    [self removeObjectFromAllPlayersAtIndex:[self.allPlayers indexOfObject:player]];
 }
 
 - (void)addPlayer:(FNPlayer *)player
@@ -232,6 +244,7 @@ static NSString * const GameStatusKey = @"gameStatus";
 
 - (NSDictionary *)currentGameState
 {
+    // why do i make them nsdata?? !!!
     // dont forget about current turn state & if the game has started
     NSData *allTeams = [NSKeyedArchiver archivedDataWithRootObject:self.allTeams];
     NSData *teamOrder = [NSKeyedArchiver archivedDataWithRootObject:self.teamOrder];
@@ -265,17 +278,18 @@ static NSString * const GameStatusKey = @"gameStatus";
         case FNUpdateTypeEverything: {
             // Just received a wholesale update from the game server
             [update.valueNew enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-                [self setValue:obj forKey:key];
+                id object = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
+                [self setValue:object forKey:key];
             }];
             [self updateUIForGameStatus];
             break;
         }
         case FNUpdateTypePlayerAdd: {
-            [self addPlayer:update.valueNew];
+            [self addPlayerWithoutUpdate:update.valueNew];
             break;
         }
         case FNUpdateTypePlayerRemove: {
-            [self removePlayer:update.valueOld];
+            [self removePlayerWithoutUpdate:update.valueOld];
             break;
         }
             
@@ -287,10 +301,13 @@ static NSString * const GameStatusKey = @"gameStatus";
 - (void)updateUIForGameStatus
 {
     switch ([self.gameStatus integerValue]) {
-        case FNGameStatusNotStarted:
+        case FNGameStatusNotStarted: {
             // trigger a segue to the addPlayers Screen
+            FNAddPlayersContainer *vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"addPlayerContainer"];
+            vc.brain = self;
+            [self.navController pushViewController:vc animated:YES];
             break;
-            
+        }
         case FNGameStatusStarted:
             // trigger a segue to the NextUp Screen
             break;
@@ -301,6 +318,13 @@ static NSString * const GameStatusKey = @"gameStatus";
             
         default:
             break;
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"addPlayers"]) {
+        ((FNAddPlayersContainer *)segue.destinationViewController).brain = self;
     }
 }
 

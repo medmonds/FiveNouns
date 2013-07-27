@@ -19,31 +19,9 @@
 @property (nonatomic, weak) UITableViewCell *cellShowingDelete;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) THObserver *observer;
-@property (nonatomic, strong) NSMutableArray *cellBackgrounds;
 @end
 
 @implementation FNAddPlayersVC
-
-/*
- have to add and remove players in the brain in a KVO compliant manner
- 
- 
-KVO for UI updates:
- 
- observe the allPlayers Keypath on the brain and get the new values only then compare them to my working model
- so I need to keep a local data model to work off of
- if a player was added then add it
- if a player was removed then remove it
- 
-*/
-
-- (NSMutableArray *)cellBackgrounds
-{
-    if (!_cellBackgrounds) {
-        _cellBackgrounds = [[NSMutableArray alloc] init];
-    }
-    return _cellBackgrounds;
-}
 
 - (void)setupDataSource
 {
@@ -146,7 +124,7 @@ KVO for UI updates:
 
 - (void)addPlayer
 {
-    [self toggleAddPlayerSavingCurrentPlayer:NO];
+    //[self toggleAddPlayerSavingCurrentPlayer:NO];
     [self addDummyData];
 }
 
@@ -342,13 +320,10 @@ KVO for UI updates:
     return cell;
 }
 
+// only called for the added player cells
 - (BOOL)showCellSeparatorForIndexPath:(NSIndexPath *)indexPath
 {
-    // only called for the added player cells
-    BOOL decision = NO;
-    decision = indexPath.row != [self.dataSource count] - 1;
-    NSLog(@"IndexPath: %@   Decision: %d", indexPath, decision);
-    return decision;
+    return indexPath.row != [self.dataSource count] - 1;
 }
 
 

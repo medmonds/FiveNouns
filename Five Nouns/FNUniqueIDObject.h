@@ -10,6 +10,6 @@
 
 @interface FNUniqueIDObject : NSObject <NSCoding>
 
-@property (nonatomic, copy) NSUUID *uniqueID;
+@property (nonatomic, strong) NSUUID *uniqueID;
 
 @end

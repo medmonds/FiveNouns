@@ -20,7 +20,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super init];
+    self = [super initWithCoder:aDecoder];
     if (!self) {
         return nil;
     }
@@ -35,6 +35,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    [super encodeWithCoder:aCoder];
     [aCoder encodeObject:self.player forKey:@"player"];
     [aCoder encodeObject:self.nounsScored forKey:@"nounsScored"];
     [aCoder encodeInteger:self.round forKey:@"round"];
