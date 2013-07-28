@@ -123,7 +123,7 @@ static NSString * const GameStatusKey = @"gameStatus";
 
 - (void)addPlayer:(FNPlayer *)player
 {
-    [self insertObject:player inAllPlayersAtIndex:[self.allPlayers count]];
+    [self addPlayerWithoutUpdate:player];
     [self.unplayedNouns addObjectsFromArray:player.nouns];
     FNUpdate *update = [FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerAdd valueNew:player valueOld:nil];
     [self sendUpdate:update];
@@ -131,7 +131,7 @@ static NSString * const GameStatusKey = @"gameStatus";
 
 - (void)removePlayer:(FNPlayer *)player
 {
-    [self removeObjectFromAllPlayersAtIndex:[self.allPlayers indexOfObject:player]];
+    [self removePlayerWithoutUpdate:player];
     FNUpdate *update = [FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerRemove valueNew:nil valueOld:player];
     [self sendUpdate:update];
 }
@@ -146,6 +146,57 @@ static NSString * const GameStatusKey = @"gameStatus";
     return _allTeams;
 }
 
+- (NSUInteger)countOfAllTeams
+{
+    return [self.allPlayers count];
+}
+
+- (FNTeam *)objectInAllTeamsAtIndex:(NSUInteger)index
+{
+    return [self.allTeams objectAtIndex:index];
+}
+
+- (void)insertObject:(FNTeam *)object inAllTeamsAtIndex:(NSUInteger)index
+{
+    [self.allTeams insertObject:object atIndex:index];
+}
+
+- (void)removeObjectFromAllTeamsAtIndex:(NSUInteger)index
+{
+    [self.allTeams removeObjectAtIndex:index];
+}
+
+- (void)addTeamWithoutUpdate:(FNTeam *)team
+{
+    [self insertObject:team inAllTeamsAtIndex:[self.allTeams count]];
+}
+
+- (void)removeTeamWithoutUpdate:(FNTeam *)team
+{
+    [self removeObjectFromAllTeamsAtIndex:[self.allTeams indexOfObject:team]];
+}
+
+- (void)addTeam:(FNTeam *)team
+{
+    [self addTeamWithoutUpdate:team];
+    FNUpdate *update = [FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamAdd valueNew:team valueOld:nil];
+    [self sendUpdate:update];
+}
+
+- (void)removeTeam:(FNTeam *)team
+{
+    [self removeTeamWithoutUpdate:team];
+    FNUpdate *update = [FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamRemove valueNew:nil valueOld:team];
+    [self sendUpdate:update];
+}
+
+
+#pragma mark - Player Team Assignment
+
+
+
+
+
 - (NSMutableArray *)scoreCards
 {
     if (!_scoreCards) {
@@ -158,12 +209,6 @@ static NSString * const GameStatusKey = @"gameStatus";
 {
     if (scoreCard) [self.scoreCards addObject:scoreCard];
 }
-
-//- (void)addTeam:(FNTeam *)team
-//{
-//    // incomplete implementation need to get the nous from the new player and whatever else...
-//    [self.allTeams addObject:team];
-//}
 
 - (NSArray *)allScoreCards
 {
@@ -292,6 +337,14 @@ static NSString * const GameStatusKey = @"gameStatus";
             [self removePlayerWithoutUpdate:update.valueOld];
             break;
         }
+        case FNUpdateTypeTeamAdd: {
+            [self addTeamWithoutUpdate:update.valueNew];
+            break;
+        }
+        case FNUpdateTypeTeamRemove: {
+            [self removeTeamWithoutUpdate:update.valueOld];
+            break;
+        }
             
         default:
             break;
@@ -320,14 +373,6 @@ static NSString * const GameStatusKey = @"gameStatus";
             break;
     }
 }
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"addPlayers"]) {
-        ((FNAddPlayersContainer *)segue.destinationViewController).brain = self;
-    }
-}
-
 
 @end
 

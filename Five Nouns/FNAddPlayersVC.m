@@ -333,8 +333,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupDataSource];
     self.addPlayerIsVisible = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setupDataSource];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.observer stopObserving];
+    self.observer = nil;
+    [super viewWillDisappear:animated];
 }
 
 - (void)addDummyData
