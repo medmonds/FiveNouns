@@ -29,24 +29,30 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 - (void)addPlayer:(FNPlayer *)player;
 - (void)removePlayer:(FNPlayer *)player;
 - (FNPlayer *)nextPlayer;
+- (void)assignPlayer:(FNPlayer *)player toTeam:(FNTeam *)team;
+- (void)unassignPlayer:(FNPlayer *)player;
+
 
 @property (nonatomic, strong) NSMutableArray *allTeams;
 - (void)addTeam:(FNTeam *)team;
 - (void)removeTeam:(FNTeam *)team;
 @property (nonatomic, strong) NSArray *teamOrder;
 
+
+
 - (void)addScoreCard:(FNScoreCard *)scoreCard;
 - (NSArray *)allScoreCards;
 
-- (void)returnUnplayedNoun:(NSString *)noun;
 
+
+- (void)returnUnplayedNoun:(NSString *)noun;
 - (void)prepareForNewRound;
 - (void)gameStatus:(FNGameStatus)status;
 
+
+
 - (void)saveCurrentTurn:(FNTurnData *)turn;
-
 - (void)saveGameData;
-
 + (FNBrain *)brainFromPreviousGame;
 
 - (void)handleUpdate:(FNUpdate *)newUpdate;
@@ -54,6 +60,22 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 @property (nonatomic, weak) UINavigationController *navController;
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

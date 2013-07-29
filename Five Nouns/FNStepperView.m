@@ -69,7 +69,7 @@
 
     self.stepper = [[UIStepper alloc] initWithFrame:CGRectMake(0, 0, 94, 27)];
     [self.stepper setTranslatesAutoresizingMaskIntoConstraints:NO];
-    self.stepper.wraps = YES;
+    self.stepper.wraps = NO;
     self.stepper.autorepeat = NO;
     [self.stepper addTarget:self action:@selector(stepperDidStep:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.stepper];

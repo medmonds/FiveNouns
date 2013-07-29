@@ -34,17 +34,40 @@
     return _players;
 }
 
+//* To make players KVC compliant
+
+- (NSUInteger)countOfPlayers
+{
+    return [self.players count];
+}
+
+- (FNPlayer *)objectInPlayersAtIndex:(NSUInteger)index
+{
+    return [self.players objectAtIndex:index];
+}
+
+- (void)insertObject:(FNPlayer *)object inPlayersAtIndex:(NSUInteger)index
+{
+    [self.players insertObject:object atIndex:index];
+}
+
+- (void)removeObjectFromPlayersAtIndex:(NSUInteger)index
+{
+    [self.players removeObjectAtIndex:index];
+}
+
 - (void)addPlayer:(FNPlayer *)player
 {
-    [self.players addObject:player];
+    [self insertObject:player inPlayersAtIndex:[self.players count]];
     //player.team = self;
 }
 
 - (void)removePlayer:(FNPlayer *)player
 {
-    [self.players removeObject:player];
-    //player.team = nil;
+    [self removeObjectFromPlayersAtIndex:[self.players indexOfObject:player]];
 }
+
+//*
 
 - (FNPlayer *)nextPlayer
 {

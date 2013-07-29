@@ -168,12 +168,16 @@ static NSString * const GameStatusKey = @"gameStatus";
 
 - (void)addTeamWithoutUpdate:(FNTeam *)team
 {
+    NSInteger oldCount = [self.allTeams count];
     [self insertObject:team inAllTeamsAtIndex:[self.allTeams count]];
+    [self assignPlayersToTeam:team OldTeamsCount:oldCount];
 }
 
 - (void)removeTeamWithoutUpdate:(FNTeam *)team
 {
+    NSInteger oldCount = [self.allTeams count];
     [self removeObjectFromAllTeamsAtIndex:[self.allTeams indexOfObject:team]];
+    [self assignPlayersToTeam:nil OldTeamsCount:oldCount];
 }
 
 - (void)addTeam:(FNTeam *)team
@@ -193,9 +197,96 @@ static NSString * const GameStatusKey = @"gameStatus";
 
 #pragma mark - Player Team Assignment
 
+// called when a team is added
+- (void)assignPlayersToTeams
+{
+    // removing players from teams where player doesnt want to be on the team
+    NSMutableArray *playersToAssign = [[NSMutableArray alloc] init];
+    [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
+       [team.players enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
+           if (player.team != team) {
+               [playersToAssign addObject:player];
+           }
+       }];
+    }];
+    if ([self.allTeams count]) {
+        NSInteger playersPerTeam = [self.allPlayers count] / [self.allTeams count];
+        [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
+            for (int i = [team.players count]; i < playersPerTeam; i++) {
+                [team addPlayer:playersToAssign[0]];
+                [playersToAssign removeObjectAtIndex:0];
+            }
+        }];
+        // to assign any left over players
+        [playersToAssign enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
+            [[self.allTeams objectAtIndex:idx] addPlayer:player];
+        }];
+    }
+}
 
 
+/*
+ or i could get old number of teams and the new number of teams and then
+ if a team was added grab the last ([allPlayer count] / [allTeams count](new) - [allPlayer count] / [oldAllTeams count]
+ and then assign those people to the new team
+ I would have to account for players that might have been assigned to the existing teams already
+ so what sweep through each team trying to grab the last player until I had as many players as I needed for the new team
+ 
+*/
 
+- (void)assignPlayersToTeam:(FNTeam *)team OldTeamsCount:(NSInteger)oldCount
+{
+    NSInteger countPlayersNeeded = ([self.allPlayers count] / ([self.allTeams count] ? [self.allTeams count] : 1)) - ([self.allPlayers count] / (oldCount ? oldCount : 1));
+    // a team was added
+    if (countPlayersNeeded > 0) {
+        NSMutableArray *playersForNewTeam = [[NSMutableArray alloc] initWithCapacity:countPlayersNeeded];
+        // to stop an infinite loop if it can't find players
+        NSInteger beforeCount = 0;
+        while ([playersForNewTeam count] < countPlayersNeeded && beforeCount < [playersForNewTeam count]) {
+            beforeCount = [playersForNewTeam count];
+            [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
+                // if the player is not assigned to the team
+                FNPlayer *player = [team.players lastObject];
+                if (player.team != team) {
+                    [playersForNewTeam addObject:player];
+                    [team.players removeObject:player];
+                    if ([playersForNewTeam count] == countPlayersNeeded) {
+                        stop = YES;
+                    }
+                }
+            }];
+        }
+        // need to add the player to the new team here
+        [team.players addObjectsFromArray:playersForNewTeam];
+    } else {
+        NSMutableArray *playersFromOldTeam = [[NSMutableArray alloc] initWithCapacity:-countPlayersNeeded];
+        while ([playersFromOldTeam count]) {
+            [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
+                [team addPlayer:[playersFromOldTeam lastObject]];
+                if (![playersFromOldTeam count]) {
+                    stop = YES;
+                }
+            }];
+        }
+    }
+}
+
+- (void)assignPlayer:(FNPlayer *)player toTeam:(FNTeam *)team
+{
+    [team addPlayer:player];
+    player.team = team;
+    [self sendUpdate:[FNUpdate updateForObject:team updateType:FNUpdateTypeTeamPlayer valueNew:player valueOld:nil]];
+    [self sendUpdate:[FNUpdate updateForObject:player updateType:FNUpdateTypePlayerTeam valueNew:team valueOld:nil]];
+}
+
+- (void)unassignPlayer:(FNPlayer *)player
+{
+    FNTeam *oldTeam = player.team;
+    player.team = nil;
+    [oldTeam removePlayer:player];
+    [self sendUpdate:[FNUpdate updateForObject:player updateType:FNUpdateTypePlayerTeam valueNew:nil valueOld:oldTeam]];
+    [self sendUpdate:[FNUpdate updateForObject:oldTeam updateType:FNUpdateTypeTeamPlayer valueNew:nil valueOld:player]];
+}
 
 - (NSMutableArray *)scoreCards
 {
