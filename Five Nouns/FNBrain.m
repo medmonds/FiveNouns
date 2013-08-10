@@ -197,32 +197,32 @@ static NSString * const GameStatusKey = @"gameStatus";
 
 #pragma mark - Player Team Assignment
 
-// called when a team is added
-- (void)assignPlayersToTeams
-{
-    // removing players from teams where player doesnt want to be on the team
-    NSMutableArray *playersToAssign = [[NSMutableArray alloc] init];
-    [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
-       [team.players enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
-           if (player.team != team) {
-               [playersToAssign addObject:player];
-           }
-       }];
-    }];
-    if ([self.allTeams count]) {
-        NSInteger playersPerTeam = [self.allPlayers count] / [self.allTeams count];
-        [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
-            for (int i = [team.players count]; i < playersPerTeam; i++) {
-                [team addPlayer:playersToAssign[0]];
-                [playersToAssign removeObjectAtIndex:0];
-            }
-        }];
-        // to assign any left over players
-        [playersToAssign enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
-            [[self.allTeams objectAtIndex:idx] addPlayer:player];
-        }];
-    }
-}
+//// called when a team is added
+//- (void)assignPlayersToTeams
+//{
+//    // removing players from teams where player doesnt want to be on the team
+//    NSMutableArray *playersToAssign = [[NSMutableArray alloc] init];
+//    [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
+//       [team.players enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
+//           if (player.team != team) {
+//               [playersToAssign addObject:player];
+//           }
+//       }];
+//    }];
+//    if ([self.allTeams count]) {
+//        NSInteger playersPerTeam = [self.allPlayers count] / [self.allTeams count];
+//        [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
+//            for (int i = [team.players count]; i < playersPerTeam; i++) {
+//                [team addPlayer:playersToAssign[0]];
+//                [playersToAssign removeObjectAtIndex:0];
+//            }
+//        }];
+//        // to assign any left over players
+//        [playersToAssign enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
+//            [[self.allTeams objectAtIndex:idx] addPlayer:player];
+//        }];
+//    }
+//}
 
 
 /*

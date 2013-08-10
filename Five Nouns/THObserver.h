@@ -17,6 +17,8 @@ typedef void(^THObserverBlock)(void);
 typedef void(^THObserverBlockWithOldAndNew)(id oldValue, id newValue);
 typedef void(^THObserverBlockWithChangeDictionary)(NSDictionary *change);
 
+@property (nonatomic, weak) id observed;
+
 + (id)observerForObject:(id)object
                 keyPath:(NSString *)keyPath
                   block:(THObserverBlock)block;

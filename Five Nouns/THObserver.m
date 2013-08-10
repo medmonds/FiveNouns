@@ -36,6 +36,7 @@ typedef enum THObserverBlockArgumentsKind {
             _observedObject = object;
             _keyPath = [keyPath copy];
             _block = [block copy];
+            _observed = object;
                         
             [_observedObject addObserver:self
                               forKeyPath:_keyPath
@@ -59,6 +60,7 @@ typedef enum THObserverBlockArgumentsKind {
     _block = nil;
     _keyPath = nil;
     _observedObject = nil;
+    _observed = nil;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
