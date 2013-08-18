@@ -18,7 +18,9 @@
 @property (nonatomic, strong) NSMutableArray *players;
 
 - (void)addPlayer:(FNPlayer *)player;
+- (void)addTeamPlayers:(NSArray *)players;
 - (void)removePlayer:(FNPlayer *)player;
+- (void)removeTeamPlayers:(NSArray *)players;
 - (FNPlayer *)nextPlayer;
 - (NSInteger)currentScore;
 - (void)addScoreCard:(FNScoreCard *)scoreCard;

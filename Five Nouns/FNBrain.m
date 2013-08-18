@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSMutableSet *playedNouns;
 @property (nonatomic, strong) NSMutableArray *scoreCards;
 @property (nonatomic, strong) NSNumber *gameStatus;
+@property (nonatomic, strong) NSArray *teamOrder;
 @end
 
 static NSString * const AllTeamsKey = @"allTeams";
@@ -170,6 +171,7 @@ static NSString * const GameStatusKey = @"gameStatus";
 {
     NSInteger oldCount = [self.allTeams count];
     [self insertObject:team inAllTeamsAtIndex:[self.allTeams count]];
+    self.teamOrder = self.allTeams;
     [self assignPlayersToTeam:team OldTeamsCount:oldCount];
 }
 
@@ -177,94 +179,103 @@ static NSString * const GameStatusKey = @"gameStatus";
 {
     NSInteger oldCount = [self.allTeams count];
     [self removeObjectFromAllTeamsAtIndex:[self.allTeams indexOfObject:team]];
-    [self assignPlayersToTeam:nil OldTeamsCount:oldCount];
+    self.teamOrder = self.allTeams;
+    [self assignPlayersToTeam:team OldTeamsCount:oldCount];
 }
 
 - (void)addTeam:(FNTeam *)team
 {
     [self addTeamWithoutUpdate:team];
-    FNUpdate *update = [FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamAdd valueNew:team valueOld:nil];
-    [self sendUpdate:update];
+    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamAdd valueNew:team valueOld:nil]];
 }
 
 - (void)removeTeam:(FNTeam *)team
 {
     [self removeTeamWithoutUpdate:team];
-    FNUpdate *update = [FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamRemove valueNew:nil valueOld:team];
-    [self sendUpdate:update];
+    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamRemove valueNew:nil valueOld:team]];
+}
+
+- (void)setName:(NSString *)name forTeam:(FNTeam *)team
+{
+    [self setNameWithoutUpdate:name forTeam:team];
+    [self sendUpdate:[FNUpdate updateForObject:team updateType:FNUpdateTypeTeamName valueNew:name valueOld:nil]];
+}
+
+- (void)setNameWithoutUpdate:(NSString *)name forTeam:(FNTeam*)team
+{
+    team.name = name;
+}
+
+- (void)moveTeam:(FNTeam *)team toIndex:(NSInteger)newIndex
+{
+    [self moveTeamWithoutUpdate:team toIndex:newIndex];
+    [self sendUpdate:[FNUpdate updateForObject:team updateType:FNUpdateTypeTeamOrder valueNew:@(newIndex) valueOld:nil]];
+}
+
+- (void)moveTeamWithoutUpdate:(FNTeam *)team toIndex:(NSInteger)newIndex
+{
+    [self removeObjectFromAllTeamsAtIndex:[self.allTeams indexOfObject:team]];
+    [self insertObject:team inAllTeamsAtIndex:newIndex];
+    self.teamOrder = self.allTeams;
+}
+
+- (NSArray *)orderOfTeams
+{
+    return self.teamOrder;
 }
 
 
 #pragma mark - Player Team Assignment
 
-//// called when a team is added
-//- (void)assignPlayersToTeams
-//{
-//    // removing players from teams where player doesnt want to be on the team
-//    NSMutableArray *playersToAssign = [[NSMutableArray alloc] init];
-//    [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
-//       [team.players enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
-//           if (player.team != team) {
-//               [playersToAssign addObject:player];
-//           }
-//       }];
-//    }];
-//    if ([self.allTeams count]) {
-//        NSInteger playersPerTeam = [self.allPlayers count] / [self.allTeams count];
-//        [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
-//            for (int i = [team.players count]; i < playersPerTeam; i++) {
-//                [team addPlayer:playersToAssign[0]];
-//                [playersToAssign removeObjectAtIndex:0];
-//            }
-//        }];
-//        // to assign any left over players
-//        [playersToAssign enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
-//            [[self.allTeams objectAtIndex:idx] addPlayer:player];
-//        }];
-//    }
-//}
-
-
-/*
- or i could get old number of teams and the new number of teams and then
- if a team was added grab the last ([allPlayer count] / [allTeams count](new) - [allPlayer count] / [oldAllTeams count]
- and then assign those people to the new team
- I would have to account for players that might have been assigned to the existing teams already
- so what sweep through each team trying to grab the last player until I had as many players as I needed for the new team
- 
-*/
-
 - (void)assignPlayersToTeam:(FNTeam *)team OldTeamsCount:(NSInteger)oldCount
 {
-    NSInteger countPlayersNeeded = ([self.allPlayers count] / ([self.allTeams count] ? [self.allTeams count] : 1)) - ([self.allPlayers count] / (oldCount ? oldCount : 1));
-    // a team was added
-    if (countPlayersNeeded > 0) {
+    // this needs to trigger calls about player assignement changes and team assignment changes !!!    
+    if (!oldCount) {
+        // this is the one and only team so add all players to the team
+        [team addTeamPlayers:self.allPlayers];
+    } else if (oldCount < [self.allTeams count]) {
+        // the passed in team was added so add players to it
+        NSInteger allTeams = [self.allTeams count] ? [self.allTeams count] : 1;
+        oldCount = oldCount ? oldCount : 1;
+        NSInteger countPlayersNeeded = ceil(([self.allPlayers count] / (float)oldCount) - ([self.allPlayers count] / (float)allTeams));
         NSMutableArray *playersForNewTeam = [[NSMutableArray alloc] initWithCapacity:countPlayersNeeded];
         // to stop an infinite loop if it can't find players
-        NSInteger beforeCount = 0;
-        while ([playersForNewTeam count] < countPlayersNeeded && beforeCount < [playersForNewTeam count]) {
+        // the plus 1s (+ 1)s are sloppy looking !!!
+        NSInteger beforeCount = -1;
+        NSArray *sortedTeams = [self.allTeams sortedArrayUsingComparator:^NSComparisonResult(FNTeam *team1, FNTeam *team2) {
+            if ([team1.players count] < [team2.players count]) {
+                return NSOrderedDescending;
+            } else if ([team1.players count] > [team2.players count]) {
+                return NSOrderedAscending;
+            } else {
+                return NSOrderedSame;
+            }
+        }];
+        while (([playersForNewTeam count] + 1) < (countPlayersNeeded + 1) && ([playersForNewTeam count] + 1) > (beforeCount + 1)) {
             beforeCount = [playersForNewTeam count];
-            [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
+            [sortedTeams enumerateObjectsUsingBlock:^(FNTeam *otherTeam, NSUInteger idx, BOOL *stop) {
                 // if the player is not assigned to the team
-                FNPlayer *player = [team.players lastObject];
-                if (player.team != team) {
+                FNPlayer *player = [otherTeam.players lastObject];
+                if (player.team != otherTeam && player) {
                     [playersForNewTeam addObject:player];
-                    [team.players removeObject:player];
+                    [otherTeam removePlayer:player];
                     if ([playersForNewTeam count] == countPlayersNeeded) {
-                        stop = YES;
+                        *stop = YES;
                     }
                 }
             }];
         }
-        // need to add the player to the new team here
-        [team.players addObjectsFromArray:playersForNewTeam];
-    } else {
-        NSMutableArray *playersFromOldTeam = [[NSMutableArray alloc] initWithCapacity:-countPlayersNeeded];
+        [team addTeamPlayers:playersForNewTeam];
+    } else if ([self.allTeams count]) {
+        // the passed in team was removed so pull the players from it and reassign them. the controllers have already been told the team was removed so they are no longer observing it
+        // but have to make sure there is a team to add the players too
+        NSMutableArray *playersFromOldTeam = [team.players mutableCopy];
         while ([playersFromOldTeam count]) {
             [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
                 [team addPlayer:[playersFromOldTeam lastObject]];
+                [playersFromOldTeam removeLastObject];
                 if (![playersFromOldTeam count]) {
-                    stop = YES;
+                    *stop = YES;
                 }
             }];
         }
@@ -273,8 +284,15 @@ static NSString * const GameStatusKey = @"gameStatus";
 
 - (void)assignPlayer:(FNPlayer *)player toTeam:(FNTeam *)team
 {
+    for (FNTeam *aTeam in self.allTeams) {
+        if (aTeam != team && [aTeam.players containsObject:player]) {
+            [aTeam removePlayer:player];
+            break;
+        }
+    }
     [team addPlayer:player];
     player.team = team;
+    // make sure the updates are handled on the other end to remove the assigned player from all other teams (esp computer assigned teams)
     [self sendUpdate:[FNUpdate updateForObject:team updateType:FNUpdateTypeTeamPlayer valueNew:player valueOld:nil]];
     [self sendUpdate:[FNUpdate updateForObject:player updateType:FNUpdateTypePlayerTeam valueNew:team valueOld:nil]];
 }
@@ -408,6 +426,18 @@ static NSString * const GameStatusKey = @"gameStatus";
     BOOL success = [[FNMultiplayerManager sharedMultiplayerManager] sendUpdate:update];
 }
 
+- (FNTeam *)teamForTeamFromUpdate:(FNTeam *)updateTeam
+{
+    FNTeam *localTeam;
+    for (FNTeam *team in self.allTeams) {
+        if ([team isEqual:updateTeam]) {
+            localTeam = team;
+            break;
+        }
+    }
+    return localTeam;
+}
+
 - (void)handleUpdate:(FNUpdate *)update
 {
     switch (update.updateType) {
@@ -435,6 +465,18 @@ static NSString * const GameStatusKey = @"gameStatus";
         case FNUpdateTypeTeamRemove: {
             [self removeTeamWithoutUpdate:update.valueOld];
             break;
+        }
+        case FNUpdateTypeTeamName: {
+            [self setNameWithoutUpdate:update.valueNew forTeam:[self teamForTeamFromUpdate:update.valueNew]];
+        }
+        case FNUpdateTypeTeamOrder: {
+            [self moveTeamWithoutUpdate:[self teamForTeamFromUpdate:update.updatedObject] toIndex:[update.valueNew integerValue]];
+        }
+        case FNUpdateTypePlayerTeam: {
+            
+        }
+        case FNUpdateTypeTeamPlayer: {
+            
         }
             
         default:
@@ -474,105 +516,42 @@ static NSString * const GameStatusKey = @"gameStatus";
 
 
 
-
+//// called when a team is added
+//- (void)assignPlayersToTeams
+//{
+//    // removing players from teams where player doesnt want to be on the team
+//    NSMutableArray *playersToAssign = [[NSMutableArray alloc] init];
+//    [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
+//       [team.players enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
+//           if (player.team != team) {
+//               [playersToAssign addObject:player];
+//           }
+//       }];
+//    }];
+//    if ([self.allTeams count]) {
+//        NSInteger playersPerTeam = [self.allPlayers count] / [self.allTeams count];
+//        [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
+//            for (int i = [team.players count]; i < playersPerTeam; i++) {
+//                [team addPlayer:playersToAssign[0]];
+//                [playersToAssign removeObjectAtIndex:0];
+//            }
+//        }];
+//        // to assign any left over players
+//        [playersToAssign enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
+//            [[self.allTeams objectAtIndex:idx] addPlayer:player];
+//        }];
+//    }
+//}
 
 
 /*
- 
- 
- 
- **** THe controllers will tell the brain what changes the controller wants and then KVO the model to update the UI
- the brain will dispatch the changes when it is asked to perform them create an object that represents a change
- 
- 
- 
- Controllers Responding to Model Changes:
- 
- the controller could get a copy the brain's allTeams array and use the copy to drive the controllers views and then KVO the brain's allTeams array (I guess i would KVO the allTeams array keypath on the brain (so KVO the brain))
- the controller would also KVO all the teams in its copy of the allTeams array to watch for player assignment changes
- then when a team was removed from the array (team deleted by a client) the controller would see that the brain's allTeams array changed
- the controller would then change its ui to remove the deleted team
- it would then stop observing the deleted team and then remove the team from the controllers local model
- this way i dont have to worry about an observed object being dealloc'd while I am still observing it
- 
- Brain Responding & Forwarding Model Changes:
- 
- Do the controllers explicitly tell the brain about the model changes or does the brain KVO to see model changes?
- How about when a player is assigned to a team?
- I can assign a player to a team by calling: - (void)assignPlayer:(FNPlayer *)player toTeam:(FNTeam *)team
- then the controller's KVO will see the change and update the UI
- 
- 
- In order for the above code to work the brain will have to be the automatic team assigner
- then you dont have competing view controllers thring to set the teams or conditionallu setting the teams ,,, kinda an issue
- that might work better anyway that way the brain will have all of the teams assignemnts and changes readily at hand
- the controller tells the brain to assign a player to a team it then un-autoassigns the player from other teams and reports that to the other connected games instead of the controller doin it... well either way it has to be done so what does it matter?
- 
- the controller can then ask the brain for all of it's data instead of having to change the model just to show the model
- 
- what would the controller do to get its data?
- well it gets the player assignments by looking at the all teams array
- three kinds of team assignments:
- 1) player.team == team && [team.players containsObject:player]
- 2) [team.players containsObject:player]
- 3) there is no third option really the way I do it currently with the 3rd option is kinda bogus this should be changed so that when a player is selected an auto assigned player is deselected and all teams have to be even... well you might want uneven teams right... so if you dont auto assign teams then you have to completely custom assign teams and assign every player no half and half
- 
- 
- 
- Why not have model objects post some kind of notice or call a method with a change object that conforms to a protocol that is then passed to the other brains and they know what to do with it to change the model and then the controllers (that are KVOing the model) will automatically change
- 
- 
- or the controllers could just change the model. the model objects could then go grab the shared multiplayer manager and send a change object to the manager that could then send the change object to the other managers and some how be dispatched to the model objects that will then in turn modify themselves -- have to make sure you have data integrity though what to do if someone deletes a team on one phone while some else assigns a player to that team so a team thinks it has a player that was just deleted…
- 
- basically I want to instead of having the brain understand how the model obis work and manipulating their properties, i want the brain to just dispatch change object to the model objects that then change themselves. and have the model objects dispatch change objects to the brain
- 
- the brain would then only need to know how to create and delete objects (b/c the objects can't do that themselves) could all this be handled by a superclass like the uniqueID class?
- 
- how would this work when a new player is created?
- the controller would create the player object and set its nouns then pass it to the brain and call addPlayer:
- then the brain would make its own changeRecord and dispatch that to the remote users
- then call a method on the added object that would start it sending changeRecords to handle all subsequent changes on the object
- this way when the controller makes the player & then adds each noun to the player in turn the player is not already sending changeRecord calls before the brains even know that the new player exists this way the controllers can create scratch objects that can be created and deleted without concern
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- To KVO an array:
- You don't need an NSArrayController to observe changes to an NSArray. However you cannot directly observe these changes, i.e., you can't call -addObserver:forKeyPath:options:context: directly on an NSArray. In your case you want to call it on your GameModel with @"playerNameArray" as the key.
- 
- You're not done yet though. The normal automatic KVO notifications will only kick in if you call -setPlayerNameArray:, thereby replacing the entire array. If you want more granular notifications, then you need to use -willChange:valuesAtIndexes:forKey: and -didChange:valuesAtIndexes:forKey: whenever you insert, remove, or replace items in that array.
- 
- This will send a notification whenever the contents of the array changes. Depending on the NSKeyValueObservingOptions you use when adding your observer, you can also get the incremental changes that are made—a cool feature, but you may not need it in this case.
- 
- OR
- 
- You need to implement the indexed array accessors as defined in the KVC programming guide. Then you must use those accessors to access the array and the KVO triggering will work.
- @interface MyClass : NSObject
- {
- NSMutableArray *_orders;
- }
- 
- @property(retain) NSMutableArray *orders;
- 
- - (NSUInteger)countOfOrders;
- - (id)objectInOrdersAtIndex:(NSUInteger)index;
- - (void)insertObject:(id)obj inOrdersAtIndex:(NSUInteger)index;
- - (void)removeObjectFromOrdersAtIndex:(NSUInteger)index;
- - (void)replaceObjectInOrdersAtIndex:(NSUInteger)index withObject:(id)obj;
- 
+ or i could get old number of teams and the new number of teams and then
+ if a team was added grab the last ([allPlayer count] / [allTeams count](new) - [allPlayer count] / [oldAllTeams count]
+ and then assign those people to the new team
+ I would have to account for players that might have been assigned to the existing teams already
+ so what sweep through each team trying to grab the last player until I had as many players as I needed for the new team
  
  */
-
 
 
 

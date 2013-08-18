@@ -46,9 +46,14 @@
     return [self.players objectAtIndex:index];
 }
 
-- (void)insertObject:(FNPlayer *)object inPlayersAtIndex:(NSUInteger)index
+- (void)insertObject:(FNPlayer *)player inPlayersAtIndex:(NSUInteger)index
 {
-    [self.players insertObject:object atIndex:index];
+    [self.players insertObject:player atIndex:index];
+}
+
+- (void)insertPlayers:(NSArray *)players atIndexes:(NSIndexSet *)indexes
+{
+    [self.players insertObjects:players atIndexes:indexes];
 }
 
 - (void)removeObjectFromPlayersAtIndex:(NSUInteger)index
@@ -56,15 +61,43 @@
     [self.players removeObjectAtIndex:index];
 }
 
+- (void)removePlayersAtIndexes:(NSIndexSet *)indexes
+{
+    [self.players removeObjectsAtIndexes:indexes];
+}
+
 - (void)addPlayer:(FNPlayer *)player
 {
-    [self insertObject:player inPlayersAtIndex:[self.players count]];
-    //player.team = self;
+    if (![self.players containsObject:player]) {
+        [self insertObject:player inPlayersAtIndex:[self.players count]];
+    }
+}
+
+- (void)addTeamPlayers:(NSArray *)players
+{
+    NSMutableSet *newPlayers = [[NSSet setWithArray:players] mutableCopy];
+    [newPlayers minusSet:[NSSet setWithArray:self.players]];
+    if ([newPlayers count]) {
+        [self insertPlayers:players atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange([self.players count], [players count])]];
+    }
+}
+
+- (void)removeTeamPlayers:(NSArray *)players
+{
+    NSMutableSet *oldPlayers = [[NSSet setWithArray:players] mutableCopy];
+    [oldPlayers intersectSet:[NSSet setWithArray:self.players]];
+    if ([oldPlayers count]) {
+        [self removePlayersAtIndexes:[self.players indexesOfObjectsPassingTest:^BOOL(FNPlayer *player, NSUInteger idx, BOOL *stop) {
+            return [players containsObject:player];
+        }]];
+    }
 }
 
 - (void)removePlayer:(FNPlayer *)player
 {
-    [self removeObjectFromPlayersAtIndex:[self.players indexOfObject:player]];
+    if ([self.players containsObject:player]) {
+        [self removeObjectFromPlayersAtIndex:[self.players indexOfObject:player]];
+    }
 }
 
 //*

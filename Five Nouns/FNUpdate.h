@@ -18,18 +18,19 @@ typedef NS_ENUM(NSInteger, FNUpdateType) {
     FNUpdateTypeTeamRemove,
     FNUpdateTypeTeamPlayer,
     FNUpdateTypeTeamOrder,
+    FNUpdateTypeTeamName
 };
 
 
 @interface FNUpdate : NSObject <NSCoding>
 
-+ (FNUpdate *)updateForObject:(id)updatedObjectID
++ (FNUpdate *)updateForObject:(id)updatedObject
                          updateType:(FNUpdateType)updateType
                      valueNew:(id)valueNew
                      valueOld:(id)valueOld;
 
 @property FNUpdateType updateType;
-@property (nonatomic, strong) id updatedObjectID;
+@property (nonatomic, strong) id updatedObject;
 @property (nonatomic, strong) id valueNew;
 @property (nonatomic, strong) id valueOld;
 + (NSData *)dataForUpdate:(FNUpdate *)update;

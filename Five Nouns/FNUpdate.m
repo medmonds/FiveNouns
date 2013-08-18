@@ -10,10 +10,10 @@
 
 @implementation FNUpdate
 
-+ (FNUpdate *)updateForObject:(id)updatedObjectID updateType:(FNUpdateType)updateType valueNew:(id)valueNew valueOld:(id)valueOld
++ (FNUpdate *)updateForObject:(id)updatedObject updateType:(FNUpdateType)updateType valueNew:(id)valueNew valueOld:(id)valueOld
 {
     FNUpdate *update = [[FNUpdate alloc] init];
-    update.updatedObjectID = updatedObjectID;
+    update.updatedObject = updatedObject;
     update.updateType = updateType;
     update.valueNew = valueNew;
     update.valueOld = valueOld;
@@ -37,7 +37,7 @@
         return nil;
     }
     self.updateType = [aDecoder decodeIntegerForKey:@"updateType"];
-    self.updatedObjectID = [aDecoder decodeObjectForKey:@"updatedObjectID"];
+    self.updatedObject = [aDecoder decodeObjectForKey:@"updatedObject"];
     self.valueNew = [aDecoder decodeObjectForKey:@"valueNew"];
     self.valueOld = [aDecoder decodeObjectForKey:@"valueOld"];
     return self;
@@ -46,7 +46,7 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeInteger:self.updateType forKey:@"updateType"];
-    [aCoder encodeObject:self.updatedObjectID forKey:@"updatedObjectID"];
+    [aCoder encodeObject:self.updatedObject forKey:@"updatedObject"];
     [aCoder encodeObject:self.valueNew forKey:@"valueNew"];
     [aCoder encodeObject:self.valueOld forKey:@"valueOld"];
 }

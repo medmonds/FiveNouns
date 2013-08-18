@@ -97,7 +97,7 @@
 
 - (NSArray *)itemsForCategory:(id)category
 {
-    return [self.brain teamOrder];
+    return [self.brain orderOfTeams];
 }
 
 - (CellConfigBlock)titleCellConfigureBlockForController:(FNTVController *)controller

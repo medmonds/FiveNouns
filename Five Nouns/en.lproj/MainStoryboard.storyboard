@@ -450,7 +450,6 @@
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Team 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZ6-rc-S3d">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="120" id="btg-pa-I4l"/>
                                                 <constraint firstAttribute="height" constant="31" id="kGw-Ut-Mqx"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
@@ -476,6 +475,7 @@
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="G3Z-f3-6aS" secondAttribute="centerY" type="user" id="3UR-6G-PQq"/>
                                     <constraint firstAttribute="trailing" secondItem="G3Z-f3-6aS" secondAttribute="trailing" constant="14" type="user" id="3tV-Ea-sm8"/>
+                                    <constraint firstItem="G3Z-f3-6aS" firstAttribute="leading" secondItem="aZ6-rc-S3d" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="HSn-h8-jnD"/>
                                     <constraint firstAttribute="centerY" secondItem="aZ6-rc-S3d" secondAttribute="centerY" type="user" id="fqo-1o-PdE"/>
                                     <constraint firstItem="G3Z-f3-6aS" firstAttribute="top" secondItem="aZ6-rc-S3d" secondAttribute="top" type="default" id="gDB-kH-HAd"/>
                                     <constraint firstItem="aZ6-rc-S3d" firstAttribute="leading" secondItem="yo2-Sv-msd" secondAttribute="leading" constant="14" type="user" id="oln-od-aKC"/>
@@ -1584,6 +1584,142 @@
             <point key="canvasLocation" x="-3948" y="-3085"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="FMMoveTableView" superclassName="UITableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FMMoveTableView.h"/>
+        </class>
+        <class className="FNAddPlayersContainer" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAddPlayersContainer.h"/>
+            <relationships>
+                <relationship kind="action" name="addPlayerPressed:" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="FNAddPlayersVC" superclassName="FNTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAddPlayersVC.h"/>
+        </class>
+        <class className="FNAssignTeamsContainer" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAssignTeamsContainer.h"/>
+            <relationships>
+                <relationship kind="outlet" name="stepperView" candidateClass="FNStepperView"/>
+            </relationships>
+        </class>
+        <class className="FNAssignTeamsVC" superclassName="FNTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNAssignTeamsVC.h"/>
+        </class>
+        <class className="FNButtonCell" superclassName="FNSeparatorCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNButtonCell.h"/>
+        </class>
+        <class className="FNButtonRect" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNButtonRect.h"/>
+        </class>
+        <class className="FNCountdownTimer" superclassName="UIControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNCountdownTimer.h"/>
+        </class>
+        <class className="FNEditableCell" superclassName="FNSeparatorCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNEditableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="detailTextField" candidateClass="SSTextField"/>
+                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FNGameVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNGameVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="countDownTimer" candidateClass="FNCountdownTimer"/>
+                <relationship kind="outlet" name="currentPlayerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nounLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="scoreLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FNMultiPlayerVC" superclassName="FNTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNMultiPlayerVC.h"/>
+        </class>
+        <class className="FNMultiplayerContainer" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNMultiplayerContainer.h"/>
+            <relationships>
+                <relationship kind="action" name="toggleMultiplayerServerStatePressed:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="multiplayerServerStateToggle" candidateClass="FNButtonRect"/>
+            </relationships>
+        </class>
+        <class className="FNMultiplayerJoinVC" superclassName="FNTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNMultiplayerJoinVC.h"/>
+        </class>
+        <class className="FNNewGameVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNNewGameVC.h"/>
+            <relationships>
+                <relationship kind="action" name="joinGamePressed:"/>
+            </relationships>
+        </class>
+        <class className="FNNextUpVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNNextUpVC.h"/>
+            <relationships>
+                <relationship kind="action" name="startPressed:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="nextPlayerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="roundLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FNPausedVC" superclassName="FNTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNPausedVC.h"/>
+        </class>
+        <class className="FNPlainCell" superclassName="FNSeparatorCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNPlainCell.h"/>
+        </class>
+        <class className="FNReorderableCell" superclassName="FNSeparatorCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNReorderableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="button" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FNRoundDirectionsVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNRoundDirectionsVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="directionsTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="roundLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="textViewHeight" candidateClass="NSLayoutConstraint"/>
+            </relationships>
+        </class>
+        <class className="FNScoreVC" superclassName="FNTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNScoreVC.h"/>
+        </class>
+        <class className="FNSelectableCell" superclassName="FNSeparatorCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNSelectableCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="button" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FNSeparatorCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNSeparatorCell.h"/>
+        </class>
+        <class className="FNSpinnerCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNSpinnerCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="FNStepperCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNStepperCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="detailButtonLabel" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="mainTextLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="stepper" candidateClass="UIStepper"/>
+            </relationships>
+        </class>
+        <class className="FNStepperView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNStepperView.h"/>
+        </class>
+        <class className="FNTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FNTableViewController.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="SSTextField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SSTextField.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

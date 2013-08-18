@@ -29,15 +29,16 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 - (void)addPlayer:(FNPlayer *)player;
 - (void)removePlayer:(FNPlayer *)player;
 - (FNPlayer *)nextPlayer;
-- (void)assignPlayer:(FNPlayer *)player toTeam:(FNTeam *)team;
-- (void)unassignPlayer:(FNPlayer *)player;
 
 
 @property (nonatomic, strong) NSMutableArray *allTeams;
+- (NSArray *)orderOfTeams;
 - (void)addTeam:(FNTeam *)team;
 - (void)removeTeam:(FNTeam *)team;
-@property (nonatomic, strong) NSArray *teamOrder;
-
+- (void)moveTeam:(FNTeam *)team toIndex:(NSInteger)newIndex;
+- (void)assignPlayer:(FNPlayer *)player toTeam:(FNTeam *)team;
+- (void)unassignPlayer:(FNPlayer *)player;
+- (void)setName:(NSString *)name forTeam:(FNTeam *)team;
 
 
 - (void)addScoreCard:(FNScoreCard *)scoreCard;

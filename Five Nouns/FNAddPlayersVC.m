@@ -340,12 +340,14 @@
 {
     [super viewWillAppear:animated];
     [self setupDataSource];
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.observer stopObserving];
     self.observer = nil;
+    self.dataSource = nil;
     [super viewWillDisappear:animated];
 }
 

@@ -24,7 +24,7 @@
 
 - (NSArray *)categories
 {
-    return [self.brain teamOrder];
+    return [self.brain orderOfTeams];
 }
 
 - (NSString *)title
