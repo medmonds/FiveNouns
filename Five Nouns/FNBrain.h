@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 @property (nonatomic, strong) NSMutableArray *allPlayers;
 - (void)addPlayer:(FNPlayer *)player;
 - (void)removePlayer:(FNPlayer *)player;
+- (FNPlayer *)currentPlayer;
 - (FNPlayer *)nextPlayer;
 
 
@@ -36,8 +37,8 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 - (void)addTeam:(FNTeam *)team;
 - (void)removeTeam:(FNTeam *)team;
 - (void)moveTeam:(FNTeam *)team toIndex:(NSInteger)newIndex;
-- (void)assignPlayer:(FNPlayer *)player toTeam:(FNTeam *)team;
-- (void)unassignPlayer:(FNPlayer *)player;
+- (void)assignTeam:(FNTeam *)team toPlayer:(FNPlayer *)player;
+- (void)unassignTeamFromPlayer:(FNPlayer *)player;
 - (void)setName:(NSString *)name forTeam:(FNTeam *)team;
 
 

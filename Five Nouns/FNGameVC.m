@@ -76,7 +76,6 @@
     [self.brain saveCurrentTurn:turnData];
 }
 
-
 - (void)optionsBarButtonItemPressed
 {
     UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"pausedNC"];
@@ -85,7 +84,7 @@
     [self.navigationController presentViewController:nc animated:YES completion:nil];
 }
 
-- (void)countDownTimerExpired
+- (void)countDownTimerExpired // turn is over
 {
     self.countDownTimer.labelString = @"Next Player";
     [self.currentPlayer.team addScoreCard:self.currentScoreCard];
@@ -135,6 +134,7 @@
     } else if (self.returnToNextUpVC) {
         // pop the gamevc back to the NextUpVC
         self.returnToNextUpVC = NO;
+        self.currentPlayer = [self.brain nextPlayer];
         [self.navigationController popViewControllerAnimated:YES];
         return;
     } else if (self.startTimerAndRevealNoun) {

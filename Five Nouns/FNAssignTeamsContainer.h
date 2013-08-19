@@ -12,5 +12,6 @@
 
 @interface FNAssignTeamsContainer : UIViewController
 @property (nonatomic, strong) FNBrain *brain;
-
+- (void)setStepperMaxValue:(NSInteger)maxValue;
+- (void)setStepperValue:(NSInteger)value;
 @end

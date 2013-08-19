@@ -19,7 +19,7 @@
 
 - (void)newGame;
 
-- (void)countDownTimerReachedTime:(NSNumber *)time; // called every second
-- (void)countDownTimerExpired;
+//- (void)countDownTimerReachedTime:(NSNumber *)time; // called every second
+//- (void)countDownTimerExpired;
 
 @end

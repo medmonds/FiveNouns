@@ -105,7 +105,7 @@
 - (void)setup
 {
     // get and show the next player up
-    self.nextPlayer = [self.brain nextPlayer];
+    self.nextPlayer = [self.brain currentPlayer];
     self.nextPlayerLabel.text = self.nextPlayer.name;
 
     self.roundLabel.text = [NSString stringWithFormat:@"Round %d", self.round];

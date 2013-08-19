@@ -17,6 +17,7 @@
 #import "FNBrain.h"
 #import "FNTeam.h"
 #import "THObserver.h"
+#import "FNAssignTeamsContainer.h"
 
 @interface FNAssignTeamsVC ()
 @property (nonatomic) NSInteger visibleTeamIndex;
@@ -222,6 +223,7 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
             NSUInteger i, count = [indexes count];
             for (i = 0; i < count; i++) {
                 if ([self teamForSection:currentIndex] == removed[i]) {
+                    [self stopObserversForTeams:@[[[self.dataSource objectAtIndex:currentIndex] objectForKey:@"team"]]];
                     [self.dataSource removeObjectAtIndex:currentIndex];
                     [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:currentIndex] withRowAnimation:UITableViewRowAnimationTop];
                 }
@@ -231,6 +233,8 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
         }
         case NSKeyValueChangeReplacement: {
             NSArray *replacements = [changeDictionary objectForKey:NSKeyValueChangeNewKey];
+            [self stopObserversForTeams:[self.dataSource objectsAtIndexes:indexes]];
+            [self createObserversAndDataObjectsForTeams:replacements];
             [self.dataSource replaceObjectsAtIndexes:indexes withObjects:replacements];
             [self.tableView reloadSections:indexes withRowAnimation:UITableViewRowAnimationFade];
             break;
@@ -244,6 +248,7 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
     }
     [self.tableView endUpdates];
     [CATransaction commit];
+    [((FNAssignTeamsContainer *)self.parentViewController) setStepperValue:[self.dataSource count]];
 }
 
 - (void)nameChangedForTeam:(FNTeam *)team keyPath:(NSString *)keyPath change:(NSDictionary *)changeDictionary
@@ -431,6 +436,7 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
     }
     [self.tableView endUpdates];
     [self refreshCells];
+    [((FNAssignTeamsContainer *)self.parentViewController) setStepperMaxValue:MIN(6, [self.brain.allPlayers count])];
 }
 
 - (void)player:(FNPlayer *)player teamChangedFrom:(FNTeam *)fromTeam to:(FNTeam *)toTeam
@@ -454,12 +460,12 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
             [self refreshCells];
         }];
         [self.tableView beginUpdates];
-        if (toTeam) { // if (toTeam && !fromTeam) !!!
+        if (toTeam && toTeam != (id)[NSNull null]) { // if (toTeam && !fromTeam) !!!
             // the player was visible and should no longer be
             NSIndexPath *playerIndexPath = [NSIndexPath indexPathForRow:[[self playersForTeam:self.visibleTeam] indexOfObject:player] + PLAYER_INDEX_OFFSET inSection:self.visibleTeamIndex];
             [self.tableView deleteRowsAtIndexPaths:@[playerIndexPath] withRowAnimation:UITableViewRowAnimationTop];
             [self.availablePlayers removeObject:player];
-        } else { //  if (fromTeam && !toTeam) !!!
+        } else {
             [self.availablePlayers addObject:player];
             NSIndexPath *playerIndexPath = [NSIndexPath indexPathForRow:[[self playersForTeam:self.visibleTeam] indexOfObject:player] + PLAYER_INDEX_OFFSET inSection:self.visibleTeamIndex];
             [self.tableView insertRowsAtIndexPaths:@[playerIndexPath] withRowAnimation:UITableViewRowAnimationTop];
@@ -558,14 +564,13 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
 {
     FNSelectableCell *cell = ((FNSelectableCell *)sender.superview.superview);
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    FNPlayer *player = cell.objectForCell;
+    FNPlayer *player = [self playerForIndexPath:indexPath];
+//    FNPlayer *player = cell.objectForCell;
     FNTeam *team = [[self.dataSource objectAtIndex:indexPath.section] objectForKey:@"team"];
     if (player.team == team) {
-        // remove player from team.players && player.team = nil
-        [self.brain unassignPlayer:player];
+        [self.brain unassignTeamFromPlayer:player];
     } else {
-        // user assigned team: team.players && player.team
-        [self.brain assignPlayer:player toTeam:team];
+        [self.brain assignTeam:team toPlayer:player];
     }
 }
 
@@ -795,7 +800,7 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
     [self setBackgroundForCell:cell atIndexPath:indexPath];
     [cell.button addTarget:self action:@selector(playerAssignmentIndicatorPressed:) forControlEvents:UIControlEventTouchUpInside];
     FNPlayer *player = [self playerForIndexPath:indexPath];
-    cell.objectForCell = player;
+//    cell.objectForCell = player;
     if (player.team == team) {
         [cell.button setImage:[FNAppearance checkmarkWithStyle:FNCheckmarkStyleUser] forState:UIControlStateNormal];
     } else if ([team.players containsObject:player]) {

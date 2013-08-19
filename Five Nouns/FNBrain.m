@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray *scoreCards;
 @property (nonatomic, strong) NSNumber *gameStatus;
 @property (nonatomic, strong) NSArray *teamOrder;
+@property (nonatomic, strong) FNPlayer *player;
 @end
 
 static NSString * const AllTeamsKey = @"allTeams";
@@ -32,6 +33,13 @@ static NSString * const GameStatusKey = @"gameStatus";
 @implementation FNBrain
 
 
+- (FNPlayer *)player
+{
+    if (!_player) {
+        _player = [((FNTeam *)self.allTeams[0]) nextPlayer];
+    }
+    return _player;
+}
 
 - (FNPlayer *)nextPlayer
 {
@@ -41,8 +49,14 @@ static NSString * const GameStatusKey = @"gameStatus";
     [self.allTeams removeObjectAtIndex:0];
     [self.allTeams addObject:nextTeam];
     // rotate players
-    FNPlayer *nextPlayer = [nextTeam nextPlayer];
+    FNPlayer *nextPlayer = [self.allTeams[0] nextPlayer];
+    self.player = nextPlayer;
     return nextPlayer;
+}
+
+- (FNPlayer *)currentPlayer
+{
+    return self.player;
 }
 
 - (void)prepareForNewRound
@@ -124,17 +138,14 @@ static NSString * const GameStatusKey = @"gameStatus";
 
 - (void)addPlayer:(FNPlayer *)player
 {
+    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerAdd valueNew:player valueOld:nil]];
     [self addPlayerWithoutUpdate:player];
-    [self.unplayedNouns addObjectsFromArray:player.nouns];
-    FNUpdate *update = [FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerAdd valueNew:player valueOld:nil];
-    [self sendUpdate:update];
 }
 
 - (void)removePlayer:(FNPlayer *)player
 {
+    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerRemove valueNew:nil valueOld:player]];
     [self removePlayerWithoutUpdate:player];
-    FNUpdate *update = [FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerRemove valueNew:nil valueOld:player];
-    [self sendUpdate:update];
 }
 
 #pragma mark - Teams
@@ -180,25 +191,28 @@ static NSString * const GameStatusKey = @"gameStatus";
     NSInteger oldCount = [self.allTeams count];
     [self removeObjectFromAllTeamsAtIndex:[self.allTeams indexOfObject:team]];
     self.teamOrder = self.allTeams;
+    for (FNPlayer *player in team.players) {
+        player.team = nil;
+    }
     [self assignPlayersToTeam:team OldTeamsCount:oldCount];
 }
 
 - (void)addTeam:(FNTeam *)team
 {
-    [self addTeamWithoutUpdate:team];
     [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamAdd valueNew:team valueOld:nil]];
+    [self addTeamWithoutUpdate:team];
 }
 
 - (void)removeTeam:(FNTeam *)team
 {
-    [self removeTeamWithoutUpdate:team];
     [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamRemove valueNew:nil valueOld:team]];
+    [self removeTeamWithoutUpdate:team];
 }
 
 - (void)setName:(NSString *)name forTeam:(FNTeam *)team
 {
-    [self setNameWithoutUpdate:name forTeam:team];
     [self sendUpdate:[FNUpdate updateForObject:team updateType:FNUpdateTypeTeamName valueNew:name valueOld:nil]];
+    [self setNameWithoutUpdate:name forTeam:team];
 }
 
 - (void)setNameWithoutUpdate:(NSString *)name forTeam:(FNTeam*)team
@@ -208,8 +222,8 @@ static NSString * const GameStatusKey = @"gameStatus";
 
 - (void)moveTeam:(FNTeam *)team toIndex:(NSInteger)newIndex
 {
-    [self moveTeamWithoutUpdate:team toIndex:newIndex];
     [self sendUpdate:[FNUpdate updateForObject:team updateType:FNUpdateTypeTeamOrder valueNew:@(newIndex) valueOld:nil]];
+    [self moveTeamWithoutUpdate:team toIndex:newIndex];
 }
 
 - (void)moveTeamWithoutUpdate:(FNTeam *)team toIndex:(NSInteger)newIndex
@@ -256,7 +270,7 @@ static NSString * const GameStatusKey = @"gameStatus";
             [sortedTeams enumerateObjectsUsingBlock:^(FNTeam *otherTeam, NSUInteger idx, BOOL *stop) {
                 // if the player is not assigned to the team
                 FNPlayer *player = [otherTeam.players lastObject];
-                if (player.team != otherTeam && player) {
+                if (![player.team isEqual:otherTeam] && player) {
                     [playersForNewTeam addObject:player];
                     [otherTeam removePlayer:player];
                     if ([playersForNewTeam count] == countPlayersNeeded) {
@@ -282,28 +296,35 @@ static NSString * const GameStatusKey = @"gameStatus";
     }
 }
 
-- (void)assignPlayer:(FNPlayer *)player toTeam:(FNTeam *)team
+- (void)assignTeamWithoutUpdate:(FNTeam *)team toPlayer:(FNPlayer *)player;
 {
     for (FNTeam *aTeam in self.allTeams) {
-        if (aTeam != team && [aTeam.players containsObject:player]) {
+        if (![aTeam isEqual:team] && [aTeam.players containsObject:player]) {
             [aTeam removePlayer:player];
             break;
         }
     }
     [team addPlayer:player];
     player.team = team;
-    // make sure the updates are handled on the other end to remove the assigned player from all other teams (esp computer assigned teams)
-    [self sendUpdate:[FNUpdate updateForObject:team updateType:FNUpdateTypeTeamPlayer valueNew:player valueOld:nil]];
-    [self sendUpdate:[FNUpdate updateForObject:player updateType:FNUpdateTypePlayerTeam valueNew:team valueOld:nil]];
 }
 
-- (void)unassignPlayer:(FNPlayer *)player
+- (void)assignTeam:(FNTeam *)team toPlayer:(FNPlayer *)player;
+{
+    [self sendUpdate:[FNUpdate updateForObject:player updateType:FNUpdateTypeTeamToPlayer valueNew:team valueOld:nil]];
+    [self assignTeamWithoutUpdate:team toPlayer:player];
+}
+
+- (void)unassignTeamFromPlayerWithoutUpdate:(FNPlayer *)player
 {
     FNTeam *oldTeam = player.team;
     player.team = nil;
     [oldTeam removePlayer:player];
-    [self sendUpdate:[FNUpdate updateForObject:player updateType:FNUpdateTypePlayerTeam valueNew:nil valueOld:oldTeam]];
-    [self sendUpdate:[FNUpdate updateForObject:oldTeam updateType:FNUpdateTypeTeamPlayer valueNew:nil valueOld:player]];
+}
+
+- (void)unassignTeamFromPlayer:(FNPlayer *)player;
+{
+    [self sendUpdate:[FNUpdate updateForObject:player updateType:FNUpdateTypeTeamToPlayer valueNew:nil valueOld:player.team]];
+    [self unassignTeamFromPlayerWithoutUpdate:player];
 }
 
 - (NSMutableArray *)scoreCards
@@ -426,7 +447,8 @@ static NSString * const GameStatusKey = @"gameStatus";
     BOOL success = [[FNMultiplayerManager sharedMultiplayerManager] sendUpdate:update];
 }
 
-- (FNTeam *)teamForTeamFromUpdate:(FNTeam *)updateTeam
+// do i need this method if i use isEqual everywhere?
+- (FNTeam *)localTeamForTeamFromUpdate:(FNTeam *)updateTeam
 {
     FNTeam *localTeam;
     for (FNTeam *team in self.allTeams) {
@@ -436,6 +458,18 @@ static NSString * const GameStatusKey = @"gameStatus";
         }
     }
     return localTeam;
+}
+
+- (FNPlayer *)localPlayerForPlayerFromUpdate:(FNPlayer *)updatePlayer
+{
+    FNPlayer *localPlayer;
+    for (FNPlayer *player in self.allPlayers) {
+        if ([player isEqual:updatePlayer]) {
+            localPlayer = player;
+            break;
+        }
+    }
+    return localPlayer;
 }
 
 - (void)handleUpdate:(FNUpdate *)update
@@ -455,7 +489,7 @@ static NSString * const GameStatusKey = @"gameStatus";
             break;
         }
         case FNUpdateTypePlayerRemove: {
-            [self removePlayerWithoutUpdate:update.valueOld];
+            [self removePlayerWithoutUpdate:[self localPlayerForPlayerFromUpdate:update.valueOld]];
             break;
         }
         case FNUpdateTypeTeamAdd: {
@@ -463,25 +497,47 @@ static NSString * const GameStatusKey = @"gameStatus";
             break;
         }
         case FNUpdateTypeTeamRemove: {
-            [self removeTeamWithoutUpdate:update.valueOld];
+            [self removeTeamWithoutUpdate:[self localTeamForTeamFromUpdate:update.valueOld]];
             break;
         }
         case FNUpdateTypeTeamName: {
-            [self setNameWithoutUpdate:update.valueNew forTeam:[self teamForTeamFromUpdate:update.valueNew]];
+            [self setNameWithoutUpdate:update.valueNew forTeam:[self localTeamForTeamFromUpdate:update.valueNew]];
         }
         case FNUpdateTypeTeamOrder: {
-            [self moveTeamWithoutUpdate:[self teamForTeamFromUpdate:update.updatedObject] toIndex:[update.valueNew integerValue]];
+            [self moveTeamWithoutUpdate:[self localTeamForTeamFromUpdate:update.updatedObject] toIndex:[update.valueNew integerValue]];
         }
-        case FNUpdateTypePlayerTeam: {
-            
+        case FNUpdateTypeTeamToPlayer: {
+            // check to make sure the player is currently assigned to the team to be unassigned from (per update) before unassigning the player if it is not then what? !!!
+            FNPlayer *player = [self localPlayerForPlayerFromUpdate:update.updatedObject];
+            if (update.valueNew) {
+                FNTeam *newTeam = [self localTeamForTeamFromUpdate:update.valueNew];
+                if (![newTeam isEqual:player.team]) {
+                    [self assignTeamWithoutUpdate:newTeam toPlayer:player];
+                } else {
+                    // handle this better !!!
+                    [NSException raise:@"Invalid Update" format:@"Player from update: %@ already assigned to team.", update];
+                }
+            } else {
+                FNTeam *oldTeam = [self localTeamForTeamFromUpdate:update.valueOld];
+                if ([oldTeam isEqual:player.team]) {
+                    [self unassignTeamFromPlayerWithoutUpdate:player];
+                } else {
+                    [NSException raise:@"Invalid Update" format:@"Player from update: %@ not assigned to team.", update];
+                }
+            }
         }
-        case FNUpdateTypeTeamPlayer: {
+        case FNUpdateTypePlayerToTeam: {
             
         }
             
         default:
             break;
     }
+}
+
+- (void)gameStatus:(FNGameStatus)status
+{
+    self.gameStatus = @(status);
 }
 
 - (void)updateUIForGameStatus

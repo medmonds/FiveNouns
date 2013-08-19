@@ -39,6 +39,16 @@
     }
 }
 
+- (void)setStepperMaxValue:(NSInteger)maxValue
+{
+    self.stepperView.maxTeams = maxValue;
+}
+
+- (void)setStepperValue:(NSInteger)value
+{
+    [self.stepperView setCurrentNumber:value];
+}
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Players" forOrientation:toInterfaceOrientation];

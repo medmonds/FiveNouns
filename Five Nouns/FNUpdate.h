@@ -13,10 +13,10 @@ typedef NS_ENUM(NSInteger, FNUpdateType) {
     FNUpdateTypeEverything,
     FNUpdateTypePlayerAdd,
     FNUpdateTypePlayerRemove,
-    FNUpdateTypePlayerTeam,
+    FNUpdateTypeTeamToPlayer,
     FNUpdateTypeTeamAdd,
     FNUpdateTypeTeamRemove,
-    FNUpdateTypeTeamPlayer,
+    FNUpdateTypePlayerToTeam,
     FNUpdateTypeTeamOrder,
     FNUpdateTypeTeamName
 };
