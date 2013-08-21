@@ -264,7 +264,7 @@
 {
     self.nounLabel.text = @"Get Ready!";
     self.currentPlayerLabel.text = self.currentPlayer.name;
-    [self.brain gameStatus:FNGameStatusTurnInProgress];
+    [self.brain setGameStatus:FNGameStatusTurnInProgress];
 }
 
 - (void)didReceiveMemoryWarning

@@ -124,7 +124,7 @@
 
 - (void)addPlayer
 {
-    //[self toggleAddPlayerSavingCurrentPlayer:NO];
+    [self toggleAddPlayerSavingCurrentPlayer:NO];
     [self addDummyData];
 }
 
@@ -138,6 +138,18 @@
         [self.currentPlayer.nouns replaceObjectAtIndex:textField.tag withObject:textField.text];
     }
     return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSInteger nextCellRow = textField.tag + 2;
+    if (nextCellRow < 6) {
+        FNEditableCell *cell = (FNEditableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:nextCellRow inSection:0]];
+        [cell.detailTextField becomeFirstResponder];
+    } else {
+        [textField resignFirstResponder];
+    }
+    return YES; 
 }
 
 #pragma mark - Logic Methods

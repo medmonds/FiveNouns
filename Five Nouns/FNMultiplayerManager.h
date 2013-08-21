@@ -16,6 +16,7 @@
 @protocol FNMultiplayerBrain <NSObject>
 
 - (void)didConnectToClient:(NSString *)peerID;
+- (void)didDisconnectFromClient:(NSString *)peerID;
 
 @end
 
@@ -25,6 +26,7 @@
 - (void)stop;
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context;
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode;
+- (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode toPeer:(NSString *)peerID;
 @end
 
 
@@ -40,6 +42,7 @@
 + (SEL)selectorForMultiplayerView;
 
 - (BOOL)sendUpdate:(FNUpdate *)update;
+- (BOOL)sendUpdate:(FNUpdate *)update toClient:(NSString *)peerID;
 
 - (UIViewController *)joinViewController;
 - (void)startServingGame;
@@ -47,8 +50,10 @@
 
 
 - (void)delegate:(id <FNMultiplayerManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID;
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didDisconnectFromServer:(NSString *)serverPeerID;
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToClient:(NSString *)clientPeerID;
-// add disconnect methods
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didDisconnectFromClient:(NSString *)clientPeerID;
+
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didRecieveData:(NSData *)data;
 
 

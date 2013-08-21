@@ -133,6 +133,7 @@
 {
     NSLog(@"Host - Did receive data from Peer: %@", peer);
     [self.manager delegate:self didRecieveData:data];
+    [self sendData:data withDataMode:GKSendDataReliable notToPeer:peer];
 }
 
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode
@@ -143,6 +144,37 @@
         return NO;
     } else {
         NSLog(@"Host - Sent data to Clients: %@", self.connectedClients);
+        return YES;
+    }
+}
+
+- (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode toPeer:(NSString *)peerID
+{
+    if ([self.connectedClients containsObject:peerID]) {
+        NSError *error;
+        if (![self.session sendData:data toPeers:@[peerID] withDataMode:mode error:&error]) {
+            NSLog(@"Host - Send data to Client: %@ failed with Error: %@", peerID, error);
+            return NO;
+        } else {
+            NSLog(@"Host - Sent data to Client: %@", peerID);
+            return YES;
+        }
+    } else {
+        NSLog(@"Host - Send data to Client: %@ failed b/c host not connected to client.", peerID);
+        return NO;
+    }
+}
+
+- (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode notToPeer:(NSString *)peerID
+{
+    NSError *error;
+    NSMutableArray *recipients = [self.connectedClients mutableCopy];
+    [recipients removeObject:peerID];
+    if (![self.session sendData:data toPeers:recipients withDataMode:mode error:&error]) {
+        NSLog(@"Host - Reflect data to Clients: %@ failed with Error: %@", recipients, error);
+        return NO;
+    } else {
+        NSLog(@"Host - Reflected data to Clients: %@", recipients);
         return YES;
     }
 }
@@ -166,6 +198,7 @@
                 NSInteger index = [self.connectedClients indexOfObject:peerID];
                 [self.connectedClients removeObject:peerID];
                 [self.serverVC deleteClientAtIndex:index];
+                [self.manager delegate:self didDisconnectFromClient:peerID];
             }
             break;
             

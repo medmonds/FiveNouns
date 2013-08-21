@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-typedef NS_ENUM(NSInteger, FNUpdateType) {
+typedef NS_ENUM(NSUInteger, FNUpdateType) {
     FNUpdateTypeEverything,
     FNUpdateTypePlayerAdd,
     FNUpdateTypePlayerRemove,
@@ -18,7 +18,9 @@ typedef NS_ENUM(NSInteger, FNUpdateType) {
     FNUpdateTypeTeamRemove,
     FNUpdateTypePlayerToTeam,
     FNUpdateTypeTeamOrder,
-    FNUpdateTypeTeamName
+    FNUpdateTypeTeamName,
+    FNUpdateTypeStatus,
+    FNUpdateTypePeerDisconnected
 };
 
 

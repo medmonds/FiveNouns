@@ -35,28 +35,8 @@
 
 
 /*****************************************************************************************************
-  
-KVO:
+  NOTES:
  
- kvo brain.teamOrder and react to changes
-** need to link the players being observed to their observers so I can call stopObsering before releasing the player
- 
- 
- To Do:
- 
- - animate adding and remove the forward button when number of teams moves to & past zero
-   then remove the check at - forwardBarButtonItemPressed
- 
- - make button backgrounds for the selected state
- - set the selected background for the stepper when stepped
- - (??) set the selected background for the reorder control when reordering (not when pressed)
- - change team name to be edited in the button cell (row 0) and make the background dark when expanded
- 
- Ideas:
- 
- To show all of the team members (for Review) could just show the assigned players & Just the
- team name header cell (maybe checkmarks) but in a flat (not inset) manner and then when pressed
- animate and "push the cells into the game" for the the inset look
  
  
  ******************************************************************************************************/
@@ -271,8 +251,6 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
 
 - (void)playersAssignedToTeam:(FNTeam *)team keyPath:(NSString *)keyPath change:(NSDictionary *)changeDictionary
 {
-    NSLog(@"playersAssignedToTeam");
-    
     NSKeyValueChange change = [[changeDictionary objectForKey:NSKeyValueChangeKindKey] integerValue];
     NSIndexSet *indexes = [changeDictionary objectForKey:NSKeyValueChangeIndexesKey];
     __block NSMutableArray *teamPlayers;
@@ -362,11 +340,7 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
 
 - (void)allPlayersChangedForBrain:(FNBrain *)brain keyPath:(NSString *)keyPath change:(NSDictionary *)changeDictionary
 {
-    // only handle the change to available players here and adding or removing any observers
-    // the brain will handle adding players & removeing players from teams they might be assigned to
-    
-    NSLog(@"allPlayersChangedForBrain");
-    
+    // only handle the change to available players here and adding or removing any observers        
     [self.tableView beginUpdates];
     NSKeyValueChange change = [[changeDictionary objectForKey:NSKeyValueChangeKindKey] integerValue];
     switch (change) {

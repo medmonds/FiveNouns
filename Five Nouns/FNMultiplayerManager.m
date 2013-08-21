@@ -107,9 +107,22 @@
     [self.brain didConnectToClient:clientPeerID];
 }
 
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didDisconnectFromClient:(NSString *)clientPeerID
+{
+    [self.clients removeObject:clientPeerID];
+    [self.brain didDisconnectFromClient:clientPeerID];
+}
+
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID
 {
+#warning Incomplete Implementation - Should do more here
     self.server = serverPeerID;
+}
+
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didDisconnectFromServer:(NSString *)serverPeerID
+{
+#warning Incomplete Implementation - Should do more here
+    self.server = nil;
 }
 
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didRecieveData:(NSData *)data
@@ -120,10 +133,14 @@
 - (BOOL)sendUpdate:(FNUpdate *)update
 {
     if ([self.clients count] == 0 && !self.server) {
-        // should this return YES? !!!
         return YES;
     }
     return [self.sessionDelegate sendData:[FNUpdate dataForUpdate:update] withDataMode:GKSendDataReliable];
+}
+
+- (BOOL)sendUpdate:(FNUpdate *)update toClient:(NSString *)peerID
+{
+    return [self.sessionDelegate sendData:[FNUpdate dataForUpdate:update] withDataMode:GKSendDataReliable toPeer:peerID];
 }
 
 

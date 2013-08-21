@@ -149,7 +149,7 @@
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" type="user" id="kfm-uI-eSB"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                                         </textField>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" text="nouns:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1q-Z8-vDU">
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1646,14 +1646,10 @@
         </class>
         <class className="FNNewGameVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FNNewGameVC.h"/>
-            <relationships>
-                <relationship kind="action" name="joinGamePressed:"/>
-            </relationships>
         </class>
         <class className="FNNextUpVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FNNextUpVC.h"/>
             <relationships>
-                <relationship kind="action" name="startPressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="nextPlayerLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="roundLabel" candidateClass="UILabel"/>
             </relationships>

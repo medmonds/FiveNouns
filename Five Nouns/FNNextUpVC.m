@@ -56,10 +56,27 @@
 
 - (IBAction)startPressed:(UIButton *)sender
 {
-    if (self.gameHasNotStarted) [self beginGame];
+    if (self.gameHasNotStarted) {
+        if ([self.brain canBeginGame]) {
+            [self beginGame];
+        } else {
+            [self displayNotReadyToStartGameAlert];
+        }
+    }
     self.gameVC.currentPlayer = self.nextPlayer;
     [self.navigationController pushViewController:self.gameVC animated:YES];
 }
+
+- (void)displayNotReadyToStartGameAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Players Aren't Ready"
+                                                    message:@"All players most be at this screen to begin."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
 
 - (void)showDirectionsForRound
 {
@@ -158,6 +175,11 @@
     if (self.showDirections) {
         [self showDirectionsForRound];
         self.showDirections = NO;
+    }
+    if (self.gameHasNotStarted) {
+        [self.brain setGameStatus:FNGameStatusReadyToStart];
+    } else {
+        [self.brain setGameStatus:FNGameStatusStarted];
     }
 }
 

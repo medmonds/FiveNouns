@@ -117,10 +117,12 @@
 
 - (void)didDisconnectFromPeer:(NSString *)peerID
 {
+    // What an i doing here? !!!
     NSInteger index = [self.availableServers indexOfObject:peerID];
     [self.availableServers removeObject:peerID];
     [self.joinVC deleteAvailableServerAtIndex:index];
     [self start];
+    [self.manager delegate:self didDisconnectFromServer:peerID];
 }
 
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context
@@ -137,6 +139,22 @@
         return NO;
     } else {
         return YES;
+    }
+}
+
+- (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode toPeer:(NSString *)peerID
+{
+    if ([peerID isEqualToString:self.serverPeerID]) {
+        NSError *error;
+        if (![self.session sendData:data toPeers:@[[self.serverPeerID copy]] withDataMode:mode error:&error]) {
+            NSLog(@"Client - Send data to Server: %@ failed with Error: %@", self.serverPeerID, error);
+            return NO;
+        } else {
+            return YES;
+        }
+    } else {
+        NSLog(@"Client - Send data to Server: %@ failed b/c not connected to server", peerID);
+        return NO;
     }
 }
 

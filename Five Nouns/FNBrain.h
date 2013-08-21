@@ -16,6 +16,7 @@
 
 typedef NS_ENUM(NSInteger, FNGameStatus) {
     FNGameStatusNotStarted,
+    FNGameStatusReadyToStart,
     FNGameStatusStarted,
     FNGameStatusTurnInProgress,
 };
@@ -30,6 +31,7 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 - (void)removePlayer:(FNPlayer *)player;
 - (FNPlayer *)currentPlayer;
 - (FNPlayer *)nextPlayer;
+- (BOOL)allPlayersAssignedToTeams;
 
 
 @property (nonatomic, strong) NSMutableArray *allTeams;
@@ -49,8 +51,8 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 
 - (void)returnUnplayedNoun:(NSString *)noun;
 - (void)prepareForNewRound;
-- (void)gameStatus:(FNGameStatus)status;
-
+- (void)setGameStatus:(FNGameStatus)status;
+- (BOOL)canBeginGame;
 
 
 - (void)saveCurrentTurn:(FNTurnData *)turn;

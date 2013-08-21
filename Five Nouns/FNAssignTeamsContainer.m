@@ -32,10 +32,22 @@
     }
 }
 
+- (void)displayInvalidTeamsAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unassigned players"
+                                                    message:@"You must assign all players to teams before proceeding."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
 - (void)forwardBarButtonItemPressed
 {
-    if ([self.brain.allTeams count] > 0) {
+    if ([self.brain.allTeams count] && [self.brain allPlayersAssignedToTeams]) {
         [self performSegueWithIdentifier:@"nextUp" sender:self];
+    } else {
+        [self displayInvalidTeamsAlert];
     }
 }
 
@@ -75,6 +87,7 @@
 {
     self.stepperView.stepper.maximumValue = MIN(6, [self.brain.allPlayers count]);
     [self.stepperView setCurrentNumber:[self.brain.allTeams count]];
+    [self.brain setGameStatus:FNGameStatusNotStarted];
 }
 
 @end

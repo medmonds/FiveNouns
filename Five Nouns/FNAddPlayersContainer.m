@@ -20,7 +20,21 @@
 
 - (void)forwardBarButtonItemPressed
 {
-    [self performSegueWithIdentifier:@"teamsOverview" sender:self];
+    if ([self.brain.allPlayers count] > 1) {
+        [self performSegueWithIdentifier:@"teamsOverview" sender:self];
+    } else {
+        [self displayInvalidPlayerCountAlert];
+    }
+}
+
+- (void)displayInvalidPlayerCountAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Not Enough Players"
+                                                    message:@"You must add at least two players before proceeding."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
