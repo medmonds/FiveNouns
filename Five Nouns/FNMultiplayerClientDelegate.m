@@ -109,20 +109,25 @@
 - (void)didConnectToPeer:(NSString *)peerID
 {
     // can send data or whateves
-    self.serverPeerID = peerID;
-    [self stop];
-    self.session.available = NO;
-    [self.manager delegate:self didConnectToServer:peerID];
+    if (!self.serverPeerID) {
+        self.serverPeerID = peerID;
+        [self stop];
+        self.session.available = NO;
+        [self.manager delegate:self didConnectToServer:peerID];
+    }
 }
 
 - (void)didDisconnectFromPeer:(NSString *)peerID
 {
     // What an i doing here? !!!
-    NSInteger index = [self.availableServers indexOfObject:peerID];
-    [self.availableServers removeObject:peerID];
-    [self.joinVC deleteAvailableServerAtIndex:index];
-    [self start];
-    [self.manager delegate:self didDisconnectFromServer:peerID];
+    if (peerID == self.serverPeerID) {
+        NSInteger index = [self.availableServers indexOfObject:peerID];
+        [self.availableServers removeObject:peerID];
+        self.serverPeerID = nil;
+        [self.joinVC deleteAvailableServerAtIndex:index];
+        [self start];
+        [self.manager delegate:self didDisconnectFromServer:peerID];
+    }
 }
 
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context

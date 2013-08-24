@@ -475,7 +475,7 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)sendUpdate:(FNUpdate *)update toClient:(NSString *)peerID
 {
-    BOOL success = [[FNMultiplayerManager sharedMultiplayerManager] sendUpdate:update];
+    BOOL success = [[FNMultiplayerManager sharedMultiplayerManager] sendUpdate:update toClient:peerID];
 }
 
 // do i need this method if i use isEqual everywhere?

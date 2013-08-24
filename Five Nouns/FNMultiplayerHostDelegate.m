@@ -57,6 +57,7 @@
     if (!self) {
         return nil;
     }
+    
     self.maxConnectedClients = 3;
     self.manager = manager;
     return self;
