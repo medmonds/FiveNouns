@@ -8,7 +8,6 @@
 
 #import "FNMultiplayerContainer.h"
 #import "FNMultiPlayerVC.h"
-#import "FNMultiplayerHostDelegate.h"
 #import "FNButtonRect.h"
 
 @interface FNMultiplayerContainer ()
@@ -22,7 +21,7 @@
 - (IBAction)toggleMultiplayerServerStatePressed:(UIButton *)sender
 {
     if ([self.dataSource isMultiplayerEnabled]) {
-        [self.dataSource userStopServingGame];
+        [self.dataSource turnOffMultiplayer];
         [UIView animateWithDuration:.2 animations:^{
             self.multiplayerServerStateToggle.alpha = 0.2;
         } completion:^(BOOL finished) {
@@ -32,7 +31,7 @@
             }];
         }];
     } else {
-        [self.dataSource userStartServingGame];
+        [self.dataSource turnOnMultiplayer];
         [UIView animateWithDuration:.2 animations:^{
             self.multiplayerServerStateToggle.alpha = 0.2;
         } completion:^(BOOL finished) {
@@ -44,12 +43,12 @@
     }
 }
 
-- (void)insertClientAtIndex:(NSInteger)index
+- (void)insertPeerAtIndex:(NSInteger)index
 {
     [((FNMultiPlayerVC *)self.childViewControllers[0]) insertClientAtIndex:index];
 }
 
-- (void)deleteClientAtIndex:(NSInteger)index
+- (void)deletePeerAtIndex:(NSInteger)index
 {
     [((FNMultiPlayerVC *)self.childViewControllers[0]) deleteClientAtIndex:index];
 }

@@ -8,7 +8,6 @@
 
 #import "FNMultiplayerJoinVC.h"
 #import "FNAppearance.h"
-#import "FNMultiplayerClientDelegate.h"
 #import "FNSpinnerCell.h"
 
 @interface FNMultiplayerJoinVC ()
@@ -36,7 +35,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.dataSource viewControllerWillAppear];
+    [self.dataSource viewControllerWillAppear:self];
 }
 
 - (void)viewDidLoad
@@ -52,18 +51,18 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [self.dataSource viewControllerWasDismissed];
+    [self.dataSource viewControllerWasDismissed:self];
 }
 
 
 #pragma mark - Table view data source
 
-- (void)insertAvailableServerAtIndex:(NSInteger)index
+- (void)insertPeerAtIndex:(NSInteger)index
 {
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)deleteAvailableServerAtIndex:(NSInteger)index
+- (void)deletePeerAtIndex:(NSInteger)index
 {
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -75,14 +74,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.dataSource availableServersCount];
+    return [self.dataSource peersCount];
 }
 
 - (UITableViewCell *)configureCellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"spinnerCell";
     FNSpinnerCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    cell.mainTextLabel.text = [self.dataSource displayNameForServerAtIndex:indexPath.row];
+    cell.mainTextLabel.text = [self.dataSource displayNameForPeerAtIndex:indexPath.row];
     return cell;
 
 }

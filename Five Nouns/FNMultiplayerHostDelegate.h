@@ -20,15 +20,8 @@
 - (void)userStartServingGame;
 - (void)userStopServingGame;
 // could be a property
-- (NSArray *)connectedClientPeerIDs;
+//- (NSArray *)connectedClientPeerIDs;
 
 
-// to be used by the UI
-- (BOOL)isMultiplayerEnabled;
-- (NSInteger)clientsCount;
-- (NSString *)displayNameForClientAtIndex:(NSInteger)index;
-
-- (void)viewControllerWillAppear:(FNMultiplayerContainer *)viewController;
-- (void)viewControllerWasDismissed:(FNMultiplayerContainer *)viewController;
 
 @end

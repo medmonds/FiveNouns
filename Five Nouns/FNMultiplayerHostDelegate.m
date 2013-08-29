@@ -17,7 +17,7 @@
 @property (nonatomic) NSInteger maxConnectedClients;
 @property (nonatomic, strong) GKSession *session;
 //@property (nonatomic, strong) UINavigationController *viewController;
-@property (nonatomic, strong) FNMultiplayerContainer *serverVC;
+//@property (nonatomic, strong) FNMultiplayerContainer *serverVC;
 @end
 
 
@@ -25,13 +25,13 @@
 
 #pragma mark - FNMultiplayerManagerDelegate Methods
 
-- (UIViewController *)viewController
-{
-    UINavigationController *nc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"MultiplayerNC"];
-    self.serverVC = nc.childViewControllers[0];
-    self.serverVC.dataSource = self;
-    return nc;
-}
+//- (UIViewController *)viewController
+//{
+//    UINavigationController *nc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"MultiplayerNC"];
+//    self.serverVC = nc.childViewControllers[0];
+//    self.serverVC.dataSource = self;
+//    return nc;
+//}
 
 - (void)start
 {
@@ -63,41 +63,41 @@
     return self;
 }
 
-- (void)userStartServingGame
-{
-    [self.manager startServingGame];
-}
+//- (void)userStartServingGame
+//{
+//    [self.manager startServingGame];
+//}
 
-- (void)userStopServingGame
-{
-    NSInteger count = [self.connectedClients count];
-    for (NSInteger i = 0; i < count; i++) {
-        [self.connectedClients removeObjectAtIndex:i];
-        [self.serverVC deleteClientAtIndex:i];
-    }
-    [self.manager stopServingGame];
-}
+//- (void)userStopServingGame
+//{
+//    NSInteger count = [self.connectedClients count];
+//    for (NSInteger i = 0; i < count; i++) {
+//        [self.connectedClients removeObjectAtIndex:i];
+//        [self.serverVC deleteClientAtIndex:i];
+//    }
+//    [self.manager stopServingGame];
+//}
 
 - (NSArray *)connectedClientPeerIDs
 {
     return [self.connectedClients copy];
 }
 
-- (BOOL)isMultiplayerEnabled
-{
-    if (self.session) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
+//- (BOOL)isMultiplayerEnabled
+//{
+//    if (self.session) {
+//        return YES;
+//    } else {
+//        return NO;
+//    }
+//}
 
-- (NSInteger)clientsCount
+- (NSInteger)peersCount
 {
     return [self.connectedClients count];
 }
 
-- (NSString *)displayNameForClientAtIndex:(NSInteger)index
+- (NSString *)displayNameForPeerAtIndex:(NSInteger)index
 {
     NSString *displayName;
     if ([self.connectedClients count] > index) {
@@ -105,17 +105,6 @@
     }
     return displayName;
 }
-
-- (void)viewControllerWillAppear:(FNMultiplayerContainer *)viewController
-{
-
-}
-
-- (void)viewControllerWasDismissed:(FNMultiplayerContainer *)viewController
-{
-    self.serverVC = nil;
-}
-
 
 #pragma mark - Private Methods
 
@@ -188,7 +177,6 @@
             if (![self.connectedClients containsObject:peerID]) {
                 [self.connectedClients addObject:peerID];
                 NSInteger index = [self.connectedClients indexOfObject:peerID];
-                [self.serverVC insertClientAtIndex:index];
                 [self.manager delegate:self didConnectToClient:peerID];
             }
             break;
@@ -198,7 +186,6 @@
             if ([self.connectedClients containsObject:peerID]) {
                 NSInteger index = [self.connectedClients indexOfObject:peerID];
                 [self.connectedClients removeObject:peerID];
-                [self.serverVC deleteClientAtIndex:index];
                 [self.manager delegate:self didDisconnectFromClient:peerID];
             }
             break;

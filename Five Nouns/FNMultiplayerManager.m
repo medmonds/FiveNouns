@@ -13,16 +13,91 @@
 #import "FNBrain.h"
 #import "FNUpdate.h"
 
+#import "FNMultiplayerJoinVC.h" // shoul dmake this adhere to a protocol that is shared with the host VC
+
 @interface FNMultiplayerManager ()
 @property (nonatomic) BOOL isHost;
 @property (nonatomic, strong) FNMultiplayerContainer *multiplayerVC;
 @property (nonatomic, strong) id <FNMultiplayerManagerDelegate> sessionDelegate;
 @property (nonatomic, strong) NSString *server;
 @property (nonatomic, strong) NSMutableSet *clients;
+@property (nonatomic, strong) UIViewController <FNMultiplayerViewController> *viewController;
 @end
 
 
 @implementation FNMultiplayerManager
+
+
+
+
+#pragma mark - FNMultiplayerViewControllerDataSource
+
+- (BOOL)isMultiplayerEnabled
+{
+    
+}
+
+- (void)turnOnMultiplayer
+{
+    
+}
+
+- (void)turnOffMultiplayer
+{
+    
+}
+
+- (NSInteger)peersCount
+{
+    return [self.sessionDelegate peersCount];
+}
+
+- (NSString *)displayNameForPeerAtIndex:(NSInteger)index
+{
+    return [self.sessionDelegate displayNameForPeerAtIndex:index];
+}
+
+
+- (void)viewControllerWillAppear:(id <FNMultiplayerViewController>)viewController
+{
+    
+}
+
+- (void)viewControllerWasDismissed:(id <FNMultiplayerViewController>)viewController
+{
+    self.viewController = nil;
+}
+
+- (void)connectToServerAtIndex:(NSInteger)index
+{
+    if ([self.sessionDelegate isKindOfClass:[FNMultiplayerClientDelegate class]]) {
+        [self.sessionDelegate connectToServerAtIndex:index];
+    } else {
+        [NSException raise:@"Tried to connect to a Host while a Hosting a game" format:nil];
+    }
+}
+
+- (void)delegate:(id <FNMultiplayerManagerDelegate>)delegate insertAvailableServerAtIndex:(NSInteger)index
+{
+    if (self.viewController) {
+        [self.viewController insertPeerAtIndex:index];
+    }
+}
+
+- (void)delegate:(id <FNMultiplayerManagerDelegate>)delegate deleteAvailableServerAtIndex:(NSInteger)index
+{
+    if (self.viewController) {
+        [self.viewController deletePeerAtIndex:index];
+    }
+}
+
+
+
+
+
+
+
+
 
 - (instancetype)init
 {
@@ -45,7 +120,23 @@
 {
     [self stopServingGame];
     [self browseForGames];
-    return [self.sessionDelegate viewController];
+    self.viewController = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"MultiplayerJoinVC"];
+    self.viewController.dataSource = self;
+    return self.viewController;
+}
+
+- (UIViewController *)hostViewController
+{
+    UINavigationController *nc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"MultiplayerNC"];
+    self.viewController = nc.childViewControllers[0];
+    self.viewController.dataSource = self;
+    return nc;
+}
+
+
++ (SEL)selectorForMultiplayerView
+{
+    return @selector(displayMultiplayerMenuButtonTouched);
 }
 
 + (FNMultiplayerManager *)sharedMultiplayerManager
@@ -56,11 +147,6 @@
         sharedMultiplayerManager = [[self alloc] init];
     });
     return sharedMultiplayerManager;
-}
-
-+ (SEL)selectorForMultiplayerView
-{
-    return @selector(displayMultiplayerMenuButtonTounched);
 }
 
 - (void)startServingGame
@@ -86,22 +172,24 @@
     [self.sessionDelegate start];
 }
 
-- (void)displayMultiplayerMenuButtonTounched
+- (void)displayMultiplayerMenuButtonTouched
 {
-    UIViewController *serverVC = [self.sessionDelegate viewController];
-    UINavigationController *rootNC = (UINavigationController *)[UIApplication sharedApplication].delegate.window.rootViewController;
-    UIViewController *topVC = [rootNC topViewController];
-    if ([topVC presentedViewController]) {
-        UINavigationController *modalNC = (UINavigationController *)[topVC presentedViewController];
-        topVC = [modalNC topViewController];
+    // not sure how I should respond to this if I have joined a game as a client !!!
+    if (self.isHost) {
+        UINavigationController *rootNC = (UINavigationController *)[UIApplication sharedApplication].delegate.window.rootViewController;
+        UIViewController *topVC = [rootNC topViewController];
+        if ([topVC presentedViewController]) {
+            UINavigationController *modalNC = (UINavigationController *)[topVC presentedViewController];
+            topVC = [modalNC topViewController];
+        }
+        [topVC presentViewController:[self hostViewController] animated:YES completion:nil];
     }
-    [topVC presentViewController:serverVC animated:YES completion:^{
-        //[self startBrowsingForLocalPlayers];
-    }];
 }
 
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToClient:(NSString *)clientPeerID
 {
+    // update the ui if it is on screen
+    
     // tell the brain that a new client just joined the game so it can get it on the same page
     [self.clients addObject:clientPeerID];
     [self.brain didConnectToClient:clientPeerID];
@@ -109,6 +197,7 @@
 
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didDisconnectFromClient:(NSString *)clientPeerID
 {
+    // update the ui if it is on screen
     [self.clients removeObject:clientPeerID];
     [self.brain didDisconnectFromClient:clientPeerID];
 }

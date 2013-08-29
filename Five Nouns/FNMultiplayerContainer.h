@@ -7,15 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FNMultiplayerManager.h"
 
-@class FNMultiplayerHostDelegate;
 @class FNMultiPlayerVC;
 
-@interface FNMultiplayerContainer : UIViewController
+@interface FNMultiplayerContainer : UIViewController <FNMultiplayerViewController>
 
-@property (nonatomic, weak) FNMultiplayerHostDelegate *dataSource;
-
-- (void)insertClientAtIndex:(NSInteger)index;
-- (void)deleteClientAtIndex:(NSInteger)index;
+@property (nonatomic, weak) id <FNMultiplayerViewControllerDataSource> dataSource;
 
 @end

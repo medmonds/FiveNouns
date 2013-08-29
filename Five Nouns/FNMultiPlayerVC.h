@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "FNTableViewController.h"
-
-@class FNMultiplayerHostDelegate;
+#import "FNMultiplayerManager.h"
 
 @interface FNMultiPlayerVC : FNTableViewController
 
-@property (nonatomic, strong) FNMultiplayerHostDelegate *dataSource;
+@property (nonatomic, weak) id <FNMultiplayerViewControllerDataSource> dataSource;
 
 - (void)insertClientAtIndex:(NSInteger)index;
 - (void)deleteClientAtIndex:(NSInteger)index;

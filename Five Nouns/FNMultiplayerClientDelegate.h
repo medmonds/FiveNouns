@@ -18,14 +18,8 @@
 @property (nonatomic, copy) NSString *serverPeerID;
 //- (void)startLookingForServers;
 //- (void)stopLookingForServers;
-- (void)connectToServerWithPeerID:(NSString *)peerID;
+//- (void)connectToServerWithPeerID:(NSString *)peerID;
 
-// to be used by the UI
-- (NSInteger)availableServersCount;
-- (NSString *)displayNameForServerAtIndex:(NSInteger)index;
 - (void)connectToServerAtIndex:(NSInteger)index;
-- (NSString *)nameForConnectedServer;
 
-- (void)viewControllerWillAppear;
-- (void)viewControllerWasDismissed;
 @end

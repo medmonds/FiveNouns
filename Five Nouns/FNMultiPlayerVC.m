@@ -7,7 +7,6 @@
 //
 
 #import "FNMultiPlayerVC.h"
-#import "FNMultiplayerHostDelegate.h"
 #import "FNReorderableCell.h"
 #import "FNMultiplayerContainer.h"
 
@@ -59,13 +58,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.dataSource clientsCount];
+    return [self.dataSource peersCount];
 }
 
 - (UITableViewCell *)configureNameCellForIndexPath:(NSIndexPath *)indexPath
 {
     FNReorderableCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"reorderable"];
-    cell.mainTextLabel.text = [self.dataSource displayNameForClientAtIndex:indexPath.row];
+    cell.mainTextLabel.text = [self.dataSource displayNameForPeerAtIndex:indexPath.row];
     cell.showCellSeparator = NO;
     return cell;
 }

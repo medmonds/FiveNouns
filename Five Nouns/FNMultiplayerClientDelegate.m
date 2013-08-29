@@ -14,12 +14,51 @@
 @property FNMultiplayerManager *manager;
 @property GKSession *session;
 @property (nonatomic, strong) NSMutableArray *availableServers;
-@property (nonatomic, strong) FNMultiplayerJoinVC *joinVC;
+//@property (nonatomic, strong) FNMultiplayerJoinVC *joinVC;
 @property BOOL isLookingForServers;
 @end
 
 
 @implementation FNMultiplayerClientDelegate
+
+/*
+ 
+ Note: If you restore the server app after putting it into the background with the Home button, then you need to go back to the main screen and press Host Game again. The GKSession object is no longer valid after the app has been suspended.
+
+Client Flow
+ 
+ When a client is initially created it is given a View Controller to show available servers in and allow the selection of a server
+ 
+ 
+ How to handle disconnects:
+    if the player was disconnected because they quit the game then do not attempt to reconnect to the game
+    if they were disconnected because of a network error then attempt to reconnect without getting the user involved
+    if a reconnect attempt failed then present options to the user
+        options Reconnect to game
+                Become a new host in a seperate new game
+                Quit Game
+ 
+ 
+ 
+ 
+ 
+ 
+ Should have a method something like: didDisconnectWithReason:(quiteReason)reason
+ 
+ typedef enum
+ {
+ QuitReasonNoNetwork,          // no Wi-Fi or Bluetooth
+ QuitReasonConnectionDropped,  // communication failure with server
+ QuitReasonUserQuit,           // the user terminated the connection
+ QuitReasonServerQuit,         // the server quit the game (on purpose)
+ }
+
+
+
+
+
+*/
+
 
 - (instancetype)initWithManager:(FNMultiplayerManager *)manager
 {
@@ -32,29 +71,12 @@
     return self;
 }
 
-- (UIViewController *)viewController
-{
-    self.joinVC = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"MultiplayerJoinVC"];
-    self.joinVC.dataSource = self;
-    return self.joinVC;
-}
-
-- (void)viewControllerWillAppear
-{
-    [self start];
-}
-
-- (void)viewControllerWasDismissed
-{
-    
-}
-
-- (NSInteger)availableServersCount
+- (NSInteger)peersCount;
 {
     return [self.availableServers count];
 }
 
-- (NSString *)displayNameForServerAtIndex:(NSInteger)index;
+- (NSString *)displayNameForPeerAtIndex:(NSInteger)index;
 {
     NSString *displayName;
     if (index < [self.availableServers count]) {
@@ -63,10 +85,10 @@
     return displayName;
 }
 
-- (NSString *)nameForConnectedServer
-{
-    return [self.session displayNameForPeer:self.serverPeerID];
-}
+//- (NSString *)nameForConnectedServer
+//{
+//    return [self.session displayNameForPeer:self.serverPeerID];
+//}
 
 - (void)connectToServerAtIndex:(NSInteger)index;
 {
@@ -84,11 +106,11 @@
 {
     if (!self.session) {
         self.session = [[GKSession alloc] initWithSessionID:SESSION_ID displayName:nil sessionMode:GKSessionModeClient];
+        self.session.delegate = self;
+        [self.session setDataReceiveHandler:self withContext:nil];
+        self.manager.session = self.session;
     }
-    self.session.delegate = self;
-    [self.session setDataReceiveHandler:self withContext:nil];
     self.session.available = YES;
-    self.manager.session = self.session;
     self.isLookingForServers = YES;
 }
 
@@ -119,14 +141,23 @@
 
 - (void)didDisconnectFromPeer:(NSString *)peerID
 {
-    // What an i doing here? !!!
+    // will unavailable be called after this is called in the state update method
     if (peerID == self.serverPeerID) {
-        NSInteger index = [self.availableServers indexOfObject:peerID];
-        [self.availableServers removeObject:peerID];
+//        NSInteger index = [self.availableServers indexOfObject:peerID];
+//        [self.availableServers removeObject:peerID];
         self.serverPeerID = nil;
-        [self.joinVC deleteAvailableServerAtIndex:index];
+//        [self.joinVC deleteAvailableServerAtIndex:index];
         [self start];
         [self.manager delegate:self didDisconnectFromServer:peerID];
+        [self attemptReconnectToHost:peerID];
+    }
+}
+
+- (void)attemptReconnectToHost:(NSString *)host
+{
+    // should check to make sure that the disconnect was not user initiated (example: Quit Game) !!!
+    if ([self.availableServers containsObject:host]) {
+        [self connectToServerWithPeerID:host];
     }
 }
 
@@ -171,7 +202,7 @@
             if (![self.availableServers containsObject:peerID]) {
                 [self.availableServers addObject:peerID];
                 NSInteger index = [self.availableServers indexOfObject:peerID];
-                [self.joinVC insertAvailableServerAtIndex:index];
+                [self.manager delegate:self insertAvailableServerAtIndex:index];
             }
             break;
             
@@ -180,7 +211,7 @@
             if ([self.availableServers containsObject:peerID]) {
                 NSInteger index = [self.availableServers indexOfObject:peerID];
                 [self.availableServers removeObject:peerID];
-                [self.joinVC deleteAvailableServerAtIndex:index];
+                [self.manager delegate:self deleteAvailableServerAtIndex:index];
             }
             break;
             
@@ -204,16 +235,36 @@
 - (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID
 {
 	NSLog(@"MatchmakingServer: connection request from peer %@", peerID);
+    // should call the denyConnectionRequest method here but this method should also never be called
+
 }
 
 - (void)session:(GKSession *)session connectionWithPeerFailed:(NSString *)peerID withError:(NSError *)error
 {
 	NSLog(@"MatchmakingServer: connection with peer %@ failed %@", peerID, error);
+    // from docs: The error parameter can be used to inform the user of why the connection failed.
+    
+    // handle the errors here
+    
+    // this is called when an attempted connection fails
+    // so when it fails naturally or the host calls denyConnectionRequest: fromPeer:
+    
+    // stop the spinner
+    // throw up a modal to tell the user
+    // return to state before the attampt was started
+
+    
 }
 
 - (void)session:(GKSession *)session didFailWithError:(NSError *)error
 {
 	NSLog(@"MatchmakingServer: session failed %@", error);
+    // from docs: This method is called when a serious internal error occurred in the session. Your application should disconnect the session from other peers and release the session.
+    
+    // handle the errors here
+
+    
+
 }
 
 
