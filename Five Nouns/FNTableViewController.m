@@ -89,6 +89,19 @@
     return header;
 }
 
+#pragma mark - FNTableViewDataSource
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // see subcalss
+    return NO;
+}
+
+- (void)tableView:(FNTableView *)tableView deleteRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // see subclass
+}
+
 
 #pragma mark - View Controller Life Cycle
 

@@ -20,6 +20,8 @@
 
 
 @protocol FNMultiplayerManagerDelegate <NSObject, GKSessionDelegate>
+// to enable / disable multiplayer completely
+@property (nonatomic, readonly) GKSession *session;
 - (void)start;
 - (void)stop;
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context;
@@ -60,8 +62,8 @@
 @interface FNMultiplayerManager : NSObject <FNMultiplayerViewControllerDataSource>
 
 #define SESSION_ID @"FiveNouns"
+
 @property (nonatomic, weak) FNBrain *brain;
-@property (nonatomic, strong) GKSession *session;
 
 + (FNMultiplayerManager *)sharedMultiplayerManager;
 
@@ -78,6 +80,7 @@
 - (void)delegate:(id <FNMultiplayerManagerDelegate>)delegate deleteAvailableServerAtIndex:(NSInteger)index;
 - (void)delegate:(id <FNMultiplayerManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID;
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didDisconnectFromServer:(NSString *)serverPeerID;
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate connectionAttemptToPeerFailed:(NSString *)peerID;
 
 
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToClient:(NSString *)clientPeerID;
@@ -85,7 +88,7 @@
 
 - (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didRecieveData:(NSData *)data;
 
-
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate sessionFailedWithError:(NSError *)error;
 
 
 @end

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "FNAppearance.h"
+#import "FNTableView.h"
 
-@interface FNTableViewController : UITableViewController <UITextFieldDelegate>
+
+@interface FNTableViewController : UITableViewController <UITextFieldDelegate, FNTableViewDataSource>
 
 - (void)setBackgroundForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 

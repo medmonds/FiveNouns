@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FNTableView.h"
 
-@interface FNSeparatorCell : UITableViewCell
+@interface FNSeparatorCell : UITableViewCell <FNDeleteCell>
 
 @property (nonatomic) BOOL showCellSeparator;
 

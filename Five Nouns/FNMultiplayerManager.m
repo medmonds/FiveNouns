@@ -91,7 +91,12 @@
     }
 }
 
-
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate connectionAttemptToPeerFailed:(NSString *)peerID
+{
+    NSString *displayName = [self.sessionDelegate.session displayNameForPeer:peerID]; // for the modal
+    // stop the spinner
+    // throw up a modal to tell the user
+}
 
 
 
@@ -161,7 +166,6 @@
 - (void)stopServingGame
 {
     [self.sessionDelegate stop];
-    self.session = nil;
     self.isHost = NO;
 }
 
@@ -232,6 +236,12 @@
     return [self.sessionDelegate sendData:[FNUpdate dataForUpdate:update] withDataMode:GKSendDataReliable toPeer:peerID];
 }
 
+- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate sessionFailedWithError:(NSError *)error
+{
+    // depending on the error should either tell the user to turn on bluetooth or wifi or
+    // should present the options: Attempt Reconnect, Become Host in new Game, Quit Game if the client or
+    // if the host should tell the user an error occured and connected players (if there were any) should rejoin a new session and then create a new session to continue the game from the current state
+}
 
 
 

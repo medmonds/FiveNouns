@@ -226,11 +226,9 @@
 }
 
 // deletes the player
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(FNTableView *)tableView deleteRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.brain removePlayer:self.dataSource[indexPath.row]];
-    }
+    [self.brain removePlayer:self.dataSource[indexPath.row]];
 }
 
 #pragma mark - Table view data source
@@ -289,6 +287,11 @@
     cell.detailTextField.tag = indexPath.row - 1;
     [self setBackgroundForTextField:cell.detailTextField];
     cell.showCellSeparator = NO;
+    cell.detailTextField.leftViewMode = UITextFieldViewModeAlways;
+    UIButton *left = [[UIButton alloc] initWithFrame:CGRectMake(1, 1, 42, 42)];
+    left.backgroundColor = [UIColor blackColor];
+    cell.detailTextField.leftView = left;
+    
     return cell;
 }
 

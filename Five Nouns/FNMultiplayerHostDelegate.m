@@ -39,7 +39,6 @@
     self.session.delegate = self;
     [self.session setDataReceiveHandler:self withContext:nil];
     self.session.available = YES;
-    self.manager.session = self.session;
 }
 
 - (void)stop
@@ -171,6 +170,7 @@
 
 - (void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state
 {
+    // available & unavailable do not appear to be called from experience so far
     switch (state) {
         case GKPeerStateConnected:
             NSLog(@"Server - Peer: %@ changed state to: Connected", peerID);
@@ -189,7 +189,7 @@
                 [self.manager delegate:self didDisconnectFromClient:peerID];
             }
             break;
-            
+
         default:
             NSLog(@"MatchmakingServer: peer %@ changed state %d", peerID, state);
             break;
