@@ -78,4 +78,6 @@ typedef NS_ENUM(NSInteger, FNCheckmarkStyle) {
 
 + (UIImage *)reorderControlImage;
 
++ (UIButton *)randomNounButton;
+
 @end

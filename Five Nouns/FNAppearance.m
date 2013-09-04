@@ -203,6 +203,13 @@
     return image;
 }
 
++ (UIButton *)randomNounButton
+{
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(1, 1, 42, 42)];
+    button.backgroundColor = [UIColor blackColor];
+    return button;
+}
+
 @end
 
 

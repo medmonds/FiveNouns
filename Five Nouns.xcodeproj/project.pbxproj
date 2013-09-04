@@ -139,6 +139,7 @@
 		C9E2B6AD177786A300FD08E9 /* FNSeparatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */; };
 		C9E52BB5178D09C7003DF207 /* FNStepperView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E52BB4178D09C7003DF207 /* FNStepperView.m */; };
 		C9E52BB6178D09C7003DF207 /* FNStepperView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E52BB4178D09C7003DF207 /* FNStepperView.m */; };
+		C9E54AA717D6D5B60057A665 /* nouns.txt in Resources */ = {isa = PBXBuildFile; fileRef = C9E54AA617D6D5B60057A665 /* nouns.txt */; };
 		C9F04F13171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
 		C9F04F14171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
 		C9F04F1F171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */; };
@@ -303,6 +304,7 @@
 		C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNSeparatorCell.m; sourceTree = "<group>"; };
 		C9E52BB3178D09C7003DF207 /* FNStepperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNStepperView.h; sourceTree = "<group>"; };
 		C9E52BB4178D09C7003DF207 /* FNStepperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNStepperView.m; sourceTree = "<group>"; };
+		C9E54AA617D6D5B60057A665 /* nouns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nouns.txt; sourceTree = "<group>"; };
 		C9F04F11171A282F00AAAF75 /* FNEditableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNEditableCell.h; sourceTree = "<group>"; };
 		C9F04F12171A282F00AAAF75 /* FNEditableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNEditableCell.m; sourceTree = "<group>"; };
 		C9F04F1B171A441100AAAF75 /* FNInfoFromModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNInfoFromModal.h; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 			children = (
 				C993E2F81728C6B100C37DB8 /* Assets */,
 				C9649E481718B7390039B88E /* Five Nouns-Info.plist */,
+				C9E54AA617D6D5B60057A665 /* nouns.txt */,
 				C9649E491718B7390039B88E /* InfoPlist.strings */,
 				C9649E4C1718B7390039B88E /* main.m */,
 				C9649E4E1718B7390039B88E /* Five Nouns-Prefix.pch */,
@@ -762,6 +765,7 @@
 				C9C0566A178A215400735AEA /* cellTop@2x.png in Resources */,
 				C9C05675178A312200735AEA /* navBarBackground.png in Resources */,
 				C9C05676178A312200735AEA /* navBarBackground@2x.png in Resources */,
+				C9E54AA717D6D5B60057A665 /* nouns.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,7 @@
 #import "FNPlainCell.h"
 #import "THObserver.h"
 #import <QuartzCore/QuartzCore.h>
+#import "FNNounGenerator.h"
 
 @interface FNAddPlayersVC ()
 @property BOOL addPlayerIsVisible;
@@ -19,6 +20,7 @@
 @property (nonatomic, weak) UITableViewCell *cellShowingDelete;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) THObserver *observer;
+@property (nonatomic, strong) FNNounGenerator *nounGenerator;
 @end
 
 @implementation FNAddPlayersVC
@@ -98,6 +100,14 @@
     return _currentPlayer;
 }
 
+- (FNNounGenerator *)nounGenerator
+{
+    if (!_nounGenerator) {
+        _nounGenerator = [[FNNounGenerator alloc] init];
+    }
+    return _nounGenerator;
+}
+
 #pragma mark - Actions
 
 - (void)displayInvalidPlayerAlert
@@ -150,6 +160,17 @@
         [textField resignFirstResponder];
     }
     return YES; 
+}
+
+#pragma mark - Random Noun (Text Field Left View)
+
+- (void)randomNounButtonPressed:(UIButton *)button
+{
+    [self.tableView endEditing:YES];
+    FNEditableCell *cell = (FNEditableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag + 1 inSection:0]];
+    NSString *noun = [self.nounGenerator noun];
+    cell.detailTextField.text = noun;
+    [self.currentPlayer.nouns replaceObjectAtIndex:button.tag withObject:noun];
 }
 
 #pragma mark - Logic Methods
@@ -261,6 +282,7 @@
     cell.detailTextField.placeholder = @"New Player";
     cell.detailTextField.placeholderTextColor = [FNAppearance textColorButton];
     cell.detailTextField.delegate = self;
+    cell.detailTextField.leftView = nil;
     [self setBackgroundForTextField:cell.detailTextField];
     cell.showCellSeparator = NO;
     return cell;
@@ -288,10 +310,10 @@
     [self setBackgroundForTextField:cell.detailTextField];
     cell.showCellSeparator = NO;
     cell.detailTextField.leftViewMode = UITextFieldViewModeAlways;
-    UIButton *left = [[UIButton alloc] initWithFrame:CGRectMake(1, 1, 42, 42)];
-    left.backgroundColor = [UIColor blackColor];
+    UIButton *left = [FNAppearance randomNounButton];
+    left.tag = indexPath.row - 1;
+    [left addTarget:self action:@selector(randomNounButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     cell.detailTextField.leftView = left;
-    
     return cell;
 }
 
