@@ -15,7 +15,6 @@
 #import "FNGameVC.h"
 #import "FNPausedVC.h"
 #import "FNScoreVC.h"
-#import "FNDirectionView.h"
 
 @interface FNNextUpVC ()
 @property (nonatomic, weak) UITableView *tableView;

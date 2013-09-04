@@ -163,10 +163,17 @@
     self.directionsVC = [[FNDirectionView alloc] initWithFrame:self.view.bounds];
     self.directionsVC.round = self.currentRound;
     self.directionsVC.alpha = 0.0;
+    self.directionsVC.presenter = self;
+    [self.navigationItem setRightBarButtonItem:nil animated:YES];
     [self.view addSubview:self.directionsVC];
     [UIView animateWithDuration:0.5 animations:^(void){
         self.directionsVC.alpha = 1.0;
     }];
+}
+
+- (void)directionViewWasDismissed:(FNDirectionView *)view
+{
+    [self.navigationItem setRightBarButtonItem:[self optionsButton] animated:YES];
 }
 
 - (void)beginNewRound;
@@ -236,15 +243,20 @@
     return self;
 }
 
+- (UIBarButtonItem *)optionsButton
+{
+    UIBarButtonItem *options = [FNAppearance optionsBarButtonItem];
+    [options setTarget:self];
+    [options setAction:@selector(optionsBarButtonItemPressed)];
+    return options;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
-    UIBarButtonItem *options = [FNAppearance optionsBarButtonItem];
-    [options setTarget:self];
-    [options setAction:@selector(optionsBarButtonItemPressed)];
-    [self.navigationItem setRightBarButtonItem:options];
+    [self.navigationItem setRightBarButtonItem:[self optionsButton]];
     self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Five Nouns" forOrientation:self.interfaceOrientation];
     [self.navigationItem setHidesBackButton:YES];
 

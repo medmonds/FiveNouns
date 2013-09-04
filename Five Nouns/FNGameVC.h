@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "FNCountdownTimer.h"
+#import "FNDirectionView.h"
 
 @class FNPlayer;
 @class FNBrain;
 
-@interface FNGameVC : UIViewController <FNCountdownTimerDelegate>
+@interface FNGameVC : UIViewController <FNCountdownTimerDelegate, FNDirectionViewPresenter>
 
 @property (nonatomic, strong) FNBrain *brain;
 @property (nonatomic, weak) FNPlayer *currentPlayer;
