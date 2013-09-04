@@ -196,6 +196,7 @@
     [UIView animateWithDuration:.5 animations:^(void){
         self.alpha = 0;
     } completion:^(BOOL finished){
+        [self.presenter directionViewWasDismissed:self];
         [self removeFromSuperview];
     }];
 }

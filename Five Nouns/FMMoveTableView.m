@@ -217,7 +217,7 @@
     // if the touch is in the reorder control or if the touch has drifted outside of the control during a reorder
     if ([self touchIsForReorder:gestureRecognizer] || self.reorderEnabled) {
         // stops all other gestures
-        if (![gestureRecognizer isEqual:self.movingGestureRecognizer] ) {
+        if (![gestureRecognizer isEqual:self.movingGestureRecognizer]) {
             shouldBegin = NO;
         }
         // stops the reorder from interupting pan gestures etc

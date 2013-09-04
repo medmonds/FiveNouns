@@ -7,6 +7,7 @@
 //
 
 #import "FNReorderableCell.h"
+#import "FNAppearance.h"
 
 @implementation FNReorderableCell
 
@@ -20,6 +21,8 @@
 {
     self.mainTextLabel.text = nil;
     [self.button setHidden:YES];
+    self.backgroundView = nil;
+    self.backgroundColor = [FNAppearance tableViewBackgroundColor];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -29,6 +32,11 @@
         // Initialization code
     }
     return self;
+}
+
+- (void)buttonSetup
+{
+    self.button.exclusiveTouch = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

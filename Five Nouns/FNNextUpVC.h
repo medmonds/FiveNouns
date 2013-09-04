@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FNRoundDirectionsVC.h"
+#import "FNDirectionView.h"
 
 @class FNBrain;
 @class FNPlayer;
 
-@interface FNNextUpVC : UIViewController <UITableViewDataSource, UITableViewDelegate, FNDirectionsVCPresenter>
+@interface FNNextUpVC : UIViewController <UITableViewDataSource, UITableViewDelegate, FNDirectionViewPresenter>
 @property (nonatomic, strong) FNBrain *brain;
 @property (nonatomic) NSInteger round;
 //@property (nonatomic, weak) IBOutlet UITableViewController *scoreBoard;

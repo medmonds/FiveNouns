@@ -77,16 +77,24 @@
     [alert show];
 }
 
-
 - (void)showDirectionsForRound
 {
     self.directionsVC = [[FNDirectionView alloc] initWithFrame:self.view.bounds];
     self.directionsVC.round = self.round;
     self.directionsVC.alpha = 0.0;
+    self.directionsVC.presenter = self;
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    [self.navigationItem setRightBarButtonItem:nil animated:YES];
     [self.view addSubview:self.directionsVC];
     [UIView animateWithDuration:0.5 animations:^(void){
         self.directionsVC.alpha = 1.0;
     }];
+}
+
+- (void)directionViewWasDismissed:(FNDirectionView *)view
+{
+    [self.navigationItem setRightBarButtonItem:[self optionsButton] animated:YES];
+    [self.navigationItem setLeftBarButtonItem:[self backButton] animated:YES];
 }
 
 - (void)beginGame
@@ -137,22 +145,31 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (UIBarButtonItem *)backButton
 {
-    [super viewDidLoad];
-    
     UIBarButtonItem *back = [FNAppearance backBarButtonItem];
     [back setTarget:self.navigationController];
     [back setAction:@selector(popViewControllerAnimated:)];
-    [self.navigationItem setLeftBarButtonItem:back];
-    
-    self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
+    return back;
+}
+
+- (UIBarButtonItem *)optionsButton
+{
     UIBarButtonItem *options = [FNAppearance optionsBarButtonItem];
     [options setTarget:self];
     [options setAction:@selector(optionsBarButtonItemPressed)];
-    [self.navigationItem setRightBarButtonItem:options];
-    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Next Up" forOrientation:self.interfaceOrientation];
+    return options;
+}
 
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.navigationItem setRightBarButtonItem:[self optionsButton]];
+    [self.navigationItem setLeftBarButtonItem:[self backButton]];
+    [self.navigationItem setHidesBackButton:YES animated:YES];
+    self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
+    self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Next Up" forOrientation:self.interfaceOrientation];
     self.scoreVC = self.childViewControllers[0];
     self.scoreVC.brain = self.brain;
     self.gameHasNotStarted = YES;
