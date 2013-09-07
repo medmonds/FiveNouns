@@ -45,10 +45,10 @@
     return @"scoreCategoryCell";
 }
 
-//- (NSString *)cellIdentifierForItem
-//{
-//    return @"cell";
-//}
+- (NSString *)cellIdentifierForItem
+{
+    return @"scoreRoundCell";
+}
 
 - (CellConfigBlock)titleCellConfigureBlockForController:(FNTVController *)controller
 {
@@ -81,11 +81,11 @@
 {
     CellConfigBlock block = ^(FNScoreCell *cell, id object) {
         if ([object isKindOfClass:[FNScoreCard class]]) {
-            cell.textLabel.text = [NSString stringWithFormat:@"Round %d", ((FNScoreCard *)object).round];
-            cell.textLabel.textColor = [FNAppearance textColorLabel];
-            cell.textLabel.font = [FNAppearance fontWithSize:20];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [((FNScoreCard *)object).nounsScored count]];
-            cell.detailTextLabel.font = [FNAppearance fontWithSize:20];
+            cell.myTextLabel.text = [NSString stringWithFormat:@"Round %d", ((FNScoreCard *)object).round];
+            cell.myTextLabel.textColor = [FNAppearance textColorLabel];
+            cell.myTextLabel.font = [FNAppearance fontWithSize:20];
+            cell.myDetailTextLabel.text = [NSString stringWithFormat:@"%d", [((FNScoreCard *)object).nounsScored count]];
+            cell.myDetailTextLabel.font = [FNAppearance fontWithSize:20];
             cell.indentationLevel = 3;
         }
     };

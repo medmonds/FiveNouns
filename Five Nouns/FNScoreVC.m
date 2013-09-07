@@ -101,6 +101,7 @@
     [super viewWillAppear:animated];
     self.scoreController.delegate.brain = self.brain;
     [self.scoreController setup];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
