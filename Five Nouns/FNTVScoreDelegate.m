@@ -66,11 +66,11 @@
 {
     CellConfigBlock block = ^(FNScoreCell *cell, id object) {
         if ([object isKindOfClass:[FNTeam class]]) {
-            cell.textLabel.text = ((FNTeam *)object).name;
-            cell.textLabel.textColor = [FNAppearance textColorButton];
-            cell.textLabel.font = [FNAppearance fontWithSize:26];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", ((FNTeam *)object).currentScore];
-            cell.textLabel.font = [FNAppearance fontWithSize:26];
+            cell.myTextLabel.text = ((FNTeam *)object).name;
+            cell.myTextLabel.textColor = [FNAppearance textColorButton];
+            cell.myTextLabel.font = [FNAppearance fontWithSize:26];
+            cell.myDetailTextLabel.text = [NSString stringWithFormat:@"%d", ((FNTeam *)object).currentScore];
+            cell.myTextLabel.font = [FNAppearance fontWithSize:26];
             cell.indentationLevel = 0;
         }
     };

@@ -10,6 +10,6 @@
 #import "FNSeparatorCell.h"
 
 @interface FNScoreCell : FNSeparatorCell
-@property (weak, nonatomic) IBOutlet UILabel *textLabel;
-@property (weak, nonatomic) IBOutlet UILabel *detailTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *myTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *myDetailTextLabel;
 @end
