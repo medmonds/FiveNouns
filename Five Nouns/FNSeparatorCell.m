@@ -8,11 +8,11 @@
 
 #import "FNSeparatorCell.h"
 #import "FNAppearance.h"
+#import "FNTableView.h"
 
 @interface FNSeparatorCell ()
 @property (nonatomic, strong) UIView *partialSeparator;
 @property (nonatomic, strong) UIView *separator;
-@property (nonatomic, strong) UIButton *deleteButton;
 @end
 
 
@@ -47,6 +47,18 @@
     _separator.backgroundColor = [FNAppearance cellSeparatorColor];
 
     self.backgroundView = backgroundView;
+    
+    CGFloat height = 33;
+    CGFloat width = 64;
+    CGRect buttonFrame = CGRectMake(0, 0, width, height);
+    UIButton *deleteButton = [[UIButton alloc] initWithFrame:buttonFrame];
+    UIImage *background = [FNAppearance backgroundForButton];
+    [deleteButton setBackgroundImage:background forState:UIControlStateNormal];
+    [deleteButton addTarget:self action:@selector(deleteControlPressed) forControlEvents:UIControlEventTouchUpInside];
+    [deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+    UIView *buttonContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 74, 35)];
+    [buttonContainer addSubview:deleteButton];
+    self.editingAccessoryView = buttonContainer;
 }
 
 - (void)addSeparatorConstraints
@@ -158,46 +170,17 @@
     [self addSeparatorConstraints];
 }
 
-
-#pragma mark - FNDeleteCell
-
-- (void)showDeleteControlForTableView:(FNTableView *)tableView withSelector:(SEL)selector
-{
-    // can't get it to let me change the size of the content view !!! so have to add it to the content view not background view
-    CGFloat height = 33;
-    CGFloat width = 64;
-    CGRect buttonFrame = CGRectMake(CGRectGetWidth(self.bounds) - (width + 15), (CGRectGetMidY(self.bounds) - 1) - (height / 2), width, height);
-    self.deleteButton = [[UIButton alloc] initWithFrame:buttonFrame];
-    UIImage *background = [FNAppearance backgroundForButton];
-    [self.deleteButton setBackgroundImage:background forState:UIControlStateNormal];
-    [self.deleteButton addTarget:tableView action:selector forControlEvents:UIControlEventTouchUpInside];
-    [self.deleteButton addTarget:self action:@selector(deletePressed) forControlEvents:UIControlEventTouchUpInside];
-    [self.deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
-    [UIView animateWithDuration:.3 animations:^{
-        [self.contentView addSubview:self.deleteButton];
-        self.deleteButton.alpha = 1;
-    }];
-}
-
-- (void)hideDeleteControlForTableView
-{
-    [UIView animateWithDuration:.3 animations:^{
-        self.deleteButton.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self.deleteButton removeFromSuperview];
-        self.deleteButton = nil;
-    }];
-}
-
 - (void)setDeletedState
 {
     // should change the background !!!
 }
 
-- (void)deletePressed
+- (void)deleteControlPressed
 {
-    [self.deleteButton removeFromSuperview];
-    self.deleteButton = nil;
+    if ([self.superview isKindOfClass:[FNTableView class]]) {
+        [((FNTableView *)self.superview) deleteControlPressed];
+        [self setDeletedState];
+    }
 }
 
 

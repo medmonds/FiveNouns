@@ -35,29 +35,26 @@ static NSString * const AllStatusesKey = @"allStatuses";
 @implementation FNBrain
 
 
-- (FNPlayer *)player
-{
-    if (!_player) {
-        _player = [((FNTeam *)self.allTeams[0]) nextPlayer];
-    }
-    return _player;
-}
-
 - (FNPlayer *)nextPlayer
 {
     NSAssert([self.allTeams count] > 0, @"Brain - Next Player was called but the Teams array is empty");
     // rotate teams
+    NSArray *order = [self.teamOrder copy];
     FNTeam *nextTeam = self.allTeams[0];
     [self.allTeams removeObjectAtIndex:0];
     [self.allTeams addObject:nextTeam];
     // rotate players
     FNPlayer *nextPlayer = [self.allTeams[0] nextPlayer];
     self.player = nextPlayer;
+    self.teamOrder = order;
     return nextPlayer;
 }
 
 - (FNPlayer *)currentPlayer
 {
+    if (!self.player) {
+        self.player = [((FNTeam *)self.allTeams[0]) nextPlayer];
+    }
     return self.player;
 }
 
@@ -237,7 +234,7 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (NSArray *)orderOfTeams
 {
-    return self.teamOrder;
+    return [self.teamOrder copy];
 }
 
 - (BOOL)allPlayersAssignedToTeams

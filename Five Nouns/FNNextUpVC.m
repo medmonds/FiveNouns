@@ -179,7 +179,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    // this is broken because when the directions disappear it changes the next player !!!
     [self setup];
 }
 

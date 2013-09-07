@@ -11,6 +11,7 @@
 #import "FNTeam.h"
 #import "FNScoreCard.h"
 #import "FNAppearance.h"
+#import "FNScoreCell.h"
 
 @implementation FNTVScoreDelegate
 
@@ -39,6 +40,15 @@
     }
     return nil;
 }
+- (NSString *)cellIdentifierForCategory
+{
+    return @"scoreCategoryCell";
+}
+
+//- (NSString *)cellIdentifierForItem
+//{
+//    return @"cell";
+//}
 
 - (CellConfigBlock)titleCellConfigureBlockForController:(FNTVController *)controller
 {
@@ -54,7 +64,7 @@
 
 - (CellConfigBlock)categoryCellConfigureBlockForController:(FNTVController *)controller
 {
-    CellConfigBlock block = ^(UITableViewCell *cell, id object) {
+    CellConfigBlock block = ^(FNScoreCell *cell, id object) {
         if ([object isKindOfClass:[FNTeam class]]) {
             cell.textLabel.text = ((FNTeam *)object).name;
             cell.textLabel.textColor = [FNAppearance textColorButton];
@@ -69,7 +79,7 @@
 
 - (CellConfigBlock)itemCellConfigureBlockForController:(FNTVController *)controller
 {
-    CellConfigBlock block = ^(UITableViewCell *cell, id object) {
+    CellConfigBlock block = ^(FNScoreCell *cell, id object) {
         if ([object isKindOfClass:[FNScoreCard class]]) {
             cell.textLabel.text = [NSString stringWithFormat:@"Round %d", ((FNScoreCard *)object).round];
             cell.textLabel.textColor = [FNAppearance textColorLabel];

@@ -25,7 +25,7 @@
 
 @protocol FNTVControllerDelegate <NSObject>
 
-typedef void (^CellConfigBlock)(UITableViewCell *, id);
+typedef void (^CellConfigBlock)(id, id);
 
 // configure these properties. wait these should be on the FNTVScoreDelegate not the protocol !!! maybe
 @optional
@@ -33,7 +33,6 @@ typedef void (^CellConfigBlock)(UITableViewCell *, id);
 - (CGFloat)heightForCell:(UITableViewCell *)cell withItem:(id)item;
 - (NSString *)cellIdentifierForCategory;
 - (NSString *)cellIdentifierForItem;
-
 @required
 @property (nonatomic) BOOL shouldCollapseOnTitleTap;
 // it answers these questions

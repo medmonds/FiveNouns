@@ -84,18 +84,22 @@
     [super viewDidLoad];
     self.scoreController = [[FNTVController alloc] init];
     self.scoreController.delegate = [[FNTVScoreDelegate alloc] init];
-    self.scoreController.delegate.brain = self.brain;
     self.scoreController.delegate.shouldCollapseOnTitleTap = NO;
     self.scoreController.tableView = self.tableView;
     self.scoreController.tvController = self;
     self.tableView.delegate = self.scoreController;
-    [self.scoreController setup];
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.scoreController.delegate.brain = self.brain;
     [self.scoreController setup];
 }
 

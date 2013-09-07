@@ -12,7 +12,6 @@
 #import "FNScoreCard.h"
 #import "FNCountdownTimer.h"
 #import "FNAppearance.h"
-#import "FNDirectionView.h"
 #import "FNPausedVC.h"
 #import "FNTurnData.h"
 #import "FNTeam.h"

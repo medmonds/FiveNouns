@@ -9,27 +9,14 @@
 #import <UIKit/UIKit.h>
 
 
-@interface FNTableView : UITableView
+@interface FNTableView : UITableView <UIGestureRecognizerDelegate>
 
 - (void)deleteControlPressed;
-
 @end
-
 
 
 @protocol FNTableViewDataSource <NSObject>
 
 - (BOOL)tableView:(FNTableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)tableView:(FNTableView *)tableView deleteRowAtIndexPath:(NSIndexPath *)indexPath;
-
-@end
-
-
-
-@protocol FNDeleteCell <NSObject>
-
-- (void)showDeleteControlForTableView:(FNTableView *)tableView withSelector:(SEL)selector;
-- (void)hideDeleteControlForTableView;
-- (void)setDeletedState;
-
 @end

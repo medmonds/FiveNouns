@@ -142,6 +142,8 @@
 		C9E52BB5178D09C7003DF207 /* FNStepperView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E52BB4178D09C7003DF207 /* FNStepperView.m */; };
 		C9E52BB6178D09C7003DF207 /* FNStepperView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E52BB4178D09C7003DF207 /* FNStepperView.m */; };
 		C9E54AA717D6D5B60057A665 /* nouns.txt in Resources */ = {isa = PBXBuildFile; fileRef = C9E54AA617D6D5B60057A665 /* nouns.txt */; };
+		C9EF7F7717D8224400B182A9 /* FNScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EF7F7617D8224400B182A9 /* FNScoreCell.m */; };
+		C9EF7F7817D8224400B182A9 /* FNScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EF7F7617D8224400B182A9 /* FNScoreCell.m */; };
 		C9F04F13171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
 		C9F04F14171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
 		C9F04F1F171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */; };
@@ -309,6 +311,8 @@
 		C9E52BB3178D09C7003DF207 /* FNStepperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNStepperView.h; sourceTree = "<group>"; };
 		C9E52BB4178D09C7003DF207 /* FNStepperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNStepperView.m; sourceTree = "<group>"; };
 		C9E54AA617D6D5B60057A665 /* nouns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nouns.txt; sourceTree = "<group>"; };
+		C9EF7F7517D8224400B182A9 /* FNScoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNScoreCell.h; sourceTree = "<group>"; };
+		C9EF7F7617D8224400B182A9 /* FNScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNScoreCell.m; sourceTree = "<group>"; };
 		C9F04F11171A282F00AAAF75 /* FNEditableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNEditableCell.h; sourceTree = "<group>"; };
 		C9F04F12171A282F00AAAF75 /* FNEditableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNEditableCell.m; sourceTree = "<group>"; };
 		C9F04F1B171A441100AAAF75 /* FNInfoFromModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNInfoFromModal.h; sourceTree = "<group>"; };
@@ -362,6 +366,7 @@
 				C9D952451791F10F00D2F173 /* Add Players */,
 				C978AA51178FB3830070B34B /* Assign Teams */,
 				C9B1369C176E449100B792AD /* NextUpVC */,
+				C9EF7F7417D8208200B182A9 /* Score VC */,
 				C9B1369D176E449F00B792AD /* GameVC */,
 				C99F9B2E175BF7690012A1D4 /* FNRoundDirectionsVC.h */,
 				C99F9B2F175BF7690012A1D4 /* FNRoundDirectionsVC.m */,
@@ -575,8 +580,6 @@
 			children = (
 				C9B2607B1772A22F009DBBC9 /* FNPausedVC.h */,
 				C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */,
-				C914EA44177BEEB500255E41 /* FNTVScoreDelegate.h */,
-				C914EA45177BEEB500255E41 /* FNTVScoreDelegate.m */,
 				C95DD932177D20B0009EF626 /* FNTVDirectionsDelegate.h */,
 				C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */,
 				C981EB1C1788D30B00571183 /* FNTVAddPlayerDelegate.h */,
@@ -612,8 +615,6 @@
 			children = (
 				A19426C9174DC43F00056345 /* FNNextUpVC.h */,
 				A19426CA174DC43F00056345 /* FNNextUpVC.m */,
-				C9BAFAF7175AEB1C00C908A6 /* FNScoreVC.h */,
-				C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */,
 			);
 			name = NextUpVC;
 			sourceTree = "<group>";
@@ -640,9 +641,22 @@
 			name = "Add Players";
 			sourceTree = "<group>";
 		};
+		C9EF7F7417D8208200B182A9 /* Score VC */ = {
+			isa = PBXGroup;
+			children = (
+				C9BAFAF7175AEB1C00C908A6 /* FNScoreVC.h */,
+				C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */,
+				C914EA44177BEEB500255E41 /* FNTVScoreDelegate.h */,
+				C914EA45177BEEB500255E41 /* FNTVScoreDelegate.m */,
+			);
+			name = "Score VC";
+			sourceTree = "<group>";
+		};
 		C9F04F16171A283500AAAF75 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
+				C9EF7F7517D8224400B182A9 /* FNScoreCell.h */,
+				C9EF7F7617D8224400B182A9 /* FNScoreCell.m */,
 				C9F04F11171A282F00AAAF75 /* FNEditableCell.h */,
 				C9F04F12171A282F00AAAF75 /* FNEditableCell.m */,
 				C99579A9172DEFA3004E46A9 /* FNButtonCell.h */,
@@ -861,6 +875,7 @@
 				C94F0C5817A226B300DBF2B9 /* THObserver.m in Sources */,
 				C9B0C87617D55598004A8752 /* FNTableView.m in Sources */,
 				C9098A3517D6EE6D00DB54A4 /* FNNounGenerator.m in Sources */,
+				C9EF7F7717D8224400B182A9 /* FNScoreCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -914,6 +929,7 @@
 				C94F0C5917A226B300DBF2B9 /* THObserver.m in Sources */,
 				C9B0C87717D55598004A8752 /* FNTableView.m in Sources */,
 				C9098A3617D6EE6D00DB54A4 /* FNNounGenerator.m in Sources */,
+				C9EF7F7817D8224400B182A9 /* FNScoreCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,11 +7,11 @@
 //
 
 #import "FNTableView.h"
+#import "FNAppearance.h"
 
 @interface FNTableView ()
 
 @property (nonatomic, strong) UISwipeGestureRecognizer *deleteGesture;
-@property (nonatomic) BOOL gesturesShouldBegin;
 @property (nonatomic, strong) NSIndexPath *deleteIndexPath;
 @property (nonatomic, strong) id <FNTableViewDataSource> deleteDataSource;
 @end
@@ -22,8 +22,8 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    if (!self) {
+        return nil;
     }
     [self commonInit];
     return self;
@@ -38,8 +38,8 @@
 {
     self.deleteGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didRecognizeDeleteGesture:)];
     self.deleteGesture.direction = UISwipeGestureRecognizerDirectionLeft | UISwipeGestureRecognizerDirectionRight;
+    self.deleteGesture.delegate = self;
     [self addGestureRecognizer:self.deleteGesture];
-    self.gesturesShouldBegin = YES;
     if ([self.dataSource conformsToProtocol:@protocol(FNTableViewDataSource) ]) {
         self.deleteDataSource = (id <FNTableViewDataSource>)self.dataSource;
     }
@@ -47,18 +47,13 @@
 
 - (void)didRecognizeDeleteGesture:(UISwipeGestureRecognizer *)gesture
 {
+    if (!self.deleteDataSource) return; // deleting is not implemented
     CGPoint touch = [gesture locationInView:self];
-    NSIndexPath *indexPath = [self indexPathForRowAtPoint:touch];
-    NSLog(@"didRecognizeDeleteGesture IndexPath: %@", indexPath);
-    if (!self.deleteDataSource || !indexPath) {
-        return;
-    }
-    if (self.gesturesShouldBegin) {
-        if ([self.deleteDataSource tableView:self canEditRowAtIndexPath:indexPath]) {
-            [self showDeleteControlForIndexPath:indexPath];
-        }
-    } else {
-        [self hideDeleteControl];
+    NSIndexPath *touchIndexPath = [self indexPathForRowAtPoint:touch];
+    NSLog(@"didRecognizeDeleteGesture IndexPath: %@", touchIndexPath);
+    if (!touchIndexPath) return;
+    if ([self.deleteDataSource tableView:self canEditRowAtIndexPath:touchIndexPath]) {
+        [self showDeleteControlForIndexPath:touchIndexPath];
     }
 }
 
@@ -66,48 +61,47 @@
 {
     NSLog(@"showDeleteControlForIndexPath");
     UITableViewCell *cell = [self cellForRowAtIndexPath:indexPath];
-    self.gesturesShouldBegin = NO;
-    if ([cell conformsToProtocol:@protocol(FNDeleteCell)]) {
-        self.deleteIndexPath = indexPath;
-        // implement in a cell superclass
-        [(id <FNDeleteCell>)cell showDeleteControlForTableView:self withSelector:@selector(deleteControlPressed)];
-    }
+    [cell setEditing:YES animated:YES];
+    self.deleteIndexPath = indexPath;
 }
 
 - (void)deleteControlPressed
 {
     NSLog(@"deleteControlPressed");
-    UITableViewCell *cell = [self cellForRowAtIndexPath:self.deleteIndexPath];
     [self.deleteDataSource tableView:self deleteRowAtIndexPath:self.deleteIndexPath];
-    if ([cell conformsToProtocol:@protocol(FNDeleteCell)]) {
-        // implement in a cell superclass
-        [(id <FNDeleteCell>)cell setDeletedState];
-    }
     self.deleteIndexPath = nil;
-    self.gesturesShouldBegin = YES;
 }
 
 - (void)hideDeleteControl
 {
     NSLog(@"hideDeleteControl");
     UITableViewCell *cell = [self cellForRowAtIndexPath:self.deleteIndexPath];
-    if ([cell conformsToProtocol:@protocol(FNDeleteCell)]) {
-        // implement in a cell superclass
-        [(id <FNDeleteCell>)cell hideDeleteControlForTableView];
-    }
+    [cell setEditing:NO animated:YES];
     self.deleteIndexPath = nil;
-    self.gesturesShouldBegin = YES;
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     NSLog(@"gestureRecognizerShouldBegin was deleteGesture %d", gestureRecognizer == self.deleteGesture);
-    if (gestureRecognizer == self.panGestureRecognizer) {
-        BOOL shouldBegin = self.gesturesShouldBegin;
+    if (self.deleteIndexPath) {
         [self hideDeleteControl];
-        return shouldBegin;
+        return NO;
     } else {
-        return  self.gesturesShouldBegin;
+        return YES;
+    }
+}
+
+- (BOOL)touchesShouldBegin:(NSSet *)touches withEvent:(UIEvent *)event inContentView:(UIView *)view
+{
+    if (!self.deleteIndexPath) {
+        return YES;
+    }
+    UITableViewCell *cell = [self cellForRowAtIndexPath:self.deleteIndexPath];
+    if ([cell pointInside:[[touches anyObject] locationInView:cell.editingAccessoryView] withEvent:event]) {
+        return YES;
+    } else {
+        [self hideDeleteControl];
+        return NO;
     }
 }
 
