@@ -29,6 +29,8 @@
 		C9203937179781410013002E /* FNMultiplayerClientDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9203935179781410013002E /* FNMultiplayerClientDelegate.m */; };
 		C92039421797A6890013002E /* FNMultiplayerJoinVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039411797A6890013002E /* FNMultiplayerJoinVC.m */; };
 		C92039431797A6890013002E /* FNMultiplayerJoinVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039411797A6890013002E /* FNMultiplayerJoinVC.m */; };
+		C94A3C4E17DC409700CB2CE9 /* FNTVTeamsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C94A3C4D17DC409600CB2CE9 /* FNTVTeamsDelegate.m */; };
+		C94A3C4F17DC409700CB2CE9 /* FNTVTeamsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C94A3C4D17DC409600CB2CE9 /* FNTVTeamsDelegate.m */; };
 		C94F0C5817A226B300DBF2B9 /* THObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C94F0C5317A226B300DBF2B9 /* THObserver.m */; };
 		C94F0C5917A226B300DBF2B9 /* THObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C94F0C5317A226B300DBF2B9 /* THObserver.m */; };
 		C95DD934177D20B0009EF626 /* FNTVDirectionsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */; };
@@ -191,6 +193,8 @@
 		C9203935179781410013002E /* FNMultiplayerClientDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiplayerClientDelegate.m; sourceTree = "<group>"; };
 		C92039401797A6890013002E /* FNMultiplayerJoinVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMultiplayerJoinVC.h; sourceTree = "<group>"; };
 		C92039411797A6890013002E /* FNMultiplayerJoinVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiplayerJoinVC.m; sourceTree = "<group>"; };
+		C94A3C4C17DC409600CB2CE9 /* FNTVTeamsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNTVTeamsDelegate.h; sourceTree = "<group>"; };
+		C94A3C4D17DC409600CB2CE9 /* FNTVTeamsDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTVTeamsDelegate.m; sourceTree = "<group>"; };
 		C94F0C5217A226B300DBF2B9 /* THObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THObserver.h; sourceTree = "<group>"; };
 		C94F0C5317A226B300DBF2B9 /* THObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THObserver.m; sourceTree = "<group>"; };
 		C94F0C5417A226B300DBF2B9 /* THObserversAndBinders-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "THObserversAndBinders-Prefix.pch"; sourceTree = "<group>"; };
@@ -584,6 +588,8 @@
 				C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */,
 				C981EB1C1788D30B00571183 /* FNTVAddPlayerDelegate.h */,
 				C981EB1D1788D30B00571183 /* FNTVAddPlayerDelegate.m */,
+				C94A3C4C17DC409600CB2CE9 /* FNTVTeamsDelegate.h */,
+				C94A3C4D17DC409600CB2CE9 /* FNTVTeamsDelegate.m */,
 				C9B03F37177AA44E00226B06 /* FNTVController.h */,
 				C9B03F38177AA44F00226B06 /* FNTVController.m */,
 			);
@@ -876,6 +882,7 @@
 				C9B0C87617D55598004A8752 /* FNTableView.m in Sources */,
 				C9098A3517D6EE6D00DB54A4 /* FNNounGenerator.m in Sources */,
 				C9EF7F7717D8224400B182A9 /* FNScoreCell.m in Sources */,
+				C94A3C4E17DC409700CB2CE9 /* FNTVTeamsDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -930,6 +937,7 @@
 				C9B0C87717D55598004A8752 /* FNTableView.m in Sources */,
 				C9098A3617D6EE6D00DB54A4 /* FNNounGenerator.m in Sources */,
 				C9EF7F7817D8224400B182A9 /* FNScoreCell.m in Sources */,
+				C94A3C4F17DC409700CB2CE9 /* FNTVTeamsDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,7 @@
 #import "FNTVScoreDelegate.h"
 #import "FNTVDirectionsDelegate.h"
 #import "FNTVAddPlayerDelegate.h"
+#import "FNTVTeamsDelegate.h"
 #import "FNNewGameVC.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -18,6 +19,7 @@
 @property (nonatomic, strong) FNTVController *scoreController;
 @property (nonatomic, strong) FNTVController *directionController;
 @property (nonatomic, strong) FNTVController *addPlayerController;
+@property (nonatomic, strong) FNTVController *teamsController;
 @property (nonatomic, strong) NSIndexPath *lastSelectedHeader;
 @end
 
@@ -108,12 +110,14 @@
     NSInteger section = -1;
     if (controller == self.scoreController) {
         section = 0;
-    } else if (controller == self.directionController) {
+    } else if (controller == self.teamsController) {
         section = 1;
-    } else if (controller == self.addPlayerController) {
+    } else if (controller == self.directionController) {
         section = 2;
-    } else if (!controller) {
+    } else if (controller == self.addPlayerController) {
         section = 3;
+    } else if (!controller) {
+        section = 4;
     }
     NSAssert(section >= -1, @"Tried to convert indexPaths for an unrecognized controller");
     return section;
@@ -125,10 +129,12 @@
     if (indexPath.section == 0) {
         controller = self.scoreController;
     } else if (indexPath.section == 1) {
-        controller = self.directionController;
+        controller = self.teamsController;
     } else if (indexPath.section == 2) {
-        controller = self.addPlayerController;
+        controller = self.directionController;
     } else if (indexPath.section == 3) {
+        controller = self.addPlayerController;
+    } else if (indexPath.section == 4) {
         controller = nil;
     }
     //NSAssert(controller, @"Tried to get controller for an out of bounds indexPath");
@@ -225,7 +231,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -278,6 +284,15 @@
     addPlayer.brain = self.brain;
     self.addPlayerController.delegate = addPlayer;
     [self.addPlayerController setup];
+    
+    self.teamsController = [[FNTVController alloc] init];
+    self.teamsController.tableView = self.tableView;
+    self.teamsController.tvController = self;
+    FNTVTeamsDelegate *teams = [[FNTVTeamsDelegate alloc] init];
+    teams.brain = self.brain;
+    teams.shouldCollapseOnTitleTap = YES;
+    self.teamsController.delegate = teams;
+    [self.teamsController setup];
     
     self.view.backgroundColor = [FNAppearance tableViewBackgroundColor];
     UIBarButtonItem *done = [FNAppearance barButtonItemDismiss];
