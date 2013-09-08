@@ -795,8 +795,8 @@
                                     <constraint firstAttribute="height" constant="119" id="CYS-BL-drZ"/>
                                     <constraint firstAttribute="width" constant="300" id="fAr-7y-Qd8"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="120"/>
-                                <color key="textColor" red="0.91764705882352937" green="0.81568627450980391" blue="0.29803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="100"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Round 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdB-CS-vpq">
@@ -806,7 +806,7 @@
                                     <constraint firstAttribute="width" constant="115" id="9Qw-kc-gYB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="28"/>
-                                <color key="textColor" red="0.91764705879999997" green="0.81568627449999997" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGC-Ha-NVc" customClass="FNButtonRect">
@@ -1789,10 +1789,14 @@
         </class>
         <class className="FNNewGameVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FNNewGameVC.h"/>
+            <relationships>
+                <relationship kind="action" name="joinGamePressed:"/>
+            </relationships>
         </class>
         <class className="FNNextUpVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FNNextUpVC.h"/>
             <relationships>
+                <relationship kind="action" name="startPressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="nextPlayerLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="roundLabel" candidateClass="UILabel"/>
             </relationships>

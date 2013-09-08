@@ -165,7 +165,7 @@
     self.directionsVC.presenter = self;
     [self.navigationItem setRightBarButtonItem:nil animated:YES];
     [self.view addSubview:self.directionsVC];
-    [UIView animateWithDuration:0.5 animations:^(void){
+    [UIView animateWithDuration:0.3 animations:^(void){
         self.directionsVC.alpha = 1.0;
     }];
 }

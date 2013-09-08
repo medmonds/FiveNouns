@@ -600,7 +600,11 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
             NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:section];
             [array addObject:path];
         }
-        [self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
+        if ([array count]) {
+            UITableViewCell *topCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+            [super setBackgroundForCell:topCell withPosition:FNTableViewCellPositionTop];
+            [self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
+        }
     }
     [self.tableView endUpdates];
     [CATransaction commit];

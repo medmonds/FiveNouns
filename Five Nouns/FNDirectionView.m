@@ -53,7 +53,7 @@
     
     _doneButton = [[UIButton alloc] initWithFrame:CGRectZero];
     [_doneButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [_doneButton setBackgroundImage:[FNAppearance cellBackgroundForPosition:FNTableViewCellPositionBottom] forState:UIControlStateNormal];
+    [_doneButton setBackgroundImage:[FNAppearance backgroundForButton] forState:UIControlStateNormal];
     [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
     _doneButton.titleLabel.font = [FNAppearance fontWithSize:26];
     [_doneButton setTitleColor:[FNAppearance textColorButton] forState:UIControlStateNormal];
@@ -193,7 +193,7 @@
 
 - (void)donePressed:(id)sender
 {
-    [UIView animateWithDuration:.5 animations:^(void){
+    [UIView animateWithDuration:.3 animations:^(void){
         self.alpha = 0;
     } completion:^(BOOL finished){
         [self.presenter directionViewWasDismissed:self];
