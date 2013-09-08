@@ -75,7 +75,6 @@
     self.categoriesInDataSource = [NSMutableSet setWithArray:categoriesFromDelegate];
 }
 
-
 - (void)configureTitleCell:(FNSeparatorCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
     id item = self.dataSource[indexPath.row];

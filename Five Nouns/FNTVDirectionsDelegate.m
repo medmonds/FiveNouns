@@ -9,6 +9,7 @@
 #import "FNTVDirectionsDelegate.h"
 #import "FNGameDirections.h"
 #import "FNAppearance.h"
+#import "FNScoreCell.h"
 
 @implementation FNTVDirectionsDelegate
 
@@ -30,6 +31,11 @@
     return @"Directions";
 }
 
+- (NSString *)cellIdentifierForCategory
+{
+    return @"scoreCategoryCell";
+}
+
 - (NSArray *)itemsForCategory:(id)category
 {
     if ([category isKindOfClass:[FNGameDirections class]]) {
@@ -49,7 +55,7 @@
     CGSize height = [(NSString *)item sizeWithFont:[FNAppearance fontWithSize:20]
                                  constrainedToSize:constraint
                                      lineBreakMode:NSLineBreakByWordWrapping];
-    return height.height + 30; // padding
+    return height.height + 34; // padding
 }
 
 - (CellConfigBlock)titleCellConfigureBlockForController:(FNTVController *)controller
@@ -66,13 +72,12 @@
 
 - (CellConfigBlock)categoryCellConfigureBlockForController:(FNTVController *)controller
 {
-    CellConfigBlock block = ^(UITableViewCell *cell, id object) {
+    CellConfigBlock block = ^(FNScoreCell *cell, id object) {
         if ([object isKindOfClass:[FNGameDirections class]]) {
-            cell.textLabel.text = ((FNGameDirections *)object).title;
-            cell.textLabel.textColor = [FNAppearance textColorButton];
-            cell.textLabel.font = [FNAppearance fontWithSize:26];
-            cell.detailTextLabel.text = nil;
-            cell.indentationLevel = 0;
+            cell.myTextLabel.text = ((FNGameDirections *)object).title;
+            cell.myTextLabel.textColor = [FNAppearance textColorButton];
+            cell.myTextLabel.font = [FNAppearance fontWithSize:26];
+            cell.myDetailTextLabel.text = nil;
         }
     };
     return block;

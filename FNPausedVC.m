@@ -18,6 +18,7 @@
 @property (nonatomic, strong) FNTVController *scoreController;
 @property (nonatomic, strong) FNTVController *directionController;
 @property (nonatomic, strong) FNTVController *addPlayerController;
+@property (nonatomic, strong) NSIndexPath *lastSelectedHeader;
 @end
 
 @implementation FNPausedVC
@@ -57,23 +58,27 @@
 - (void)insertRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
     NSArray *convertedIndexPaths = [self convertIndexPaths:indexPaths fromController:controller];
-    NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:((NSIndexPath *)convertedIndexPaths[0]).section];
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:headerIndexPath];
-    [super setBackgroundForCell:cell withPosition:FNTableViewCellPositionTop];
-    [self.tableView insertRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    if ([convertedIndexPaths count] > 0) {
+        NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:((NSIndexPath *)convertedIndexPaths[0]).section];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:headerIndexPath];
+        [super setBackgroundForCell:cell withPosition:FNTableViewCellPositionTop];
+        [self.tableView insertRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationTop];
+    }
 }
 
 - (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
     NSArray *convertedIndexPaths = [self convertIndexPaths:indexPaths fromController:controller];
-    NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:((NSIndexPath *)convertedIndexPaths[0]).section];
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:headerIndexPath];
-    [CATransaction begin];
-    [CATransaction setCompletionBlock:^{
-        [super setBackgroundForCell:cell atIndexPath:headerIndexPath];
-    }];
-    [self.tableView deleteRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationTop];
-    [CATransaction commit];
+    if ([convertedIndexPaths count] > 0) {
+        NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:((NSIndexPath *)convertedIndexPaths[0]).section];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:headerIndexPath];
+        [CATransaction begin];
+        [CATransaction setCompletionBlock:^{
+            [super setBackgroundForCell:cell atIndexPath:headerIndexPath];
+        }];
+        [self.tableView deleteRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationTop];
+        [CATransaction commit];
+    }
 }
 
 //- (void)reloadRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
@@ -135,6 +140,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == 0) {
+        if (![self.lastSelectedHeader isEqual:indexPath] && self.lastSelectedHeader) {
+            FNTVController *controller = [self controllerForIndexPath:self.lastSelectedHeader];
+            [controller tableView:tableView didSelectRowAtIndexPath:self.lastSelectedHeader];
+            self.lastSelectedHeader = indexPath;
+        } else if ([self.lastSelectedHeader isEqual:indexPath]) {
+            self.lastSelectedHeader = nil;
+        } else {
+            self.lastSelectedHeader = indexPath;
+        }
+    }
     FNTVController *controller = [self controllerForIndexPath:indexPath];
     if (controller) {
         [controller tableView:tableView didSelectRowAtIndexPath:indexPath];
@@ -186,13 +202,8 @@
     }
 }
 
-//- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    
-//}
 
 #pragma mark - Data Source
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
