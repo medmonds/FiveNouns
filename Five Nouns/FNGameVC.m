@@ -238,8 +238,24 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self commonInit];
     }
     return self;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self commonInit];
+}
+
+- (void)commonInit
+{
+    self.currentRound = 1;
+    self.currentTurn = 0;
+    self.returnToNextUpVC = NO;
+    self.gameWasPaused = NO;
+    self.gameIsOver = NO;
 }
 
 - (UIBarButtonItem *)optionsButton
@@ -262,11 +278,6 @@
     // Setup the timer control
     [self.countDownTimer addTarget:self action:@selector(timerPressed) forControlEvents:UIControlEventTouchUpInside];
     self.countDownTimer.delegate = self;
-    self.currentRound = 1;
-    self.currentTurn = 0;
-    self.returnToNextUpVC = NO;
-    self.gameWasPaused = NO;
-    self.gameIsOver = NO;
     // might not need this !!!
     [self setupNewTurn];
 }

@@ -61,6 +61,7 @@ static NSString * const AllStatusesKey = @"allStatuses";
 - (void)prepareForNewRound
 {
     [self.unplayedNouns unionSet:self.playedNouns];
+    self.round ++;
 }
 
 - (void)returnUnplayedNoun:(NSString *)noun
@@ -363,6 +364,7 @@ static NSString * const AllStatusesKey = @"allStatuses";
     }
     self.status = @(FNGameStatusNotStarted);
     self.allStatuses = [[NSCountedSet alloc] initWithObjects:self.status, nil];
+    self.round = 1;
     return self;
 }
 

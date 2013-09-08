@@ -14,6 +14,7 @@
 @interface FNTableViewController : UITableViewController <UITextFieldDelegate, FNTableViewDataSource>
 
 - (void)setBackgroundForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)setBackgroundForCell:(UITableViewCell *)cell withPosition:(FNTableViewCellPosition)position;
 
 - (void)setBackgroundForTextField:(UITextField *)textField;
 

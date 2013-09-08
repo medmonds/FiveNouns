@@ -254,7 +254,7 @@
     if (self.titleInDataSource == self.dataSource[indexPath.row]) {
         decision = NO;  // no separator under the title
     } else if ([self.categoriesInDataSource containsObject:self.dataSource[indexPath.row]]) {
-        decision = YES;  //indexPath.row != [self.dataSource count] - 1;  // no separator under the last cell
+        decision = indexPath.row != [self.dataSource count] - 1;  // no separator under the last cell
     } else {
         if ([self.dataSource count] - 1 > indexPath.row) {
             // separator for the last item cell and there is another category below it

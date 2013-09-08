@@ -53,6 +53,7 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 - (void)prepareForNewRound;
 - (void)setGameStatus:(FNGameStatus)status;
 - (BOOL)canBeginGame;
+@property (nonatomic) NSInteger round;
 
 
 - (void)saveCurrentTurn:(FNTurnData *)turn;

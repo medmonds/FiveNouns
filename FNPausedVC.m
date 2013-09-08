@@ -12,6 +12,7 @@
 #import "FNTVDirectionsDelegate.h"
 #import "FNTVAddPlayerDelegate.h"
 #import "FNNewGameVC.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface FNPausedVC () <FNTVRowInsertAndDeleteManager, UIActionSheetDelegate>
 @property (nonatomic, strong) FNTVController *scoreController;
@@ -56,13 +57,23 @@
 - (void)insertRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
     NSArray *convertedIndexPaths = [self convertIndexPaths:indexPaths fromController:controller];
+    NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:((NSIndexPath *)convertedIndexPaths[0]).section];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:headerIndexPath];
+    [super setBackgroundForCell:cell withPosition:FNTableViewCellPositionTop];
     [self.tableView insertRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
     NSArray *convertedIndexPaths = [self convertIndexPaths:indexPaths fromController:controller];
+    NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:((NSIndexPath *)convertedIndexPaths[0]).section];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:headerIndexPath];
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [super setBackgroundForCell:cell atIndexPath:headerIndexPath];
+    }];
     [self.tableView deleteRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationTop];
+    [CATransaction commit];
 }
 
 //- (void)reloadRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
@@ -195,6 +206,7 @@
         cell.textLabel.text = @"Quit Game";
         cell.textLabel.font = [FNAppearance fontWithSize:30];
         cell.textLabel.textColor = [UIColor redColor];
+        ((FNSeparatorCell *)cell).showCellSeparator = NO;
     }
     [super setBackgroundForCell:cell atIndexPath:indexPath];
     return cell;

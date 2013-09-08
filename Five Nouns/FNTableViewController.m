@@ -63,6 +63,46 @@
     }
 }
 
+- (void)setBackgroundForCell:(UITableViewCell *)cell withPosition:(FNTableViewCellPosition)position;
+{
+    if (![cell.backgroundView isKindOfClass:[UIImageView class]]) {
+        UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:cell.frame];
+        cell.backgroundView = backgroundView;
+    }
+    switch (position) {
+        case FNTableViewCellPositionNone: {
+            if (!self.none) self.none = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionNone];
+            if (((UIImageView *)cell.backgroundView).image != self.none) {
+                ((UIImageView *)cell.backgroundView).image = self.none;
+            }
+            break;
+        }
+        case FNTableViewCellPositionTop: {
+            if (!self.top) self.top = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionTop];
+            if (((UIImageView *)cell.backgroundView).image != self.top) {
+                ((UIImageView *)cell.backgroundView).image = self.top;
+            }
+            break;
+        }
+        case FNTableViewCellPositionBottom: {
+            if (!self.bottom) self.bottom = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionBottom];
+            if (((UIImageView *)cell.backgroundView).image != self.bottom) {
+                ((UIImageView *)cell.backgroundView).image = self.bottom;
+            }
+            break;
+        }
+        case FNTableViewCellPositionMiddle: {
+            if (!self.middle) self.middle = [FNAppearance cellBackgroundForPosition:FNTableViewCellPositionMiddle];
+            if (((UIImageView *)cell.backgroundView).image != self.middle) {
+                ((UIImageView *)cell.backgroundView).image = self.middle;
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 - (void)setBackgroundForTextField:(UITextField *)textField
 {
     CGRect frame = textField.frame;

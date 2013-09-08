@@ -21,12 +21,12 @@
 
 - (void)insertRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
-    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
 }
 
 - (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
-    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
 }
 
 - (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(FNTVController *)controller

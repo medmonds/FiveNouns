@@ -1181,6 +1181,91 @@
                                     <outlet property="mainTextLabel" destination="638-78-bHM" id="bi8-3o-r5M"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="scoreCategoryCell" id="7f7-b5-FYe" customClass="FNScoreCell">
+                                <rect key="frame" x="0.0" y="198" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w78-6s-vHm">
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="43" id="1NI-PW-nJN"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" type="user" id="Idd-0Z-oYs"/>
+                                                <constraint firstAttribute="width" constant="244" type="user" id="yDq-yb-iN8"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mnj-DX-J3a">
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" type="user" id="FFg-wT-gFK"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="mnj-DX-J3a" secondAttribute="trailing" constant="14" type="user" id="Mue-9l-1jb"/>
+                                    <constraint firstItem="mnj-DX-J3a" firstAttribute="leading" secondItem="w78-6s-vHm" secondAttribute="trailing" constant="8" symbolic="YES" type="user" id="NYo-UT-fCz"/>
+                                    <constraint firstItem="mnj-DX-J3a" firstAttribute="top" secondItem="7f7-b5-FYe" secondAttribute="top" type="default" id="XGq-fE-K7p"/>
+                                    <constraint firstItem="w78-6s-vHm" firstAttribute="leading" secondItem="7f7-b5-FYe" secondAttribute="leading" constant="14" type="user" id="aYX-Pu-gHJ"/>
+                                    <constraint firstItem="w78-6s-vHm" firstAttribute="top" secondItem="7f7-b5-FYe" secondAttribute="top" type="default" id="wSR-6P-neu"/>
+                                    <constraint firstItem="mnj-DX-J3a" firstAttribute="baseline" secondItem="w78-6s-vHm" secondAttribute="baseline" type="default" id="xmi-xt-eHu"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="myDetailTextLabel" destination="mnj-DX-J3a" id="Ele-gd-FSD"/>
+                                    <outlet property="myTextLabel" destination="w78-6s-vHm" id="rwK-Os-Eex"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="scoreRoundCell" id="8td-E1-gYu" customClass="FNScoreCell">
+                                <rect key="frame" x="0.0" y="242" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nOZ-AP-6OV">
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="43" id="nMK-jU-6y0"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" type="user" id="veL-mP-Pcx"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xP0-iP-RUo">
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" type="user" id="EiU-9M-YMV"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="30"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="xP0-iP-RUo" firstAttribute="baseline" secondItem="nOZ-AP-6OV" secondAttribute="baseline" type="default" id="KWj-Ng-RON"/>
+                                    <constraint firstItem="xP0-iP-RUo" firstAttribute="top" secondItem="8td-E1-gYu" secondAttribute="top" type="default" id="Otb-0f-csN"/>
+                                    <constraint firstAttribute="trailing" secondItem="xP0-iP-RUo" secondAttribute="trailing" constant="16" type="user" id="ZhD-45-X3w"/>
+                                    <constraint firstItem="xP0-iP-RUo" firstAttribute="leading" secondItem="nOZ-AP-6OV" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="jdF-U6-Xpt"/>
+                                    <constraint firstItem="nOZ-AP-6OV" firstAttribute="leading" secondItem="8td-E1-gYu" secondAttribute="leading" constant="30" type="user" id="lAQ-ik-udG"/>
+                                    <constraint firstItem="nOZ-AP-6OV" firstAttribute="top" secondItem="8td-E1-gYu" secondAttribute="top" type="default" id="uHj-i6-NDD"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="myDetailTextLabel" destination="xP0-iP-RUo" id="0Jk-M0-TZC"/>
+                                    <outlet property="myTextLabel" destination="nOZ-AP-6OV" id="bkb-fL-wel"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="H2F-I7-4Ka" id="91Q-kO-74K"/>
@@ -1695,6 +1780,7 @@
         <class className="FNMultiplayerContainer" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FNMultiplayerContainer.h"/>
             <relationships>
+                <relationship kind="action" name="toggleMultiplayerServerStatePressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="multiplayerServerStateToggle" candidateClass="FNButtonRect"/>
             </relationships>
         </class>

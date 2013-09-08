@@ -131,7 +131,7 @@
     // get and show the next player up
     self.nextPlayer = [self.brain currentPlayer];
     self.nextPlayerLabel.text = self.nextPlayer.name;
-
+    self.round = self.brain.round;
     self.roundLabel.text = [NSString stringWithFormat:@"Round %d", self.round];
 }
 
@@ -173,7 +173,6 @@
     self.scoreVC.brain = self.brain;
     self.gameHasNotStarted = YES;
     self.showDirections = YES;
-    self.round = 1;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -185,7 +184,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     // if this is the 1st turn for the 1st round show the coresponding directions
     if (self.showDirections) {
         [self showDirectionsForRound];
