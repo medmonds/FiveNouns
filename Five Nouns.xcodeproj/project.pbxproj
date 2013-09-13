@@ -116,6 +116,7 @@
 		C9B0C87717D55598004A8752 /* FNTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B0C87517D55598004A8752 /* FNTableView.m */; };
 		C9B13696176E439D00B792AD /* FNGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B13695176E439D00B792AD /* FNGameVC.m */; };
 		C9B13697176E439D00B792AD /* FNGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B13695176E439D00B792AD /* FNGameVC.m */; };
+		C9B2275717DEBD3D00A6356C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B2275617DEBD3D00A6356C /* AudioToolbox.framework */; };
 		C9B2607D1772A22F009DBBC9 /* FNPausedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */; };
 		C9B2607E1772A22F009DBBC9 /* FNPausedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */; };
 		C9B40EE7171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
@@ -285,6 +286,7 @@
 		C9B0C87517D55598004A8752 /* FNTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTableView.m; sourceTree = "<group>"; };
 		C9B13694176E439D00B792AD /* FNGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNGameVC.h; sourceTree = "<group>"; };
 		C9B13695176E439D00B792AD /* FNGameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNGameVC.m; sourceTree = "<group>"; };
+		C9B2275617DEBD3D00A6356C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C9B2607B1772A22F009DBBC9 /* FNPausedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FNPausedVC.h; path = ../FNPausedVC.h; sourceTree = "<group>"; };
 		C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FNPausedVC.m; path = ../FNPausedVC.m; sourceTree = "<group>"; };
 		C9B40EE5171A1CC100619D57 /* FNNewGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNNewGameVC.h; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9B2275717DEBD3D00A6356C /* AudioToolbox.framework in Frameworks */,
 				C9C5307F17936F8900A7A268 /* GameKit.framework in Frameworks */,
 				C9ACDEAE1771462700555CE8 /* QuartzCore.framework in Frameworks */,
 				C9ACDEAD1771461B00555CE8 /* CoreGraphics.framework in Frameworks */,
@@ -395,6 +398,7 @@
 		C9649E311718B7390039B88E = {
 			isa = PBXGroup;
 			children = (
+				C9B2275617DEBD3D00A6356C /* AudioToolbox.framework */,
 				C9C5307E17936F8900A7A268 /* GameKit.framework */,
 				C9649E461718B7390039B88E /* Five Nouns */,
 				C9649E6A1718B7390039B88E /* Five NounsTests */,

@@ -112,16 +112,37 @@
     return block;
 }
 
+- (void)setBackgroundForTextField:(UITextField *)textField
+{
+    CGRect frame = textField.frame;
+    frame.size.height = 35;
+    textField.frame = frame;
+    UIImage *background = [FNAppearance backgroundForTextField];
+    textField.backgroundColor = [UIColor clearColor];
+    textField.borderStyle = UITextBorderStyleNone;
+    textField.background = background;
+}
+
 - (CellConfigBlock)categoryCellConfigureBlockForController:(FNTVController *)controller
 {
-    CellConfigBlock block = ^(UITableViewCell *cell, id object) {
+    CellConfigBlock block = ^(FNEditableCell *cell, id object) {
         if ([object isKindOfClass:[FNPlayer class]] && [cell isKindOfClass:[FNEditableCell class]]) {
-            ((FNEditableCell *)cell).mainTextLabel.text = @"name:";
-            ((FNEditableCell *)cell).detailTextField.text = self.player.name;
-            ((FNEditableCell *)cell).detailTextField.textColor = [FNAppearance textColorButton];
-            ((FNEditableCell *)cell).textLabel.font = [FNAppearance fontWithSize:26];
-            ((FNEditableCell *)cell).indentationLevel = 0;
-            ((FNEditableCell *)cell).detailTextField.delegate = self;
+            cell.mainTextLabel.text = @"name:";
+            cell.detailTextField.text = self.player.name;
+            cell.detailTextField.placeholder = @"New Player";
+            cell.detailTextField.placeholderTextColor = [FNAppearance textColorButton];
+            cell.detailTextField.leftView = nil;
+            cell.textLabel.font = [FNAppearance fontWithSize:26];
+            cell.detailTextField.delegate = self;
+            cell.showCellSeparator = NO;
+            
+            CGRect frame = cell.detailTextField.frame;
+            frame.size.height = 35;
+            cell.detailTextField.frame = frame;
+            UIImage *background = [FNAppearance backgroundForTextField];
+            cell.detailTextField.backgroundColor = [UIColor clearColor];
+            cell.detailTextField.borderStyle = UITextBorderStyleNone;
+            cell.detailTextField.background = background;
         }
     };
     return block;
@@ -129,14 +150,14 @@
 
 - (CellConfigBlock)itemCellConfigureBlockForController:(FNTVController *)controller
 {
-    CellConfigBlock block = ^(UITableViewCell *cell, id object) {
+    CellConfigBlock block = ^(FNSelectableCell *cell, id object) {
         if ([object isKindOfClass:[FNTeam class]] && [cell isKindOfClass:[FNSelectableCell class]]) {
-            ((FNSelectableCell *)cell).mainTextLabel.text = ((FNTeam *)object).name;
-            ((FNSelectableCell *)cell).mainTextLabel.textColor = [FNAppearance textColorLabel];
-            ((FNSelectableCell *)cell).textLabel.font = [FNAppearance fontWithSize:20];
-            ((FNSelectableCell *)cell).indentationLevel = 3;
+            cell.mainTextLabel.text = ((FNTeam *)object).name;
+            cell.mainTextLabel.textColor = [FNAppearance textColorLabel];
+            cell.textLabel.font = [FNAppearance fontWithSize:20];
+            cell.indentationLevel = 3;
             ((FNSelectableCell *)cell).objectForCell = object;
-            [((FNSelectableCell *)cell).button addTarget:self action:@selector(playerAssignmentIndicatorPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.button addTarget:self action:@selector(playerAssignmentIndicatorPressed:) forControlEvents:UIControlEventTouchUpInside];
         }
     };
     return block;

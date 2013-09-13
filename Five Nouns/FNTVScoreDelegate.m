@@ -36,7 +36,13 @@
 - (NSArray *)itemsForCategory:(id)category
 {
     if ([category isKindOfClass:[FNTeam class]]) {
-        return ((FNTeam *)category).scoreCards;
+        NSArray *items = ((FNTeam *)category).scoreCards;
+        if (![items count]) {
+            FNScoreCard *scorecard = [[FNScoreCard alloc] init];
+            scorecard.round = -1;
+            items = @[scorecard];
+        }
+        return items;
     }
     return nil;
 }
@@ -81,12 +87,17 @@
 {
     CellConfigBlock block = ^(FNScoreCell *cell, id object) {
         if ([object isKindOfClass:[FNScoreCard class]]) {
-            cell.myTextLabel.text = [NSString stringWithFormat:@"Round %d", ((FNScoreCard *)object).round];
             cell.myTextLabel.textColor = [FNAppearance textColorLabel];
             cell.myTextLabel.font = [FNAppearance fontWithSize:20];
-            cell.myDetailTextLabel.text = [NSString stringWithFormat:@"%d", [((FNScoreCard *)object).nounsScored count]];
+            if (((FNScoreCard *)object).round == -1) {
+                cell.myTextLabel.text = @"";
+                cell.myDetailTextLabel.text = @"-";
+            } else {
+                cell.myTextLabel.text = [NSString stringWithFormat:@"Round %d", ((FNScoreCard *)object).round];
+                cell.myDetailTextLabel.text = [NSString stringWithFormat:@"%d", [((FNScoreCard *)object).nounsScored count]];
+            }
             cell.myDetailTextLabel.font = [FNAppearance fontWithSize:20];
-            cell.indentationLevel = 3;
+            cell.myDetailTextLabel.font = [FNAppearance fontWithSize:20];
         }
     };
     return block;

@@ -588,6 +588,8 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
         [self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
         self.visibleTeamIndex = -1;
         self.visibleTeam = nil;
+        FNSeparatorCell *cell = (FNSeparatorCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:currentlyVisible]];
+        cell.showCellSeparator = NO;
     }
     // open the team section
     if (section != currentlyVisible) {
@@ -600,11 +602,13 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
             NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:section];
             [array addObject:path];
         }
-        if ([array count]) {
+        if ([array count]) { // this will always be true b/c of the way the name is edited
             UITableViewCell *topCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
             [super setBackgroundForCell:topCell withPosition:FNTableViewCellPositionTop];
             [self.tableView insertRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationTop];
         }
+        FNSeparatorCell *cell = (FNSeparatorCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+        cell.showCellSeparator = YES;
     }
     [self.tableView endUpdates];
     [CATransaction commit];

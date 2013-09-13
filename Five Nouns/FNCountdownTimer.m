@@ -7,8 +7,6 @@
 //
 
 #import "FNCountdownTimer.h"
-#import <QuartzCore/QuartzCore.h>
-#import <CoreText/CoreText.h>
 #import "FNAppearance.h"
 
 #define ToRad(deg) 		( (M_PI * (deg)) / 180.0 )
@@ -239,6 +237,9 @@ NSString * const FNCDTTextLabelText = @"Start";
     textColor.duration = .3;
     textColor.repeatCount = 4;
     [self.textLayer addAnimation:textColor forKey:nil];
+    
+    AudioServicesPlaySystemSound(1021);
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event

@@ -6,9 +6,10 @@
 //  Copyright (c) 2013 Edmonds. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+#import <QuartzCore/QuartzCore.h>
+#import <CoreText/CoreText.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @protocol FNCountdownTimerDelegate <NSObject>
 

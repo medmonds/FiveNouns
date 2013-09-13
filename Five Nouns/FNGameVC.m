@@ -16,6 +16,13 @@
 #import "FNTurnData.h"
 #import "FNTeam.h"
 
+typedef NS_ENUM(NSInteger, FNGameState) {
+    FNGameStateStart,
+    FNGameStateEnd,
+    FNGameStatePaused,
+    FNGameStateGameOver
+};
+
 @interface FNGameVC ()
 @property (nonatomic, weak) NSString *currentNoun;
 @property (nonatomic, strong) FNScoreCard *currentScoreCard;
@@ -27,12 +34,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *currentPlayerLabel;
 
 @property (nonatomic, strong) FNDirectionView *directionsVC;
+@property (nonatomic) FNGameState gameState;
 
-@property BOOL startTimerAndRevealNoun;
-@property BOOL returnToNextUpVC;
+
+//@property BOOL startTimerAndRevealNoun;     //                                          timerPressed    beginNewRound   setupNewTurn
+//@property BOOL returnToNextUpVC;            // countDownTimerExpired                    timerPressed                    setupNewTurn            commonInit
 // when this gets set when game is interrupted need to set self.startTimerAndRevealNoun = YES also
-@property BOOL gameWasPaused;
-@property BOOL gameIsOver;
+//@property BOOL gameWasPaused;               // displayNextNoun scoreKeep                                                setupNewTurn            commonInit
+//@property BOOL gameIsOver;                  //                                          timerPressed                    setupNewTurn gameOver   commonInit
 
 @end
 
@@ -61,6 +70,10 @@
 */
 
 
+
+
+
+
 - (void)saveCurrentGameState
 {
     // send it to the brain the brain will handle the actual persistance
@@ -86,6 +99,7 @@
 - (void)countDownTimerExpired // turn is over
 {
     self.countDownTimer.labelString = @"Next Player";
+    self.nounLabel.text = @"Next Player";
     [self.currentPlayer.team addScoreCard:self.currentScoreCard];
     self.currentScoreCard = nil; // not necessary but I like it
     [self.brain returnUnplayedNoun:self.currentNoun];
@@ -274,10 +288,15 @@
     [self.navigationItem setRightBarButtonItem:[self optionsButton]];
     self.navigationItem.titleView = [FNAppearance navBarTitleWithText:@"Five Nouns" forOrientation:self.interfaceOrientation];
     [self.navigationItem setHidesBackButton:YES];
+    
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(timerPressed)];
+    swipe.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.nounLabel addGestureRecognizer:swipe];
 
     // Setup the timer control
     [self.countDownTimer addTarget:self action:@selector(timerPressed) forControlEvents:UIControlEventTouchUpInside];
     self.countDownTimer.delegate = self;
+    self.countDownTimer.backgroundColor = [FNAppearance tableViewBackgroundColor];
     // might not need this !!!
     [self setupNewTurn];
 }
