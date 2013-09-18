@@ -36,7 +36,7 @@
 - (NSArray *)itemsForCategory:(id)category
 {
     if ([category isKindOfClass:[FNTeam class]]) {
-        NSArray *items = ((FNTeam *)category).scoreCards;
+        NSArray *items = [self.brain scoreCardsForTeam:(FNTeam *)category];
         if (![items count]) {
             FNScoreCard *scorecard = [[FNScoreCard alloc] init];
             scorecard.round = -1;
@@ -54,6 +54,16 @@
 - (NSString *)cellIdentifierForItem
 {
     return @"scoreRoundCell";
+}
+
+- (NSInteger)scoreForTeam:(FNTeam *)team
+{
+    NSInteger score = 0;
+    NSArray *scoreCardsForTeam = [self.brain scoreCardsForTeam:team];
+    for (FNScoreCard *card in scoreCardsForTeam) {
+        score += [card.nounsScored count];
+    }
+    return score;
 }
 
 - (CellConfigBlock)titleCellConfigureBlockForController:(FNTVController *)controller
@@ -75,7 +85,7 @@
             cell.myTextLabel.text = ((FNTeam *)object).name;
             cell.myTextLabel.textColor = [FNAppearance textColorButton];
             cell.myTextLabel.font = [FNAppearance fontWithSize:26];
-            cell.myDetailTextLabel.text = [NSString stringWithFormat:@"%d", ((FNTeam *)object).currentScore];
+            cell.myDetailTextLabel.text = [NSString stringWithFormat:@"%d", [self scoreForTeam:(FNTeam *)object]];
             cell.myTextLabel.font = [FNAppearance fontWithSize:26];
             cell.indentationLevel = 0;
         }

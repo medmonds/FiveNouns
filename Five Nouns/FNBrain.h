@@ -12,7 +12,6 @@
 @class FNScoreCard;
 @class FNPlayer;
 @class FNTeam;
-@class FNTurnData;
 
 typedef NS_ENUM(NSInteger, FNGameStatus) {
     FNGameStatusNotStarted,
@@ -24,14 +23,10 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 
 @interface FNBrain : NSObject <NSCoding, FNMultiplayerBrain>
 
-- (NSString *)noun;
 
 @property (nonatomic, strong) NSMutableArray *allPlayers;
 - (void)addPlayer:(FNPlayer *)player;
 - (void)removePlayer:(FNPlayer *)player;
-- (FNPlayer *)currentPlayer;
-- (FNPlayer *)nextPlayer;
-- (BOOL)allPlayersAssignedToTeams;
 
 
 @property (nonatomic, strong) NSMutableArray *allTeams;
@@ -42,22 +37,37 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 - (void)assignTeam:(FNTeam *)team toPlayer:(FNPlayer *)player;
 - (void)unassignTeamFromPlayer:(FNPlayer *)player;
 - (void)setName:(NSString *)name forTeam:(FNTeam *)team;
-
-
 - (void)addScoreCard:(FNScoreCard *)scoreCard;
 - (NSArray *)allScoreCards;
+- (NSArray *)scoreCardsForTeam:(FNTeam *)team;
 
-
-
-- (void)returnUnplayedNoun:(NSString *)noun;
-- (void)prepareForNewRound;
-- (void)setGameStatus:(FNGameStatus)status;
 - (BOOL)canBeginGame;
+- (BOOL)allPlayersAssignedToTeams;
+
+
+
+
+
+
+// these will have to be properties in the gameVC is to KVO when in the passenger seat like all of the other VCs
+// and how will I handle the pausing and starting and receiving those events in the gameVC?
+- (FNPlayer *)currentPlayer;
+- (NSInteger)scoreForCurrentTurn;
+- (NSString *)currentNoun;
 @property (nonatomic) NSInteger round;
+@property (nonatomic) NSInteger timeRemaining;
 
 
-- (void)saveCurrentTurn:(FNTurnData *)turn;
-- (void)saveGameData;
+- (NSString *)nextNoun;
+- (void)nounScored:(NSString *)noun forPlayer:(FNPlayer *)player;
+- (void)returnUnplayedNoun:(NSString *)noun;
+
+- (void)prepareForNewRound;
+- (void)turnBeganForPlayer:(FNPlayer *)player;
+- (void)turnEndedForPlayer:(FNPlayer *)player;
+- (void)gameOver;
+- (void)setGameStatus:(FNGameStatus)status;
+
 + (FNBrain *)brainFromPreviousGame;
 
 - (void)handleUpdate:(FNUpdate *)newUpdate;

@@ -63,6 +63,7 @@
         }
     }
     self.gameVC.currentPlayer = self.nextPlayer;
+    [self.brain turnBeganForPlayer:self.nextPlayer];
     [self.navigationController pushViewController:self.gameVC animated:YES];
 }
 
@@ -99,8 +100,6 @@
 - (void)beginGame
 {
     [self assignTeamsToPlayers];
-    // save the game data
-    [self.brain saveGameData];
     // remove the back button
     [self.navigationItem setLeftBarButtonItem:nil];
     // remove the previous view controllers from the stack because we dont want to go back to them anymore

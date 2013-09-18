@@ -16,11 +16,13 @@
 @interface FNBrain ()
 @property (nonatomic, strong) NSMutableSet *unplayedNouns;
 @property (nonatomic, strong) NSMutableSet *playedNouns;
+@property (nonatomic, strong) NSString *noun;
 @property (nonatomic, strong) NSMutableArray *scoreCards;
 @property (nonatomic, strong) NSNumber *status;
 @property (nonatomic, strong) NSCountedSet *allStatuses;
 @property (nonatomic, strong) NSArray *teamOrder;
 @property (nonatomic, strong) FNPlayer *player;
+@property (nonatomic) NSInteger turn;
 @end
 
 static NSString * const AllTeamsKey = @"allTeams";
@@ -37,17 +39,41 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (FNPlayer *)nextPlayer
 {
-    NSAssert([self.allTeams count] > 0, @"Brain - Next Player was called but the Teams array is empty");
     // rotate teams
     NSArray *order = [self.teamOrder copy];
     FNTeam *nextTeam = self.allTeams[0];
     [self.allTeams removeObjectAtIndex:0];
     [self.allTeams addObject:nextTeam];
+    
     // rotate players
     FNPlayer *nextPlayer = [self.allTeams[0] nextPlayer];
     self.player = nextPlayer;
     self.teamOrder = order;
     return nextPlayer;
+}
+
+- (void)turnBeganForPlayer:(FNPlayer *)player
+{
+    if ([self.player isEqual:player]) {
+        [self addNewScoreCardForPlayer:self.player];
+    }
+}
+
+- (void)turnEndedForPlayer:(FNPlayer *)player
+{
+    if (![player isEqual:self.player]) return;
+    self.turn++;
+    self.player = [self nextPlayer];
+    // send any updates to connected players !!!
+}
+
+- (void)addNewScoreCardForPlayer:(FNPlayer *)player
+{
+    FNScoreCard *scoreCard = [[FNScoreCard alloc] init];
+    scoreCard.player = player;
+    scoreCard.round = self.round;
+    scoreCard.turn = self.turn;
+    [self.scoreCards addObject:scoreCard];
 }
 
 - (FNPlayer *)currentPlayer
@@ -60,8 +86,10 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)prepareForNewRound
 {
-    [self.unplayedNouns unionSet:self.playedNouns];
     self.round ++;
+    [self.unplayedNouns unionSet:self.playedNouns];
+    FNScoreCard *scoreCard = self.scoreCards[[self.scoreCards count] - 1];
+    scoreCard.round = self.round;
 }
 
 - (void)returnUnplayedNoun:(NSString *)noun
@@ -85,14 +113,35 @@ static NSString * const AllStatusesKey = @"allStatuses";
     return _playedNouns;
 }
 
-- (NSString *)noun
+- (NSString *)currentNoun
+{
+    return self.noun;
+}
+
+- (NSString *)nextNoun
 {
     NSString *noun = [self.unplayedNouns anyObject];
     if (noun) {
         [self.unplayedNouns removeObject:noun];
         [self.playedNouns addObject:noun];
     }
+    self.noun = noun;
     return noun;
+}
+
+// in scored it makes sense to move the nouns btwn unplayed & playedNouns not in nextNoun
+- (void)nounScored:(NSString *)noun forPlayer:(FNPlayer *)player
+{
+    FNScoreCard *scoreCard = self.scoreCards[[self.scoreCards count] - 1];
+    if ([scoreCard.player isEqual:player] && noun) {
+        [scoreCard.nounsScored addObject:noun];
+    }
+}
+
+- (NSInteger)scoreForCurrentTurn
+{
+    FNScoreCard *scoreCard = self.scoreCards[[self.scoreCards count] - 1];
+    return [scoreCard.nounsScored count];
 }
 
 #pragma mark - Players
@@ -356,6 +405,38 @@ static NSString * const AllStatusesKey = @"allStatuses";
     return cards;
 }
 
+- (NSArray *)scoreCardsForTeam:(FNTeam *)team
+{
+    NSMutableArray *scoreCards = [[NSMutableArray alloc] init];
+    for (FNScoreCard *card in self.scoreCards) {
+        if ([team.players containsObject:card.player]) {
+            [scoreCards addObject:card];
+        }
+    }
+    return scoreCards;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)commonInit
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willResignActive)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didBecomeActive)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willTerminate)
+                                                 name:UIApplicationWillTerminateNotification
+                                               object:nil];
+}
+
 - (instancetype)init
 {
     self = [super init];
@@ -365,6 +446,8 @@ static NSString * const AllStatusesKey = @"allStatuses";
     self.status = @(FNGameStatusNotStarted);
     self.allStatuses = [[NSCountedSet alloc] initWithObjects:self.status, nil];
     self.round = 1;
+    self.turn = 1;
+    [self commonInit];
     return self;
 }
 
@@ -382,6 +465,7 @@ static NSString * const AllStatusesKey = @"allStatuses";
     self.scoreCards = [aDecoder decodeObjectForKey:ScoreCardsKey];
     self.status = [aDecoder decodeObjectForKey:StatusKey];
     self.allStatuses = [aDecoder decodeObjectForKey:AllStatusesKey];
+    [self commonInit];
     return self;
 }
 
@@ -397,21 +481,27 @@ static NSString * const AllStatusesKey = @"allStatuses";
     [aCoder encodeObject:self.allStatuses forKey:AllStatusesKey];
 }
 
-- (void)saveCurrentTurn:(FNTurnData *)turn
++ (FNBrain *)brainFromPreviousGame;
 {
-    // this will be saved more frequently then the rest of the game data
-    // game data will be saved after every turn ends
-    // then this info + the rest of the game data will make a whole game
-    // can then just rotate through nouns and players in the game data to match the turn data and then have complete picture again
-    
+    // notify the multiplayerManager
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *turnDataFile = [documentsDirectory stringByAppendingPathComponent:@"turnData.fiveNouns"];
-    BOOL success = [NSKeyedArchiver archiveRootObject:turn toFile:turnDataFile];
-    NSLog(@"Saved turn data: %d", success);
+    NSString *gameDataFile = [documentsDirectory stringByAppendingPathComponent:@"gameData.fiveNouns"];
+    FNBrain *previousBrain = [NSKeyedUnarchiver unarchiveObjectWithFile:gameDataFile];
+    return previousBrain;
 }
 
-- (void)saveGameData
+- (void)willResignActive
+{
+    // notify the multiPlayerManager
+}
+
+- (void)didBecomeActive
+{
+    // notify the multiPlayerManager
+}
+
+- (void)willTerminate
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -420,15 +510,6 @@ static NSString * const AllStatusesKey = @"allStatuses";
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
     NSLog(@"Brain Size: %d", [data length]);
     NSLog(@"Saved game data: %d", success);
-}
-
-+ (FNBrain *)brainFromPreviousGame
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *gameDataFile = [documentsDirectory stringByAppendingPathComponent:@"gameData.fiveNouns"];
-    FNBrain *previousBrain = [NSKeyedUnarchiver unarchiveObjectWithFile:gameDataFile];
-    return previousBrain;
 }
 
 - (NSDictionary *)currentGameState
@@ -628,6 +709,11 @@ static NSString * const AllStatusesKey = @"allStatuses";
     [self.allStatuses addObject:@(status)];
     self.status = @(status);
     [self sendUpdate:update];
+}
+
+- (void)gameOver
+{
+    // not sure this is how this should be done could maybe Use game status or maybe I dont even need this the brain could figure it out on its own
 }
 
 - (BOOL)canBeginGame

@@ -10,7 +10,6 @@
 #import "FNUniqueIDObject.h"
 
 @class FNPlayer;
-@class FNScoreCard;
 
 @interface FNTeam : FNUniqueIDObject <NSCoding>
 
@@ -22,8 +21,5 @@
 - (void)removePlayer:(FNPlayer *)player;
 - (void)removeTeamPlayers:(NSArray *)players;
 - (FNPlayer *)nextPlayer;
-- (NSInteger)currentScore;
-- (void)addScoreCard:(FNScoreCard *)scoreCard;
-- (NSArray *)scoreCards;
 
 @end

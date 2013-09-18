@@ -13,11 +13,11 @@
 #import "FNCountdownTimer.h"
 #import "FNAppearance.h"
 #import "FNPausedVC.h"
-#import "FNTurnData.h"
 #import "FNTeam.h"
 
 typedef NS_ENUM(NSInteger, FNGameState) {
     FNGameStateStart,
+    FNGameStateRunning,
     FNGameStateEnd,
     FNGameStatePaused,
     FNGameStateGameOver
@@ -25,23 +25,13 @@ typedef NS_ENUM(NSInteger, FNGameState) {
 
 @interface FNGameVC ()
 @property (nonatomic, weak) NSString *currentNoun;
-@property (nonatomic, strong) FNScoreCard *currentScoreCard;
 @property (nonatomic, strong) IBOutlet FNCountdownTimer *countDownTimer;
-@property NSInteger currentRound;
-@property NSInteger currentTurn;
 @property (weak, nonatomic) IBOutlet UILabel *nounLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentPlayerLabel;
 
 @property (nonatomic, strong) FNDirectionView *directionsVC;
 @property (nonatomic) FNGameState gameState;
-
-
-//@property BOOL startTimerAndRevealNoun;     //                                          timerPressed    beginNewRound   setupNewTurn
-//@property BOOL returnToNextUpVC;            // countDownTimerExpired                    timerPressed                    setupNewTurn            commonInit
-// when this gets set when game is interrupted need to set self.startTimerAndRevealNoun = YES also
-//@property BOOL gameWasPaused;               // displayNextNoun scoreKeep                                                setupNewTurn            commonInit
-//@property BOOL gameIsOver;                  //                                          timerPressed                    setupNewTurn gameOver   commonInit
 
 @end
 
@@ -51,21 +41,27 @@ typedef NS_ENUM(NSInteger, FNGameState) {
  Needs to make noise & maybe vibrate when time ends
  Noise when a noun is scored
  
- Make the timer flash when time expires
  
  ** Save the Game State
  THINGS TO SAVE
- - the current noun
  - the time remaining
+  
  
- - the current score card
- - current round score
- - current round
- - current turn
- - current player
+when in observer mode:
+ watch the score change
+ the timer change
+ when paused
+ when the round changes
+ get the currentPlayer from the brain
  
  
- 
+When in player mode:
+ don't need to watch anything
+ can make all changes instantly
+ need to tell the brain:
+    what the time remaining is - no send updates for events and then dead reckon on the clients
+        when doing this should send the event & a timeStamp so can account for the lag getting to remote players
+    when game is paused
  
 */
 
@@ -76,20 +72,12 @@ typedef NS_ENUM(NSInteger, FNGameState) {
 
 - (void)saveCurrentGameState
 {
-    // send it to the brain the brain will handle the actual persistance
-    // should probably be an object that way I can take this obj and start a turn on the fly with it too
-    FNTurnData *turnData = [[FNTurnData alloc] init];
-    turnData.noun = self.currentNoun;
-    turnData.timeRemaining = self.countDownTimer.timeRemaining;
-    turnData.scoreCard = self.currentScoreCard;
-    turnData.round = self.currentRound;
-    turnData.turn = self.currentTurn;
-    turnData.player = self.currentPlayer;
-    [self.brain saveCurrentTurn:turnData];
+    self.brain.timeRemaining = self.countDownTimer.timeRemaining;
 }
 
 - (void)optionsBarButtonItemPressed
 {
+    [self pauseGame];
     UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"pausedNC"];
     FNPausedVC *options = (FNPausedVC *)nc.topViewController;
     options.brain = self.brain;
@@ -99,12 +87,11 @@ typedef NS_ENUM(NSInteger, FNGameState) {
 - (void)countDownTimerExpired // turn is over
 {
     self.countDownTimer.labelString = @"Next Player";
-    self.nounLabel.text = @"Next Player";
-    [self.currentPlayer.team addScoreCard:self.currentScoreCard];
-    self.currentScoreCard = nil; // not necessary but I like it
+    [self setNounDisplayString:@"Next Player"];
     [self.brain returnUnplayedNoun:self.currentNoun];
     self.currentNoun = nil;
-    self.returnToNextUpVC = YES;
+    self.gameState = FNGameStateEnd;
+    self.brain.timeRemaining = 0;
 }
 
 - (void)countDownTimerReachedTime:(NSNumber *)time
@@ -112,18 +99,22 @@ typedef NS_ENUM(NSInteger, FNGameState) {
     // refresh the countdown time left display if implemented
 }
 
-- (void)displayNextNoun
+- (void)nextNoun
 {
     NSString *nextNoun;
-    if (self.gameWasPaused) {
-        nextNoun = self.currentNoun;
-    } else {
-        nextNoun = [self.brain noun];
+    switch (self.gameState) {
+        case FNGameStatePaused:
+            nextNoun = self.currentNoun;
+            break;
+            
+        default:
+            nextNoun = [self.brain nextNoun];
+            break;
     }
+    
     if (nextNoun) {
-        // show the new noun on the screen
         self.currentNoun = nextNoun;
-        self.nounLabel.text = nextNoun;
+        [self setNounDisplayString:nextNoun];
     } else {
         // out of nouns so round ends & time stops
         [self.countDownTimer stopCountDown];
@@ -131,40 +122,60 @@ typedef NS_ENUM(NSInteger, FNGameState) {
     }
 }
 
+// show the new noun on the screen
+- (void)setNounDisplayString:(NSString *)noun
+{
+    if (!noun) return;
+    self.nounLabel.text = noun;
+    [self.nounLabel setNeedsDisplay];
+}
+
 - (void)scoreKeep
 {
-    if (self.currentNoun && !self.gameWasPaused) {
-        [self.currentScoreCard.nounsScored addObject:self.currentNoun];
-        self.scoreLabel.text = [NSString stringWithFormat:@"Nouns: %d", [self.currentScoreCard.nounsScored count]];
+    if (self.currentNoun) {
+        [self.brain nounScored:self.currentNoun forPlayer:self.currentPlayer];
+        self.scoreLabel.text = [NSString stringWithFormat:@"Nouns: %d", [self.brain scoreForCurrentTurn]];
         [self.scoreLabel setNeedsDisplay];
         self.currentNoun = nil;
     }
 }
 - (void)timerPressed
 {
-    if (self.gameIsOver) {
-        // go to a game over screen
-    } else if (self.returnToNextUpVC) {
-        // pop the gamevc back to the NextUpVC
-        self.returnToNextUpVC = NO;
-        self.currentPlayer = [self.brain nextPlayer];
-        [self.navigationController popViewControllerAnimated:YES];
-        return;
-    } else if (self.startTimerAndRevealNoun) {
-        self.startTimerAndRevealNoun = NO;
-        self.countDownTimer.labelString = @"Next";
-        [self.countDownTimer startCountDown];
+    switch (self.gameState) {
+        case FNGameStateGameOver:
+            // go to the game over screen
+            break;
+            
+        case FNGameStateEnd:
+            self.gameState = FNGameStateStart;
+            [self.brain turnEndedForPlayer:self.currentPlayer];
+            [self.navigationController popViewControllerAnimated:YES];
+            return;
+            
+        case FNGameStateStart:
+            [self resumeGame];
+            break;
+            
+        case FNGameStateRunning:
+            [self scoreKeep];
+            [self nextNoun];
+            break;
+            
+        case FNGameStatePaused:
+            [self resumeGame];
+            break;
+            
+        default:
+            break;
     }
-    [self scoreKeep];
-    [self displayNextNoun];
 }
 
 
 - (void)roundEnded
 {
     // try to start a new round & reset the nouns in the brain
-    self.currentNoun = nil;
-    if (self.currentRound < 4) {
+    self.currentNoun = nil; // do i need to set this to nil? !!!
+    if (self.brain.round < 4) {
         [self beginNewRound];
     } else {
         [self gameOver];
@@ -174,7 +185,7 @@ typedef NS_ENUM(NSInteger, FNGameState) {
 - (void)showDirectionsForRound
 {
     self.directionsVC = [[FNDirectionView alloc] initWithFrame:self.view.bounds];
-    self.directionsVC.round = self.currentRound;
+    self.directionsVC.round = self.brain.round;
     self.directionsVC.alpha = 0.0;
     self.directionsVC.presenter = self;
     [self.navigationItem setRightBarButtonItem:nil animated:YES];
@@ -191,53 +202,51 @@ typedef NS_ENUM(NSInteger, FNGameState) {
 
 - (void)beginNewRound;
 {
-    self.currentRound++;
-    self.currentScoreCard.round = self.currentRound;
     [self showDirectionsForRound];
     self.countDownTimer.labelString = @"Start";
-    self.nounLabel.text = @"New Round";
-    [self.nounLabel setNeedsDisplay];
+    [self setNounDisplayString:@"New Round"];
     [self.brain prepareForNewRound];
-    self.startTimerAndRevealNoun = YES;
-}
-
-- (void)startRoundPressed
-{
-    [self setupNewTurn];
-    // show new turn screen with a START_TURN_BUTTON, & Timer
+    self.gameState = FNGameStateStart;
 }
 
 - (void)setupNewTurn
 {
-    self.currentTurn++;
     [self.countDownTimer resetCountdown];
-    self.startTimerAndRevealNoun = YES;
-    self.scoreLabel.text = [NSString stringWithFormat:@"Nouns: %d", [self.currentScoreCard.nounsScored count]];
+    self.gameState = FNGameStateStart;
+    self.scoreLabel.text = @"Nouns: 0";
     [self.scoreLabel setNeedsDisplay];
     self.countDownTimer.labelString = @"Start";
-    // these might be unnecessary
-    self.returnToNextUpVC = NO;
-    self.gameWasPaused = NO;
-    self.gameIsOver = NO;
+    [self setNounDisplayString:@"Get Ready!"];
+}
+
+- (void)pauseGame
+{
+    self.gameState = FNGameStatePaused;
+    [self.countDownTimer stopCountDown];
+    [self setNounDisplayString:@"Paused"];
+    self.countDownTimer.labelString = @"Resume";
+    // tell the brain for Multiplayer !!!
+}
+
+- (void)resumeGame
+{
+    [self.countDownTimer startCountDown];
+    [self nextNoun];
+    self.countDownTimer.labelString = @"Next";
+    self.gameState = FNGameStateRunning;
+    // tell the brain for Multiplayer !!!
 }
 
 - (void)gameOver
 {
     self.countDownTimer.labelString = @"Game Over";
-    self.gameIsOver = YES;
-    [self.currentPlayer.team addScoreCard:self.currentScoreCard];
-    self.currentScoreCard = nil; // not necessary but I like it
-
+    self.gameState = FNGameStateGameOver;
+    [self.brain gameOver];
     // show the game over screen
-    // add the current scoreCard to the brain
 }
 
 - (void)setCurrentPlayer:(FNPlayer *)currentPlayer
 {
-    _currentScoreCard = [[FNScoreCard alloc] init];
-    _currentScoreCard.round = self.currentRound;
-    _currentScoreCard.turn = self.currentTurn;
-    _currentScoreCard.player = currentPlayer;
     [self setupNewTurn];
     _currentPlayer = currentPlayer;
 }
@@ -265,11 +274,30 @@ typedef NS_ENUM(NSInteger, FNGameState) {
 
 - (void)commonInit
 {
-    self.currentRound = 1;
-    self.currentTurn = 0;
-    self.returnToNextUpVC = NO;
-    self.gameWasPaused = NO;
-    self.gameIsOver = NO;
+    self.gameState = FNGameStateStart;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willResignActive)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didBecomeActive)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)willResignActive
+{
+    [self pauseGame];
+}
+
+- (void)didBecomeActive
+{
+    
 }
 
 - (UIBarButtonItem *)optionsButton
@@ -303,7 +331,6 @@ typedef NS_ENUM(NSInteger, FNGameState) {
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.nounLabel.text = @"Get Ready!";
     self.currentPlayerLabel.text = self.currentPlayer.name;
     [self.brain setGameStatus:FNGameStatusTurnInProgress];
 }

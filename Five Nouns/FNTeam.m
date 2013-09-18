@@ -8,23 +8,14 @@
 
 #import "FNTeam.h"
 #import "FNPlayer.h"
-#import "FNScoreCard.h"
 
 @interface FNTeam ()
-@property (nonatomic, strong) NSMutableArray *teamScoreCards;
 @end
 
 // might need to set the score card order when handing out the cards !!!
 
 @implementation FNTeam
 
-- (NSMutableArray *)teamScoreCards
-{
-    if (!_teamScoreCards) {
-        _teamScoreCards = [[NSMutableArray alloc] init];
-    }
-    return _teamScoreCards;
-}
 
 - (NSMutableArray *)players
 {
@@ -114,25 +105,6 @@
     return nextPlayer;
 }
 
-- (NSInteger)currentScore
-{
-    NSInteger currentScore = 0;
-    for (FNScoreCard *card in self.teamScoreCards) {
-        currentScore = currentScore + [card.nounsScored count];
-    }
-    return currentScore;
-}
-
-- (void)addScoreCard:(FNScoreCard *)scoreCard
-{
-    [self.teamScoreCards addObject:scoreCard];
-}
-
-- (NSArray *)scoreCards
-{
-    return [self.teamScoreCards copy];
-}
-
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -141,7 +113,6 @@
     }
     self.name = [aDecoder decodeObjectForKey:@"name"];
     self.players = [aDecoder decodeObjectForKey:@"players"];
-    self.teamScoreCards = [aDecoder decodeObjectForKey:@"teamScoreCards"];
     
     return self;
 }
@@ -151,7 +122,6 @@
     [super encodeWithCoder:aCoder];
     [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.players forKey:@"players"];
-    [aCoder encodeObject:self.teamScoreCards forKey:@"teamScoreCards"];
 }
 
 
