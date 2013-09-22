@@ -15,14 +15,6 @@
 #define CELL_IDENTIFIER_SMALL_BUTTON @"smallButton"
 #define CELL_IDENTIFIER_TEXT_FIELD @"textField"
 
-//typedef NS_ENUM(NSInteger, FNTableViewCellStyle) {
-//    FNTableViewCellStyleButton,         // plain button
-//    FNTableViewCellStyleTextFieldLabel, // 
-//    FNTableViewCellStyleTextField,
-//    FNTableViewCellStyleTextFieldButton,// not using
-//    FNTableViewCellStyleButtonSmall,
-//    FNTableViewCellStylePlain
-//};
 
 typedef NS_ENUM(NSInteger, FNTableViewCellPosition) {
     FNTableViewCellPositionTop,

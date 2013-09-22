@@ -434,12 +434,12 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
             [self refreshCells];
         }];
         [self.tableView beginUpdates];
-        if (toTeam && toTeam != (id)[NSNull null]) { // if (toTeam && !fromTeam) !!!
+        if ([toTeam isKindOfClass:[FNTeam class]]) {
             // the player was visible and should no longer be
             NSIndexPath *playerIndexPath = [NSIndexPath indexPathForRow:[[self playersForTeam:self.visibleTeam] indexOfObject:player] + PLAYER_INDEX_OFFSET inSection:self.visibleTeamIndex];
             [self.tableView deleteRowsAtIndexPaths:@[playerIndexPath] withRowAnimation:UITableViewRowAnimationTop];
             [self.availablePlayers removeObject:player];
-        } else {
+        } else if ([fromTeam isKindOfClass:[FNTeam class]]) {
             [self.availablePlayers addObject:player];
             NSIndexPath *playerIndexPath = [NSIndexPath indexPathForRow:[[self playersForTeam:self.visibleTeam] indexOfObject:player] + PLAYER_INDEX_OFFSET inSection:self.visibleTeamIndex];
             [self.tableView insertRowsAtIndexPaths:@[playerIndexPath] withRowAnimation:UITableViewRowAnimationTop];

@@ -7,6 +7,7 @@
 //
 
 #import "FNAppDelegate.h"
+#import <Crashlytics/Crashlytics.h>
 #import "FNAppearance.h"
 
 @implementation FNAppDelegate
@@ -15,6 +16,9 @@
 {
     // Override point for customization after application launch.
     [FNAppearance configureAppearanceProxies];
+    
+    // crashlytics
+    [Crashlytics startWithAPIKey:@"d876581a81600470b2890beed883843bf1af7d9e"];
     return YES;
 }
 							

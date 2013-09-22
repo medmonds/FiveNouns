@@ -137,6 +137,9 @@
 		C9C05672178A2FBC00735AEA /* SSDrawingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C05671178A2FBC00735AEA /* SSDrawingUtilities.m */; };
 		C9C05675178A312200735AEA /* navBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C05673178A312200735AEA /* navBarBackground.png */; };
 		C9C05676178A312200735AEA /* navBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C05674178A312200735AEA /* navBarBackground@2x.png */; };
+		C9C2EBA817EA87D4008B9CE1 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C2EBA717EA87D4008B9CE1 /* Crashlytics.framework */; };
+		C9C2EBAB17EA966E008B9CE1 /* FNGameOverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C2EBAA17EA966E008B9CE1 /* FNGameOverVC.m */; };
+		C9C2EBAC17EA966E008B9CE1 /* FNGameOverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C2EBAA17EA966E008B9CE1 /* FNGameOverVC.m */; };
 		C9C5307C17934EA900A7A268 /* FNMultiplayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C5307B17934EA900A7A268 /* FNMultiplayerManager.m */; };
 		C9C5307D17934EA900A7A268 /* FNMultiplayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C5307B17934EA900A7A268 /* FNMultiplayerManager.m */; };
 		C9C5307F17936F8900A7A268 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C5307E17936F8900A7A268 /* GameKit.framework */; };
@@ -307,6 +310,9 @@
 		C9C05671178A2FBC00735AEA /* SSDrawingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSDrawingUtilities.m; sourceTree = "<group>"; };
 		C9C05673178A312200735AEA /* navBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarBackground.png; sourceTree = "<group>"; };
 		C9C05674178A312200735AEA /* navBarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarBackground@2x.png"; sourceTree = "<group>"; };
+		C9C2EBA717EA87D4008B9CE1 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		C9C2EBA917EA966E008B9CE1 /* FNGameOverVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNGameOverVC.h; sourceTree = "<group>"; };
+		C9C2EBAA17EA966E008B9CE1 /* FNGameOverVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNGameOverVC.m; sourceTree = "<group>"; };
 		C9C5307A17934EA900A7A268 /* FNMultiplayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMultiplayerManager.h; sourceTree = "<group>"; };
 		C9C5307B17934EA900A7A268 /* FNMultiplayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMultiplayerManager.m; sourceTree = "<group>"; };
 		C9C5307E17936F8900A7A268 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -341,6 +347,7 @@
 				C9ACDEAD1771461B00555CE8 /* CoreGraphics.framework in Frameworks */,
 				C9649E411718B7390039B88E /* UIKit.framework in Frameworks */,
 				C9649E431718B7390039B88E /* Foundation.framework in Frameworks */,
+				C9C2EBA817EA87D4008B9CE1 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +382,8 @@
 				C99F9B2F175BF7690012A1D4 /* FNRoundDirectionsVC.m */,
 				C9A4CF451777DB46007F819A /* FNDirectionView.h */,
 				C9A4CF461777DB46007F819A /* FNDirectionView.m */,
+				C9C2EBA917EA966E008B9CE1 /* FNGameOverVC.h */,
+				C9C2EBAA17EA966E008B9CE1 /* FNGameOverVC.m */,
 				C9A7911B1773E5690090E689 /* PausedVC */,
 			);
 			name = "View Controllers";
@@ -394,8 +403,6 @@
 		C9649E311718B7390039B88E = {
 			isa = PBXGroup;
 			children = (
-				C9B2275617DEBD3D00A6356C /* AudioToolbox.framework */,
-				C9C5307E17936F8900A7A268 /* GameKit.framework */,
 				C9649E461718B7390039B88E /* Five Nouns */,
 				C9649E6A1718B7390039B88E /* Five NounsTests */,
 				C9649E3F1718B7390039B88E /* Frameworks */,
@@ -415,6 +422,9 @@
 		C9649E3F1718B7390039B88E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9C2EBA717EA87D4008B9CE1 /* Crashlytics.framework */,
+				C9B2275617DEBD3D00A6356C /* AudioToolbox.framework */,
+				C9C5307E17936F8900A7A268 /* GameKit.framework */,
 				C95DA6B31730C600004F2841 /* QuartzCore.framework */,
 				C9649E401718B7390039B88E /* UIKit.framework */,
 				C9649E421718B7390039B88E /* Foundation.framework */,
@@ -691,6 +701,7 @@
 				C9649E381718B7390039B88E /* Sources */,
 				C9649E391718B7390039B88E /* Frameworks */,
 				C9649E3A1718B7390039B88E /* Resources */,
+				C9C2EBA617EA8746008B9CE1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -821,6 +832,19 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		C9C2EBA617EA8746008B9CE1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run d876581a81600470b2890beed883843bf1af7d9e";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -880,6 +904,7 @@
 				C9098A3517D6EE6D00DB54A4 /* FNNounGenerator.m in Sources */,
 				C9EF7F7717D8224400B182A9 /* FNScoreCell.m in Sources */,
 				C94A3C4E17DC409700CB2CE9 /* FNTVTeamsDelegate.m in Sources */,
+				C9C2EBAB17EA966E008B9CE1 /* FNGameOverVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -934,6 +959,7 @@
 				C9098A3617D6EE6D00DB54A4 /* FNNounGenerator.m in Sources */,
 				C9EF7F7817D8224400B182A9 /* FNScoreCell.m in Sources */,
 				C94A3C4F17DC409700CB2CE9 /* FNTVTeamsDelegate.m in Sources */,
+				C9C2EBAC17EA966E008B9CE1 /* FNGameOverVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1030,6 +1056,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Matthew Edmonds (NDQZTX32EB)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matthew Edmonds (NDQZTX32EB)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Five Nouns/Five Nouns-Prefix.pch";
 				INFOPLIST_FILE = "Five Nouns/Five Nouns-Info.plist";
@@ -1046,6 +1076,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Matthew Edmonds (NDQZTX32EB)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matthew Edmonds (NDQZTX32EB)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Five Nouns/Five Nouns-Prefix.pch";
 				INFOPLIST_FILE = "Five Nouns/Five Nouns-Info.plist";
