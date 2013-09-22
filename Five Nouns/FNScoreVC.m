@@ -67,6 +67,14 @@
     self.scoreController.delegate.brain = _brain;
 }
 
+- (void)orderTeamsByScore
+{
+    id scoreDelegate = self.scoreController.delegate;
+    if ([scoreDelegate respondsToSelector:@selector(orderTeamsByScore)]) {
+        [scoreDelegate performSelector:@selector(orderTeamsByScore)];
+        [self.scoreController.tableView reloadData];
+    }
+}
 
 #pragma mark - Life Cycle
 

@@ -17,4 +17,6 @@
 // the FNTVController will ask for this value and other things can set it like the FNScoreVC.
 @property (nonatomic) BOOL shouldCollapseOnTitleTap;
 
+- (void)orderTeamsByScore;
+
 @end

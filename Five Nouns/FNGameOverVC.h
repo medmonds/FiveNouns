@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FNTableViewController.h"
 
 @class FNBrain;
 
-@interface FNGameOverVC : FNTableViewController
+@interface FNGameOverVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) FNBrain *brain;
 

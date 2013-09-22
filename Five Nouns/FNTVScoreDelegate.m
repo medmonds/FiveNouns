@@ -13,7 +13,34 @@
 #import "FNAppearance.h"
 #import "FNScoreCell.h"
 
+@interface FNTVScoreDelegate ()
+@property (nonatomic, strong) NSArray *orderedCategories;
+@end
+
 @implementation FNTVScoreDelegate
+
+- (NSArray *)orderedCategories
+{
+    if (!_orderedCategories) {
+        _orderedCategories = [self.brain orderOfTeams];
+    }
+    return _orderedCategories;
+}
+
+- (void)orderTeamsByScore
+{
+    NSMutableArray *teams = [[self.brain orderOfTeams] mutableCopy];
+    [teams sortUsingComparator:^NSComparisonResult(FNTeam *team1, FNTeam *team2) {
+        if ([self scoreForTeam:team2] > [self scoreForTeam:team1]) {
+            return NSOrderedDescending;
+        } else if ([self scoreForTeam:team1] > [self scoreForTeam:team2]) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedSame;
+        }
+    }];
+    self.orderedCategories = teams;
+}
 
 - (BOOL)shouldCollapseOnTitleTap
 {
@@ -25,7 +52,7 @@
 
 - (NSArray *)categories
 {
-    return [self.brain orderOfTeams];
+    return self.orderedCategories;
 }
 
 - (NSString *)title

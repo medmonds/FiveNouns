@@ -14,6 +14,7 @@
 #import "FNAppearance.h"
 #import "FNPausedVC.h"
 #import "FNTeam.h"
+#import "FNGameOverVC.h"
 
 typedef NS_ENUM(NSInteger, FNGameState) {
     FNGameStateStart,
@@ -142,10 +143,13 @@ When in player mode:
 - (void)timerPressed
 {
     switch (self.gameState) {
-        case FNGameStateGameOver:
+        case FNGameStateGameOver: {
             // go to the game over screen
+            FNGameOverVC *gameOver = [self.storyboard instantiateViewControllerWithIdentifier:@"gameOverVC"];
+            gameOver.brain = self.brain;
+            [self.navigationController pushViewController:gameOver animated:YES];
             break;
-            
+        }
         case FNGameStateEnd:
             self.gameState = FNGameStateStart;
             [self.brain turnEndedForPlayer:self.currentPlayer];

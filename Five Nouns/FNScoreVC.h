@@ -15,4 +15,6 @@
 
 @property (nonatomic, strong) FNBrain *brain;
 
+- (void)orderTeamsByScore;
+
 @end

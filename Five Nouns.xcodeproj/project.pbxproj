@@ -88,8 +88,6 @@
 		C99B62A21737152F0011611A /* FNStepperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B62A01737152F0011611A /* FNStepperCell.m */; };
 		C99F2FF5176EC3E000406B2F /* FNCountdownTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F2FF4176EC3E000406B2F /* FNCountdownTimer.m */; };
 		C99F2FF6176EC3E000406B2F /* FNCountdownTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F2FF4176EC3E000406B2F /* FNCountdownTimer.m */; };
-		C99F9B30175BF7690012A1D4 /* FNRoundDirectionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F9B2F175BF7690012A1D4 /* FNRoundDirectionsVC.m */; };
-		C99F9B31175BF7690012A1D4 /* FNRoundDirectionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F9B2F175BF7690012A1D4 /* FNRoundDirectionsVC.m */; };
 		C99F9B35175C2CB50012A1D4 /* dismissControl.png in Resources */ = {isa = PBXBuildFile; fileRef = C99F9B33175C2CB50012A1D4 /* dismissControl.png */; };
 		C99F9B36175C2CB50012A1D4 /* dismissControl.png in Resources */ = {isa = PBXBuildFile; fileRef = C99F9B33175C2CB50012A1D4 /* dismissControl.png */; };
 		C99F9B37175C2CB50012A1D4 /* dismissControl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C99F9B34175C2CB50012A1D4 /* dismissControl@2x.png */; };
@@ -263,8 +261,6 @@
 		C99B62A01737152F0011611A /* FNStepperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNStepperCell.m; sourceTree = "<group>"; };
 		C99F2FF3176EC3E000406B2F /* FNCountdownTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNCountdownTimer.h; sourceTree = "<group>"; };
 		C99F2FF4176EC3E000406B2F /* FNCountdownTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNCountdownTimer.m; sourceTree = "<group>"; };
-		C99F9B2E175BF7690012A1D4 /* FNRoundDirectionsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNRoundDirectionsVC.h; sourceTree = "<group>"; };
-		C99F9B2F175BF7690012A1D4 /* FNRoundDirectionsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNRoundDirectionsVC.m; sourceTree = "<group>"; };
 		C99F9B33175C2CB50012A1D4 /* dismissControl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dismissControl.png; sourceTree = "<group>"; };
 		C99F9B34175C2CB50012A1D4 /* dismissControl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dismissControl@2x.png"; sourceTree = "<group>"; };
 		C9A04E9F173888700016F65F /* decrementImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decrementImage.png; sourceTree = "<group>"; };
@@ -378,8 +374,6 @@
 				C9B1369C176E449100B792AD /* NextUpVC */,
 				C9EF7F7417D8208200B182A9 /* Score VC */,
 				C9B1369D176E449F00B792AD /* GameVC */,
-				C99F9B2E175BF7690012A1D4 /* FNRoundDirectionsVC.h */,
-				C99F9B2F175BF7690012A1D4 /* FNRoundDirectionsVC.m */,
 				C9A4CF451777DB46007F819A /* FNDirectionView.h */,
 				C9A4CF461777DB46007F819A /* FNDirectionView.m */,
 				C9C2EBA917EA966E008B9CE1 /* FNGameOverVC.h */,
@@ -873,7 +867,6 @@
 				C97F673E1743131D00D5E9BC /* FMMoveTableView.m in Sources */,
 				A19426CB174DC43F00056345 /* FNNextUpVC.m in Sources */,
 				C9BAFAF9175AEB1C00C908A6 /* FNScoreVC.m in Sources */,
-				C99F9B30175BF7690012A1D4 /* FNRoundDirectionsVC.m in Sources */,
 				C9B13696176E439D00B792AD /* FNGameVC.m in Sources */,
 				C99F2FF5176EC3E000406B2F /* FNCountdownTimer.m in Sources */,
 				C9B2607D1772A22F009DBBC9 /* FNPausedVC.m in Sources */,
@@ -930,7 +923,6 @@
 				C97F673F1743131D00D5E9BC /* FMMoveTableView.m in Sources */,
 				A19426CC174DC43F00056345 /* FNNextUpVC.m in Sources */,
 				C9BAFAFA175AEB1C00C908A6 /* FNScoreVC.m in Sources */,
-				C99F9B31175BF7690012A1D4 /* FNRoundDirectionsVC.m in Sources */,
 				C9B13697176E439D00B792AD /* FNGameVC.m in Sources */,
 				C99F2FF6176EC3E000406B2F /* FNCountdownTimer.m in Sources */,
 				C9B2607E1772A22F009DBBC9 /* FNPausedVC.m in Sources */,
