@@ -61,10 +61,10 @@
 {
     NSArray *convertedIndexPaths = [self convertIndexPaths:indexPaths fromController:controller];
     if ([convertedIndexPaths count] > 0) {
-        NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:((NSIndexPath *)convertedIndexPaths[0]).section];
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:headerIndexPath];
-        [super setBackgroundForCell:cell withPosition:FNTableViewCellPositionTop];
+        NSIndexPath *aboveIndexPath = [NSIndexPath indexPathForRow:((NSIndexPath *)convertedIndexPaths[0]).row - 1 inSection:((NSIndexPath *)convertedIndexPaths[0]).section];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:aboveIndexPath];
         [self.tableView insertRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationTop];
+        [super setBackgroundForCell:cell atIndexPath:aboveIndexPath];
     }
 }
 
@@ -72,11 +72,11 @@
 {
     NSArray *convertedIndexPaths = [self convertIndexPaths:indexPaths fromController:controller];
     if ([convertedIndexPaths count] > 0) {
-        NSIndexPath *headerIndexPath = [NSIndexPath indexPathForRow:0 inSection:((NSIndexPath *)convertedIndexPaths[0]).section];
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:headerIndexPath];
+        NSIndexPath *aboveIndexPath = [NSIndexPath indexPathForRow:((NSIndexPath *)convertedIndexPaths[0]).row - 1 inSection:((NSIndexPath *)convertedIndexPaths[0]).section];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:aboveIndexPath];
         [CATransaction begin];
         [CATransaction setCompletionBlock:^{
-            [super setBackgroundForCell:cell atIndexPath:headerIndexPath];
+            [super setBackgroundForCell:cell atIndexPath:aboveIndexPath];
         }];
         [self.tableView deleteRowsAtIndexPaths:convertedIndexPaths withRowAnimation:UITableViewRowAnimationTop];
         [CATransaction commit];
