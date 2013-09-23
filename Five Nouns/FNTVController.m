@@ -150,22 +150,45 @@
     }
 }
 
+- (void)insertAndExpandCategory:(id)toExpand
+{
+    if (toExpand) {
+        NSArray *itemsForCategory = [self.delegate itemsForCategory:toExpand];
+        NSMutableArray *toInsert = [[NSMutableArray alloc] init];
+        // the indexPath for the category header cell
+        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+        NSIndexPath *catIndex = [NSIndexPath indexPathForRow:selectedIndexPath.row + 1 inSection:selectedIndexPath.section];
+        [toInsert addObject:catIndex];
+        
+        // the indexPaths for the item cells
+        NSInteger itemIndex = 1;
+        NSInteger categoryIndex = [self.dataSource indexOfObject:toExpand];
+        for (id item in itemsForCategory) {
+            [self.dataSource insertObject:item atIndex:categoryIndex + itemIndex];
+            [self.itemsInDataSource addObject:item];
+            [toInsert addObject:[NSIndexPath indexPathForRow:categoryIndex + itemIndex inSection:0]];
+            itemIndex ++;
+        }
+        self.expanded = toExpand;
+        [self.tvController insertRowsAtIndexPaths:toInsert forController:self];
+        [self.tableView selectRowAtIndexPath:catIndex animated:YES scrollPosition:UITableViewScrollPositionNone];
+    }
+}
+
 - (void)showHideCategories
 {
     if ([self.delegate shouldCollapseOnTitleTap]) {
         if ([self.dataSource count] == 1) {
             [self addCategoriesToDataSource];
-            NSMutableArray *toInsert = [[NSMutableArray alloc] initWithCapacity:[self.dataSource count]];
-            NSInteger count = [[self.delegate categories] count];
-            for (NSInteger i = 0; i < count; i++) {
-                [toInsert addObject:[NSIndexPath indexPathForRow:i + 1 inSection:0]];
-            }
-            [self.tvController insertRowsAtIndexPaths:toInsert forController:self];
             if ([self.categoriesInDataSource count] == 1) {
-                NSIndexPath *temp = [self.tableView indexPathForSelectedRow];
-                NSIndexPath *catIndex = [NSIndexPath indexPathForRow:temp.row + 1 inSection:temp.section];
-                [self.tableView selectRowAtIndexPath:catIndex animated:YES scrollPosition:UITableViewScrollPositionNone];
-                [self expandCategory:[self.categoriesInDataSource anyObject]];
+                [self insertAndExpandCategory:[self.categoriesInDataSource anyObject]];
+            } else {
+                NSMutableArray *toInsert = [[NSMutableArray alloc] initWithCapacity:[self.dataSource count]];
+                NSInteger count = [[self.delegate categories] count];
+                for (NSInteger i = 0; i < count; i++) {
+                    [toInsert addObject:[NSIndexPath indexPathForRow:i + 1 inSection:0]];
+                }
+                [self.tvController insertRowsAtIndexPaths:toInsert forController:self];
             }
         } else {
             NSMutableArray *toDelete = [[NSMutableArray alloc] initWithCapacity:[self.dataSource count] - 1];

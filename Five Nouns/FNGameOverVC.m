@@ -24,12 +24,8 @@
 
 /*************************************** Notes ********************************************
  
- - show the winner
- - show the scores
- - have a way to return to the Main Menu
- - roll credits?
  
- should have the scorevc show the teams in ranked order not turn order in this view
+ 
  
 ******************************************************************************************/
 
