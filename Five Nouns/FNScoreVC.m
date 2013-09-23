@@ -10,6 +10,7 @@
 #import "FNTVController.h"
 #import "FNAppearance.h"
 #import "FNTVScoreDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface FNScoreVC () <FNTVRowInsertAndDeleteManager>
 @property (nonatomic, strong) FNTVController *scoreController;
@@ -21,12 +22,22 @@
 
 - (void)insertRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
 {
+    NSIndexPath *aboveIndexPath = [NSIndexPath indexPathForRow:((NSIndexPath *)indexPaths[0]).row - 1 inSection:((NSIndexPath *)indexPaths[0]).section];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:aboveIndexPath];
     [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+    [super setBackgroundForCell:cell atIndexPath:aboveIndexPath];
 }
 
 - (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths forController:(FNTVController *)controller
-{
-    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+{    
+    NSIndexPath *aboveIndexPath = [NSIndexPath indexPathForRow:((NSIndexPath *)indexPaths[0]).row - 1 inSection:((NSIndexPath *)indexPaths[0]).section];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:aboveIndexPath];
+    [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        [super setBackgroundForCell:cell atIndexPath:aboveIndexPath];
+    }];
+    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+    [CATransaction commit];
 }
 
 - (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath forController:(FNTVController *)controller
