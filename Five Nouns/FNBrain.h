@@ -24,13 +24,9 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 @interface FNBrain : NSObject <NSCoding, FNMultiplayerBrain>
 
 
-@property (nonatomic, strong) NSMutableArray *allPlayers;
+// how things are changed
 - (void)addPlayer:(FNPlayer *)player;
 - (void)removePlayer:(FNPlayer *)player;
-
-
-@property (nonatomic, strong) NSMutableArray *allTeams;
-- (NSArray *)orderOfTeams;
 - (void)addTeam:(FNTeam *)team;
 - (void)removeTeam:(FNTeam *)team;
 - (void)moveTeam:(FNTeam *)team toIndex:(NSInteger)newIndex;
@@ -38,8 +34,13 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 - (void)unassignTeamFromPlayer:(FNPlayer *)player;
 - (void)setName:(NSString *)name forTeam:(FNTeam *)team;
 - (void)addScoreCard:(FNScoreCard *)scoreCard;
-- (NSArray *)allScoreCards;
+
+
+- (NSArray *)orderOfTeams;
+@property (nonatomic, strong) NSMutableArray *allTeams;
+@property (nonatomic, strong) NSMutableArray *allPlayers;
 - (NSArray *)scoreCardsForTeam:(FNTeam *)team;
+- (NSArray *)allScoreCards;
 
 - (BOOL)canBeginGame;
 - (BOOL)allPlayersAssignedToTeams;

@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, FNUpdateType) {
     FNUpdateTypeTeamToPlayer,
     FNUpdateTypeTeamAdd,
     FNUpdateTypeTeamRemove,
-    FNUpdateTypePlayerToTeam,
+    FNUpdateTypePlayerToTeam,   // not used
     FNUpdateTypeTeamOrder,
     FNUpdateTypeTeamName,
     FNUpdateTypeStatus,
