@@ -1,5 +1,5 @@
 //
-//  FNMultiplayerHostDelegate.h
+//  FNNetworkHostDelegate.h
 //  Five Nouns
 //
 //  Created by Matthew Edmonds on 7/17/13.
@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
-#import "FNMultiplayerManager.h"
+#import "FNNetworkManager.h"
 
-@class FNMultiplayerContainer;
+@class FNNetworkContainer;
 
-@interface FNMultiplayerHostDelegate : NSObject <GKSessionDelegate, FNMultiplayerManagerDelegate>
+@interface FNNetworkHostDelegate : NSObject <GKSessionDelegate, FNNetworkManagerDelegate>
 
 // the designated initializer
-- (instancetype)initWithManager:(FNMultiplayerManager *)manager;
+- (instancetype)initWithManager:(FNNetworkManager *)manager;
 
 - (void)userStartServingGame;
 - (void)userStopServingGame;

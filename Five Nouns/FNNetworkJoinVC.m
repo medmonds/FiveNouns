@@ -1,20 +1,20 @@
 //
-//  FNMultiplayerJoinVC.m
+//  FNNetworkJoinVC.m
 //  Five Nouns
 //
 //  Created by Matthew Edmonds on 7/17/13.
 //  Copyright (c) 2013 Matthew Edmonds. All rights reserved.
 //
 
-#import "FNMultiplayerJoinVC.h"
+#import "FNNetworkJoinVC.h"
 #import "FNAppearance.h"
 #import "FNSpinnerCell.h"
 
-@interface FNMultiplayerJoinVC ()
+@interface FNNetworkJoinVC ()
 
 @end
 
-@implementation FNMultiplayerJoinVC
+@implementation FNNetworkJoinVC
 
 - (id)initWithStyle:(UITableViewStyle)style
 {

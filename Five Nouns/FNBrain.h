@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FNMultiplayerManager.h"
+#import "FNNetworkManager.h"
 
 @class FNScoreCard;
 @class FNPlayer;

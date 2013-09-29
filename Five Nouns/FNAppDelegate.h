@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class FNMultiplayerManager;
+@class FNNetworkManager;
 
 @interface FNAppDelegate : UIResponder <UIApplicationDelegate>
 

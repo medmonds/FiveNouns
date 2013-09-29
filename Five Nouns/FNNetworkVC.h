@@ -1,5 +1,5 @@
 //
-//  FNMultiPlayerVC.h
+//  FNNetworkVC.h
 //  Five Nouns
 //
 //  Created by Matthew Edmonds on 7/15/13.
@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "FNTableViewController.h"
-#import "FNMultiplayerManager.h"
+#import "FNNetworkManager.h"
 
-@interface FNMultiPlayerVC : FNTableViewController
+@interface FNNetworkVC : FNTableViewController
 
-@property (nonatomic, weak) id <FNMultiplayerViewControllerDataSource> dataSource;
+@property (nonatomic, weak) id <FNNetworkViewControllerDataSource> dataSource;
 
 - (void)insertClientAtIndex:(NSInteger)index;
 - (void)deleteClientAtIndex:(NSInteger)index;

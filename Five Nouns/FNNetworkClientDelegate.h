@@ -1,5 +1,5 @@
 //
-//  FNMultiplayerClientDelegate.h
+//  FNNetworkClientDelegate.h
 //  Five Nouns
 //
 //  Created by Matthew Edmonds on 7/17/13.
@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
-#import "FNMultiplayerManager.h"
+#import "FNNetworkManager.h"
 
-@interface FNMultiplayerClientDelegate : NSObject <GKSessionDelegate, FNMultiplayerManagerDelegate>
+@interface FNNetworkClientDelegate : NSObject <GKSessionDelegate, FNNetworkManagerDelegate>
 
 // the designated initializer
-- (instancetype)initWithManager:(FNMultiplayerManager *)manager;
+- (instancetype)initWithManager:(FNNetworkManager *)manager;
 
 @property (nonatomic, copy) NSString *serverPeerID;
 //- (void)startLookingForServers;

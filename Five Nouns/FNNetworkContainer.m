@@ -1,43 +1,43 @@
 //
-//  FNMultiplayerContainer.m
+//  FNNetworkContainer.m
 //  Five Nouns
 //
 //  Created by Matthew Edmonds on 7/15/13.
 //  Copyright (c) 2013 Matthew Edmonds. All rights reserved.
 //
 
-#import "FNMultiplayerContainer.h"
-#import "FNMultiPlayerVC.h"
+#import "FNNetworkContainer.h"
+#import "FNNetworkVC.h"
 #import "FNButtonRect.h"
 
-@interface FNMultiplayerContainer ()
-@property (weak, nonatomic) IBOutlet FNButtonRect *multiplayerServerStateToggle;
+@interface FNNetworkContainer ()
+@property (weak, nonatomic) IBOutlet FNButtonRect *NetworkServerStateToggle;
 @end
 
 
-@implementation FNMultiplayerContainer
+@implementation FNNetworkContainer
 
 
-- (IBAction)toggleMultiplayerServerStatePressed:(UIButton *)sender
+- (IBAction)toggleNetworkServerStatePressed:(UIButton *)sender
 {
-    if ([self.dataSource isMultiplayerEnabled]) {
-        [self.dataSource turnOffMultiplayer];
+    if ([self.dataSource isNetworkEnabled]) {
+        [self.dataSource turnOffNetwork];
         [UIView animateWithDuration:.2 animations:^{
-            self.multiplayerServerStateToggle.alpha = 0.2;
+            self.NetworkServerStateToggle.alpha = 0.2;
         } completion:^(BOOL finished) {
-            [self.multiplayerServerStateToggle setTitle:@"Start Hosting Game" forState:UIControlStateNormal];
+            [self.NetworkServerStateToggle setTitle:@"Start Hosting Game" forState:UIControlStateNormal];
             [UIView animateWithDuration:.2 animations:^{
-                self.multiplayerServerStateToggle.alpha = 1.0;
+                self.NetworkServerStateToggle.alpha = 1.0;
             }];
         }];
     } else {
-        [self.dataSource turnOnMultiplayer];
+        [self.dataSource turnOnNetwork];
         [UIView animateWithDuration:.2 animations:^{
-            self.multiplayerServerStateToggle.alpha = 0.2;
+            self.NetworkServerStateToggle.alpha = 0.2;
         } completion:^(BOOL finished) {
-            [self.multiplayerServerStateToggle setTitle:@"Stop Hosting Game" forState:UIControlStateNormal];
+            [self.NetworkServerStateToggle setTitle:@"Stop Hosting Game" forState:UIControlStateNormal];
             [UIView animateWithDuration:.2 animations:^{
-                self.multiplayerServerStateToggle.alpha = 1.0;
+                self.NetworkServerStateToggle.alpha = 1.0;
             }];
         }];
     }
@@ -45,12 +45,12 @@
 
 - (void)insertPeerAtIndex:(NSInteger)index
 {
-    [((FNMultiPlayerVC *)self.childViewControllers[0]) insertClientAtIndex:index];
+    [((FNNetworkVC *)self.childViewControllers[0]) insertClientAtIndex:index];
 }
 
 - (void)deletePeerAtIndex:(NSInteger)index
 {
-    [((FNMultiPlayerVC *)self.childViewControllers[0]) deleteClientAtIndex:index];
+    [((FNNetworkVC *)self.childViewControllers[0]) deleteClientAtIndex:index];
 }
 
 - (void)donePressed
@@ -62,7 +62,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ((FNMultiPlayerVC *)segue.destinationViewController).dataSource = self.dataSource;
+    ((FNNetworkVC *)segue.destinationViewController).dataSource = self.dataSource;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -100,10 +100,10 @@
 {
     [super viewWillAppear:animated];
     [self.dataSource viewControllerWillAppear:self];
-    if ([self.dataSource isMultiplayerEnabled]) {
-        [self.multiplayerServerStateToggle setTitle:@"Stop Hosting Game" forState:UIControlStateNormal];
+    if ([self.dataSource isNetworkEnabled]) {
+        [self.NetworkServerStateToggle setTitle:@"Stop Hosting Game" forState:UIControlStateNormal];
     } else {
-        [self.multiplayerServerStateToggle setTitle:@"Start Hosting Game" forState:UIControlStateNormal];
+        [self.NetworkServerStateToggle setTitle:@"Start Hosting Game" forState:UIControlStateNormal];
     }
 }
 

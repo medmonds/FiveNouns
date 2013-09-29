@@ -1,31 +1,31 @@
 //
-//  FNMultiplayerManager.m
+//  FNNetworkManager.m
 //  Five Nouns
 //
 //  Created by Matthew Edmonds on 7/14/13.
 //  Copyright (c) 2013 Matthew Edmonds. All rights reserved.
 //
 
-#import "FNMultiplayerManager.h"
-#import "FNMultiplayerContainer.h"
-#import "FNMultiplayerHostDelegate.h"
-#import "FNMultiplayerClientDelegate.h"
+#import "FNNetworkManager.h"
+#import "FNNetworkContainer.h"
+#import "FNNetworkHostDelegate.h"
+#import "FNNetworkClientDelegate.h"
 #import "FNBrain.h"
 #import "FNUpdate.h"
 
-#import "FNMultiplayerJoinVC.h" // shoul dmake this adhere to a protocol that is shared with the host VC
+#import "FNNetworkJoinVC.h" // shoul dmake this adhere to a protocol that is shared with the host VC
 
-@interface FNMultiplayerManager ()
+@interface FNNetworkManager ()
 @property (nonatomic) BOOL isHost;
-@property (nonatomic, strong) FNMultiplayerContainer *multiplayerVC;
-@property (nonatomic, strong) id <FNMultiplayerManagerDelegate> sessionDelegate;
+@property (nonatomic, strong) FNNetworkContainer *networkVC;
+@property (nonatomic, strong) id <FNNetworkManagerDelegate> sessionDelegate;
 @property (nonatomic, strong) NSString *server;
 @property (nonatomic, strong) NSMutableSet *clients;
-@property (nonatomic, strong) UIViewController <FNMultiplayerViewController> *viewController;
+@property (nonatomic, strong) UIViewController <FNNetworkViewController> *viewController;
 @end
 
 
-@implementation FNMultiplayerManager
+@implementation FNNetworkManager
 
 /************************************* Notes ****************************************
 
@@ -152,19 +152,19 @@ Goals:
 
 ************************************************************************************/
  
-#pragma mark - FNMultiplayerViewControllerDataSource
+#pragma mark - FNNetworkViewControllerDataSource
 
-- (BOOL)isMultiplayerEnabled
+- (BOOL)isNetworkEnabled
 {
     
 }
 
-- (void)turnOnMultiplayer
+- (void)turnOnNetwork
 {
     
 }
 
-- (void)turnOffMultiplayer
+- (void)turnOffNetwork
 {
     
 }
@@ -180,40 +180,40 @@ Goals:
 }
 
 
-- (void)viewControllerWillAppear:(id <FNMultiplayerViewController>)viewController
+- (void)viewControllerWillAppear:(id <FNNetworkViewController>)viewController
 {
     
 }
 
-- (void)viewControllerWasDismissed:(id <FNMultiplayerViewController>)viewController
+- (void)viewControllerWasDismissed:(id <FNNetworkViewController>)viewController
 {
     self.viewController = nil;
 }
 
 - (void)connectToServerAtIndex:(NSInteger)index
 {
-    if ([self.sessionDelegate isKindOfClass:[FNMultiplayerClientDelegate class]]) {
+    if ([self.sessionDelegate isKindOfClass:[FNNetworkClientDelegate class]]) {
         [self.sessionDelegate connectToServerAtIndex:index];
     } else {
         [NSException raise:@"Tried to connect to a Host while a Hosting a game" format:nil];
     }
 }
 
-- (void)delegate:(id <FNMultiplayerManagerDelegate>)delegate insertAvailableServerAtIndex:(NSInteger)index
+- (void)delegate:(id <FNNetworkManagerDelegate>)delegate insertAvailableServerAtIndex:(NSInteger)index
 {
     if (self.viewController) {
         [self.viewController insertPeerAtIndex:index];
     }
 }
 
-- (void)delegate:(id <FNMultiplayerManagerDelegate>)delegate deleteAvailableServerAtIndex:(NSInteger)index
+- (void)delegate:(id <FNNetworkManagerDelegate>)delegate deleteAvailableServerAtIndex:(NSInteger)index
 {
     if (self.viewController) {
         [self.viewController deletePeerAtIndex:index];
     }
 }
 
-- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate connectionAttemptToPeerFailed:(NSString *)peerID
+- (void)delegate:(id<FNNetworkManagerDelegate>)delegate connectionAttemptToPeerFailed:(NSString *)peerID
 {
     NSString *displayName = [self.sessionDelegate.session displayNameForPeer:peerID]; // for the modal
     // stop the spinner
@@ -261,26 +261,26 @@ Goals:
 }
 
 
-+ (SEL)selectorForMultiplayerView
++ (SEL)selectorForNetworkView
 {
-    return @selector(displayMultiplayerMenuButtonTouched);
+    return @selector(displayNetworkMenuButtonTouched);
 }
 
-+ (FNMultiplayerManager *)sharedMultiplayerManager
++ (FNNetworkManager *)sharedNetworkManager
 {
-    static FNMultiplayerManager *sharedMultiplayerManager = nil;
+    static FNNetworkManager *sharedNetworkManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedMultiplayerManager = [[self alloc] init];
+        sharedNetworkManager = [[self alloc] init];
     });
-    return sharedMultiplayerManager;
+    return sharedNetworkManager;
 }
 
 - (void)startServingGame
 {
     self.isHost = YES;
-    if (![self.sessionDelegate isKindOfClass:[FNMultiplayerHostDelegate class]]) {
-        self.sessionDelegate = [[FNMultiplayerHostDelegate alloc] initWithManager:self];
+    if (![self.sessionDelegate isKindOfClass:[FNNetworkHostDelegate class]]) {
+        self.sessionDelegate = [[FNNetworkHostDelegate alloc] initWithManager:self];
     }
     [self.sessionDelegate start];
 }
@@ -294,11 +294,11 @@ Goals:
 - (void)browseForGames
 {
     self.isHost = NO;
-    self.sessionDelegate = [[FNMultiplayerClientDelegate alloc] initWithManager:self];
+    self.sessionDelegate = [[FNNetworkClientDelegate alloc] initWithManager:self];
     [self.sessionDelegate start];
 }
 
-- (void)displayMultiplayerMenuButtonTouched
+- (void)displayNetworkMenuButtonTouched
 {
     // not sure how I should respond to this if I have joined a game as a client !!!
     if (self.isHost) {
@@ -312,7 +312,7 @@ Goals:
     }
 }
 
-- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToClient:(NSString *)clientPeerID
+- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didConnectToClient:(NSString *)clientPeerID
 {
     // update the ui if it is on screen
     
@@ -321,26 +321,26 @@ Goals:
     [self.brain didConnectToClient:clientPeerID];
 }
 
-- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didDisconnectFromClient:(NSString *)clientPeerID
+- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didDisconnectFromClient:(NSString *)clientPeerID
 {
     // update the ui if it is on screen
     [self.clients removeObject:clientPeerID];
     [self.brain didDisconnectFromClient:clientPeerID];
 }
 
-- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID
+- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID
 {
 #warning Incomplete Implementation - Should do more here
     self.server = serverPeerID;
 }
 
-- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didDisconnectFromServer:(NSString *)serverPeerID
+- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didDisconnectFromServer:(NSString *)serverPeerID
 {
 #warning Incomplete Implementation - Should do more here
     self.server = nil;
 }
 
-- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate didRecieveData:(NSData *)data
+- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didRecieveData:(NSData *)data
 {
     [self.brain handleUpdate:[FNUpdate updateForData:data]];
 }
@@ -358,7 +358,7 @@ Goals:
     return [self.sessionDelegate sendData:[FNUpdate dataForUpdate:update] withDataMode:GKSendDataReliable toPeer:peerID];
 }
 
-- (void)delegate:(id<FNMultiplayerManagerDelegate>)delegate sessionFailedWithError:(NSError *)error
+- (void)delegate:(id<FNNetworkManagerDelegate>)delegate sessionFailedWithError:(NSError *)error
 {
     // depending on the error should either tell the user to turn on bluetooth or wifi or
     // should present the options: Attempt Reconnect, Become Host in new Game, Quit Game if the client or

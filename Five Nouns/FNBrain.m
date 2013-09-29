@@ -483,7 +483,7 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 + (FNBrain *)brainFromPreviousGame;
 {
-    // notify the multiplayerManager
+    // notify the NetworkManager
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *gameDataFile = [documentsDirectory stringByAppendingPathComponent:@"gameData.fiveNouns"];
@@ -493,12 +493,12 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)willResignActive
 {
-    // notify the multiPlayerManager
+    // notify the NetworkManager
 }
 
 - (void)didBecomeActive
 {
-    // notify the multiPlayerManager
+    // notify the NetworkManager
 }
 
 - (void)willTerminate
@@ -550,12 +550,12 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)sendUpdate:(FNUpdate *)update
 { 
-    BOOL success = [[FNMultiplayerManager sharedMultiplayerManager] sendUpdate:update];
+    BOOL success = [[FNNetworkManager sharedNetworkManager] sendUpdate:update];
 }
 
 - (void)sendUpdate:(FNUpdate *)update toClient:(NSString *)peerID
 {
-    BOOL success = [[FNMultiplayerManager sharedMultiplayerManager] sendUpdate:update toClient:peerID];
+    BOOL success = [[FNNetworkManager sharedNetworkManager] sendUpdate:update toClient:peerID];
 }
 
 // do i need this method if i use isEqual everywhere?

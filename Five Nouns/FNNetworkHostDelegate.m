@@ -1,18 +1,18 @@
 //
-//  FNMultiplayerHostDelegate.m
+//  FNNetworkHostDelegate.m
 //  Five Nouns
 //
 //  Created by Matthew Edmonds on 7/17/13.
 //  Copyright (c) 2013 Matthew Edmonds. All rights reserved.
 //
 
-#import "FNMultiplayerHostDelegate.h"
-#import "FNMultiplayerManager.h"
-#import "FNMultiPlayerVC.h"
-#import "FNMultiplayerContainer.h"
+#import "FNNetworkHostDelegate.h"
+#import "FNNetworkManager.h"
+#import "FNNetworkVC.h"
+#import "FNNetworkContainer.h"
 
-@interface FNMultiplayerHostDelegate ()
-@property FNMultiplayerManager *manager;
+@interface FNNetworkHostDelegate ()
+@property FNNetworkManager *manager;
 @property (nonatomic, strong) NSMutableArray *connectedClients;
 @property (nonatomic) NSInteger maxConnectedClients;
 @property (nonatomic, strong) GKSession *session;
@@ -21,9 +21,9 @@
 @end
 
 
-@implementation FNMultiplayerHostDelegate
+@implementation FNNetworkHostDelegate
 
-#pragma mark - FNMultiplayerManagerDelegate Methods
+#pragma mark - FNNetworkManagerDelegate Methods
 
 //- (UIViewController *)viewController
 //{
@@ -48,9 +48,9 @@
     self.session = nil;
 }
 
-#pragma mark - FNMultiplayerHostDelegate Header Methods
+#pragma mark - FNNetworkHostDelegate Header Methods
 
-- (instancetype)initWithManager:(FNMultiplayerManager *)manager
+- (instancetype)initWithManager:(FNNetworkManager *)manager
 {
     self = [super init];
     if (!self) {
@@ -201,11 +201,11 @@
     if (self.maxConnectedClients > [self.connectedClients count]) {
         NSError *error;
         if (![self.session acceptConnectionFromPeer:peerID error:&error]) {
-            NSLog(@"Multiplayer Host connection request for peerID: %@ failed with error: %@", peerID, error);
+            NSLog(@"Network Host connection request for peerID: %@ failed with error: %@", peerID, error);
         }
     } else {
         [self.session denyConnectionFromPeer:peerID];
-        NSLog(@"Multiplayer Host denied connection for peerID: %@ b/c at max connections", peerID);
+        NSLog(@"Network Host denied connection for peerID: %@ b/c at max connections", peerID);
     }
 }
 

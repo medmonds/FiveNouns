@@ -1,20 +1,20 @@
 //
-//  FNMultiPlayerVC.m
+//  FNNetworkVC.m
 //  Five Nouns
 //
 //  Created by Matthew Edmonds on 7/15/13.
 //  Copyright (c) 2013 Matthew Edmonds. All rights reserved.
 //
 
-#import "FNMultiPlayerVC.h"
+#import "FNNetworkVC.h"
 #import "FNReorderableCell.h"
-#import "FNMultiplayerContainer.h"
+#import "FNNetworkContainer.h"
 
-@interface FNMultiPlayerVC ()
+@interface FNNetworkVC ()
 
 @end
 
-@implementation FNMultiPlayerVC
+@implementation FNNetworkVC
 
 - (void)insertClientAtIndex:(NSInteger)index
 {

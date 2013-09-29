@@ -8,7 +8,7 @@
 
 #import "FNAppearance.h"
 #import "FNMaxFontLabel.h"
-#import "FNMultiplayerManager.h"
+#import "FNNetworkManager.h"
 
 @interface FNAppearance ()
 
@@ -105,7 +105,7 @@
     [titleView addSubview:titleButton];
     [titleButton setTitleColor:[FNAppearance textColorButton] forState:UIControlStateNormal];
     [titleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [titleButton addTarget:[FNMultiplayerManager sharedMultiplayerManager] action:[FNMultiplayerManager selectorForMultiplayerView] forControlEvents:UIControlEventTouchUpInside];
+    [titleButton addTarget:[FNNetworkManager sharedNetworkManager] action:[FNNetworkManager selectorForNetworkView] forControlEvents:UIControlEventTouchUpInside];
     titleButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     titleButton.backgroundColor = [UIColor clearColor];
     titleButton.titleLabel.font = gameFont;

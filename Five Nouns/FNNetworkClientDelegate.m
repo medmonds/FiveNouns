@@ -1,14 +1,14 @@
 //
-//  FNMultiplayerClientDelegate.m
+//  FNNetworkClientDelegate.m
 //  Five Nouns
 //
 //  Created by Matthew Edmonds on 7/17/13.
 //  Copyright (c) 2013 Matthew Edmonds. All rights reserved.
 //
 
-#import "FNMultiplayerClientDelegate.h"
-#import "FNMultiplayerManager.h"
-#import "FNMultiplayerJoinVC.h"
+#import "FNNetworkClientDelegate.h"
+#import "FNNetworkManager.h"
+#import "FNNetworkJoinVC.h"
 
 
 
@@ -20,11 +20,11 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 //    FNDisconnectReasonHostQuit
 };
 
-@interface FNMultiplayerClientDelegate ()
-@property FNMultiplayerManager *manager;
+@interface FNNetworkClientDelegate ()
+@property FNNetworkManager *manager;
 @property (nonatomic, strong) GKSession *session;
 @property (nonatomic, strong) NSMutableArray *availableServers;
-//@property (nonatomic, strong) FNMultiplayerJoinVC *joinVC;
+//@property (nonatomic, strong) FNNetworkJoinVC *joinVC;
 @property BOOL isLookingForServers;
 @property FNDisconnectReason disconnectReason;
 @property BOOL alreadyAttemptedReconnect;
@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 
 
 
-@implementation FNMultiplayerClientDelegate
+@implementation FNNetworkClientDelegate
 
 /*
  
@@ -50,7 +50,7 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 */
 
 
-- (instancetype)initWithManager:(FNMultiplayerManager *)manager
+- (instancetype)initWithManager:(FNNetworkManager *)manager
 {
     self = [super init];
     if (!self) {
