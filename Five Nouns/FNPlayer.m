@@ -7,6 +7,7 @@
 //
 
 #import "FNPlayer.h"
+#import "FNTeam.h"
 
 @implementation FNPlayer
 
@@ -32,4 +33,40 @@
     [aCoder encodeObject:self.team forKey:@"team"];
 }
 
+- (BOOL)isValidPlayer
+{
+    NSMutableArray *goodNouns = [[NSMutableArray alloc] init];
+    for (NSString *noun in self.nouns) {
+        if ([noun length] > 0) {
+            [goodNouns addObject:noun];
+        }
+    }
+    if ([goodNouns count] > 2 && [self.name length] > 0) {
+        self.nouns = goodNouns;
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)isEqualToPlayer:(FNPlayer *)player
+{
+    if ([super isEqual:player] && [self.name isEqualToString:player.name] && [self.team isEqual:player.team]) {
+        if ([self.nouns isEqualToArray:player.nouns]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
 @end
+
+
+
+
+
+
+
+
+

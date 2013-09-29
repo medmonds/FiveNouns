@@ -72,6 +72,39 @@
             [self.tableView reloadRowsAtIndexPaths:toReplace withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
+        case NSKeyValueChangeSetting: {
+            NSArray *setPlayers = [changeDictionary objectForKey:NSKeyValueChangeNewKey];
+            NSMutableArray *toReload = [[NSMutableArray alloc] init];
+            NSInteger count = MIN([self.dataSource count], [setPlayers count]);
+            NSInteger index;
+            for (index = 0; index < count; index++) {  // reload the changed players
+                if (![self.dataSource[index] isEqualToPlayer:setPlayers[index]]) {
+                    [self.dataSource replaceObjectAtIndex:index withObject:setPlayers[index]];
+                    [toReload addObject:[NSIndexPath indexPathForRow:index inSection:section]];
+                }
+            }
+            if ([toReload count]) {
+                [self.tableView reloadRowsAtIndexPaths:toReload withRowAnimation:UITableViewRowAnimationFade];
+            }
+            if ([self.dataSource count] < [setPlayers count]) {  // insert the added players
+                NSMutableArray *toInset = [[NSMutableArray alloc] init];
+                count = [setPlayers count];
+                for (NSInteger index = [self.dataSource count]; index < count; index++) {
+                    [self.dataSource insertObject:setPlayers[index] atIndex:index];
+                    [toInset addObject:[NSIndexPath indexPathForRow:index inSection:section]];
+                }
+                [self.tableView insertRowsAtIndexPaths:toInset withRowAnimation:UITableViewRowAnimationBottom];
+            } else if ([self.dataSource count] > [setPlayers count]) { // delete the removed players
+                NSMutableArray *toDelete = [[NSMutableArray alloc] init];
+                count = [self.dataSource count];
+                for (NSInteger index = [setPlayers count]; index < count; index++) {
+                    [self.dataSource removeLastObject];
+                    [toDelete addObject:[NSIndexPath indexPathForRow:index inSection:section]];
+                }
+                [self.tableView deleteRowsAtIndexPaths:toDelete withRowAnimation:UITableViewRowAnimationBottom];
+            }
+            break;
+        }
         default:
             break;
     }
@@ -193,19 +226,7 @@
 
 - (BOOL)currentPlayerIsValid
 {
-    // validates that a new player was created properly
-    NSMutableArray *goodNouns = [[NSMutableArray alloc] init];
-    for (NSString *noun in self.currentPlayer.nouns) {
-        if ([noun length] > 0) {
-            [goodNouns addObject:noun];
-        }
-    }
-    if ([goodNouns count] > 2 && [self.currentPlayer.name length] > 0) {
-        self.currentPlayer.nouns = goodNouns;
-        return YES;
-    } else {
-        return NO;
-    }
+    return [self.currentPlayer isValidPlayer];
 }
 
 #pragma mark - Table view delegate

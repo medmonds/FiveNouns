@@ -8,16 +8,12 @@
 
 #import "FNNetworkHostDelegate.h"
 #import "FNNetworkManager.h"
-//#import "FNNetworkVC.h"
-//#import "FNNetworkContainer.h"
 
 @interface FNNetworkHostDelegate ()
 @property FNNetworkManager *manager;
 @property (nonatomic, strong) NSMutableArray *connectedClients;
 @property (nonatomic) NSInteger maxConnectedClients;
 @property (nonatomic, strong) GKSession *session;
-//@property (nonatomic, strong) UINavigationController *viewController;
-//@property (nonatomic, strong) FNMultiplayerContainer *serverVC;
 @end
 
 
@@ -25,13 +21,6 @@
 
 #pragma mark - FNNetworkManagerDelegate Methods
 
-//- (UIViewController *)viewController
-//{
-//    UINavigationController *nc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateViewControllerWithIdentifier:@"MultiplayerNC"];
-//    self.serverVC = nc.childViewControllers[0];
-//    self.serverVC.dataSource = self;
-//    return nc;
-//}
 
 - (void)start
 {
@@ -62,34 +51,10 @@
     return self;
 }
 
-//- (void)userStartServingGame
-//{
-//    [self.manager startServingGame];
-//}
-
-//- (void)userStopServingGame
-//{
-//    NSInteger count = [self.connectedClients count];
-//    for (NSInteger i = 0; i < count; i++) {
-//        [self.connectedClients removeObjectAtIndex:i];
-//        [self.serverVC deleteClientAtIndex:i];
-//    }
-//    [self.manager stopServingGame];
-//}
-
 - (NSArray *)connectedClientPeerIDs
 {
     return [self.connectedClients copy];
 }
-
-//- (BOOL)isMultiplayerEnabled
-//{
-//    if (self.session) {
-//        return YES;
-//    } else {
-//        return NO;
-//    }
-//}
 
 - (NSInteger)peersCount
 {
@@ -122,7 +87,6 @@
 {
     NSLog(@"Host - Did receive data from Peer: %@", peer);
     [self.manager delegate:self didRecieveData:data];
-//    [self sendData:data withDataMode:GKSendDataReliable notToPeer:peer];
 }
 
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode

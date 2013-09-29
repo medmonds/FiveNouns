@@ -564,8 +564,10 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)handleUpdate:(FNUpdate *)update withGameState:(NSDictionary *)state
 {
-    // handle the game state !!!
-    
+    [state enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        id object = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
+        [self setValue:object forKey:key];
+    }];
     [self handleUpdate:update];
 }
 
@@ -737,44 +739,6 @@ Need to know what state the clients are in so that I can start the game or not (
  
  
 */
-
-//// called when a team is added
-//- (void)assignPlayersToTeams
-//{
-//    // removing players from teams where player doesnt want to be on the team
-//    NSMutableArray *playersToAssign = [[NSMutableArray alloc] init];
-//    [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
-//       [team.players enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
-//           if (player.team != team) {
-//               [playersToAssign addObject:player];
-//           }
-//       }];
-//    }];
-//    if ([self.allTeams count]) {
-//        NSInteger playersPerTeam = [self.allPlayers count] / [self.allTeams count];
-//        [self.allTeams enumerateObjectsUsingBlock:^(FNTeam *team, NSUInteger idx, BOOL *stop) {
-//            for (int i = [team.players count]; i < playersPerTeam; i++) {
-//                [team addPlayer:playersToAssign[0]];
-//                [playersToAssign removeObjectAtIndex:0];
-//            }
-//        }];
-//        // to assign any left over players
-//        [playersToAssign enumerateObjectsUsingBlock:^(FNPlayer *player, NSUInteger idx, BOOL *stop) {
-//            [[self.allTeams objectAtIndex:idx] addPlayer:player];
-//        }];
-//    }
-//}
-
-
-/*
- or i could get old number of teams and the new number of teams and then
- if a team was added grab the last ([allPlayer count] / [allTeams count](new) - [allPlayer count] / [oldAllTeams count]
- and then assign those people to the new team
- I would have to account for players that might have been assigned to the existing teams already
- so what sweep through each team trying to grab the last player until I had as many players as I needed for the new team
- 
- */
-
 
 
 

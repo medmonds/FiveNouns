@@ -17,6 +17,9 @@
 @property (nonatomic, strong) NSMutableArray *nouns;
 @property (nonatomic, weak) FNTeam *team;
 
+- (BOOL)isValidPlayer;
+- (BOOL)isEqualToPlayer:(FNPlayer *)player;
+
 @end
 
 

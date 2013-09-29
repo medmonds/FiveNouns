@@ -14,7 +14,6 @@
 @property (nonatomic, strong) NSUUID *identifier;
 @property (nonatomic, strong) NSMutableDictionary *updateIdentifier;
 @property (nonatomic, strong) NSMutableArray *updateQueue;
-@property (nonatomic, strong) NSMutableDictionary *gameStates;
 @end
 
 @implementation FNUpdateManager
@@ -85,14 +84,6 @@ local brain will receive a request to add a team from the UI.
     return self;
 }
 
-- (NSMutableDictionary *)gameStates
-{
-    if (!_gameStates) {
-        _gameStates = [[NSMutableDictionary alloc] init];
-    }
-    return _gameStates;
-}
-
 - (NSMutableArray *)updateQueue
 {
     if (!_updateQueue) {
@@ -117,8 +108,7 @@ local brain will receive a request to add a team from the UI.
     NSMutableDictionary *newUpdateIdentifier = [self.updateIdentifier mutableCopy];
     newUpdateIdentifier[self.identifier] = @(newUpdateNumber);
     update.updateIdentifier = newUpdateIdentifier;
-    [self.updateQueue addObject:update];
-    self.gameStates[update] = @[state, @(newUpdateNumber)];
+    [self.updateQueue addObject:@[update, state]];
 }
 
 - (void)sendUpdate:(FNUpdate *)update withGameState:(NSDictionary *)state
@@ -139,15 +129,12 @@ local brain will receive a request to add a team from the UI.
     } else if ([[self.updateQueue objectAtIndex:0] isEqual:receivedUpdate]) {
         // an update I sent has been returned to me in the proper order
         self.updateIdentifier = receivedUpdate.updateIdentifier;
-        FNUpdate *sentUpdate = [self.updateQueue objectAtIndex:0];
         [self.updateQueue removeObjectAtIndex:0];
-        [self.gameStates removeObjectForKey:sentUpdate];
     } else {
         // the update does not match the first object in the update queue
         self.updateIdentifier = receivedUpdate.updateIdentifier;
-        NSDictionary *lastGoodGameState = [self.gameStates objectForKey:[self.updateQueue objectAtIndex:0]]; // if this fails something is really wrong !!!
+        NSDictionary *lastGoodGameState = self.updateQueue[0][1]; // if this fails something is really wrong !!!
         [self.updateQueue removeAllObjects];
-        [self.gameStates removeAllObjects];
         [self.brain handleUpdate:receivedUpdate withGameState:lastGoodGameState];
     }
 }
@@ -175,7 +162,7 @@ local brain will receive a request to add a team from the UI.
     FNUpdate *update = [[FNUpdate alloc] init];
     update.updateType = FNUpdateTypeEverything;
     update.valueNew = [self.brain currentGameState];
-    [self prepareUpdate:update withGameState:[[NSDictionary alloc] init]];
+    [self prepareUpdate:update withGameState:[self.brain currentGameState]];
     [[FNNetworkManager sharedNetworkManager] sendData:[FNUpdate dataForUpdate:update] toClient:peerID];
 }
 
