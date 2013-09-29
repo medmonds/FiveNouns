@@ -11,12 +11,6 @@
 
 @class FNNetworkJoinVC;
 @class FNBrain;
-@class FNUpdate;
-
-@protocol FNMultiplayerBrain <NSObject>
-- (void)didConnectToClient:(NSString *)peerID;
-- (void)didDisconnectFromClient:(NSString *)peerID;
-@end
 
 
 @protocol FNNetworkManagerDelegate <NSObject, GKSessionDelegate>
@@ -68,8 +62,8 @@
 
 + (FNNetworkManager *)sharedNetworkManager;
 
-- (BOOL)sendUpdate:(FNUpdate *)update;
-- (BOOL)sendUpdate:(FNUpdate *)update toClient:(NSString *)peerID;
+- (BOOL)sendData:(NSData *)data;
+- (BOOL)sendData:(NSData *)data toClient:(NSString *)peerID;
 
 - (UIViewController *)joinViewController;
 - (UIViewController *)hostViewController;

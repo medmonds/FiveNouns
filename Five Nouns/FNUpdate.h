@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "FNUniqueIDObject.h"
 
 typedef NS_ENUM(NSUInteger, FNUpdateType) {
     FNUpdateTypeEverything,
@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, FNUpdateType) {
 };
 
 
-@interface FNUpdate : NSObject <NSCoding>
+@interface FNUpdate : FNUniqueIDObject <NSCoding, NSCopying>
 
 + (FNUpdate *)updateForObject:(id)updatedObject
                          updateType:(FNUpdateType)updateType
@@ -35,6 +35,8 @@ typedef NS_ENUM(NSUInteger, FNUpdateType) {
 @property (nonatomic, strong) id updatedObject;
 @property (nonatomic, strong) id valueNew;
 @property (nonatomic, strong) id valueOld;
+@property (nonatomic, strong) NSMutableDictionary *updateIdentifier;
+
 + (NSData *)dataForUpdate:(FNUpdate *)update;
 + (FNUpdate *)updateForData:(NSData *)data;
 

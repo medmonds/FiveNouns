@@ -48,4 +48,11 @@
     return [self.uniqueID isEqual:((FNUniqueIDObject *)object).uniqueID];
 }
 
+- (instancetype)copyWithZone:(NSZone *)zone
+{
+    FNUniqueIDObject *copy = [[FNUniqueIDObject alloc] init];
+    copy.uniqueID = self.uniqueID;
+    return copy;
+}
+
 @end

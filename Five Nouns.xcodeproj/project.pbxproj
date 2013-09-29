@@ -141,6 +141,8 @@
 		C9C5307C17934EA900A7A268 /* FNNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C5307B17934EA900A7A268 /* FNNetworkManager.m */; };
 		C9C5307D17934EA900A7A268 /* FNNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C5307B17934EA900A7A268 /* FNNetworkManager.m */; };
 		C9C5307F17936F8900A7A268 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C5307E17936F8900A7A268 /* GameKit.framework */; };
+		C9C7965117F7A65E00CFEB6E /* FNUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C7965017F7A65E00CFEB6E /* FNUpdateManager.m */; };
+		C9C7965217F7A65E00CFEB6E /* FNUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C7965017F7A65E00CFEB6E /* FNUpdateManager.m */; };
 		C9E2B6AC177786A300FD08E9 /* FNSeparatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */; };
 		C9E2B6AD177786A300FD08E9 /* FNSeparatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */; };
 		C9E52BB5178D09C7003DF207 /* FNStepperView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E52BB4178D09C7003DF207 /* FNStepperView.m */; };
@@ -312,6 +314,8 @@
 		C9C5307A17934EA900A7A268 /* FNNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNNetworkManager.h; sourceTree = "<group>"; };
 		C9C5307B17934EA900A7A268 /* FNNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNNetworkManager.m; sourceTree = "<group>"; };
 		C9C5307E17936F8900A7A268 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		C9C7964F17F7A65D00CFEB6E /* FNUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNUpdateManager.h; sourceTree = "<group>"; };
+		C9C7965017F7A65E00CFEB6E /* FNUpdateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNUpdateManager.m; sourceTree = "<group>"; };
 		C9E2B6AA177786A300FD08E9 /* FNSeparatorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNSeparatorCell.h; sourceTree = "<group>"; };
 		C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNSeparatorCell.m; sourceTree = "<group>"; };
 		C9E52BB3178D09C7003DF207 /* FNStepperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNStepperView.h; sourceTree = "<group>"; };
@@ -442,6 +446,8 @@
 				C99279E2171932510035658F /* FNBrain.m */,
 				C9F9EF1B17A0C79000A83EE6 /* FNUpdate.h */,
 				C9F9EF1C17A0C79000A83EE6 /* FNUpdate.m */,
+				C9C7964F17F7A65D00CFEB6E /* FNUpdateManager.h */,
+				C9C7965017F7A65E00CFEB6E /* FNUpdateManager.m */,
 				C9C5307A17934EA900A7A268 /* FNNetworkManager.h */,
 				C9C5307B17934EA900A7A268 /* FNNetworkManager.m */,
 				C92039301797812B0013002E /* FNNetworkHostDelegate.h */,
@@ -898,6 +904,7 @@
 				C9EF7F7717D8224400B182A9 /* FNScoreCell.m in Sources */,
 				C94A3C4E17DC409700CB2CE9 /* FNTVTeamsDelegate.m in Sources */,
 				C9C2EBAB17EA966E008B9CE1 /* FNGameOverVC.m in Sources */,
+				C9C7965117F7A65E00CFEB6E /* FNUpdateManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -952,6 +959,7 @@
 				C9EF7F7817D8224400B182A9 /* FNScoreCell.m in Sources */,
 				C94A3C4F17DC409700CB2CE9 /* FNTVTeamsDelegate.m in Sources */,
 				C9C2EBAC17EA966E008B9CE1 /* FNGameOverVC.m in Sources */,
+				C9C7965217F7A65E00CFEB6E /* FNUpdateManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -394,18 +394,18 @@
     one.name = @"Matt";
     one.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Beef", nil];
     [self.brain addPlayer:one];
-    FNPlayer *two = [[FNPlayer alloc] init];
-    two.name = @"Jill";
-    two.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Gopher", nil];
-    [self.brain addPlayer:two];
-    FNPlayer *three= [[FNPlayer alloc] init];
-    three.name = @"Abbey";
-    three.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Stool", nil];
-    [self.brain addPlayer:three];
-    FNPlayer *four = [[FNPlayer alloc] init];
-    four.name = @"Wes";
-    four.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Spoon", nil];
-    [self.brain addPlayer:four];
+//    FNPlayer *two = [[FNPlayer alloc] init];
+//    two.name = @"Jill";
+//    two.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Gopher", nil];
+//    [self.brain addPlayer:two];
+//    FNPlayer *three= [[FNPlayer alloc] init];
+//    three.name = @"Abbey";
+//    three.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Stool", nil];
+//    [self.brain addPlayer:three];
+//    FNPlayer *four = [[FNPlayer alloc] init];
+//    four.name = @"Wes";
+//    four.nouns = [[NSMutableArray alloc] initWithObjects:@"Civil War Tony Hair", @"Aj", @"Spoon", nil];
+//    [self.brain addPlayer:four];
 }
 
 @end

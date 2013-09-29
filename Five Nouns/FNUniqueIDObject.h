@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FNUniqueIDObject : NSObject <NSCoding>
+@interface FNUniqueIDObject : NSObject <NSCoding, NSCopying>
 
 @property (nonatomic, strong) NSUUID *uniqueID;
 

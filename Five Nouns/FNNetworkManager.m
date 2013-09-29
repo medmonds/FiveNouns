@@ -11,7 +11,7 @@
 #import "FNNetworkHostDelegate.h"
 #import "FNNetworkClientDelegate.h"
 #import "FNBrain.h"
-#import "FNUpdate.h"
+#import "FNUpdateManager.h"
 
 #import "FNNetworkJoinVC.h" // shoul dmake this adhere to a protocol that is shared with the host VC
 
@@ -224,8 +224,6 @@ Goals:
 
 
 
-
-
 - (instancetype)init
 {
     self = [super init];
@@ -318,14 +316,14 @@ Goals:
     
     // tell the brain that a new client just joined the game so it can get it on the same page
     [self.clients addObject:clientPeerID];
-    [self.brain didConnectToClient:clientPeerID];
+    [[FNUpdateManager sharedUpdateManager] didConnectToClient:clientPeerID];
 }
 
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate didDisconnectFromClient:(NSString *)clientPeerID
 {
     // update the ui if it is on screen
     [self.clients removeObject:clientPeerID];
-    [self.brain didDisconnectFromClient:clientPeerID];
+    [[FNUpdateManager sharedUpdateManager] didDisconnectFromClient:clientPeerID];
 }
 
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID
@@ -342,20 +340,27 @@ Goals:
 
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate didRecieveData:(NSData *)data
 {
-    [self.brain handleUpdate:[FNUpdate updateForData:data]];
+    if (self.isHost) {
+        if ([[FNUpdateManager sharedUpdateManager] isUpdateValid:data]) {
+            [[FNUpdateManager sharedUpdateManager] receiveUpdate:data];
+            [self sendData:data];
+        }
+    } else {
+        [[FNUpdateManager sharedUpdateManager] receiveUpdate:data];
+    }
 }
 
-- (BOOL)sendUpdate:(FNUpdate *)update
+- (BOOL)sendData:(NSData *)data;
 {
-    if ([self.clients count] == 0 && !self.server) {
+    if ([self.clients count] == 0 && !self.server) { // what ? !!! when does this make sense?
         return YES;
     }
-    return [self.sessionDelegate sendData:[FNUpdate dataForUpdate:update] withDataMode:GKSendDataReliable];
+    return [self.sessionDelegate sendData:data withDataMode:GKSendDataReliable];
 }
 
-- (BOOL)sendUpdate:(FNUpdate *)update toClient:(NSString *)peerID
+- (BOOL)sendData:(NSData *)data toClient:(NSString *)peerID;
 {
-    return [self.sessionDelegate sendData:[FNUpdate dataForUpdate:update] withDataMode:GKSendDataReliable toPeer:peerID];
+    return [self.sessionDelegate sendData:data withDataMode:GKSendDataReliable toPeer:peerID];
 }
 
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate sessionFailedWithError:(NSError *)error

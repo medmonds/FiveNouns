@@ -12,6 +12,7 @@
 @class FNScoreCard;
 @class FNPlayer;
 @class FNTeam;
+@class FNUpdate;
 
 typedef NS_ENUM(NSInteger, FNGameStatus) {
     FNGameStatusNotStarted,
@@ -21,7 +22,7 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 };
 
 
-@interface FNBrain : NSObject <NSCoding, FNMultiplayerBrain>
+@interface FNBrain : NSObject <NSCoding>
 
 
 // how things are changed
@@ -71,7 +72,10 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 
 + (FNBrain *)brainFromPreviousGame;
 
-- (void)handleUpdate:(FNUpdate *)newUpdate;
+- (NSDictionary *)currentGameState;
+
+- (void)handleUpdate:(FNUpdate *)update;
+- (void)handleUpdate:(FNUpdate *)update withGameState:(NSDictionary *)state;
 
 @property (nonatomic, weak) UINavigationController *navController;
 

@@ -27,12 +27,16 @@
 
 + (FNUpdate *)updateForData:(NSData *)data
 {
-    return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    FNUpdate *update = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if ([update isKindOfClass:[FNUpdate class]]) {
+        return update;
+    }
+    return nil;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super init];
+    self = [super initWithCoder:aDecoder];
     if (!self) {
         return nil;
     }
@@ -40,15 +44,25 @@
     self.updatedObject = [aDecoder decodeObjectForKey:@"updatedObject"];
     self.valueNew = [aDecoder decodeObjectForKey:@"valueNew"];
     self.valueOld = [aDecoder decodeObjectForKey:@"valueOld"];
+    self.updateIdentifier = [aDecoder decodeObjectForKey:@"updateIdentifier"];
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    [super encodeWithCoder:aCoder];
     [aCoder encodeInteger:self.updateType forKey:@"updateType"];
     [aCoder encodeObject:self.updatedObject forKey:@"updatedObject"];
     [aCoder encodeObject:self.valueNew forKey:@"valueNew"];
     [aCoder encodeObject:self.valueOld forKey:@"valueOld"];
+    [aCoder encodeObject:self.updateIdentifier forKey:@"updateIdentifier"];
+}
+
+- (instancetype)copyWithZone:(NSZone *)zone
+{
+    FNUpdate *copy = [FNUpdate updateForObject:self.updatedObject updateType:self.updateType valueNew:self.valueNew valueOld:self.valueOld];
+    copy.updateIdentifier = self.updateIdentifier;
+    return copy;
 }
 
 @end

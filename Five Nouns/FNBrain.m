@@ -12,6 +12,7 @@
 #import "FNTeam.h"
 #import "FNUpdate.h"
 #import "FNAddPlayersContainer.h"
+#import "FNUpdateManager.h"
 
 @interface FNBrain ()
 @property (nonatomic, strong) NSMutableSet *unplayedNouns;
@@ -423,6 +424,8 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)commonInit
 {
+    [FNUpdateManager sharedUpdateManager].brain = self;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(willResignActive)
                                                  name:UIApplicationDidEnterBackgroundNotification
@@ -529,33 +532,9 @@ static NSString * const AllStatusesKey = @"allStatuses";
     return gameState;
 }
 
-- (void)didConnectToClient:(NSString *)peerID
-{
-    FNUpdate *update = [[FNUpdate alloc] init];
-    update.updateType = FNUpdateTypeEverything;
-    update.valueNew = [self currentGameState];
-    [self sendUpdate:update toClient:peerID];
-    // need to handle if this send fails well if all sends fail i guess !!!
-}
-
-- (void)didDisconnectFromClient:(NSString *)peerID
-{
-    // the SERVER brain nils out its statuses array then sends a message to all clients that a player was dropped then sends out its gameStatus
-    // when the droppedPlayer Update is recieved by a client it nils out its statuses array then sends a status update it then recieves the new statuses and proceeds with everything in the new reset state
-    [self.allStatuses removeAllObjects];
-    [self.allStatuses addObject:self.status];
-    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypePeerDisconnected valueNew:nil valueOld:peerID]];
-    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypeStatus valueNew:self.status valueOld:self.status]];
-}
-
 - (void)sendUpdate:(FNUpdate *)update
 { 
-    BOOL success = [[FNNetworkManager sharedNetworkManager] sendUpdate:update];
-}
-
-- (void)sendUpdate:(FNUpdate *)update toClient:(NSString *)peerID
-{
-    BOOL success = [[FNNetworkManager sharedNetworkManager] sendUpdate:update toClient:peerID];
+    [[FNUpdateManager sharedUpdateManager] sendUpdate:update withGameState:[self currentGameState]];
 }
 
 // do i need this method if i use isEqual everywhere?
@@ -583,6 +562,12 @@ static NSString * const AllStatusesKey = @"allStatuses";
     return localPlayer;
 }
 
+- (void)handleUpdate:(FNUpdate *)update withGameState:(NSDictionary *)state
+{
+    // handle the game state !!!
+    
+    [self handleUpdate:update];
+}
 
 - (void)handleUpdate:(FNUpdate *)update
 {

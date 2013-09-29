@@ -8,8 +8,8 @@
 
 #import "FNNetworkHostDelegate.h"
 #import "FNNetworkManager.h"
-#import "FNNetworkVC.h"
-#import "FNNetworkContainer.h"
+//#import "FNNetworkVC.h"
+//#import "FNNetworkContainer.h"
 
 @interface FNNetworkHostDelegate ()
 @property FNNetworkManager *manager;
@@ -122,7 +122,7 @@
 {
     NSLog(@"Host - Did receive data from Peer: %@", peer);
     [self.manager delegate:self didRecieveData:data];
-    [self sendData:data withDataMode:GKSendDataReliable notToPeer:peer];
+//    [self sendData:data withDataMode:GKSendDataReliable notToPeer:peer];
 }
 
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode
