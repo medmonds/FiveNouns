@@ -198,11 +198,14 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode
 {
     NSError *error;
-    if (![self.session sendData:data toPeers:@[[self.serverPeerID copy]] withDataMode:mode error:&error]) {
-        NSLog(@"Client - Send data to Server: %@ failed with Error: %@", self.serverPeerID, error);
-        return NO;
-    } else {
-        return YES;
+    NSString *serverID = [self.serverPeerID copy];
+    if (serverID) {
+        if (![self.session sendData:data toPeers:@[serverID] withDataMode:mode error:&error]) {
+            NSLog(@"Client - Send data to Server: %@ failed with Error: %@", self.serverPeerID, error);
+            return NO;
+        } else {
+            return YES;
+        }
     }
 }
 

@@ -33,7 +33,6 @@
 
 - (void)actionForObject:(id)object keyPath:(NSString *)keyPath change:(NSDictionary *)changeDictionary
 {
-    NSLog(@"It Worked");
     NSKeyValueChange change = [[changeDictionary objectForKey:NSKeyValueChangeKindKey] integerValue];
     NSIndexSet *indexes = [changeDictionary objectForKey:NSKeyValueChangeIndexesKey];
     NSInteger section = [self numberOfSectionsInTableView:self.tableView] - 1;

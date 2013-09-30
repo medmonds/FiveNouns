@@ -188,14 +188,14 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)addPlayer:(FNPlayer *)player
 {
-    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerAdd valueNew:player valueOld:nil]];
     [self addPlayerWithoutUpdate:player];
+    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerAdd valueNew:player valueOld:nil]];
 }
 
 - (void)removePlayer:(FNPlayer *)player
 {
-    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerRemove valueNew:nil valueOld:player]];
     [self removePlayerWithoutUpdate:player];
+    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypePlayerRemove valueNew:nil valueOld:player]];
 }
 
 #pragma mark - Teams
@@ -249,20 +249,20 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)addTeam:(FNTeam *)team
 {
-    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamAdd valueNew:team valueOld:nil]];
     [self addTeamWithoutUpdate:team];
+    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamAdd valueNew:team valueOld:nil]];
 }
 
 - (void)removeTeam:(FNTeam *)team
 {
-    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamRemove valueNew:nil valueOld:team]];
     [self removeTeamWithoutUpdate:team];
+    [self sendUpdate:[FNUpdate updateForObject:nil updateType:FNUpdateTypeTeamRemove valueNew:nil valueOld:team]];
 }
 
 - (void)setName:(NSString *)name forTeam:(FNTeam *)team
 {
-    [self sendUpdate:[FNUpdate updateForObject:team updateType:FNUpdateTypeTeamName valueNew:name valueOld:nil]];
     [self setNameWithoutUpdate:name forTeam:team];
+    [self sendUpdate:[FNUpdate updateForObject:team updateType:FNUpdateTypeTeamName valueNew:name valueOld:team.name]];
 }
 
 - (void)setNameWithoutUpdate:(NSString *)name forTeam:(FNTeam*)team
@@ -272,8 +272,8 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)moveTeam:(FNTeam *)team toIndex:(NSInteger)newIndex
 {
-    [self sendUpdate:[FNUpdate updateForObject:team updateType:FNUpdateTypeTeamOrder valueNew:@(newIndex) valueOld:nil]];
     [self moveTeamWithoutUpdate:team toIndex:newIndex];
+    [self sendUpdate:[FNUpdate updateForObject:team updateType:FNUpdateTypeTeamOrder valueNew:@(newIndex) valueOld:@([self.allTeams indexOfObject:team])]];
 }
 
 - (void)moveTeamWithoutUpdate:(FNTeam *)team toIndex:(NSInteger)newIndex
@@ -370,8 +370,8 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)assignTeam:(FNTeam *)team toPlayer:(FNPlayer *)player;
 {
-    [self sendUpdate:[FNUpdate updateForObject:player updateType:FNUpdateTypeTeamToPlayer valueNew:team valueOld:nil]];
     [self assignTeamWithoutUpdate:team toPlayer:player];
+    [self sendUpdate:[FNUpdate updateForObject:player updateType:FNUpdateTypeTeamToPlayer valueNew:team valueOld:player.team]];
 }
 
 - (void)unassignTeamFromPlayerWithoutUpdate:(FNPlayer *)player
@@ -383,8 +383,8 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)unassignTeamFromPlayer:(FNPlayer *)player;
 {
-    [self sendUpdate:[FNUpdate updateForObject:player updateType:FNUpdateTypeTeamToPlayer valueNew:nil valueOld:player.team]];
     [self unassignTeamFromPlayerWithoutUpdate:player];
+    [self sendUpdate:[FNUpdate updateForObject:player updateType:FNUpdateTypeTeamToPlayer valueNew:nil valueOld:player.team]];
 }
 
 - (NSMutableArray *)scoreCards
@@ -534,7 +534,7 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)sendUpdate:(FNUpdate *)update
 { 
-    [[FNUpdateManager sharedUpdateManager] sendUpdate:update withGameState:[self currentGameState]];
+    [[FNUpdateManager sharedUpdateManager] sendUpdate:update];
 }
 
 // do i need this method if i use isEqual everywhere?
@@ -560,15 +560,6 @@ static NSString * const AllStatusesKey = @"allStatuses";
         }
     }
     return localPlayer;
-}
-
-- (void)handleUpdate:(FNUpdate *)update withGameState:(NSDictionary *)state
-{
-    [state enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        id object = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-        [self setValue:object forKey:key];
-    }];
-    [self handleUpdate:update];
 }
 
 - (void)handleUpdate:(FNUpdate *)update

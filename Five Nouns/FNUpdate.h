@@ -39,6 +39,7 @@ typedef NS_ENUM(NSUInteger, FNUpdateType) {
 
 + (NSData *)dataForUpdate:(FNUpdate *)update;
 + (FNUpdate *)updateForData:(NSData *)data;
+- (void)reverseUpdate;
 
 @end
 

@@ -11,7 +11,7 @@
 #import "FNBrain.h"
 
 @interface FNUpdateManager ()
-@property (nonatomic, strong) NSUUID *identifier;
+@property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSMutableDictionary *updateIdentifier;
 @property (nonatomic, strong) NSMutableArray *updateQueue;
 @end
@@ -80,7 +80,7 @@ local brain will receive a request to add a team from the UI.
     if (!self) {
         return nil;
     }
-    self.identifier = [NSUUID UUID];
+    self.identifier = [[NSUUID UUID] UUIDString];
     return self;
 }
 
@@ -101,19 +101,20 @@ local brain will receive a request to add a team from the UI.
     return _updateIdentifier;
 }
 
-- (void)prepareUpdate:(FNUpdate *)update withGameState:(NSDictionary *)state
+- (void)prepareUpdate:(FNUpdate *)update
 {
     NSInteger currentUpdateNumber = [self.updateIdentifier[self.identifier] integerValue];
     NSInteger newUpdateNumber = currentUpdateNumber + [self.updateQueue count] + 1;
     NSMutableDictionary *newUpdateIdentifier = [self.updateIdentifier mutableCopy];
     newUpdateIdentifier[self.identifier] = @(newUpdateNumber);
     update.updateIdentifier = newUpdateIdentifier;
-    [self.updateQueue addObject:@[update, state]];
+    [self.updateQueue addObject:update];
 }
 
-- (void)sendUpdate:(FNUpdate *)update withGameState:(NSDictionary *)state
+- (void)sendUpdate:(FNUpdate *)update
 {
-    [self prepareUpdate:update withGameState:state];
+    [self prepareUpdate:update];
+    NSLog(@"Sent update with type: %d", update.updateType);
     BOOL success = [[FNNetworkManager sharedNetworkManager] sendData:[FNUpdate dataForUpdate:update]];
 }
 
@@ -121,7 +122,8 @@ local brain will receive a request to add a team from the UI.
 {
     FNUpdate *receivedUpdate = [FNUpdate updateForData:update];
     if (!receivedUpdate) return;
-    
+    NSLog(@"Received update with type: %d", receivedUpdate.updateType);
+
     if (![self.updateQueue count]) {
         // the update queue is empty so this update is a remote update - pass it to the brain
         self.updateIdentifier = receivedUpdate.updateIdentifier;
@@ -132,10 +134,15 @@ local brain will receive a request to add a team from the UI.
         [self.updateQueue removeObjectAtIndex:0];
     } else {
         // the update does not match the first object in the update queue
-        self.updateIdentifier = receivedUpdate.updateIdentifier;
-        NSDictionary *lastGoodGameState = self.updateQueue[0][1]; // if this fails something is really wrong !!!
+        self.updateIdentifier = receivedUpdate.updateIdentifier;        
+        [self.updateQueue enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(FNUpdate *undo, NSUInteger idx, BOOL *stop) {
+            if (undo.updateType != FNUpdateTypeEverything) {
+                [undo reverseUpdate];
+                [self.brain handleUpdate:undo];
+            }
+        }];
         [self.updateQueue removeAllObjects];
-        [self.brain handleUpdate:receivedUpdate withGameState:lastGoodGameState];
+        [self.brain handleUpdate:receivedUpdate];
     }
 }
 
@@ -145,15 +152,19 @@ local brain will receive a request to add a team from the UI.
     FNUpdate *update = [FNUpdate updateForData:data];
     __block BOOL alreadyFoundAChange = NO;
     __block BOOL returnValue = NO;
-    [update.updateIdentifier enumerateKeysAndObjectsUsingBlock:^(NSUUID *key, NSNumber *obj, BOOL *stop) {
+    [update.updateIdentifier enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *obj, BOOL *stop) {
         NSInteger difference = [obj integerValue] - [self.updateIdentifier[key] integerValue];
-        if (-1 < difference < 2 && !alreadyFoundAChange) {
+        if (difference == 0) {
             returnValue = YES;
+        } else if (difference == 1 && !alreadyFoundAChange) {
+            returnValue = YES;
+            alreadyFoundAChange = YES;
         } else {
             returnValue = NO;
             *stop = YES;
         }
     }];
+    NSLog(@"UPDATE IS VALID: %d", returnValue);
     return returnValue;
 }
 
@@ -162,7 +173,8 @@ local brain will receive a request to add a team from the UI.
     FNUpdate *update = [[FNUpdate alloc] init];
     update.updateType = FNUpdateTypeEverything;
     update.valueNew = [self.brain currentGameState];
-    [self prepareUpdate:update withGameState:[self.brain currentGameState]];
+    update.updateIdentifier = self.updateIdentifier;
+    NSLog(@"Sent everything update to peer: %@", peerID);
     [[FNNetworkManager sharedNetworkManager] sendData:[FNUpdate dataForUpdate:update] toClient:peerID];
 }
 

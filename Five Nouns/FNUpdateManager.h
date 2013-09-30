@@ -17,7 +17,7 @@
 
 + (FNUpdateManager *)sharedUpdateManager;
 
-- (void)sendUpdate:(FNUpdate *)update withGameState:(NSDictionary *)state;
+- (void)sendUpdate:(FNUpdate *)update;
 - (void)receiveUpdate:(NSData *)update;
 - (BOOL)isUpdateValid:(NSData *)data;
 

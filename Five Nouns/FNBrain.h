@@ -75,7 +75,6 @@ typedef NS_ENUM(NSInteger, FNGameStatus) {
 - (NSDictionary *)currentGameState;
 
 - (void)handleUpdate:(FNUpdate *)update;
-- (void)handleUpdate:(FNUpdate *)update withGameState:(NSDictionary *)state;
 
 @property (nonatomic, weak) UINavigationController *navController;
 

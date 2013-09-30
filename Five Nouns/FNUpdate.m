@@ -65,5 +65,85 @@
     return copy;
 }
 
+- (void)reverseUpdate
+{
+    switch (self.updateType) {
+        case FNUpdateTypeEverything:
+            // can't be reversed
+            break;
+            
+        case FNUpdateTypePlayerAdd: {
+            self.updateType = FNUpdateTypePlayerRemove;
+            id new = self.valueNew;
+            id old = self.valueOld;
+            self.valueOld = new;
+            self.valueNew = old;
+            break;
+        }
+        case FNUpdateTypePlayerRemove: {
+            self.updateType = FNUpdateTypePlayerAdd;
+            id new = self.valueNew;
+            id old = self.valueOld;
+            self.valueOld = new;
+            self.valueNew = old;
+            break;
+        }
+        case FNUpdateTypeTeamAdd: {
+            self.updateType = FNUpdateTypeTeamRemove;
+            id new = self.valueNew;
+            id old = self.valueOld;
+            self.valueOld = new;
+            self.valueNew = old;
+            break;
+        }
+        case FNUpdateTypeTeamRemove: {
+            self.updateType = FNUpdateTypeTeamAdd;
+            id new = self.valueNew;
+            id old = self.valueOld;
+            self.valueOld = new;
+            self.valueNew = old;
+            break;
+        }
+        case FNUpdateTypeTeamName: {
+            id new = self.valueNew;
+            id old = self.valueOld;
+            self.valueOld = new;
+            self.valueNew = old;
+            break;
+        }
+        case FNUpdateTypeTeamOrder: {
+            id new = self.valueNew;
+            id old = self.valueOld;
+            self.valueOld = new;
+            self.valueNew = old;
+            break;
+        }
+        case FNUpdateTypeTeamToPlayer: {
+            id new = self.valueNew;
+            id old = self.valueOld;
+            self.valueOld = new;
+            self.valueNew = old;
+            break;
+        }
+        case FNUpdateTypePlayerToTeam:
+            // Not used in the brain
+            break;
+            
+        case FNUpdateTypeStatus: {
+            id new = self.valueNew;
+            id old = self.valueOld;
+            self.valueOld = new;
+            self.valueNew = old;
+            break;
+        }
+        case FNUpdateTypePeerDisconnected:
+            // it works the same either way
+            break;
+            
+        default:
+            break;
+    }
+}
+
 @end
 

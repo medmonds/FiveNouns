@@ -415,7 +415,6 @@ typedef NS_ENUM(NSInteger, FNAssignmentIndicatorStyle) {
 
 - (void)player:(FNPlayer *)player teamChangedFrom:(FNTeam *)fromTeam to:(FNTeam *)toTeam
 {
-    NSLog(@"player's team changed");
     NSAssert(toTeam && fromTeam, @"a player's team was changed from one team to another not just assigned or unassigned");
     if (self.visibleTeam == toTeam) {
         // remove from availablePlayers && refresh the assignmentIndicator - the player has already been moved to the proper location by team assignment

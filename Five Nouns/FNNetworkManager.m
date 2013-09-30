@@ -343,19 +343,24 @@ Goals:
     if (self.isHost) {
         if ([[FNUpdateManager sharedUpdateManager] isUpdateValid:data]) {
             [[FNUpdateManager sharedUpdateManager] receiveUpdate:data];
-            [self sendData:data];
+            BOOL success = [self.sessionDelegate sendData:data withDataMode:GKSendDataReliable];
         }
     } else {
         [[FNUpdateManager sharedUpdateManager] receiveUpdate:data];
     }
 }
 
-- (BOOL)sendData:(NSData *)data;
+- (BOOL)sendData:(NSData *)data
 {
-    if ([self.clients count] == 0 && !self.server) { // what ? !!! when does this make sense?
-        return YES;
+    if (self.isHost) {
+        if ([[FNUpdateManager sharedUpdateManager] isUpdateValid:data]) {
+            [[FNUpdateManager sharedUpdateManager] receiveUpdate:data];
+            return [self.sessionDelegate sendData:data withDataMode:GKSendDataReliable];
+        }
+        return NO;
+    } else {
+        return [self.sessionDelegate sendData:data withDataMode:GKSendDataReliable];
     }
-    return [self.sessionDelegate sendData:data withDataMode:GKSendDataReliable];
 }
 
 - (BOOL)sendData:(NSData *)data toClient:(NSString *)peerID;
