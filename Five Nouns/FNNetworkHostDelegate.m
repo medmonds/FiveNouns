@@ -33,6 +33,10 @@
 - (void)stop
 {
     self.session.available = NO;
+    for (NSString *clientID in self.connectedClients) {
+        [self.manager delegate:self didDisconnectFromClient:clientID];
+    }
+    self.connectedClients = nil;
     [self.session disconnectFromAllPeers];
     self.session = nil;
 }
@@ -118,20 +122,6 @@
     }
 }
 
-- (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode notToPeer:(NSString *)peerID
-{
-    NSError *error;
-    NSMutableArray *recipients = [self.connectedClients mutableCopy];
-    [recipients removeObject:peerID];
-    if (![self.session sendData:data toPeers:recipients withDataMode:mode error:&error]) {
-        NSLog(@"Host - Reflect data to Clients: %@ failed with Error: %@", recipients, error);
-        return NO;
-    } else {
-        NSLog(@"Host - Reflected data to Clients: %@", recipients);
-        return YES;
-    }
-}
-
 - (void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state
 {
     // available & unavailable do not appear to be called from experience so far
@@ -140,7 +130,6 @@
             NSLog(@"Server - Peer: %@ changed state to: Connected", peerID);
             if (![self.connectedClients containsObject:peerID]) {
                 [self.connectedClients addObject:peerID];
-                NSInteger index = [self.connectedClients indexOfObject:peerID];
                 [self.manager delegate:self didConnectToClient:peerID];
             }
             break;
@@ -148,7 +137,6 @@
         case GKPeerStateDisconnected:
             NSLog(@"Server - Peer: %@ changed state to: Disconnected", peerID);
             if ([self.connectedClients containsObject:peerID]) {
-                NSInteger index = [self.connectedClients indexOfObject:peerID];
                 [self.connectedClients removeObject:peerID];
                 [self.manager delegate:self didDisconnectFromClient:peerID];
             }
