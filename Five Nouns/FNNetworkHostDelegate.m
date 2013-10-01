@@ -10,7 +10,7 @@
 #import "FNNetworkManager.h"
 
 @interface FNNetworkHostDelegate ()
-@property FNNetworkManager *manager;
+@property (nonatomic, weak) FNNetworkManager *manager;
 @property (nonatomic, strong) NSMutableArray *connectedClients;
 @property (nonatomic) NSInteger maxConnectedClients;
 @property (nonatomic, strong) GKSession *session;

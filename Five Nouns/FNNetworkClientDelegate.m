@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 };
 
 @interface FNNetworkClientDelegate ()
-@property FNNetworkManager *manager;
+@property (nonatomic, weak) FNNetworkManager *manager;
 @property (nonatomic, strong) GKSession *session;
 @property (nonatomic, strong) NSMutableArray *availableServers;
 @property BOOL isLookingForServers;
@@ -262,8 +262,7 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 - (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID
 {
 	NSLog(@"MatchmakingServer: connection request from peer %@", peerID);
-    // should call the denyConnectionRequest method here but this method should also never be called
-
+    // should call the denyConnectionRequest method here but this method should also never be called    
 }
 
 - (void)session:(GKSession *)session connectionWithPeerFailed:(NSString *)peerID withError:(NSError *)error
