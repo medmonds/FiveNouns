@@ -38,6 +38,7 @@
     }
     self.connectedClients = nil;
     [self.session disconnectFromAllPeers];
+    self.session.delegate = nil;
     self.session = nil;
 }
 

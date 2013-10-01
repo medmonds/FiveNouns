@@ -32,7 +32,17 @@
 
 /************************************* Notes ****************************************
 
-
+ What to do when the server drops out of the game?
+ 
+ 
+ What to do when going into background?
+ 
+ 
+ What to do when coming out of background?
+ 
+ 
+ 
+ 
 ************************************************************************************/
 
 
@@ -113,13 +123,12 @@
     self.reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
     // Tell the reachability that we DON'T want to be reachable on 3G/EDGE/CDMA
     self.reachability.reachableOnWWAN = NO;
-    // Here we set up a NSNotification observer. The Reachability that caused the notification
-    // is passed in the object parameter
+    // Here we set up a NSNotification observer. The Reachability that caused the notification is passed in the object parameter
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged)
                                                  name:kReachabilityChangedNotification
                                                object:nil];
-    
     [self.reachability startNotifier];
 }
 
@@ -134,6 +143,27 @@
     NSLog(@"IS REACHABLE OVER WIFI: %d", [self.reachability isReachableViaWiFi]);
 }
 
+- (void)startNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willResignActive)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didBecomeActive)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+}
+
+- (void)willResignActive
+{
+    [self.sessionDelegate stop];
+}
+
+- (void)didBecomeActive
+{
+    [self.sessionDelegate start];
+}
 
 - (instancetype)init
 {
@@ -141,8 +171,10 @@
     if (!self) {
         return nil;
     }
+    [self startNotifications];
     [self startReachabilityNotifications];
     self.networkingIsUserEnabled = YES;
+    
     return self;
 }
 

@@ -496,12 +496,12 @@ static NSString * const AllStatusesKey = @"allStatuses";
 
 - (void)willResignActive
 {
-    // notify the NetworkManager
+
 }
 
 - (void)didBecomeActive
 {
-    // notify the NetworkManager
+    
 }
 
 - (void)willTerminate

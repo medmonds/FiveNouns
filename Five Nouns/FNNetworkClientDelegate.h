@@ -15,11 +15,6 @@
 // the designated initializer
 - (instancetype)initWithManager:(FNNetworkManager *)manager;
 
-@property (nonatomic, copy) NSString *serverPeerID;
-//- (void)startLookingForServers;
-//- (void)stopLookingForServers;
-//- (void)connectToServerWithPeerID:(NSString *)peerID;
-
 - (void)connectToServerAtIndex:(NSInteger)index;
 
 @end

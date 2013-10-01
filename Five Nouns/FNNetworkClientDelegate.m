@@ -24,10 +24,10 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 @property FNNetworkManager *manager;
 @property (nonatomic, strong) GKSession *session;
 @property (nonatomic, strong) NSMutableArray *availableServers;
-//@property (nonatomic, strong) FNNetworkJoinVC *joinVC;
 @property BOOL isLookingForServers;
 @property FNDisconnectReason disconnectReason;
 @property BOOL alreadyAttemptedReconnect;
+@property (nonatomic, copy) NSString *serverPeerID;
 @end
 
 
@@ -82,11 +82,6 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
     return displayName;
 }
 
-//- (NSString *)nameForConnectedServer
-//{
-//    return [self.session displayNameForPeer:self.serverPeerID];
-//}
-
 - (void)connectToServerAtIndex:(NSInteger)index;
 {
     if ([self.availableServers count] > index) {
@@ -119,6 +114,7 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
         [self.manager delegate:self deleteAvailableServerAtIndex:i];
     }
     self.availableServers = nil;
+    self.session.delegate = nil;
     self.session = nil;
 }
 
