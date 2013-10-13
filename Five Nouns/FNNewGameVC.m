@@ -22,7 +22,6 @@
 {
     self.brain = [[FNBrain alloc] init];
     self.brain.navController = self.navigationController;
-    [FNNetworkManager sharedNetworkManager].brain = self.brain;
     [[FNNetworkManager sharedNetworkManager] startServingGame];
     [self performSegueWithIdentifier:@"addPlayers" sender:self];
 }
@@ -45,7 +44,6 @@
 {
     if (!self.brain) {
         self.brain = [[FNBrain alloc] init];
-        [FNNetworkManager sharedNetworkManager].brain = self.brain;
         self.brain.navController = self.navigationController;
     }
     UIViewController *joinVC = [[FNNetworkManager sharedNetworkManager] joinViewController];

@@ -14,19 +14,15 @@
 
 
 @protocol FNNetworkManagerDelegate <NSObject, GKSessionDelegate>
-// to enable / disable Network completely
-@property (nonatomic, readonly) GKSession *session;
-- (void)start;
 - (void)stop;
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context;
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode;
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode toPeer:(NSString *)peerID;
-// for UI
-- (NSInteger)peersCount;
-- (NSString *)displayNameForPeerAtIndex:(NSInteger)index;
 @optional
 // used by the client UI only
 - (void)connectToServerAtIndex:(NSInteger)index;
+// used by the client to reconnect when coming out of background
+- (void)attemptReconnectToTrustedPeersWithCompletion:(void (^)(NSError *error))completion;
 @end
 
 
@@ -56,9 +52,7 @@
 
 @interface FNNetworkManager : NSObject <FNNetworkViewControllerDataSource>
 
-#define SESSION_ID @"FiveNouns"
-
-@property (nonatomic, weak) FNBrain *brain;
+#define MAX_CONNECTED_PEERS 5
 
 + (FNNetworkManager *)sharedNetworkManager;
 
@@ -71,15 +65,22 @@
 - (void)startServingGame;
 //- (void)stopServingGame;
 
-- (void)delegate:(id <FNNetworkManagerDelegate>)delegate insertAvailableServerAtIndex:(NSInteger)index;
-- (void)delegate:(id <FNNetworkManagerDelegate>)delegate deleteAvailableServerAtIndex:(NSInteger)index;
+@property (nonatomic, strong) NSMutableArray *availablePeerIDs;
+@property (nonatomic, strong) NSMutableArray *connectedPeerIDs;
+@property (nonatomic, strong) NSMutableSet *trustedPeerDisplayNames;
+
+
+- (void)delegate:(id <FNNetworkManagerDelegate>)delegate addAvailablePeer:(NSString *)peerID;
+- (void)delegate:(id <FNNetworkManagerDelegate>)delegate deleteAvailablePeer:(NSString *)peerID;
+
+
 - (void)delegate:(id <FNNetworkManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID;
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate didDisconnectFromServer:(NSString *)serverPeerID;
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate connectionAttemptToPeerFailed:(NSString *)peerID;
 
 
-- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didConnectToClient:(NSString *)clientPeerID;
-- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didDisconnectFromClient:(NSString *)clientPeerID;
+- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didConnectToPeer:(NSString *)peerID;
+- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didDisconnectFromPeer:(NSString *)peerID;
 
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate didRecieveData:(NSData *)data;
 

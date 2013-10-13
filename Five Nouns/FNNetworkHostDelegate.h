@@ -15,12 +15,10 @@
 @interface FNNetworkHostDelegate : NSObject <GKSessionDelegate, FNNetworkManagerDelegate>
 
 // the designated initializer
-- (instancetype)initWithManager:(FNNetworkManager *)manager;
+- (instancetype)initWithManager:(FNNetworkManager *)manager forSession:(GKSession *)session;
 
 - (void)userStartServingGame;
 - (void)userStopServingGame;
-// could be a property
-//- (NSArray *)connectedClientPeerIDs;
 
 
 

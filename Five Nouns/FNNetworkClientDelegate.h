@@ -13,7 +13,7 @@
 @interface FNNetworkClientDelegate : NSObject <GKSessionDelegate, FNNetworkManagerDelegate>
 
 // the designated initializer
-- (instancetype)initWithManager:(FNNetworkManager *)manager;
+- (instancetype)initWithManager:(FNNetworkManager *)manager forSession:(GKSession *)session;
 
 - (void)connectToServerAtIndex:(NSInteger)index;
 
