@@ -17,9 +17,6 @@
 // the designated initializer
 - (instancetype)initWithManager:(FNNetworkManager *)manager forSession:(GKSession *)session;
 
-- (void)userStartServingGame;
-- (void)userStopServingGame;
-
 
 
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
+#import "FNNetworkMessage.h"
 
 @class FNNetworkJoinVC;
 @class FNBrain;
@@ -55,34 +56,31 @@
 #define MAX_CONNECTED_PEERS 5
 
 + (FNNetworkManager *)sharedNetworkManager;
-
-- (BOOL)sendData:(NSData *)data;
-- (BOOL)sendData:(NSData *)data toClient:(NSString *)peerID;
+- (void)handleNetworkMessage:(FNNetworkMessage *)message;
 
 - (UIViewController *)joinViewController;
 - (UIViewController *)hostViewController;
 + (SEL)selectorForNetworkView;
 - (void)startServingGame;
-//- (void)stopServingGame;
 
 @property (nonatomic, strong) NSMutableArray *availablePeerIDs;
 @property (nonatomic, strong) NSMutableArray *connectedPeerIDs;
 @property (nonatomic, strong) NSMutableSet *trustedPeerDisplayNames;
+@property (nonatomic, readonly) NSString *serverPeerID;
 
+- (BOOL)sendData:(NSData *)data;
+- (BOOL)sendData:(NSData *)data toClient:(NSString *)peerID;
+- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didRecieveData:(NSData *)data;
 
 - (void)delegate:(id <FNNetworkManagerDelegate>)delegate addAvailablePeer:(NSString *)peerID;
 - (void)delegate:(id <FNNetworkManagerDelegate>)delegate deleteAvailablePeer:(NSString *)peerID;
 
-
 - (void)delegate:(id <FNNetworkManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID;
-- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didDisconnectFromServer:(NSString *)serverPeerID;
-- (void)delegate:(id<FNNetworkManagerDelegate>)delegate connectionAttemptToPeerFailed:(NSString *)peerID;
-
+- (void)delegateDidDisconnectFromServer:(id<FNNetworkManagerDelegate>)delegate;
 
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate didConnectToPeer:(NSString *)peerID;
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate didDisconnectFromPeer:(NSString *)peerID;
-
-- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didRecieveData:(NSData *)data;
+- (void)delegate:(id<FNNetworkManagerDelegate>)delegate connectionAttemptToPeerFailed:(NSString *)peerID;
 
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate sessionFailedWithError:(NSError *)error;
 

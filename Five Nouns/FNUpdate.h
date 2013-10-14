@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, FNUpdateType) {
 @interface FNUpdate : FNUniqueIDObject <NSCoding, NSCopying>
 
 + (FNUpdate *)updateForObject:(id)updatedObject
-                         updateType:(FNUpdateType)updateType
+                   updateType:(FNUpdateType)updateType
                      valueNew:(id)valueNew
                      valueOld:(id)valueOld;
 

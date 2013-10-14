@@ -25,6 +25,7 @@
 - (void)didConnectToClient:(NSString *)peerID;
 - (void)didDisconnectFromClient:(NSString *)peerID;
 
+- (void)killAndPauseAllUpdates;
 
 
 @end

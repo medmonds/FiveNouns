@@ -24,7 +24,6 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 @property BOOL initialAutoConnect;
 @property FNDisconnectReason disconnectReason;
 @property BOOL alreadyAttemptedReconnect;
-@property (nonatomic, copy) NSString *serverPeerID;
 @property (nonatomic, copy) void (^completion) (NSError *error);
 @property (nonatomic, strong) NSMutableSet *peersWithOutstandingReconnectAttempt;
 @property (nonatomic, weak) GKSession *session;
@@ -141,7 +140,7 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 {
     self.attemptReconnectToTrustedPeers = NO;
     if (self.completion) {
-        if (self.serverPeerID) {
+        if (self.manager.serverPeerID) {
             self.completion(nil);
         } else {
             self.completion ([NSError errorWithDomain:nil code:0 userInfo:nil]);
@@ -157,9 +156,9 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 
 - (void)stop
 {
-    self.serverPeerID = nil;
-    self.disconnectReason = FNDisconnectReasonUser;
     [self.session disconnectFromAllPeers];
+    [self.manager delegateDidDisconnectFromServer:self];
+    self.disconnectReason = FNDisconnectReasonUser;
     for (NSString *peerID in [self.manager.availablePeerIDs copy]) {
         [self.manager delegate:self deleteAvailablePeer:peerID];
     }
@@ -174,13 +173,9 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
     [self.peersWithOutstandingReconnectAttempt removeObject:peerID];
     [self cancelOutstandingConnectionAttempts];
     
-    if (!self.serverPeerID) {
-        self.serverPeerID = peerID;
-        if (self.attemptReconnectToTrustedPeers) {
-            [self reportReconnectOutcomeToManager];
-        } else {
-            [self.manager delegate:self didConnectToServer:peerID];
-        }
+    if (!self.manager.serverPeerID) {
+        [self.manager delegate:self didConnectToServer:peerID];
+        [self reportReconnectOutcomeToManager];
         self.alreadyAttemptedReconnect = NO;
     } else {
         // the session connected to a peer that was connected to a peer I intentionally connected to.
@@ -200,8 +195,8 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 
 - (void)didDisconnectFromPeer:(NSString *)peerID
 {
-    if (peerID == self.serverPeerID) {
-        self.serverPeerID = nil;
+    if (peerID == self.manager.serverPeerID) {
+        [self.manager delegateDidDisconnectFromServer:self];
         switch (self.disconnectReason) {
             case FNDisconnectReasonUnknown:
                 //[self attemptReconnectToServer:peerID];
@@ -216,7 +211,6 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
             default:
                 break;
         }
-        [self.manager delegate:self didDisconnectFromServer:peerID];
     }
     [self.manager delegate:self didDisconnectFromPeer:peerID];
 }
@@ -232,16 +226,21 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context
 {
     NSLog(@"Client - Did receive data from Peer: %@", [self.session displayNameForPeer:peer]);
-    [self.manager delegate:self didRecieveData:data];
+    FNNetworkMessage *message = [FNNetworkMessage messageForData:data];
+    if (message) {
+        [self.manager handleNetworkMessage:message];
+    } else {
+        [self.manager delegate:self didRecieveData:data];
+    }
 }
 
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode
 {
     NSError *error;
-    NSString *serverID = [self.serverPeerID copy];
+    NSString *serverID = [self.manager.serverPeerID copy];
     if (serverID) {
         if (![self.session sendData:data toPeers:@[serverID] withDataMode:mode error:&error]) {
-            NSLog(@"Client - Send data to Server: %@ failed with Error: %@", [self.session displayNameForPeer:self.serverPeerID], error);
+            NSLog(@"Client - Send data to Server: %@ failed with Error: %@", [self.session displayNameForPeer:self.manager.serverPeerID], error);
             return NO;
         } else {
             return YES;
@@ -252,10 +251,10 @@ typedef NS_ENUM(NSUInteger, FNDisconnectReason) {
 
 - (BOOL)sendData:(NSData *)data withDataMode:(GKSendDataMode)mode toPeer:(NSString *)peerID
 {
-    if ([peerID isEqualToString:self.serverPeerID]) {
+    if ([peerID isEqualToString:self.manager.serverPeerID]) {
         NSError *error;
-        if (![self.session sendData:data toPeers:@[[self.serverPeerID copy]] withDataMode:mode error:&error]) {
-            NSLog(@"Client - Send data to Server: %@ failed with Error: %@", [self.session displayNameForPeer:self.serverPeerID], error);
+        if (![self.session sendData:data toPeers:@[[self.manager.serverPeerID copy]] withDataMode:mode error:&error]) {
+            NSLog(@"Client - Send data to Server: %@ failed with Error: %@", [self.session displayNameForPeer:self.manager.serverPeerID], error);
             return NO;
         } else {
             return YES;

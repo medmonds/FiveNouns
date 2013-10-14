@@ -20,7 +20,7 @@
 // this should be a test not a property
 @property (nonatomic, strong) FNNetworkContainer *networkVC;
 @property (nonatomic, strong) id <FNNetworkManagerDelegate> sessionDelegate;
-@property (nonatomic, strong) NSString *server;
+@property (nonatomic, strong) NSString *serverPeerID;
 @property (nonatomic, strong) UIViewController <FNNetworkViewController> *viewController;
 @property (nonatomic, strong) Reachability *reachability;
 @property (nonatomic) BOOL networkingIsUserEnabled;
@@ -34,7 +34,53 @@
 
 /************************************* Notes ****************************************
 
+  
+// if the host drops unexpectidly
+//    to a client it will just look like the serverPeerID moved to the disconnected state possible reasons: 1) the host actually dropped from the session (from everyone) 2) the host dropped from just the 1 client
+//        need to determine which
+//            if you are the only person left connected then present a modal to the user with choices: 1)quit 2)become host 3)attempt reconnect
+//            if there are others then ask all other connected peers if the server dropped too
+//                if no then just try to reconnect to the server
+//                if yes then choose the peer with the lowest peerID to be the new host and do the above as if it was planned
+// 
+// so client sees the host disconnect
+//    if client doesn't have an other connected peers then: 1)quit 2)become host 3)attempt reconnect modal present
+//    else client sends MESSAGE_TYPE_0:  "I lost server" networkUpdate to connected peers with array of its still connected peers and the server it disconnected from and awaits responses
+//    possible responses are: 1) a client that was sent a message disconnects (don't await a response from this peer)
+//                            2) MESSAGE_TYPE_1: I am still connected to the server (attampt reconnect to server)
+//                            3) MESSAGE_TYPE_0: I also disconnected from the server and am sending the above message all on my own (count as a response towards selecting a new server)
+//                            4) MESSAGE_TYPE_0: I was attempting a reconnect b/c i thought I was the only one but your right the server disappeared (count as a response towards selecting a new server)
+//        if receive MESSAGE_TYPE_1 then attempt a reconnect (if attampting a reconnect and receive MESSAGE_TYPE_0 then send a MESSAGE_TYPE_0)
+//        if receive all MESSAGE_TYPE_0 responses then minusUnion all connectedPeers from responses and choose the peer with the lowest peerid to be host
+//            then send a message telling all peers that that is the new host
+// 
+// 
+// wait if you are disconnected from the server then just do what happens when the app returns from the background
+// so if you are disconnected from the server then present the 1)quit 2)become host 3)attempt reconnect modal
+//    while that modal is running the NM is tring the reconnect to trustedPeers routine
+//        if you choose the become host option then all other peers will 
 
+ 
+ if a host knows it will be dropping out it will:
+ get all of the connectedPeerIDs, remove its own ID and then choose the lowest id to be the new host.
+    then send a message to all connectedPeerIDs assigning the new host to the choosen lowestPeerID
+        .if the client is not connected to the choosen new host then present the modal with options: 1)quit 2)become host 3)attempt reconnect (TO THE CHOOSEN HOST)
+ when this message is received all peers will tell the updatemanager to kill all unverified updates
+ if the peer is the new host the manager will create the approiate delegate and off it goes
+ if the peer is still a client it will just switch the serverPeerID and off it goes
+ 
+ if the server just drops then do the reconnect to trusted peers thing and present the modal
+    1 if reconnect happens before user chooses then just change the modal to say "reconnectd!" and then drop out
+    2 if choose attempt reconnect then attempt the reconnect (even if already in process try it again)
+    3 if become host is selected then kill the reconnect attempt and become a host (tell the user what this means) anyone else in 1 or 2 will connect to you == great
+    4 quit == quit
+ 
+ 
+ 
+ Maybe:
+    when a client looses the server (after an attempted reconnect fails) it could choose a new server (not itself) and then send that out to the other clients
+    the other clients would receive it and forward it on to all other clients who would send it to all other clients (this way I would get everyone including the current server if he still exists)
+ 
  
 ************************************************************************************/
 
@@ -165,6 +211,10 @@
         [self.sessionDelegate stop];
         self.sessionDelegate = nil;
         [self endSession];
+    } else {
+        if ([self.connectedPeerIDs count]) {
+            [self assignNewServer];
+        }
     }
 }
 
@@ -179,6 +229,54 @@
             // success
         }
     }];
+}
+
+- (void)assignNewServer
+{
+    NSMutableArray *potentialNewHosts = [self.connectedPeerIDs mutableCopy];
+    [potentialNewHosts removeObject:self.session.peerID]; // not sure this is needed? !!!
+    [potentialNewHosts sortUsingComparator:^NSComparisonResult(NSString *peerID1, NSString *peerID2) {
+        if ([peerID1 integerValue] > [peerID2 integerValue]) {
+            return NSOrderedAscending;
+        } else if ([peerID1 integerValue] < [peerID2 integerValue]) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    }];
+    NSString *newHost = [potentialNewHosts lastObject];
+    FNNetworkMessage *message = [FNNetworkMessage messageWithType:FNNetworkMessageTypeAssignNewHost valueNew:newHost valueOld:self.session.peerID];
+    [self.sessionDelegate sendData:[message messageAsData] withDataMode:GKSendDataReliable];
+}
+
+- (void)handleNetworkMessage:(FNNetworkMessage *)message
+{
+    switch (message.type) {
+        case FNNetworkMessageTypeAssignNewHost: {
+            self.serverPeerID = nil;
+            if (![self isHost] && [self.session.peerID isEqualToString:message.valueNew]) { // become the host if not already
+                self.sessionDelegate = [[FNNetworkHostDelegate alloc] initWithManager:self forSession:self.session];
+            } else if ([self.session.peerID isEqualToString:message.valueNew]) { // confirm I am the host
+                FNNetworkMessage *confirmation = [FNNetworkMessage messageWithType:FNNetworkMessageTypeConfirmNewHost valueNew:self.session.peerID valueOld:message.valueOld];
+                [self.sessionDelegate sendData:[confirmation messageAsData] withDataMode:GKSendDataReliable];
+            } else if (![self.session.peerID isEqualToString:message.valueNew]) { // assigning a new host
+                // kill all inflight updates with the updateManager and stop all updates until the new host confirms
+
+            }
+            break;
+        }
+            
+        case FNNetworkMessageTypeConfirmNewHost: {
+            NSAssert(![self isHost], @"Confirming the new host when I am the host");
+            // start updates again
+            self.serverPeerID = message.valueNew;
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
 }
 
 - (instancetype)init
@@ -319,13 +417,13 @@
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate didConnectToServer:(NSString *)serverPeerID
 {
 #warning Incomplete Implementation - Should do more here
-    self.server = serverPeerID;
+    self.serverPeerID = serverPeerID;
 }
 
-- (void)delegate:(id<FNNetworkManagerDelegate>)delegate didDisconnectFromServer:(NSString *)serverPeerID
+- (void)delegateDidDisconnectFromServer:(id<FNNetworkManagerDelegate>)delegate
 {
 #warning Incomplete Implementation - Should do more here
-    self.server = nil;
+    self.serverPeerID = nil;
 }
 
 - (void)delegate:(id<FNNetworkManagerDelegate>)delegate didRecieveData:(NSData *)data

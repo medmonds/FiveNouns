@@ -77,6 +77,8 @@
     self.session.delegate = nil;
 }
 
+
+
 #pragma mark - FNNetworkHostDelegate Header Methods
 
 - (instancetype)initWithManager:(FNNetworkManager *)manager forSession:(GKSession *)session
@@ -94,6 +96,7 @@
     return self;
 }
 
+
 #pragma mark - Private Methods
 
 
@@ -102,7 +105,11 @@
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context
 {
     NSLog(@"Host - Did receive data from Peer: %@", [self.session displayNameForPeer:peer]);
-    if ([[FNUpdateManager sharedUpdateManager] isUpdateValid:data]) {
+    FNNetworkMessage *message = [FNNetworkMessage messageForData:data];
+    if (message) {
+        // is an internal message for network management
+        [self.manager handleNetworkMessage:message];
+    } else if ([[FNUpdateManager sharedUpdateManager] isUpdateValid:data]) {
         [self.manager delegate:self didRecieveData:data];
         BOOL success = [self sendData:data withDataMode:GKSendDataReliable];
     }
