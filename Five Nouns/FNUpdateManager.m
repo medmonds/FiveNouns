@@ -130,9 +130,23 @@
     return returnValue;
 }
 
-- (void)killAndPauseAllUpdates
+- (void)killAndPauseUpdates
 {
-    
+    [self.updateQueue enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(FNUpdate *undo, NSUInteger idx, BOOL *stop) {
+        if (undo.updateType != FNUpdateTypeEverything) {
+            [undo reverseUpdate];
+            [self.brain handleUpdate:undo];
+        }
+        // I think this is correct !!!
+        self.updateIdentifier = undo.updateIdentifier;
+    }];
+    [self.updateQueue removeAllObjects];
+    // tell the brain to stop allowing user interaction & therefore updates
+}
+
+- (void)resumeUpdates
+{
+    // tell the brain to allow user interaction & therefore updates
 }
 
 - (void)didConnectToClient:(NSString *)peerID

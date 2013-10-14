@@ -254,14 +254,17 @@
     switch (message.type) {
         case FNNetworkMessageTypeAssignNewHost: {
             self.serverPeerID = nil;
-            if (![self isHost] && [self.session.peerID isEqualToString:message.valueNew]) { // become the host if not already
+            if (![self isHost] && [self.session.peerID isEqualToString:message.valueNew]) {
+                // become the host if not already
                 self.sessionDelegate = [[FNNetworkHostDelegate alloc] initWithManager:self forSession:self.session];
-            } else if ([self.session.peerID isEqualToString:message.valueNew]) { // confirm I am the host
+            } else if ([self.session.peerID isEqualToString:message.valueNew]) {
+                // confirm I am the host
                 FNNetworkMessage *confirmation = [FNNetworkMessage messageWithType:FNNetworkMessageTypeConfirmNewHost valueNew:self.session.peerID valueOld:message.valueOld];
                 [self.sessionDelegate sendData:[confirmation messageAsData] withDataMode:GKSendDataReliable];
-            } else if (![self.session.peerID isEqualToString:message.valueNew]) { // assigning a new host
-                // kill all inflight updates with the updateManager and stop all updates until the new host confirms
-
+            } else if (![self.session.peerID isEqualToString:message.valueNew]) {
+                // assigning a new host
+                // implement tell the brain to stop allowing user interaction & therefore updates in the UpdateManager class!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                [[FNUpdateManager sharedUpdateManager] killAndPauseUpdates];
             }
             break;
         }
@@ -270,7 +273,7 @@
             NSAssert(![self isHost], @"Confirming the new host when I am the host");
             // start updates again
             self.serverPeerID = message.valueNew;
-            
+            [[FNUpdateManager sharedUpdateManager] resumeUpdates];
             break;
         }
             
