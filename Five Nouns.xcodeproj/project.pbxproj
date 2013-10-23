@@ -10,31 +10,18 @@
 		A19426C7174DAEC200056345 /* reorderControl.png in Resources */ = {isa = PBXBuildFile; fileRef = A19426C5174DAEC200056345 /* reorderControl.png */; };
 		A19426C8174DAEC200056345 /* reorderControl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A19426C6174DAEC200056345 /* reorderControl@2x.png */; };
 		A19426CB174DC43F00056345 /* FNNextUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A19426CA174DC43F00056345 /* FNNextUpVC.m */; };
-		A19426CC174DC43F00056345 /* FNNextUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A19426CA174DC43F00056345 /* FNNextUpVC.m */; };
 		C90151751794D7EC00D90DF0 /* FNNetworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C90151741794D7EC00D90DF0 /* FNNetworkVC.m */; };
-		C90151761794D7EC00D90DF0 /* FNNetworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C90151741794D7EC00D90DF0 /* FNNetworkVC.m */; };
 		C901517917950B2500D90DF0 /* FNNetworkContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C901517817950B2500D90DF0 /* FNNetworkContainer.m */; };
-		C901517A17950B2500D90DF0 /* FNNetworkContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C901517817950B2500D90DF0 /* FNNetworkContainer.m */; };
 		C9073D1E1798CD5800A6CD3D /* FNSpinnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9073D1D1798CD5800A6CD3D /* FNSpinnerCell.m */; };
-		C9073D1F1798CD5800A6CD3D /* FNSpinnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9073D1D1798CD5800A6CD3D /* FNSpinnerCell.m */; };
 		C9098A3517D6EE6D00DB54A4 /* FNNounGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9098A3417D6EE6D00DB54A4 /* FNNounGenerator.m */; };
-		C9098A3617D6EE6D00DB54A4 /* FNNounGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9098A3417D6EE6D00DB54A4 /* FNNounGenerator.m */; };
 		C914EA46177BEEB500255E41 /* FNTVScoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C914EA45177BEEB500255E41 /* FNTVScoreDelegate.m */; };
-		C914EA47177BEEB500255E41 /* FNTVScoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C914EA45177BEEB500255E41 /* FNTVScoreDelegate.m */; };
 		C91B8DA0171A1F2600AE468C /* FNAddPlayersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */; };
-		C91B8DA1171A1F2600AE468C /* FNAddPlayersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */; };
 		C92039321797812B0013002E /* FNNetworkHostDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039311797812B0013002E /* FNNetworkHostDelegate.m */; };
-		C92039331797812B0013002E /* FNNetworkHostDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039311797812B0013002E /* FNNetworkHostDelegate.m */; };
 		C9203936179781410013002E /* FNNetworkClientDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9203935179781410013002E /* FNNetworkClientDelegate.m */; };
-		C9203937179781410013002E /* FNNetworkClientDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9203935179781410013002E /* FNNetworkClientDelegate.m */; };
 		C92039421797A6890013002E /* FNNetworkJoinVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039411797A6890013002E /* FNNetworkJoinVC.m */; };
-		C92039431797A6890013002E /* FNNetworkJoinVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039411797A6890013002E /* FNNetworkJoinVC.m */; };
 		C94A3C4E17DC409700CB2CE9 /* FNTVTeamsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C94A3C4D17DC409600CB2CE9 /* FNTVTeamsDelegate.m */; };
-		C94A3C4F17DC409700CB2CE9 /* FNTVTeamsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C94A3C4D17DC409600CB2CE9 /* FNTVTeamsDelegate.m */; };
 		C94F0C5817A226B300DBF2B9 /* THObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C94F0C5317A226B300DBF2B9 /* THObserver.m */; };
-		C94F0C5917A226B300DBF2B9 /* THObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C94F0C5317A226B300DBF2B9 /* THObserver.m */; };
 		C95DD934177D20B0009EF626 /* FNTVDirectionsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */; };
-		C95DD935177D20B0009EF626 /* FNTVDirectionsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */; };
 		C9649E411718B7390039B88E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E401718B7390039B88E /* UIKit.framework */; };
 		C9649E431718B7390039B88E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E421718B7390039B88E /* Foundation.framework */; };
 		C9649E4B1718B7390039B88E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9649E491718B7390039B88E /* InfoPlist.strings */; };
@@ -44,40 +31,23 @@
 		C9649E551718B7390039B88E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9649E541718B7390039B88E /* Default@2x.png */; };
 		C9649E571718B7390039B88E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9649E561718B7390039B88E /* Default-568h@2x.png */; };
 		C9649E5A1718B7390039B88E /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9649E581718B7390039B88E /* MainStoryboard.storyboard */; };
-		C9649E651718B7390039B88E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E641718B7390039B88E /* SenTestingKit.framework */; };
-		C9649E661718B7390039B88E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E401718B7390039B88E /* UIKit.framework */; };
-		C9649E671718B7390039B88E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E421718B7390039B88E /* Foundation.framework */; };
-		C9649E6F1718B7390039B88E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9649E6D1718B7390039B88E /* InfoPlist.strings */; };
-		C9649E721718B7390039B88E /* Five_NounsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9649E711718B7390039B88E /* Five_NounsTests.m */; };
 		C978AA4F178FA5C00070B34B /* FNAssignTeamsContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C978AA4E178FA5C00070B34B /* FNAssignTeamsContainer.m */; };
-		C978AA50178FA5C00070B34B /* FNAssignTeamsContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C978AA4E178FA5C00070B34B /* FNAssignTeamsContainer.m */; };
 		C978AA54178FB3A00070B34B /* FNAddPlayersContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C978AA53178FB3A00070B34B /* FNAddPlayersContainer.m */; };
-		C978AA55178FB3A00070B34B /* FNAddPlayersContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C978AA53178FB3A00070B34B /* FNAddPlayersContainer.m */; };
 		C97F673E1743131D00D5E9BC /* FMMoveTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C97F673D1743131D00D5E9BC /* FMMoveTableView.m */; };
-		C97F673F1743131D00D5E9BC /* FMMoveTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C97F673D1743131D00D5E9BC /* FMMoveTableView.m */; };
 		C97FC964173E13CA0086387F /* checkmarkUserSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C97FC960173E13CA0086387F /* checkmarkUserSelected@2x.png */; };
 		C97FC965173E13CA0086387F /* checkmarkGameSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C97FC961173E13CA0086387F /* checkmarkGameSelected.png */; };
 		C97FC966173E13CA0086387F /* checkmarkGameSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C97FC962173E13CA0086387F /* checkmarkGameSelected@2x.png */; };
 		C981EB1E1788D30B00571183 /* FNTVAddPlayerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C981EB1D1788D30B00571183 /* FNTVAddPlayerDelegate.m */; };
-		C981EB1F1788D30B00571183 /* FNTVAddPlayerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C981EB1D1788D30B00571183 /* FNTVAddPlayerDelegate.m */; };
 		C99279E3171932510035658F /* FNBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279E2171932510035658F /* FNBrain.m */; };
-		C99279E4171932510035658F /* FNBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279E2171932510035658F /* FNBrain.m */; };
 		C99279E717193AAD0035658F /* FNPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279E617193AAD0035658F /* FNPlayer.m */; };
-		C99279E817193AAD0035658F /* FNPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279E617193AAD0035658F /* FNPlayer.m */; };
 		C99279EB17193C780035658F /* FNScoreCard.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279EA17193C780035658F /* FNScoreCard.m */; };
-		C99279EC17193C780035658F /* FNScoreCard.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279EA17193C780035658F /* FNScoreCard.m */; };
 		C993A0D9172F8EA200B1983A /* textFieldBack.png in Resources */ = {isa = PBXBuildFile; fileRef = C993A0D7172F8EA200B1983A /* textFieldBack.png */; };
 		C993A0DA172F8EA200B1983A /* textFieldBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C993A0D8172F8EA200B1983A /* textFieldBack@2x.png */; };
 		C993E2EE1728C4F000C37DB8 /* FNButtonRect.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E2ED1728C4F000C37DB8 /* FNButtonRect.m */; };
-		C993E2EF1728C4F000C37DB8 /* FNButtonRect.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E2ED1728C4F000C37DB8 /* FNButtonRect.m */; };
 		C993E2F41728C6A800C37DB8 /* buttonRect.png in Resources */ = {isa = PBXBuildFile; fileRef = C993E2F21728C6A800C37DB8 /* buttonRect.png */; };
-		C993E2F51728C6A800C37DB8 /* buttonRect.png in Resources */ = {isa = PBXBuildFile; fileRef = C993E2F21728C6A800C37DB8 /* buttonRect.png */; };
 		C993E2F61728C6A800C37DB8 /* buttonRect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C993E2F31728C6A800C37DB8 /* buttonRect@2x.png */; };
-		C993E2F71728C6A800C37DB8 /* buttonRect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C993E2F31728C6A800C37DB8 /* buttonRect@2x.png */; };
 		C993E3051728DC0A00C37DB8 /* FNAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E3041728DC0A00C37DB8 /* FNAppearance.m */; };
-		C993E3061728DC0A00C37DB8 /* FNAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E3041728DC0A00C37DB8 /* FNAppearance.m */; };
 		C993E3091728DD8000C37DB8 /* FNTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E3081728DD8000C37DB8 /* FNTableViewController.m */; };
-		C993E30A1728DD8000C37DB8 /* FNTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E3081728DD8000C37DB8 /* FNTableViewController.m */; };
 		C99579AB172DEFA3004E46A9 /* FNButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99579AA172DEFA3004E46A9 /* FNButtonCell.m */; };
 		C99579C3172E042F004E46A9 /* FNPlainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99579C2172E042F004E46A9 /* FNPlainCell.m */; };
 		C99616CC172A30E500469B17 /* rightArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C99616C8172A30E500469B17 /* rightArrow.png */; };
@@ -85,13 +55,9 @@
 		C99616CE172A30E500469B17 /* leftArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C99616CA172A30E500469B17 /* leftArrow.png */; };
 		C99616CF172A30E500469B17 /* leftArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C99616CB172A30E500469B17 /* leftArrow@2x.png */; };
 		C99B62A11737152F0011611A /* FNStepperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B62A01737152F0011611A /* FNStepperCell.m */; };
-		C99B62A21737152F0011611A /* FNStepperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B62A01737152F0011611A /* FNStepperCell.m */; };
 		C99F2FF5176EC3E000406B2F /* FNCountdownTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F2FF4176EC3E000406B2F /* FNCountdownTimer.m */; };
-		C99F2FF6176EC3E000406B2F /* FNCountdownTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F2FF4176EC3E000406B2F /* FNCountdownTimer.m */; };
 		C99F9B35175C2CB50012A1D4 /* dismissControl.png in Resources */ = {isa = PBXBuildFile; fileRef = C99F9B33175C2CB50012A1D4 /* dismissControl.png */; };
-		C99F9B36175C2CB50012A1D4 /* dismissControl.png in Resources */ = {isa = PBXBuildFile; fileRef = C99F9B33175C2CB50012A1D4 /* dismissControl.png */; };
 		C99F9B37175C2CB50012A1D4 /* dismissControl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C99F9B34175C2CB50012A1D4 /* dismissControl@2x.png */; };
-		C99F9B38175C2CB50012A1D4 /* dismissControl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C99F9B34175C2CB50012A1D4 /* dismissControl@2x.png */; };
 		C9A04EA3173888700016F65F /* decrementImage.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A04E9F173888700016F65F /* decrementImage.png */; };
 		C9A04EA4173888700016F65F /* decrementImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A04EA0173888700016F65F /* decrementImage@2x.png */; };
 		C9A04EA5173888700016F65F /* incrementImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A04EA1173888700016F65F /* incrementImage@2x.png */; };
@@ -99,34 +65,82 @@
 		C9A04EAD173893D00016F65F /* stepperDivider.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A04EAB173893D00016F65F /* stepperDivider.png */; };
 		C9A04EAE173893D00016F65F /* stepperDivider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9A04EAC173893D00016F65F /* stepperDivider@2x.png */; };
 		C9A04EB117389E510016F65F /* FNReorderableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB017389E510016F65F /* FNReorderableCell.m */; };
-		C9A04EB217389E510016F65F /* FNReorderableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB017389E510016F65F /* FNReorderableCell.m */; };
 		C9A04EB517389FEB0016F65F /* FNSelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB417389FEB0016F65F /* FNSelectableCell.m */; };
-		C9A04EB617389FEB0016F65F /* FNSelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB417389FEB0016F65F /* FNSelectableCell.m */; };
 		C9A275E217F935E7009BFA96 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A275E117F935E7009BFA96 /* Reachability.m */; };
 		C9A275E417F9369E009BFA96 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A275E317F9369E009BFA96 /* SystemConfiguration.framework */; };
 		C9A4CF471777DB46007F819A /* FNDirectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A4CF461777DB46007F819A /* FNDirectionView.m */; };
-		C9A4CF481777DB46007F819A /* FNDirectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A4CF461777DB46007F819A /* FNDirectionView.m */; };
+		C9AC1B9B1814BD8F00DCF8A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E641718B7390039B88E /* SenTestingKit.framework */; };
+		C9AC1B9D1814BD8F00DCF8A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E401718B7390039B88E /* UIKit.framework */; };
+		C9AC1B9E1814BD8F00DCF8A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E421718B7390039B88E /* Foundation.framework */; };
+		C9AC1BA41814BD8F00DCF8A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9AC1BA21814BD8F00DCF8A3 /* InfoPlist.strings */; };
+		C9AC1BA61814BD8F00DCF8A3 /* ExampleSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = C9AC1BA51814BD8F00DCF8A3 /* ExampleSpec.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C9AC1BBA1814BF7200DCF8A3 /* libCedar-StaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F6E9691814BAC500FC87C3 /* libCedar-StaticLib.a */; };
 		C9ACDEAD1771461B00555CE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9649E441718B7390039B88E /* CoreGraphics.framework */; };
 		C9ACDEAE1771462700555CE8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C95DA6B31730C600004F2841 /* QuartzCore.framework */; };
 		C9AE4A68180B85A90080AE5A /* FNNetworkMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AE4A67180B85A90080AE5A /* FNNetworkMessage.m */; };
-		C9AE4A69180B85A90080AE5A /* FNNetworkMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AE4A67180B85A90080AE5A /* FNNetworkMessage.m */; };
 		C9B03F35177A996900226B06 /* FNGameDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F34177A996900226B06 /* FNGameDirections.m */; };
-		C9B03F36177A996900226B06 /* FNGameDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F34177A996900226B06 /* FNGameDirections.m */; };
 		C9B03F39177AA44F00226B06 /* FNTVController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F38177AA44F00226B06 /* FNTVController.m */; };
-		C9B03F3A177AA44F00226B06 /* FNTVController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F38177AA44F00226B06 /* FNTVController.m */; };
 		C9B0C87617D55598004A8752 /* FNTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B0C87517D55598004A8752 /* FNTableView.m */; };
-		C9B0C87717D55598004A8752 /* FNTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B0C87517D55598004A8752 /* FNTableView.m */; };
 		C9B13696176E439D00B792AD /* FNGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B13695176E439D00B792AD /* FNGameVC.m */; };
-		C9B13697176E439D00B792AD /* FNGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B13695176E439D00B792AD /* FNGameVC.m */; };
 		C9B2275717DEBD3D00A6356C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B2275617DEBD3D00A6356C /* AudioToolbox.framework */; };
+		C9B255B11814DC7F00B8C1E3 /* FNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9649E501718B7390039B88E /* FNAppDelegate.m */; };
+		C9B255B31814DC7F00B8C1E3 /* FNAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E3041728DC0A00C37DB8 /* FNAppearance.m */; };
+		C9B255B51814DC7F00B8C1E3 /* FNNounGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = C9098A3417D6EE6D00DB54A4 /* FNNounGenerator.m */; };
+		C9B255B71814DC7F00B8C1E3 /* FNBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279E2171932510035658F /* FNBrain.m */; };
+		C9B255B91814DC7F00B8C1E3 /* FNUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F9EF1C17A0C79000A83EE6 /* FNUpdate.m */; };
+		C9B255BB1814DC7F00B8C1E3 /* FNUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C7965017F7A65E00CFEB6E /* FNUpdateManager.m */; };
+		C9B255BD1814DC7F00B8C1E3 /* FNNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C5307B17934EA900A7A268 /* FNNetworkManager.m */; };
+		C9B255BF1814DC7F00B8C1E3 /* FNNetworkHostDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039311797812B0013002E /* FNNetworkHostDelegate.m */; };
+		C9B255C11814DC7F00B8C1E3 /* FNNetworkClientDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9203935179781410013002E /* FNNetworkClientDelegate.m */; };
+		C9B255C31814DC7F00B8C1E3 /* FNNetworkMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AE4A67180B85A90080AE5A /* FNNetworkMessage.m */; };
+		C9B255C51814DC7F00B8C1E3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A275E117F935E7009BFA96 /* Reachability.m */; };
+		C9B255C71814DC7F00B8C1E3 /* FNNetworkContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C901517817950B2500D90DF0 /* FNNetworkContainer.m */; };
+		C9B255C91814DC7F00B8C1E3 /* FNNetworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C90151741794D7EC00D90DF0 /* FNNetworkVC.m */; };
+		C9B255CB1814DC7F00B8C1E3 /* FNNetworkJoinVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C92039411797A6890013002E /* FNNetworkJoinVC.m */; };
+		C9B255CE1814DC7F00B8C1E3 /* SSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C0566E178A2FA900735AEA /* SSTextField.m */; };
+		C9B255D01814DC7F00B8C1E3 /* SSDrawingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C05671178A2FBC00735AEA /* SSDrawingUtilities.m */; };
+		C9B255D21814DC7F00B8C1E3 /* FNMaxFontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E3611792233C00F1237E /* FNMaxFontLabel.m */; };
+		C9B255D41814DC7F00B8C1E3 /* THObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C94F0C5317A226B300DBF2B9 /* THObserver.m */; };
+		C9B255D81814DC7F00B8C1E3 /* FMMoveTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C97F673D1743131D00D5E9BC /* FMMoveTableView.m */; };
+		C9B255DA1814DC7F00B8C1E3 /* FNButtonRect.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E2ED1728C4F000C37DB8 /* FNButtonRect.m */; };
+		C9B255DC1814DC7F00B8C1E3 /* FNScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EF7F7617D8224400B182A9 /* FNScoreCell.m */; };
+		C9B255DE1814DC7F00B8C1E3 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
+		C9B255E01814DC7F00B8C1E3 /* FNButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99579AA172DEFA3004E46A9 /* FNButtonCell.m */; };
+		C9B255E21814DC7F00B8C1E3 /* FNPlainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99579C2172E042F004E46A9 /* FNPlainCell.m */; };
+		C9B255E41814DC7F00B8C1E3 /* FNStepperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B62A01737152F0011611A /* FNStepperCell.m */; };
+		C9B255E61814DC7F00B8C1E3 /* FNReorderableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB017389E510016F65F /* FNReorderableCell.m */; };
+		C9B255E81814DC7F00B8C1E3 /* FNSelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A04EB417389FEB0016F65F /* FNSelectableCell.m */; };
+		C9B255EA1814DC7F00B8C1E3 /* FNSeparatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */; };
+		C9B255EC1814DC7F00B8C1E3 /* FNSpinnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9073D1D1798CD5800A6CD3D /* FNSpinnerCell.m */; };
+		C9B255EE1814DC7F00B8C1E3 /* FNTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C993E3081728DD8000C37DB8 /* FNTableViewController.m */; };
+		C9B255F01814DC7F00B8C1E3 /* FNTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B0C87517D55598004A8752 /* FNTableView.m */; };
+		C9B255F21814DC7F00B8C1E3 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
+		C9B255F41814DC7F00B8C1E3 /* FNAddPlayersContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C978AA53178FB3A00070B34B /* FNAddPlayersContainer.m */; };
+		C9B255F61814DC7F00B8C1E3 /* FNAddPlayersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B8D9F171A1F2600AE468C /* FNAddPlayersVC.m */; };
+		C9B255F81814DC7F00B8C1E3 /* FNAssignTeamsContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C978AA4E178FA5C00070B34B /* FNAssignTeamsContainer.m */; };
+		C9B255FA1814DC7F00B8C1E3 /* FNAssignTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */; };
+		C9B255FC1814DC7F00B8C1E3 /* FNStepperView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E52BB4178D09C7003DF207 /* FNStepperView.m */; };
+		C9B255FE1814DC7F00B8C1E3 /* FNNextUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A19426CA174DC43F00056345 /* FNNextUpVC.m */; };
+		C9B256001814DC7F00B8C1E3 /* FNScoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */; };
+		C9B256021814DC7F00B8C1E3 /* FNTVScoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C914EA45177BEEB500255E41 /* FNTVScoreDelegate.m */; };
+		C9B256041814DC7F00B8C1E3 /* FNGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B13695176E439D00B792AD /* FNGameVC.m */; };
+		C9B256061814DC7F00B8C1E3 /* FNCountdownTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F2FF4176EC3E000406B2F /* FNCountdownTimer.m */; };
+		C9B256081814DC7F00B8C1E3 /* FNDirectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A4CF461777DB46007F819A /* FNDirectionView.m */; };
+		C9B2560A1814DC7F00B8C1E3 /* FNGameOverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C2EBAA17EA966E008B9CE1 /* FNGameOverVC.m */; };
+		C9B2560C1814DC7F00B8C1E3 /* FNPausedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */; };
+		C9B2560E1814DC7F00B8C1E3 /* FNTVDirectionsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C95DD933177D20B0009EF626 /* FNTVDirectionsDelegate.m */; };
+		C9B256101814DC7F00B8C1E3 /* FNTVAddPlayerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C981EB1D1788D30B00571183 /* FNTVAddPlayerDelegate.m */; };
+		C9B256121814DC7F00B8C1E3 /* FNTVTeamsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C94A3C4D17DC409600CB2CE9 /* FNTVTeamsDelegate.m */; };
+		C9B256141814DC7F00B8C1E3 /* FNTVController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F38177AA44F00226B06 /* FNTVController.m */; };
+		C9B256161814DC7F00B8C1E3 /* FNUniqueIDObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B6898F179F72B800003760 /* FNUniqueIDObject.m */; };
+		C9B256181814DC7F00B8C1E3 /* FNPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279E617193AAD0035658F /* FNPlayer.m */; };
+		C9B2561A1814DC7F00B8C1E3 /* FNTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F22171A69EA00AAAF75 /* FNTeam.m */; };
+		C9B2561C1814DC7F00B8C1E3 /* FNScoreCard.m in Sources */ = {isa = PBXBuildFile; fileRef = C99279EA17193C780035658F /* FNScoreCard.m */; };
+		C9B2561E1814DC7F00B8C1E3 /* FNGameDirections.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B03F34177A996900226B06 /* FNGameDirections.m */; };
 		C9B2607D1772A22F009DBBC9 /* FNPausedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */; };
-		C9B2607E1772A22F009DBBC9 /* FNPausedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B2607C1772A22F009DBBC9 /* FNPausedVC.m */; };
 		C9B40EE7171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
-		C9B40EE8171A1CC100619D57 /* FNNewGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B40EE6171A1CC100619D57 /* FNNewGameVC.m */; };
 		C9B68990179F72B800003760 /* FNUniqueIDObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B6898F179F72B800003760 /* FNUniqueIDObject.m */; };
-		C9B68991179F72B800003760 /* FNUniqueIDObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B6898F179F72B800003760 /* FNUniqueIDObject.m */; };
 		C9BAFAF9175AEB1C00C908A6 /* FNScoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */; };
-		C9BAFAFA175AEB1C00C908A6 /* FNScoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BAFAF8175AEB1C00C908A6 /* FNScoreVC.m */; };
 		C9C05663178A215400735AEA /* cellBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C0565B178A215300735AEA /* cellBottom.png */; };
 		C9C05664178A215400735AEA /* cellBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C0565C178A215300735AEA /* cellBottom@2x.png */; };
 		C9C05665178A215400735AEA /* cellMiddle.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C0565D178A215400735AEA /* cellMiddle.png */; };
@@ -141,38 +155,90 @@
 		C9C05676178A312200735AEA /* navBarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C05674178A312200735AEA /* navBarBackground@2x.png */; };
 		C9C2EBA817EA87D4008B9CE1 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C2EBA717EA87D4008B9CE1 /* Crashlytics.framework */; };
 		C9C2EBAB17EA966E008B9CE1 /* FNGameOverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C2EBAA17EA966E008B9CE1 /* FNGameOverVC.m */; };
-		C9C2EBAC17EA966E008B9CE1 /* FNGameOverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C2EBAA17EA966E008B9CE1 /* FNGameOverVC.m */; };
 		C9C5307C17934EA900A7A268 /* FNNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C5307B17934EA900A7A268 /* FNNetworkManager.m */; };
-		C9C5307D17934EA900A7A268 /* FNNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C5307B17934EA900A7A268 /* FNNetworkManager.m */; };
 		C9C5307F17936F8900A7A268 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C5307E17936F8900A7A268 /* GameKit.framework */; };
 		C9C7965117F7A65E00CFEB6E /* FNUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C7965017F7A65E00CFEB6E /* FNUpdateManager.m */; };
-		C9C7965217F7A65E00CFEB6E /* FNUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C7965017F7A65E00CFEB6E /* FNUpdateManager.m */; };
 		C9E2B6AC177786A300FD08E9 /* FNSeparatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */; };
-		C9E2B6AD177786A300FD08E9 /* FNSeparatorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E2B6AB177786A300FD08E9 /* FNSeparatorCell.m */; };
 		C9E52BB5178D09C7003DF207 /* FNStepperView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E52BB4178D09C7003DF207 /* FNStepperView.m */; };
-		C9E52BB6178D09C7003DF207 /* FNStepperView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E52BB4178D09C7003DF207 /* FNStepperView.m */; };
 		C9E54AA717D6D5B60057A665 /* nouns.txt in Resources */ = {isa = PBXBuildFile; fileRef = C9E54AA617D6D5B60057A665 /* nouns.txt */; };
 		C9EF7F7717D8224400B182A9 /* FNScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EF7F7617D8224400B182A9 /* FNScoreCell.m */; };
-		C9EF7F7817D8224400B182A9 /* FNScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EF7F7617D8224400B182A9 /* FNScoreCell.m */; };
 		C9F04F13171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
-		C9F04F14171A282F00AAAF75 /* FNEditableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F12171A282F00AAAF75 /* FNEditableCell.m */; };
 		C9F04F1F171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */; };
-		C9F04F20171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F1E171A5FD000AAAF75 /* FNAssignTeamsVC.m */; };
 		C9F04F23171A69EA00AAAF75 /* FNTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F22171A69EA00AAAF75 /* FNTeam.m */; };
-		C9F04F24171A69EA00AAAF75 /* FNTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F04F22171A69EA00AAAF75 /* FNTeam.m */; };
 		C9F1E3621792233C00F1237E /* FNMaxFontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E3611792233C00F1237E /* FNMaxFontLabel.m */; };
-		C9F1E3631792233C00F1237E /* FNMaxFontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F1E3611792233C00F1237E /* FNMaxFontLabel.m */; };
 		C9F9EF1D17A0C79000A83EE6 /* FNUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F9EF1C17A0C79000A83EE6 /* FNUpdate.m */; };
-		C9F9EF1E17A0C79000A83EE6 /* FNUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F9EF1C17A0C79000A83EE6 /* FNUpdate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C9649E681718B7390039B88E /* PBXContainerItemProxy */ = {
+		C9AC1BB81814BF4E00DCF8A3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C9649E331718B7390039B88E /* Project object */;
+			containerPortal = C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = C9649E3B1718B7390039B88E;
-			remoteInfo = "Five Nouns";
+			remoteGlobalIDString = AEEE222811DC2B0600029872;
+			remoteInfo = "Cedar-StaticLib";
+		};
+		C9F6E9621814BAC500FC87C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AEEE1FB611DC271300029872;
+			remoteInfo = Cedar;
+		};
+		C9F6E9641814BAC500FC87C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AEEE218611DC28E200029872;
+			remoteInfo = Specs;
+		};
+		C9F6E9661814BAC500FC87C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 96A07F0813F276640021974D;
+			remoteInfo = FocusedSpecs;
+		};
+		C9F6E9681814BAC500FC87C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AEEE222911DC2B0600029872;
+			remoteInfo = "Cedar-StaticLib";
+		};
+		C9F6E96A1814BAC500FC87C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AEEE227611DC2CF900029872;
+			remoteInfo = iOSSpecs;
+		};
+		C9F6E96C1814BAC500FC87C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 96B5F9F6144A81A7000A6A5D;
+			remoteInfo = OCUnitApp;
+		};
+		C9F6E96E1814BAC500FC87C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 96B5FA11144A81A8000A6A5D;
+			remoteInfo = OCUnitAppTests;
+		};
+		C9F6E9701814BAC500FC87C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F45A3DD180E4796003C1E36;
+			remoteInfo = XCUnitAppTests;
+		};
+		C9F6E9721814BAC500FC87C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 96158A86144A915E005895CE;
+			remoteInfo = OCUnitAppLogicTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -222,7 +288,6 @@
 		C9649E541718B7390039B88E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		C9649E561718B7390039B88E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C9649E591718B7390039B88E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		C9649E631718B7390039B88E /* Five NounsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Five NounsTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9649E641718B7390039B88E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		C9649E6C1718B7390039B88E /* Five NounsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Five NounsTests-Info.plist"; sourceTree = "<group>"; };
 		C9649E6E1718B7390039B88E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -284,6 +349,13 @@
 		C9A275E317F9369E009BFA96 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C9A4CF451777DB46007F819A /* FNDirectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNDirectionView.h; sourceTree = "<group>"; };
 		C9A4CF461777DB46007F819A /* FNDirectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNDirectionView.m; sourceTree = "<group>"; };
+		C9AC1B9A1814BD8F00DCF8A3 /* CedarSpecs.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CedarSpecs.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9AC1BA11814BD8F00DCF8A3 /* CedarSpecs-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CedarSpecs-Info.plist"; sourceTree = "<group>"; };
+		C9AC1BA31814BD8F00DCF8A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C9AC1BA51814BD8F00DCF8A3 /* ExampleSpec.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExampleSpec.mm; sourceTree = "<group>"; };
+		C9AC1BA71814BD8F00DCF8A3 /* Rakefile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rakefile; sourceTree = "<group>"; };
+		C9AC1BA81814BD8F00DCF8A3 /* Cedar-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Cedar-iOS.framework"; path = "Frameworks/Cedar-iOS.framework"; sourceTree = "<group>"; };
+		C9AC1BAA1814BD8F00DCF8A3 /* CedarSpecs-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CedarSpecs-Prefix.pch"; sourceTree = "<group>"; };
 		C9AE4A66180B85A90080AE5A /* FNNetworkMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNNetworkMessage.h; sourceTree = "<group>"; };
 		C9AE4A67180B85A90080AE5A /* FNNetworkMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNNetworkMessage.m; sourceTree = "<group>"; };
 		C9B03F33177A996900226B06 /* FNGameDirections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNGameDirections.h; sourceTree = "<group>"; };
@@ -341,6 +413,7 @@
 		C9F04F22171A69EA00AAAF75 /* FNTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNTeam.m; sourceTree = "<group>"; };
 		C9F1E3601792233C00F1237E /* FNMaxFontLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNMaxFontLabel.h; sourceTree = "<group>"; };
 		C9F1E3611792233C00F1237E /* FNMaxFontLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNMaxFontLabel.m; sourceTree = "<group>"; };
+		C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Cedar.xcodeproj; path = Externals/cedar/Cedar.xcodeproj; sourceTree = "<group>"; };
 		C9F9EF1B17A0C79000A83EE6 /* FNUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNUpdate.h; sourceTree = "<group>"; };
 		C9F9EF1C17A0C79000A83EE6 /* FNUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FNUpdate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -361,13 +434,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9649E5F1718B7390039B88E /* Frameworks */ = {
+		C9AC1B961814BD8F00DCF8A3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9649E651718B7390039B88E /* SenTestingKit.framework in Frameworks */,
-				C9649E661718B7390039B88E /* UIKit.framework in Frameworks */,
-				C9649E671718B7390039B88E /* Foundation.framework in Frameworks */,
+				C9AC1BBA1814BF7200DCF8A3 /* libCedar-StaticLib.a in Frameworks */,
+				C9AC1B9D1814BD8F00DCF8A3 /* UIKit.framework in Frameworks */,
+				C9AC1B9B1814BD8F00DCF8A3 /* SenTestingKit.framework in Frameworks */,
+				C9AC1B9E1814BD8F00DCF8A3 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,8 +485,10 @@
 		C9649E311718B7390039B88E = {
 			isa = PBXGroup;
 			children = (
+				C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */,
 				C9649E461718B7390039B88E /* Five Nouns */,
 				C9649E6A1718B7390039B88E /* Five NounsTests */,
+				C9AC1B9F1814BD8F00DCF8A3 /* CedarSpecs */,
 				C9649E3F1718B7390039B88E /* Frameworks */,
 				C9649E3D1718B7390039B88E /* Products */,
 			);
@@ -422,7 +498,7 @@
 			isa = PBXGroup;
 			children = (
 				C9649E3C1718B7390039B88E /* Five Nouns.app */,
-				C9649E631718B7390039B88E /* Five NounsTests.octest */,
+				C9AC1B9A1814BD8F00DCF8A3 /* CedarSpecs.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -619,6 +695,27 @@
 			name = PausedVC;
 			sourceTree = "<group>";
 		};
+		C9AC1B9F1814BD8F00DCF8A3 /* CedarSpecs */ = {
+			isa = PBXGroup;
+			children = (
+				C9AC1BA51814BD8F00DCF8A3 /* ExampleSpec.mm */,
+				C9AC1BA71814BD8F00DCF8A3 /* Rakefile */,
+				C9AC1BA81814BD8F00DCF8A3 /* Cedar-iOS.framework */,
+				C9AC1BA01814BD8F00DCF8A3 /* Supporting Files */,
+			);
+			path = CedarSpecs;
+			sourceTree = "<group>";
+		};
+		C9AC1BA01814BD8F00DCF8A3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9AC1BA11814BD8F00DCF8A3 /* CedarSpecs-Info.plist */,
+				C9AC1BA21814BD8F00DCF8A3 /* InfoPlist.strings */,
+				C9AC1BAA1814BD8F00DCF8A3 /* CedarSpecs-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		C9AC74281798F19900D78865 /* Server VCs */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,6 +803,22 @@
 			name = "Table View Cells";
 			sourceTree = "<group>";
 		};
+		C9F6E9561814BAC400FC87C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9F6E9631814BAC500FC87C3 /* Cedar.framework */,
+				C9F6E9651814BAC500FC87C3 /* Specs */,
+				C9F6E9671814BAC500FC87C3 /* FocusedSpecs */,
+				C9F6E9691814BAC500FC87C3 /* libCedar-StaticLib.a */,
+				C9F6E96B1814BAC500FC87C3 /* iOSSpecs.app */,
+				C9F6E96D1814BAC500FC87C3 /* OCUnitApp.app */,
+				C9F6E96F1814BAC500FC87C3 /* OCUnitAppTests.octest */,
+				C9F6E9711814BAC500FC87C3 /* XCUnitAppTests.xctest */,
+				C9F6E9731814BAC500FC87C3 /* OCUnitAppLogicTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -727,23 +840,23 @@
 			productReference = C9649E3C1718B7390039B88E /* Five Nouns.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C9649E621718B7390039B88E /* Five NounsTests */ = {
+		C9AC1B991814BD8F00DCF8A3 /* CedarSpecs */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C9649E781718B7390039B88E /* Build configuration list for PBXNativeTarget "Five NounsTests" */;
+			buildConfigurationList = C9AC1BB71814BD8F00DCF8A3 /* Build configuration list for PBXNativeTarget "CedarSpecs" */;
 			buildPhases = (
-				C9649E5E1718B7390039B88E /* Sources */,
-				C9649E5F1718B7390039B88E /* Frameworks */,
-				C9649E601718B7390039B88E /* Resources */,
-				C9649E611718B7390039B88E /* ShellScript */,
+				C9AC1B951814BD8F00DCF8A3 /* Sources */,
+				C9AC1B961814BD8F00DCF8A3 /* Frameworks */,
+				C9AC1B971814BD8F00DCF8A3 /* Resources */,
+				C9AC1B981814BD8F00DCF8A3 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C9649E691718B7390039B88E /* PBXTargetDependency */,
+				C9AC1BB91814BF4E00DCF8A3 /* PBXTargetDependency */,
 			);
-			name = "Five NounsTests";
-			productName = "Five NounsTests";
-			productReference = C9649E631718B7390039B88E /* Five NounsTests.octest */;
+			name = CedarSpecs;
+			productName = CedarSpecs;
+			productReference = C9AC1B9A1814BD8F00DCF8A3 /* CedarSpecs.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -766,13 +879,85 @@
 			mainGroup = C9649E311718B7390039B88E;
 			productRefGroup = C9649E3D1718B7390039B88E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C9F6E9561814BAC400FC87C3 /* Products */;
+					ProjectRef = C9F6E9551814BAC400FC87C3 /* Cedar.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C9649E3B1718B7390039B88E /* Five Nouns */,
-				C9649E621718B7390039B88E /* Five NounsTests */,
+				C9AC1B991814BD8F00DCF8A3 /* CedarSpecs */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C9F6E9631814BAC500FC87C3 /* Cedar.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Cedar.framework;
+			remoteRef = C9F6E9621814BAC500FC87C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9F6E9651814BAC500FC87C3 /* Specs */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = Specs;
+			remoteRef = C9F6E9641814BAC500FC87C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9F6E9671814BAC500FC87C3 /* FocusedSpecs */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = FocusedSpecs;
+			remoteRef = C9F6E9661814BAC500FC87C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9F6E9691814BAC500FC87C3 /* libCedar-StaticLib.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCedar-StaticLib.a";
+			remoteRef = C9F6E9681814BAC500FC87C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9F6E96B1814BAC500FC87C3 /* iOSSpecs.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = iOSSpecs.app;
+			remoteRef = C9F6E96A1814BAC500FC87C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9F6E96D1814BAC500FC87C3 /* OCUnitApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = OCUnitApp.app;
+			remoteRef = C9F6E96C1814BAC500FC87C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9F6E96F1814BAC500FC87C3 /* OCUnitAppTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = OCUnitAppTests.octest;
+			remoteRef = C9F6E96E1814BAC500FC87C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9F6E9711814BAC500FC87C3 /* XCUnitAppTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = XCUnitAppTests.xctest;
+			remoteRef = C9F6E9701814BAC500FC87C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C9F6E9731814BAC500FC87C3 /* OCUnitAppLogicTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = OCUnitAppLogicTests.octest;
+			remoteRef = C9F6E9721814BAC500FC87C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C9649E3A1718B7390039B88E /* Resources */ = {
@@ -819,22 +1004,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9649E601718B7390039B88E /* Resources */ = {
+		C9AC1B971814BD8F00DCF8A3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9649E6F1718B7390039B88E /* InfoPlist.strings in Resources */,
-				C993E2F51728C6A800C37DB8 /* buttonRect.png in Resources */,
-				C993E2F71728C6A800C37DB8 /* buttonRect@2x.png in Resources */,
-				C99F9B36175C2CB50012A1D4 /* dismissControl.png in Resources */,
-				C99F9B38175C2CB50012A1D4 /* dismissControl@2x.png in Resources */,
+				C9AC1BA41814BD8F00DCF8A3 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C9649E611718B7390039B88E /* ShellScript */ = {
+		C9AC1B981814BD8F00DCF8A3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -858,7 +1039,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run d876581a81600470b2890beed883843bf1af7d9e";
+			shellScript = "./Externals/Crashlytics.framework/run d876581a81600470b2890beed883843bf1af7d9e";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -925,69 +1106,75 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9649E5E1718B7390039B88E /* Sources */ = {
+		C9AC1B951814BD8F00DCF8A3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9649E721718B7390039B88E /* Five_NounsTests.m in Sources */,
-				C99279E4171932510035658F /* FNBrain.m in Sources */,
-				C99279E817193AAD0035658F /* FNPlayer.m in Sources */,
-				C99279EC17193C780035658F /* FNScoreCard.m in Sources */,
-				C9B40EE8171A1CC100619D57 /* FNNewGameVC.m in Sources */,
-				C91B8DA1171A1F2600AE468C /* FNAddPlayersVC.m in Sources */,
-				C9F04F14171A282F00AAAF75 /* FNEditableCell.m in Sources */,
-				C9F04F20171A5FD000AAAF75 /* FNAssignTeamsVC.m in Sources */,
-				C9F04F24171A69EA00AAAF75 /* FNTeam.m in Sources */,
-				C993E2EF1728C4F000C37DB8 /* FNButtonRect.m in Sources */,
-				C993E3061728DC0A00C37DB8 /* FNAppearance.m in Sources */,
-				C993E30A1728DD8000C37DB8 /* FNTableViewController.m in Sources */,
-				C99B62A21737152F0011611A /* FNStepperCell.m in Sources */,
-				C9A04EB217389E510016F65F /* FNReorderableCell.m in Sources */,
-				C9A04EB617389FEB0016F65F /* FNSelectableCell.m in Sources */,
-				C97F673F1743131D00D5E9BC /* FMMoveTableView.m in Sources */,
-				A19426CC174DC43F00056345 /* FNNextUpVC.m in Sources */,
-				C9BAFAFA175AEB1C00C908A6 /* FNScoreVC.m in Sources */,
-				C9B13697176E439D00B792AD /* FNGameVC.m in Sources */,
-				C99F2FF6176EC3E000406B2F /* FNCountdownTimer.m in Sources */,
-				C9B2607E1772A22F009DBBC9 /* FNPausedVC.m in Sources */,
-				C9E2B6AD177786A300FD08E9 /* FNSeparatorCell.m in Sources */,
-				C9A4CF481777DB46007F819A /* FNDirectionView.m in Sources */,
-				C9B03F36177A996900226B06 /* FNGameDirections.m in Sources */,
-				C9B03F3A177AA44F00226B06 /* FNTVController.m in Sources */,
-				C914EA47177BEEB500255E41 /* FNTVScoreDelegate.m in Sources */,
-				C95DD935177D20B0009EF626 /* FNTVDirectionsDelegate.m in Sources */,
-				C981EB1F1788D30B00571183 /* FNTVAddPlayerDelegate.m in Sources */,
-				C9E52BB6178D09C7003DF207 /* FNStepperView.m in Sources */,
-				C978AA50178FA5C00070B34B /* FNAssignTeamsContainer.m in Sources */,
-				C978AA55178FB3A00070B34B /* FNAddPlayersContainer.m in Sources */,
-				C9F1E3631792233C00F1237E /* FNMaxFontLabel.m in Sources */,
-				C9C5307D17934EA900A7A268 /* FNNetworkManager.m in Sources */,
-				C90151761794D7EC00D90DF0 /* FNNetworkVC.m in Sources */,
-				C901517A17950B2500D90DF0 /* FNNetworkContainer.m in Sources */,
-				C92039331797812B0013002E /* FNNetworkHostDelegate.m in Sources */,
-				C9203937179781410013002E /* FNNetworkClientDelegate.m in Sources */,
-				C92039431797A6890013002E /* FNNetworkJoinVC.m in Sources */,
-				C9073D1F1798CD5800A6CD3D /* FNSpinnerCell.m in Sources */,
-				C9B68991179F72B800003760 /* FNUniqueIDObject.m in Sources */,
-				C9F9EF1E17A0C79000A83EE6 /* FNUpdate.m in Sources */,
-				C94F0C5917A226B300DBF2B9 /* THObserver.m in Sources */,
-				C9B0C87717D55598004A8752 /* FNTableView.m in Sources */,
-				C9098A3617D6EE6D00DB54A4 /* FNNounGenerator.m in Sources */,
-				C9EF7F7817D8224400B182A9 /* FNScoreCell.m in Sources */,
-				C94A3C4F17DC409700CB2CE9 /* FNTVTeamsDelegate.m in Sources */,
-				C9C2EBAC17EA966E008B9CE1 /* FNGameOverVC.m in Sources */,
-				C9C7965217F7A65E00CFEB6E /* FNUpdateManager.m in Sources */,
-				C9AE4A69180B85A90080AE5A /* FNNetworkMessage.m in Sources */,
+				C9B255B11814DC7F00B8C1E3 /* FNAppDelegate.m in Sources */,
+				C9B255B31814DC7F00B8C1E3 /* FNAppearance.m in Sources */,
+				C9B255B51814DC7F00B8C1E3 /* FNNounGenerator.m in Sources */,
+				C9B255B71814DC7F00B8C1E3 /* FNBrain.m in Sources */,
+				C9B255B91814DC7F00B8C1E3 /* FNUpdate.m in Sources */,
+				C9B255BB1814DC7F00B8C1E3 /* FNUpdateManager.m in Sources */,
+				C9B255BD1814DC7F00B8C1E3 /* FNNetworkManager.m in Sources */,
+				C9B255BF1814DC7F00B8C1E3 /* FNNetworkHostDelegate.m in Sources */,
+				C9B255C11814DC7F00B8C1E3 /* FNNetworkClientDelegate.m in Sources */,
+				C9B255C31814DC7F00B8C1E3 /* FNNetworkMessage.m in Sources */,
+				C9B255C51814DC7F00B8C1E3 /* Reachability.m in Sources */,
+				C9B255C71814DC7F00B8C1E3 /* FNNetworkContainer.m in Sources */,
+				C9B255C91814DC7F00B8C1E3 /* FNNetworkVC.m in Sources */,
+				C9B255CB1814DC7F00B8C1E3 /* FNNetworkJoinVC.m in Sources */,
+				C9B255CE1814DC7F00B8C1E3 /* SSTextField.m in Sources */,
+				C9B255D01814DC7F00B8C1E3 /* SSDrawingUtilities.m in Sources */,
+				C9B255D21814DC7F00B8C1E3 /* FNMaxFontLabel.m in Sources */,
+				C9B255D41814DC7F00B8C1E3 /* THObserver.m in Sources */,
+				C9B255D81814DC7F00B8C1E3 /* FMMoveTableView.m in Sources */,
+				C9B255DA1814DC7F00B8C1E3 /* FNButtonRect.m in Sources */,
+				C9B255DC1814DC7F00B8C1E3 /* FNScoreCell.m in Sources */,
+				C9B255DE1814DC7F00B8C1E3 /* FNEditableCell.m in Sources */,
+				C9B255E01814DC7F00B8C1E3 /* FNButtonCell.m in Sources */,
+				C9B255E21814DC7F00B8C1E3 /* FNPlainCell.m in Sources */,
+				C9B255E41814DC7F00B8C1E3 /* FNStepperCell.m in Sources */,
+				C9B255E61814DC7F00B8C1E3 /* FNReorderableCell.m in Sources */,
+				C9B255E81814DC7F00B8C1E3 /* FNSelectableCell.m in Sources */,
+				C9B255EA1814DC7F00B8C1E3 /* FNSeparatorCell.m in Sources */,
+				C9B255EC1814DC7F00B8C1E3 /* FNSpinnerCell.m in Sources */,
+				C9B255EE1814DC7F00B8C1E3 /* FNTableViewController.m in Sources */,
+				C9B255F01814DC7F00B8C1E3 /* FNTableView.m in Sources */,
+				C9B255F21814DC7F00B8C1E3 /* FNNewGameVC.m in Sources */,
+				C9B255F41814DC7F00B8C1E3 /* FNAddPlayersContainer.m in Sources */,
+				C9B255F61814DC7F00B8C1E3 /* FNAddPlayersVC.m in Sources */,
+				C9B255F81814DC7F00B8C1E3 /* FNAssignTeamsContainer.m in Sources */,
+				C9B255FA1814DC7F00B8C1E3 /* FNAssignTeamsVC.m in Sources */,
+				C9B255FC1814DC7F00B8C1E3 /* FNStepperView.m in Sources */,
+				C9B255FE1814DC7F00B8C1E3 /* FNNextUpVC.m in Sources */,
+				C9B256001814DC7F00B8C1E3 /* FNScoreVC.m in Sources */,
+				C9B256021814DC7F00B8C1E3 /* FNTVScoreDelegate.m in Sources */,
+				C9B256041814DC7F00B8C1E3 /* FNGameVC.m in Sources */,
+				C9B256061814DC7F00B8C1E3 /* FNCountdownTimer.m in Sources */,
+				C9B256081814DC7F00B8C1E3 /* FNDirectionView.m in Sources */,
+				C9B2560A1814DC7F00B8C1E3 /* FNGameOverVC.m in Sources */,
+				C9B2560C1814DC7F00B8C1E3 /* FNPausedVC.m in Sources */,
+				C9B2560E1814DC7F00B8C1E3 /* FNTVDirectionsDelegate.m in Sources */,
+				C9B256101814DC7F00B8C1E3 /* FNTVAddPlayerDelegate.m in Sources */,
+				C9B256121814DC7F00B8C1E3 /* FNTVTeamsDelegate.m in Sources */,
+				C9B256141814DC7F00B8C1E3 /* FNTVController.m in Sources */,
+				C9B256161814DC7F00B8C1E3 /* FNUniqueIDObject.m in Sources */,
+				C9B256181814DC7F00B8C1E3 /* FNPlayer.m in Sources */,
+				C9B2561A1814DC7F00B8C1E3 /* FNTeam.m in Sources */,
+				C9B2561C1814DC7F00B8C1E3 /* FNScoreCard.m in Sources */,
+				C9B2561E1814DC7F00B8C1E3 /* FNGameDirections.m in Sources */,
+				C9AC1BA61814BD8F00DCF8A3 /* ExampleSpec.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C9649E691718B7390039B88E /* PBXTargetDependency */ = {
+		C9AC1BB91814BF4E00DCF8A3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C9649E3B1718B7390039B88E /* Five Nouns */;
-			targetProxy = C9649E681718B7390039B88E /* PBXContainerItemProxy */;
+			name = "Cedar-StaticLib";
+			targetProxy = C9AC1BB81814BF4E00DCF8A3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1012,6 +1199,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				C9649E6E1718B7390039B88E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C9AC1BA21814BD8F00DCF8A3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9AC1BA31814BD8F00DCF8A3 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1076,7 +1271,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matthew Edmonds (NDQZTX32EB)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					$SRCROOT/Externals,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Five Nouns/Five Nouns-Prefix.pch";
@@ -1096,7 +1292,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Matthew Edmonds (NDQZTX32EB)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					$SRCROOT/Externals,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Five Nouns/Five Nouns-Prefix.pch";
@@ -1109,34 +1306,91 @@
 			};
 			name = Release;
 		};
-		C9649E791718B7390039B88E /* Debug */ = {
+		C9AC1BAB1814BD8F00DCF8A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Five Nouns.app/Five Nouns";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$SRCROOT/Externals/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Five Nouns/Five Nouns-Prefix.pch";
-				INFOPLIST_FILE = "Five NounsTests/Five NounsTests-Info.plist";
+				GCC_PREFIX_HEADER = "CedarSpecs/CedarSpecs-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$SRCROOT/Externals/cedar/**",
+				);
+				INFOPLIST_FILE = "CedarSpecs/CedarSpecs-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
-		C9649E7A1718B7390039B88E /* Release */ = {
+		C9AC1BAC1814BD8F00DCF8A3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Five Nouns.app/Five Nouns";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$SRCROOT/Externals/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Five Nouns/Five Nouns-Prefix.pch";
-				INFOPLIST_FILE = "Five NounsTests/Five NounsTests-Info.plist";
+				GCC_PREFIX_HEADER = "CedarSpecs/CedarSpecs-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$SRCROOT/Externals/cedar/**",
+				);
+				INFOPLIST_FILE = "CedarSpecs/CedarSpecs-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -1164,11 +1418,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C9649E781718B7390039B88E /* Build configuration list for PBXNativeTarget "Five NounsTests" */ = {
+		C9AC1BB71814BD8F00DCF8A3 /* Build configuration list for PBXNativeTarget "CedarSpecs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C9649E791718B7390039B88E /* Debug */,
-				C9649E7A1718B7390039B88E /* Release */,
+				C9AC1BAB1814BD8F00DCF8A3 /* Debug */,
+				C9AC1BAC1814BD8F00DCF8A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
